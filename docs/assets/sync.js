@@ -236,6 +236,29 @@ window.PodSync = (function () {
     return { ok, a: ok ? w.startSec + m.at * probe.stepSec : null, ber: +m.ber.toFixed(3), second: +m.second.toFixed(3) };
   }
 
+  /**
+   * Re-wrap the audio as 16-bit PCM WAV. Safari (all iOS browsers) times VBR MP3 playback from byte
+   * positions, so currentTime can be seconds off the sound actually playing; uncompressed audio has no
+   * such ambiguity. Mono at `rate` Hz (22.05 kHz ≈ 2.6 MB per minute).
+   */
+  async function toWav(blob, rate) {
+    const Ctx = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+    const bytes = await blob.arrayBuffer();
+    let buf = null, lastErr = null;
+    for (const sr of [rate || 22050, 24000, 16000, 44100, 48000]) {
+      try { buf = await decodeWith(new Ctx(1, 1, sr), bytes.slice(0)); break; } catch (e) { lastErr = e; }
+    }
+    if (!buf) throw new Error('wav decode failed: ' + (lastErr && lastErr.message || lastErr));
+    const n = buf.length, sr = buf.sampleRate, ch = buf.numberOfChannels;
+    const out = new ArrayBuffer(44 + n * 2), v = new DataView(out), pcm = new Int16Array(out, 44);
+    const w = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+    w(0, 'RIFF'); v.setUint32(4, 36 + n * 2, true); w(8, 'WAVE'); w(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+    v.setUint32(24, sr, true); v.setUint32(28, sr * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); w(36, 'data'); v.setUint32(40, n * 2, true);
+    const chans = []; for (let c = 0; c < ch; c++) chans.push(buf.getChannelData(c));
+    for (let i = 0; i < n; i++) { let s = 0; for (let c = 0; c < ch; c++) s += chans[c][i]; s /= ch; pcm[i] = s <= -1 ? -32768 : s >= 1 ? 32767 : (s * 32767) | 0; }
+    return { blob: new Blob([out], { type: 'audio/wav' }), sr, seconds: n / sr };
+  }
+
   /** Download with progress; resolves to a Blob. */
   async function download(url, onProgress) {
     const res = await fetch(url, { mode: 'cors', credentials: 'omit' });
@@ -246,5 +269,5 @@ window.PodSync = (function () {
     return new Blob(chunks, { type: res.headers.get('content-type') || 'audio/mpeg' });
   }
 
-  return { indexMp3, fingerprint, bestMatch, decodeWindow, align, alignLocal, download, b64ToU16, ber, resampleTo8k };
+  return { indexMp3, fingerprint, bestMatch, decodeWindow, align, alignLocal, download, toWav, b64ToU16, ber, resampleTo8k };
 })();

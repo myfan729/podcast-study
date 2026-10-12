@@ -81,7 +81,7 @@ async def run(dst: Path, ep_id: str, doc: dict) -> dict:
     target = next(c for c in doc["transcript"]["cues"] if c["s"] > 40)        # a sentence well after the first ref
     async with async_playwright() as p:
         b = await p.chromium.launch()
-        for variant in ("normal", "no8k"):
+        for variant in ("normal", "no8k", "pcm"):
             page = await b.new_page(viewport={"width": 390, "height": 844})
             logs, errs = [], []
             page.on("console", lambda m: logs.append(m.text))
@@ -89,13 +89,16 @@ async def run(dst: Path, ep_id: str, doc: dict) -> dict:
             if variant == "no8k":   # emulate a browser whose contexts only run at 44.1/48 kHz
                 await page.add_init_script("""(() => { const Orig = window.OfflineAudioContext;
                     window.OfflineAudioContext = function (ch, len, sr) { if (sr < 44100) throw new DOMException('rate', 'NotSupportedError'); return new Orig(ch, len, sr); }; })();""")
-            await page.goto(f"http://localhost:{PORT}/episode.html?id={ep_id}")
+            await page.goto(f"http://localhost:{PORT}/episode.html?id={ep_id}" + ("&pcm=1" if variant == "pcm" else ""))
             r: dict = {"errors": errs}
             try:
                 await page.wait_for_function("document.getElementById('syncBtn').textContent.includes('✓') && !document.getElementById('play').disabled", timeout=60000)
                 await page.wait_for_function("!!localStorage.getItem('syncrep:fixed-check')", timeout=60000)
                 rep = json.loads(await page.evaluate("localStorage.getItem('syncrep:fixed-check')"))
                 r["phase"], r["refs"], r["decode"], r["anchors"] = rep["phase"], rep["report"]["refs"], rep["report"].get("decode"), rep["anchors"]
+                r["pcm"] = rep.get("pcm"); r["audio_src"] = await page.evaluate("document.getElementById('audio').src.slice(0, 5)")
+                await page.wait_for_function("isFinite(document.getElementById('audio').duration)", timeout=20000)
+                r["audio_duration"] = await page.evaluate("document.getElementById('audio').duration")
                 # intro line before the first cue, nothing highlighted, no ad prompt
                 await page.evaluate("t => { const a = document.getElementById('audio'); a.currentTime = t; a.dispatchEvent(new Event('timeupdate')); }", first - 3)
                 r["intro_line"] = await page.evaluate("document.getElementById('nowLine').textContent")
@@ -138,6 +141,8 @@ def main() -> int:
     print(json.dumps(out, ensure_ascii=False, indent=1))
     ok = True
     for v, r in out.items():
+        if v == "pcm" and not (r.get("pcm", "") or "").startswith("wav"):
+            print("pcm conversion missing:", r.get("pcm")); ok = False
         good = (not r.get("error") and r.get("phase") == "fixed" and r.get("anchors") == [] and r.get("adbar_hidden") is True
                 and r.get("intro_line", "").startswith("인트로") and r.get("active_cue") == r.get("active_expected")
                 and r.get("snap_offset") is not None and abs(r["snap_offset"]) < 0.15 and all(x.get("ok") for x in r.get("refs", [])))

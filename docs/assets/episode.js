@@ -196,11 +196,14 @@
     // cue times are already on its clock, so nothing needs aligning — the fingerprint only confirms it.
     const fixedSync = !!((ep.sync && ep.sync.fixed) || (ep.audio_meta && ep.audio_meta.fixed));
     let wantPlay = false, blobUrl = null, syncBlob = null, syncIndex = null;
+    const ua = navigator.userAgent;
+    const webkitOnly = /AppleWebKit/.test(ua) && (/iPhone|iPad|iPod/.test(ua) || !/Chrome|Chromium|Edg|OPR|Firefox/.test(ua));
+    const needsPcm = webkitOnly || new URLSearchParams(location.search).has('pcm');
     // phase: none | downloading | aligning | auto | fixed | failed | stream | manual
     const sync = { phase: hasRefs ? 'downloading' : (fixedSync ? 'fixed' : 'none'), report: null, error: null, snaps: [] };
     function saveReport() {
       sync.saved = new Date().toISOString();
-      store.set('syncrep:' + ep.id, { phase: sync.phase, error: sync.error, report: sync.report, snaps: sync.snaps.slice(-5), anchors, ua: navigator.userAgent, at: sync.saved });
+      store.set('syncrep:' + ep.id, { phase: sync.phase, error: sync.error, report: sync.report, pcm: sync.pcm || null, snaps: sync.snaps.slice(-5), anchors, ua: navigator.userAgent, at: sync.saved });
     }
     if (hasRefs) {
       // Download the stream once (counted by the publisher like any podcast app), play it from memory,
@@ -209,7 +212,15 @@
       $('#nowLine').style.display = 'block'; $('#nowLine').textContent = '음원 받는 중…';
       PodSync.download(srcUrl, (got, total) => { $('#nowLine').textContent = total ? `음원 받는 중 ${Math.round(got / total * 100)}% (${(total / 1048576).toFixed(0)} MB)` : `음원 받는 중 ${(got / 1048576).toFixed(1)} MB`; })
         .then(async (blob) => {
-          blobUrl = URL.createObjectURL(blob); audio.src = blobUrl; syncBlob = blob;
+          syncBlob = blob;
+          if (needsPcm) {
+            // Safari/iOS: VBR MP3 playback time drifts seconds from the sound; play uncompressed audio instead
+            $('#nowLine').textContent = 'iPhone용 변환 중…';
+            try { const wav = await PodSync.toWav(blob, 22050); blobUrl = URL.createObjectURL(wav.blob); sync.pcm = `wav ${wav.sr} Hz ${(wav.blob.size / 1048576).toFixed(0)} MB`; }
+            catch (e) { console.warn('wav conversion failed', e); sync.pcm = 'failed: ' + (e && e.message || e); }
+          }
+          if (!blobUrl) blobUrl = URL.createObjectURL(blob);
+          audio.src = blobUrl;
           $('#play').disabled = false; $('#play').classList.remove('busy');
           if (wantPlay) audio.play().catch(() => {});
           sync.phase = 'aligning'; renderSyncState();
@@ -360,6 +371,7 @@
       if (rep.fileDur) L.push(`음원 ${fmt(rep.fileDur)} · 대본 ${fmt(rep.contentDur)} · 광고 합계 ${rep.adTotal != null ? rep.adTotal.toFixed(1) + 's' : '?'} · ${rep.ms || 0}ms`);
       (rep.refs || []).forEach((r, i) => L.push(`기준점 ${i + 1} (대본 ${fmt(r.c)}): ${r.ok ? `음원 ${fmt(r.a)} (오프셋 ${r.offset >= 0 ? '+' : ''}${r.offset}s)` : '불일치'} · BER ${r.ber ?? '-'} / 차순위 ${r.second ?? '-'}${r.error ? ' · ' + r.error : ''}`));
       if (rep.decode && rep.decode.length) L.push(`디코더: ${rep.decode.join(', ')}`);
+      if (sync.pcm) L.push(`재생 음원: ${sync.pcm}`);
       if (anchors.length) L.push(`앵커: ${anchors.map(a => `${fmt(a.c)}→${fmt(a.a)} (${(a.a - a.c) >= 0 ? '+' : ''}${(a.a - a.c).toFixed(2)}s)`).join(', ')}`);
       sync.snaps.slice(-3).forEach(s => L.push(`탭 보정: 대본 ${fmt(s.c)} 탭 ${s.tap != null ? fmt(s.tap) : '?'} → ${s.ok ? fmt(s.a) + ' (BER ' + s.ber + ')' : '지문 불일치' + (s.ber != null ? ' (BER ' + s.ber + ')' : '') + (s.error ? ' ' + s.error : '')}`));
       L.push(`재생 위치 ${fmt(audio.currentTime)} · 대본 위치 ${fmt(toContent(audio.currentTime).c)} · 속도 ${(prefs.speed || 1).toFixed(1)}×`);
