@@ -78,6 +78,78 @@
    "published_at": "2026-10-01T13:00:00Z",
    "error": "API error 400: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfwmSz3dpeRPBPgyUKTxp'}",
    "seen_at": "2026-10-12T05:10:23Z"
+  },
+  "big-take:45bc0efd44e7": {
+   "first_seen": "2026-10-12T05:12:15Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "big-take-2026-10-07-could-democrats-actually-flip-texas-this-time",
+   "title": "Could Democrats Actually Flip Texas This Time?",
+   "published_at": "2026-10-07T20:41:05Z",
+   "done_at": "2026-10-12T05:14:40Z"
+  },
+  "big-take:24abe2b34f96": {
+   "first_seen": "2026-10-12T05:14:40Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "big-take-2026-10-06-the-surprising-people-getting-very-rich-off-ai",
+   "title": "The Surprising People Getting Very Rich Off AI",
+   "published_at": "2026-10-06T21:24:18Z",
+   "done_at": "2026-10-12T05:16:40Z"
+  },
+  "big-take:c8416e43a83f": {
+   "first_seen": "2026-10-12T05:16:40Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "big-take-2026-10-05-europes-debt-problem-is-back",
+   "title": "Europe’s Debt Problem Is Back",
+   "published_at": "2026-10-05T20:44:00Z",
+   "done_at": "2026-10-12T05:19:11Z"
+  },
+  "big-take:60a1e8b3efab": {
+   "first_seen": "2026-10-12T05:19:11Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "big-take-2026-10-02-the-steamy-billion-dollar-world-of-romantasy",
+   "title": "The Steamy, Billion-Dollar World of Romantasy",
+   "published_at": "2026-10-02T21:03:36Z",
+   "done_at": "2026-10-12T05:21:39Z"
+  },
+  "big-take:0209b616dfe3": {
+   "first_seen": "2026-10-12T05:21:39Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "big-take-2026-10-01-the-man-city-scandal-rocking-the-premier-league",
+   "title": "The Man City Scandal Rocking the Premier League",
+   "published_at": "2026-10-01T20:28:17Z",
+   "done_at": "2026-10-12T05:23:58Z"
+  },
+  "big-take:eab9c20194ea": {
+   "first_seen": "2026-10-12T05:23:58Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "big-take-2026-09-30-can-700-million-buy-republicans-the-us-senate",
+   "title": "Can $700 Million Buy Republicans the US Senate?",
+   "published_at": "2026-09-30T19:44:27Z",
+   "done_at": "2026-10-12T05:26:05Z"
+  },
+  "big-take:849cda2d616e": {
+   "first_seen": "2026-10-12T05:26:05Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "big-take-2026-09-29-chinas-new-message-to-its-billionaires-pay-up",
+   "title": "China’s New Message to Its Billionaires: Pay Up",
+   "published_at": "2026-09-29T22:18:48Z",
+   "done_at": "2026-10-12T05:27:56Z"
+  },
+  "big-take:3008ae7eb79a": {
+   "first_seen": "2026-10-12T05:27:56Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "big-take-2026-09-28-could-bond-yields-break-the-stock-market",
+   "title": "Could Bond Yields Break the Stock Market?",
+   "published_at": "2026-09-28T21:00:09Z",
+   "done_at": "2026-10-12T05:30:14Z"
   }
  }
 }
