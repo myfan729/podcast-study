@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-12T17:04:31Z",
+ "generated_at": "2026-10-12T23:01:30Z",
  "shows": [
   {
    "slug": "big-take",
@@ -31,6 +31,29 @@
   }
  ],
  "episodes": [
+  {
+   "id": "big-take-2026-10-12-ais-giant-money-loop-is-feeling-very-2008",
+   "show": "big-take",
+   "title": "AI’s Giant Money Loop Is Feeling Very 2008",
+   "published_at": "2026-10-12T20:30:34Z",
+   "duration_sec": 1108,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/440d7216-9fb3-43dd-8269-b4e1014d0f71/image.jpg?t=1791836723&size=Large",
+   "one_liner_ko": "AI 인프라 붐이 아시아의 칩 수익과 미국 자산 사이에서 도는 거대한 자금 순환을 만들고 있고, 이것이 2008년 위기 직전의 글로벌 불균형을 떠올리게 한다는 에피소드.",
+   "tags": [
+    "AI boom",
+    "global imbalances",
+    "2008 financial crisis",
+    "US Treasuries",
+    "bubble",
+    "macroeconomics"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 2929,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
   {
    "id": "think-fast-talk-smart-2026-10-12-331-matchmaker-mindset-how-to-make-yourself-memorable-in",
    "show": "think-fast-talk-smart",
