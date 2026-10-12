@@ -1,34 +1,48 @@
 {
  "bbc-6-minute-english-2026-10-01-why-does-heartbreak-hurt-so-much": {
-  "error": "Page.wait_for_function: Timeout 180000ms exceeded.",
-  "errors": [],
-  "logs": [
-   "Access to fetch at 'http://open.live.bbc.co.uk/mediaselector/6/redir/version/2.0/mediaset/audio-nondrm-download-rss-low/proto/http/vpid/p0pdc7mz.mp3' from origin 'http://localhost:8766' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
-   "Failed to load resource: net::ERR_FAILED",
-   "download failed, streaming instead TypeError: Failed to fetch\n    at Object.download (http://localhost:8766/assets/sync.js:192:23)\n    at init (http://localhost:8766/assets/episode.js:200:15)\n    at http://localhost:8766/assets/episode.js:24:52"
-  ]
+  "anchors": [
+   {
+    "c": 0,
+    "a": 3.904
+   }
+  ],
+  "sync": "싱크 ✓",
+  "toast": "자동 싱크 완료 · 이 음원엔 광고가 없어요",
+  "duration": 371.28,
+  "seconds": 1.2,
+  "report": "sync report {\"fileDur\":371.35673469387507,\"contentDur\":366.83,\"adTotal\":4.526734693875085,\"refs\":[{\"c\":0,\"ber\":0.1,\"second\":0.484,\"at\":122,\"win\":[0,55.526734693875085],\"sr\":8000,\"a\":3.904,\"offset\":3.904,\"ok\":true}],\"ms\":271}",
+  "errors": []
  },
  "bbc-6-minute-english-2026-10-08-are-people-drinking-less-alcohol": {
-  "error": "Page.wait_for_function: Timeout 180000ms exceeded.",
-  "errors": [],
-  "logs": [
-   "Access to fetch at 'http://open.live.bbc.co.uk/mediaselector/6/redir/version/2.0/mediaset/audio-nondrm-download-rss-low/proto/http/vpid/p0pfllv6.mp3' from origin 'http://localhost:8766' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
-   "Failed to load resource: net::ERR_FAILED",
-   "download failed, streaming instead TypeError: Failed to fetch\n    at Object.download (http://localhost:8766/assets/sync.js:192:23)\n    at init (http://localhost:8766/assets/episode.js:200:15)\n    at http://localhost:8766/assets/episode.js:24:52"
-  ]
+  "anchors": [
+   {
+    "c": 0,
+    "a": 18.272000000000002
+   }
+  ],
+  "sync": "싱크 ✓",
+  "toast": "자동 싱크 완료 · 광고 0.7분, 1구간 확인",
+  "duration": 409.602426,
+  "seconds": 0.8,
+  "report": "sync report {\"fileDur\":409.6783673469576,\"contentDur\":368.89,\"adTotal\":40.788367346957614,\"refs\":[{\"c\":0,\"ber\":0.055,\"second\":0.484,\"at\":571,\"win\":[0,91.78836734695761],\"sr\":8000,\"a\":18.272,\"offset\":18.272,\"ok\":true}],\"ms\":395}",
+  "errors": []
  },
  "big-take-2026-09-28-could-bond-yields-break-the-stock-market": {
   "anchors": [
    {
     "c": 0,
     "a": 109.056
+   },
+   {
+    "c": 629.264,
+    "a": 871.7590204078764
    }
   ],
   "sync": "싱크 ✓",
-  "toast": "자동 싱크 완료 · 광고 3.5분, 2구간 확인",
-  "duration": 1279.320816,
-  "seconds": 9.9,
-  "report": "sync report {\"fileDur\":1279.3469387743428,\"contentDur\":1071.276,\"adTotal\":208.07093877434272,\"refs\":[{\"c\":0,\"ber\":0.133,\"second\":0.482,\"at\":3408,\"win\":[0,259.0709387743427],\"sr\":8000,\"a\":109.056,\"offset\":109.056,\"ok\":true},{\"c\":629.264,\"ber\":0.029,\"second\":0.479,\"at\":88,\"win\":[735.82,888.3349387743427],\"sr\":8000,\"a\":738.607,\"offset\":109.343,\"ok\":true}],\"ms\":1596}",
+  "toast": "자동 싱크 완료 · 광고 5.8분, 2구간 확인",
+  "duration": 1418.631837,
+  "seconds": 5.1,
+  "report": "sync report {\"fileDur\":1418.6579591822804,\"contentDur\":1071.276,\"adTotal\":347.3819591822803,\"refs\":[{\"c\":0,\"ber\":0.133,\"second\":0.482,\"at\":3408,\"win\":[0,398.3819591822803],\"sr\":8000,\"a\":109.056,\"offset\":109.056,\"ok\":true},{\"c\":629.264,\"ber\":0.026,\"second\":0.479,\"at\":4249,\"win\":[735.82,1027.6459591822804],\"sr\":8000,\"a\":871.759,\"offset\":242.495,\"ok\":true}],\"ms\":2678}",
   "errors": []
  },
  "big-take-2026-09-29-chinas-new-message-to-its-billionaires-pay-up": {
@@ -39,14 +53,14 @@
    },
    {
     "c": 432.226,
-    "a": 704.8613877551344
+    "a": 674.5893877551345
    }
   ],
   "sync": "싱크 ✓",
-  "toast": "자동 싱크 완료 · 광고 6.2분, 2구간 확인",
-  "duration": 1177.103673,
-  "seconds": 4.7,
-  "report": "sync report {\"fileDur\":1177.1297959173655,\"contentDur\":805.596,\"adTotal\":371.5337959173655,\"refs\":[{\"c\":0,\"ber\":0.112,\"second\":0.48,\"at\":3408,\"win\":[0,422.5337959173655],\"sr\":8000,\"a\":109.056,\"offset\":109.056,\"ok\":true},{\"c\":432.226,\"ber\":0.119,\"second\":0.479,\"at\":5191,\"win\":[538.782,854.7597959173656],\"sr\":8000,\"a\":704.861,\"offset\":272.635,\"ok\":true}],\"ms\":2822}",
+  "toast": "자동 싱크 완료 · 광고 5.8분, 2구간 확인",
+  "duration": 1152.966531,
+  "seconds": 4.9,
+  "report": "sync report {\"fileDur\":1152.9926530602618,\"contentDur\":805.596,\"adTotal\":347.39665306026177,\"refs\":[{\"c\":0,\"ber\":0.112,\"second\":0.48,\"at\":3408,\"win\":[0,398.39665306026177],\"sr\":8000,\"a\":109.056,\"offset\":109.056,\"ok\":true},{\"c\":432.226,\"ber\":0.125,\"second\":0.477,\"at\":4245,\"win\":[538.782,830.6226530602619],\"sr\":8000,\"a\":674.589,\"offset\":242.363,\"ok\":true}],\"ms\":2666}",
   "errors": []
  }
 }
