@@ -117,8 +117,8 @@
       <div class="card"><h3>핵심 요약</h3><ul>${(study.summary_ko || []).map(b => `<li>${esc(b)}</li>`).join('')}</ul></div>
       ${study.model ? `<p class="foot" style="margin:4px 2px">생성: ${esc(study.model)}${study.generated_at ? ' · ' + new Date(study.generated_at).toLocaleString('ko-KR') : ''}</p>` : ''}`;
 
-    $('#panel-expr').innerHTML = `<div class="card"><h3>표현<small>${(study.expressions || []).length}</small></h3>` + (study.expressions || []).map((ex, i) => exprHTML(ex, i, true)).join('') + `</div>` +
-      (study.vocab?.length ? `<div class="card"><h3>단어<small>${study.vocab.length}</small></h3><ul class="vocab">${study.vocab.map(v => `<li><span><b>${esc(v.word)}</b><i>${esc(v.pos)}</i></span><span>${esc(v.meaning_ko)}<br><span class="ex">${esc(v.example)}</span></span></li>`).join('')}</ul></div>` : '');
+    $('#panel-expr').innerHTML = (study.vocab?.length ? `<div class="card"><h3>단어<small>${study.vocab.length}</small></h3><ul class="vocab">${study.vocab.map(v => `<li><span><b>${esc(v.word)}</b><i>${esc(v.pos)}</i></span><span>${esc(v.meaning_ko)}<br><span class="ex">${esc(v.example)}</span></span></li>`).join('')}</ul></div>` : '') +
+      `<div class="card"><h3>표현<small>${(study.expressions || []).length}</small></h3>` + (study.expressions || []).map((ex, i) => exprHTML(ex, i, true)).join('') + `</div>`;
     $('#panel-expr').addEventListener('click', (e) => { const b = e.target.closest('.jump'); if (b) seekTo(toAudio(+b.dataset.t), true); });
 
     // (회화/discussion panel removed from the UI for now; study.discussion is still generated and stored)
