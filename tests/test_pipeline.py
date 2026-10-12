@@ -149,3 +149,55 @@ def test_plain_json_helpers():
     good = {"translations": [{"id": "s1", "ko": "안녕"}]}
     assert validate({"type": "object", "required": ["translations"], "properties": {"translations": {"type": "array", "items": {"type": "object", "required": ["id", "ko"], "properties": {"id": {"type": "string"}, "ko": {"type": "string"}}}}}}, good) == []
     assert "$.speakers: expected array" in validate(STUDY_SCHEMA, {"speakers": "nope"})
+
+
+class _FakeAsr:
+    """Pretends to transcribe: emits the transcript's own words shifted by a piecewise ad offset, with noise."""
+    name = "fake"
+
+    def __init__(self, cues, pre, mids):
+        self._w = []
+        import random
+        rnd = random.Random(1)
+        for c in cues:
+            toks = [t for t in __import__("pipeline.sync", fromlist=["tokens"]).tokens(c["t"])]
+            span = max(0.2, c["e"] - c["s"])
+            for i, tok in enumerate(toks):
+                ct = c["s"] + span * i / len(toks)
+                off = pre + sum(length for pos, length in mids if ct >= pos)
+                if rnd.random() < 0.12:
+                    tok = "um"  # ASR error
+                self._w.append((tok, ct + off, ct + off + 0.2))
+        # ad speech that must not be matched
+        for t in range(0, int(pre), 1):
+            self._w.append(("buy", float(t), t + 0.3))
+        self._w.sort(key=lambda w: w[1])
+
+    def words_in(self, lo, hi):
+        return [w for w in self._w if lo <= w[1] <= hi]
+
+    def words(self, pcm16, t_lo, t_hi):  # noqa: D102 — same signature as sync.Asr.words
+        return self.words_in(t_lo, t_hi)
+
+
+def test_sync_content_map_with_known_and_unknown_markers():
+    from pipeline.sync import content_map, cue_tokens, locate
+    cues = parse_transcript((FIX / "omny_demo.vtt").read_text(), "vtt")
+    cues = [{"s": c.s, "e": c.e, "t": c.t} for c in cues]
+    pre, mids = 31.0, [(60.0, 92.0)]
+    fake = _FakeAsr(cues, pre, mids)
+    content_dur = cues[-1]["e"]
+    dur = content_dur + pre + 92.0 + 20.0  # + post-roll
+    import numpy as np
+    pcm = np.zeros(int(dur * 16000), dtype=np.float32)
+    # known markers (Omny)
+    breaks, ad_total = content_map(fake, cues, pcm, dur, content_dur, markers=[60.0])
+    assert [b["c"] for b in breaks] == [0.0, 60.0]
+    assert abs(breaks[0]["a"] - 31.0) < 0.6 and abs(breaks[1]["a"] - (60 + 31 + 92)) < 0.6
+    # unknown markers (Transistor-style)
+    breaks2, _ = content_map(fake, cues, pcm, dur, content_dur, markers=None)
+    assert len(breaks2) == 2
+    assert abs((breaks2[0]["a"] - breaks2[0]["c"]) - 31.0) < 0.6
+    assert 60.0 <= breaks2[1]["c"] <= 75.0 and abs((breaks2[1]["a"] - breaks2[1]["c"]) - 123.0) < 0.6
+    # locate() refuses when the text is absent
+    assert locate(cue_tokens(cues, 0.0), fake.words_in(0, 20), 0, 20) is None

@@ -288,3 +288,6 @@ mark.hl:hover { outline: 2px solid var(--marker); }
 .adbreak { display: grid; gap: 2px; margin: 6px 0 18px 12px; padding: 8px 12px; border-left: 2px dashed var(--ink-3); font-family: var(--sans); font-size: 12.5px; color: var(--ink-2); background: var(--sheet-2); border-radius: 0 var(--radius-s) var(--radius-s) 0; }
 .adbreak .hint { color: var(--ink-3); }
 #syncBtn[aria-pressed="true"] { background: var(--marker); color: var(--marker-ink); border-color: var(--marker); }
+
+.pbtn.play.busy { opacity: .55; cursor: progress; }
+.pbtn.play:disabled { opacity: .55; }

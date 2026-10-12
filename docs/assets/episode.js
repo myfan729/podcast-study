@@ -18,9 +18,10 @@
   const id = new URLSearchParams(location.search).get('id');
   if (!id) { $('#head').innerHTML = '<div class="err">에피소드 id가 없습니다. <a href="./">목록으로</a></div>'; return; }
 
-  fetch('data/episodes/' + encodeURIComponent(id) + '.json', { cache: 'no-cache' })
-    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-    .then(init)
+  Promise.all([
+    fetch('data/episodes/' + encodeURIComponent(id) + '.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }),
+    fetch('data/sync/' + encodeURIComponent(id) + '.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null),
+  ]).then(([ep, sync]) => { ep.sync = sync; return init(ep); })
     .catch(err => { $('#head').innerHTML = `<div class="err">에피소드를 불러오지 못했습니다 (${esc(err.message)}). <a href="./">목록으로</a></div>`; });
 
   function init(ep) {
@@ -188,7 +189,37 @@
     applyPrefs();
 
     // ---- audio -------------------------------------------------------------
-    audio.src = ep.audio_url; $('#player').hidden = false;
+    $('#player').hidden = false;
+    const srcUrl = ep.demo ? ep.audio_url : (ep.audio_url_original || ep.audio_url);
+    let autoSyncDone = false, wantPlay = false, blobUrl = null;
+    if (ep.sync && window.PodSync && ep.sync.refs && ep.sync.refs.length) {
+      // Download the stream once (counted by the publisher like any podcast app), play it from memory,
+      // and find this download's ad breaks automatically.
+      $('#play').disabled = true; $('#play').classList.add('busy');
+      $('#nowLine').style.display = 'block'; $('#nowLine').textContent = '음원 받는 중…';
+      PodSync.download(srcUrl, (got, total) => { $('#nowLine').textContent = total ? `음원 받는 중 ${Math.round(got / total * 100)}% (${(total / 1048576).toFixed(0)} MB)` : `음원 받는 중 ${(got / 1048576).toFixed(1)} MB`; })
+        .then(async (blob) => {
+          blobUrl = URL.createObjectURL(blob); audio.src = blobUrl;
+          $('#play').disabled = false; $('#play').classList.remove('busy');
+          if (wantPlay) audio.play().catch(() => {});
+          try {
+            const res = await PodSync.align(blob, ep.sync, (s) => { $('#nowLine').textContent = s; });
+            const okRefs = res.report.refs.filter(r => r.ok).length;
+            if (res.anchors.length) {
+              anchors = res.anchors.map(x => ({ c: x.c, a: x.a })); store.set('sync:' + ep.id, anchors);
+              autoSyncDone = true; dismissedPrompt = null; renderSyncState(); update(true);
+              showToast(`자동 싱크 완료 · 광고 ${okRefs}구간 (${(res.report.adTotal / 60).toFixed(1)}분)`);
+            } else {
+              showToast('자동 싱크 실패 — 수동 모드');
+            }
+            console.log('sync report', res.report);
+          } catch (e) { console.warn('auto-sync failed', e); showToast('자동 싱크 실패 — 수동 모드'); }
+          $('#nowLine').style.display = ''; update(true);
+        })
+        .catch((e) => { console.warn('download failed, streaming instead', e); audio.src = srcUrl; $('#play').disabled = false; $('#play').classList.remove('busy'); $('#nowLine').style.display = ''; if (wantPlay) audio.play().catch(() => {}); });
+    } else {
+      audio.src = ep.audio_url;
+    }
     const setPlayerH = () => document.documentElement.style.setProperty('--player-h', $('#player').offsetHeight + 'px');
     if ('ResizeObserver' in window) new ResizeObserver(setPlayerH).observe($('#player')); setPlayerH();
     const prog = store.get('prog:' + ep.id, null);
@@ -198,7 +229,7 @@
     $('#tDur').textContent = fmt(ep.duration_sec);
 
     const setPlayIcon = () => { $('#icoPlay').classList.toggle('hide', !audio.paused); $('#icoPause').classList.toggle('hide', audio.paused); $('#play').setAttribute('aria-label', audio.paused ? '재생 (Space)' : '일시정지 (Space)'); };
-    $('#play').addEventListener('click', () => { audio.paused ? audio.play() : audio.pause(); });
+    $('#play').addEventListener('click', () => { if (!audio.src) { wantPlay = !wantPlay; $('#nowLine').textContent = wantPlay ? '받는 대로 재생합니다…' : '음원 받는 중…'; return; } audio.paused ? audio.play() : audio.pause(); });
     audio.addEventListener('play', setPlayIcon); audio.addEventListener('pause', () => { setPlayIcon(); saveProgress(); });
     $('#back').addEventListener('click', () => seekTo(audio.currentTime - 5));
     $('#fwd').addEventListener('click', () => seekTo(audio.currentTime + 5));
@@ -234,7 +265,7 @@
     const am = ep.audio_meta || {};
     const contentDur = am.content_duration || ep.duration_sec || (cues.length ? cues[cues.length - 1].e : 0);
     const midMarkers = (am.ad_markers || []).filter(m => m.type === 'mid').map(m => m.sec).sort((a, b) => a - b);
-    let anchors = (store.get('sync:' + ep.id, []) || []).filter(x => typeof x.c === 'number' && typeof x.a === 'number').sort((x, y) => x.c - y.c);
+    let anchors = (ep.sync && ep.sync.refs && ep.sync.refs.length) ? [] : (store.get('sync:' + ep.id, []) || []).filter(x => typeof x.c === 'number' && typeof x.a === 'number').sort((x, y) => x.c - y.c);
     let adTotal = 0;                              // audio duration − content duration, once metadata is known
     const offsetAt = (c) => { let off = 0; for (const an of anchors) { if (an.c <= c + 0.05) off = an.a - an.c; else break; } return off; };
     const toAudio = (c) => c + offsetAt(c);

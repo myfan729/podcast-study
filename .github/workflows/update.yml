@@ -33,7 +33,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
 
@@ -62,6 +62,22 @@ jobs:
           if [ "$IN_MOCK" = "true" ]; then args+=(--mock); fi
           echo "python -m pipeline ${args[*]}"
           python -m pipeline "${args[@]}"
+
+      - name: Cache speech model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-base.en-v1
+
+      - name: Build sync references (ad-aware auto sync)
+        id: sync
+        continue-on-error: true
+        env:
+          IN_MOCK: ${{ github.event.inputs.mock }}
+        run: |
+          if [ "$IN_MOCK" = "true" ]; then echo "mock run: skipping sync"; exit 0; fi
+          pip install -r requirements-sync.txt
+          python -m pipeline.sync --max 3 --selftest
 
       - name: Commit results
         run: |
