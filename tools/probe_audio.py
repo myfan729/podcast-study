@@ -39,13 +39,16 @@ def main():
         res["feed_items"].append({"title": title.group(1).strip() if title else None, "link": link.group(1).strip() if link else None,
                                   "enclosure": enc.group(1) if enc else None, "guid": guid.group(1) if guid else None,
                                   "raw_head": it[:600]})
-    link = res["feed_items"][0]["link"] if res["feed_items"] else None
-    if link:
-        r = s.get(link, timeout=30, allow_redirects=True)
-        res["page"] = {"status": r.status_code, "final_url": r.url, "bytes": len(r.text), "outline": outline(r.text)}
-    # the episode listing page, in case the feed link is not the episode page
+    # episode page guessed from the pubDate: .../6-minute-english_YYYY/ep-YYMMDD
+    from email.utils import parsedate_to_datetime
+    it = items[0]
+    pub = parsedate_to_datetime(re.search(r"<pubDate>(.*?)</pubDate>", it, re.S).group(1).strip())
+    guess = f"https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_{pub:%Y}/ep-{pub:%y%m%d}"
+    r = s.get(guess, timeout=30, allow_redirects=True)
+    res["page"] = {"guess": guess, "status": r.status_code, "final_url": r.url, "bytes": len(r.text), "outline": outline(r.text)}
     r2 = s.get("https://www.bbc.co.uk/learningenglish/english/features/6-minute-english", timeout=30)
-    res["listing"] = {"status": r2.status_code, "links": sorted(set(re.findall(r'href="(/learningenglish/english/features/6-minute-english[^"]*)"', r2.text)))[:12]}
+    links = re.findall(r'href="(/learningenglish/english/features/6-minute-english[^"]*)"', r2.text)
+    res["listing"] = {"status": r2.status_code, "recent_links": [l for l in dict.fromkeys(links) if "_20" in l][:10]}
     Path("tools/probe_result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False))
     print(json.dumps(res, indent=1, ensure_ascii=False)[:4000])
 
