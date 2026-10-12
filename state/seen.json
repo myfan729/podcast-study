@@ -1,1 +1,83 @@
-{"episodes": {}}
+{
+ "episodes": {
+  "big-take:9919fb8f04b2": {
+   "status": "skipped_long",
+   "title": "Weekend Listen: Google’s James Manyika on AI Risk",
+   "published_at": "2026-10-04T18:06:43Z",
+   "duration_sec": 2493,
+   "seen_at": "2026-10-12T04:49:01Z"
+  },
+  "big-take:3b8bd52ddb75": {
+   "first_seen": "2026-10-12T04:49:01Z",
+   "attempts": 1,
+   "status": "failed",
+   "title": "Weekend Listen: In Defense of Melania",
+   "published_at": "2026-10-11T14:00:00Z",
+   "error": "API error 401: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CfwjpimkXywfgFug3opDN'}",
+   "seen_at": "2026-10-12T04:49:04Z"
+  },
+  "big-take:0cc580daa0fb": {
+   "first_seen": "2026-10-12T04:49:04Z",
+   "attempts": 1,
+   "status": "failed",
+   "title": "Inside Jane Street: The Enigmatic Firm That Rules Wall Street",
+   "published_at": "2026-10-09T20:14:51Z",
+   "error": "API error 401: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CfwjpkvDw4xq3Fp2hTpTC'}",
+   "seen_at": "2026-10-12T04:49:04Z"
+  },
+  "big-take:d4684c65ab99": {
+   "first_seen": "2026-10-12T04:49:04Z",
+   "attempts": 1,
+   "status": "failed",
+   "title": "What Happens When the Billionaires Brexit",
+   "published_at": "2026-10-08T20:00:29Z",
+   "error": "API error 401: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011Cfwjpo2Ep9rVtePSJVUGY'}",
+   "seen_at": "2026-10-12T04:49:05Z"
+  },
+  "big-take-asia:24abe2b34f96": {
+   "first_seen": "2026-10-12T04:49:05Z",
+   "attempts": 1,
+   "status": "failed",
+   "title": "The Surprising People Getting Very Rich Off AI",
+   "published_at": "2026-10-06T21:24:18Z",
+   "error": "API error 401: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CfwjpqpemDFFhc7KE3q92'}",
+   "seen_at": "2026-10-12T04:49:05Z"
+  },
+  "big-take-asia:849cda2d616e": {
+   "first_seen": "2026-10-12T04:49:05Z",
+   "attempts": 1,
+   "status": "failed",
+   "title": "China’s New Message to Its Billionaires: Pay Up",
+   "published_at": "2026-09-29T22:18:48Z",
+   "error": "API error 401: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011Cfwjpt568GPFypjmqCj6K'}",
+   "seen_at": "2026-10-12T04:49:06Z"
+  },
+  "think-fast-talk-smart:b6a6565ee868": {
+   "first_seen": "2026-10-12T04:49:06Z",
+   "attempts": 1,
+   "status": "failed",
+   "title": "330. Quick Thinks: A CLEAR Way Through Conflict",
+   "published_at": "2026-10-08T13:00:00Z",
+   "error": "API error 401: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CfwjpzHtXvTnNEF2MorF3'}",
+   "seen_at": "2026-10-12T04:49:07Z"
+  },
+  "think-fast-talk-smart:e3632433ea59": {
+   "first_seen": "2026-10-12T04:49:08Z",
+   "attempts": 1,
+   "status": "failed",
+   "title": "329. Your Brand is Your Promise: The 4 C’s for Better Communication",
+   "published_at": "2026-10-05T13:00:00Z",
+   "error": "API error 401: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011Cfwjq2xtJZyeQfpsVs62n'}",
+   "seen_at": "2026-10-12T04:49:08Z"
+  },
+  "think-fast-talk-smart:9c61f8a47cb4": {
+   "first_seen": "2026-10-12T04:49:08Z",
+   "attempts": 1,
+   "status": "failed",
+   "title": "328. Ask Matt Anything: Don’t Let Your Communication Fizzle at the Finish",
+   "published_at": "2026-10-01T13:00:00Z",
+   "error": "API error 401: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011Cfwjq5c8XCn3ek61QBAiC'}",
+   "seen_at": "2026-10-12T04:49:09Z"
+  }
+ }
+}
