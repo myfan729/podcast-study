@@ -1,3 +1,4 @@
+# verify run 2: includes BBC Learning English episodes (CORS on the BBC CDN?)
 """End-to-end check of automatic sync in a real browser (run on GitHub Actions, where the CDNs are reachable).
 Serves docs/ locally, opens episode pages that have sync references, waits for auto-sync, records the result."""
 import asyncio, json, subprocess, sys, time

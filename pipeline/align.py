@@ -15,7 +15,7 @@ from .sync import tokens
 from .transcript import Cue
 
 TOKEN_SEC = 0.33          # typical spoken-word duration, used for interpolation
-AD_GAP_MIN = 4.0          # an unmatched stretch this much longer than expected is an inserted ad
+AD_GAP_MIN = 8.0          # an unmatched stretch this much longer than expected is an inserted ad (jingles are shorter)
 SENT_RE = re.compile(r"(?<=[.!?])\s+(?=[\"'“(A-Z0-9])")
 
 
