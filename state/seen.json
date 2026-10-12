@@ -45,12 +45,12 @@
   },
   "big-take-asia:849cda2d616e": {
    "first_seen": "2026-10-12T05:09:47Z",
-   "attempts": 1,
+   "attempts": 2,
    "status": "failed",
    "title": "China’s New Message to Its Billionaires: Pay Up",
    "published_at": "2026-09-29T22:18:48Z",
    "error": "cannot access local variable 'meta' where it is not associated with a value",
-   "seen_at": "2026-10-12T05:49:03Z"
+   "seen_at": "2026-10-12T06:04:44Z"
   },
   "think-fast-talk-smart:b6a6565ee868": {
    "first_seen": "2026-10-12T05:10:18Z",
@@ -156,6 +156,15 @@
    "title": "Could Bond Yields Break the Stock Market?",
    "published_at": "2026-09-28T21:00:09Z",
    "done_at": "2026-10-12T05:30:14Z"
+  },
+  "think-fast-talk-smart:419d000e00da": {
+   "first_seen": "2026-10-12T06:04:44Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "think-fast-talk-smart-2026-09-28-327-the-human-reset-reclaiming-authenticity-in-the-age-of-ai",
+   "title": "327. The Human Reset: Reclaiming Authenticity in the Age of AI",
+   "published_at": "2026-09-28T13:00:00Z",
+   "done_at": "2026-10-12T06:08:46Z"
   }
  }
 }

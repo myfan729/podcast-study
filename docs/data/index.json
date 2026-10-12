@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-12T05:56:24Z",
+ "generated_at": "2026-10-12T06:08:47Z",
  "shows": [
   {
    "slug": "big-take",
@@ -385,6 +385,29 @@
    "cefr": "C1",
    "expressions": 12,
    "words": 3143,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "think-fast-talk-smart-2026-09-28-327-the-human-reset-reclaiming-authenticity-in-the-age-of-ai",
+   "show": "think-fast-talk-smart",
+   "title": "327. The Human Reset: Reclaiming Authenticity in the Age of AI",
+   "published_at": "2026-09-28T13:00:00Z",
+   "duration_sec": 1544,
+   "image": "https://img.transistorcdn.com/Jhch7tKIuZ5tzl3dix_EXK_8vQcjN1rhsO7y-C7ukMs/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS81NGQ1/NmU1NTJkNjEyOTI2/ODc1OTBhOWVhYTVk/YTNjMi5wbmc.jpg",
+   "one_liner_ko": "AI가 문장을 다듬어 주는 시대에는 즉흥적이고 불완전한 '사람다움'이 오히려 신뢰의 증거이며, AI는 생각을 대체하는 도구가 아니라 연습 파트너로 써야 한다는 Matt Abrahams의 이야기.",
+   "tags": [
+    "AI and communication",
+    "authenticity",
+    "TRUST framework",
+    "empathy",
+    "conflict handling",
+    "public speaking"
+   ],
+   "cefr": "C1",
+   "expressions": 13,
+   "words": 4808,
    "has_translation": true,
    "mock": false,
    "demo": false

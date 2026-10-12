@@ -1,0 +1,6 @@
+{
+ "status": "failed",
+ "error": "ffmpeg not found",
+ "attempts": 1,
+ "built_at": "2026-10-12T06:09:02Z"
+}
