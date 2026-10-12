@@ -86,3 +86,14 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 }
 
 function onStartCompile() { running = false; }
+
+// 메신저봇R 선택 이벤트(없으면 "There is no function ..." 경고가 로그에 남음)
+function onPause() {}
+function onResume() {}
+function onCreate(savedInstanceState, activity) {}
+function onStart(activity) {}
+function onStop(activity) {}
+function onRestart(activity) {}
+function onDestroy(activity) {}
+function onBackPressed(activity) {}
+function onNotificationPosted(sbn, sm) {}
