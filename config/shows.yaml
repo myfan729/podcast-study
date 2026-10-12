@@ -1,0 +1,39 @@
+# Podcast sources. Only shows whose RSS feed carries a <podcast:transcript> tag
+# (timestamped VTT/SRT) are fully automatic. See README for how to add more.
+
+defaults:
+  max_minutes: 40          # skip episodes longer than this (e.g. Big Take "Weekend Listen")
+  backfill: 3              # on first run, process the newest N eligible episodes per show
+  transcript_retry_days: 4 # keep retrying episodes whose transcript tag appears later
+  max_age_days: 14         # ignore archive items older than this (first run still backfills the newest N)
+  language: en
+
+shows:
+  - slug: big-take
+    name: Big Take
+    publisher: Bloomberg
+    color: "#1f5fbf"
+    feed: https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/8b1dd624-a026-43e9-8b57-ae2b00130066/podcast.rss
+    homepage: https://www.bloomberg.com/podcasts/series/big-take
+    # Omny labels speakers generically ("Speaker 1"); the study pack maps them to names.
+    speaker_labels: generic
+    style: "Narrated business/economics news story with reporter interviews; ~15 min; weekdays."
+
+  - slug: big-take-asia
+    name: Big Take Asia
+    publisher: Bloomberg
+    color: "#0f8a7a"
+    feed: https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/55b5c41e-b796-493d-829e-b16201392082/ed303395-bd29-403a-98d9-b16201396959/podcast.rss
+    homepage: https://www.bloomberg.com/podcasts/series/big-take-asia
+    speaker_labels: generic
+    style: "Weekly Asia business & policy story told by host Oanh Ha with Bloomberg reporters; ~15 min."
+
+  - slug: think-fast-talk-smart
+    name: Think Fast, Talk Smart
+    publisher: Stanford GSB
+    color: "#a8322d"
+    feed: https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques
+    homepage: https://www.fastersmarter.io/
+    # Transistor VTT has no speaker tags; the study pack assigns speakers per segment.
+    speaker_labels: none
+    style: "Communication-skills interview show hosted by Matt Abrahams (Stanford GSB); ~15-25 min; Mon & Thu. Contains a ~1 min sponsor read."

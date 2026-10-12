@@ -1,0 +1,50 @@
+{
+ "generated_at": "2026-10-12T03:46:08Z",
+ "shows": [
+  {
+   "slug": "big-take",
+   "name": "Big Take",
+   "publisher": "Bloomberg",
+   "color": "#1f5fbf",
+   "homepage": "https://www.bloomberg.com/podcasts/series/big-take"
+  },
+  {
+   "slug": "big-take-asia",
+   "name": "Big Take Asia",
+   "publisher": "Bloomberg",
+   "color": "#0f8a7a",
+   "homepage": "https://www.bloomberg.com/podcasts/series/big-take-asia"
+  },
+  {
+   "slug": "think-fast-talk-smart",
+   "name": "Think Fast, Talk Smart",
+   "publisher": "Stanford GSB",
+   "color": "#a8322d",
+   "homepage": "https://www.fastersmarter.io/"
+  }
+ ],
+ "episodes": [
+  {
+   "id": "big-take-2026-10-09-why-airlines-sell-more-seats-than-they-have",
+   "show": "big-take",
+   "title": "Why Airlines Sell More Seats Than They Have",
+   "published_at": "2026-10-09T20:14:51Z",
+   "duration_sec": 212,
+   "image": "https://www.omnycontent.com/d/programs/fixture/image.jpg?size=Large",
+   "one_liner_ko": "항공사가 좌석보다 표를 더 파는 '오버부킹'은 스캔들이 아니라 노쇼 확률을 계산한 수익 전략이며, 사라지는 대신 더 조용하고 세련된 방식으로 진화했다는 이야기.",
+   "tags": [
+    "airlines",
+    "pricing",
+    "risk",
+    "consumer",
+    "business strategy"
+   ],
+   "cefr": "C1",
+   "expressions": 13,
+   "words": 591,
+   "has_translation": true,
+   "mock": false,
+   "demo": true
+  }
+ ]
+}

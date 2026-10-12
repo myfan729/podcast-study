@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Demo Take</title>
+    <link>http://www.example.com/</link>
+    <language>en</language>
+    <description>Fixture feed shaped like an Omny Studio feed with Podcasting 2.0 transcript tags.</description>
+    <itunes:image href="https://www.omnycontent.com/d/programs/fixture/image.jpg?size=Large" />
+    <item>
+      <title>Weekend Listen: A Very Long Conversation</title>
+      <pubDate>Sun, 11 Oct 2026 14:00:00 +0000</pubDate>
+      <guid isPermaLink="false">10e449f1-4055-421d-a814-b4e000ca2f50</guid>
+      <link>https://omny.fm/shows/demo-take/weekend-listen</link>
+      <itunes:duration>2881</itunes:duration>
+      <description><![CDATA[<p>A weekend episode that is longer than 40 minutes and should be skipped.</p>]]></description>
+      <enclosure url="https://podtrac.com/pts/redirect.mp3/traffic.omny.fm/d/clips/fixture/weekend.mp3" type="audio/mpeg" length="36480000" />
+      <podcast:transcript url="https://api.omny.fm/orgs/fixture/clips/10e449f1/transcript?format=SubRip&amp;t=1791721420" type="application/srt" language="en" />
+      <podcast:transcript url="https://api.omny.fm/orgs/fixture/clips/10e449f1/transcript?format=WebVTT&amp;t=1791721420" type="text/vtt" language="en" />
+    </item>
+    <item>
+      <title>Why Airlines Sell More Seats Than They Have</title>
+      <pubDate>Fri, 09 Oct 2026 20:14:51 +0000</pubDate>
+      <guid isPermaLink="false">947bb858-7725-41b9-a0bc-b4de014c6b52</guid>
+      <link>https://omny.fm/shows/demo-take/why-airlines-sell-more-seats</link>
+      <itunes:duration>212</itunes:duration>
+      <itunes:episode>412</itunes:episode>
+      <description><![CDATA[<p>Overbooking looks like a scandal every time someone gets bumped. Inside the airline, it is a math problem. Reporters Priya Nair and Tom Okafor explain how carriers decide how many extra tickets to sell, why the practice survives, and what happens when the bet goes wrong.</p><p>Read more: <a href="https://www.example.com/overbooking">example.com/overbooking</a></p>]]></description>
+      <enclosure url="https://podtrac.com/pts/redirect.mp3/traffic.omny.fm/d/clips/fixture/airlines.mp3" type="audio/mpeg" length="3392000" />
+      <podcast:transcript url="https://api.omny.fm/orgs/fixture/clips/947bb858/transcript?format=SubRip&amp;t=1791576740" type="application/srt" language="en" />
+      <podcast:transcript url="https://api.omny.fm/orgs/fixture/clips/947bb858/transcript?format=WebVTT&amp;t=1791576740" type="text/vtt" language="en" />
+      <podcast:transcript url="https://api.omny.fm/orgs/fixture/clips/947bb858/transcript?format=TextWithTimestamps&amp;t=1791576740" type="text/plain" language="en" />
+    </item>
+    <item>
+      <title>An Episode Whose Transcript Is Not Ready Yet</title>
+      <pubDate>Thu, 08 Oct 2026 20:00:29 +0000</pubDate>
+      <guid isPermaLink="false">0ccbdaa0-4469-4aeb-8807-b4dd01482c6b</guid>
+      <link>https://omny.fm/shows/demo-take/not-ready</link>
+      <itunes:duration>1071</itunes:duration>
+      <description><![CDATA[No transcript tag on this one (yet).]]></description>
+      <enclosure url="https://podtrac.com/pts/redirect.mp3/traffic.omny.fm/d/clips/fixture/notready.mp3" type="audio/mpeg" length="17136000" />
+    </item>
+  </channel>
+</rss>
