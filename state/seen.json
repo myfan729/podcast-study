@@ -170,21 +170,21 @@
   },
   "bbc-6-minute-english:7282d908fa38": {
    "first_seen": "2026-10-12T08:45:02Z",
-   "attempts": 1,
+   "attempts": 2,
    "status": "failed",
    "title": "Are people drinking less alcohol?",
    "published_at": "2026-10-08T08:28:00Z",
    "error": "no TRANSCRIPT marker found",
-   "seen_at": "2026-10-12T08:45:02Z"
+   "seen_at": "2026-10-12T08:52:50Z"
   },
   "bbc-6-minute-english:b21325e495be": {
    "first_seen": "2026-10-12T08:45:02Z",
-   "attempts": 1,
+   "attempts": 2,
    "status": "failed",
    "title": "Why does heartbreak hurt so much?",
    "published_at": "2026-10-01T09:47:00Z",
    "error": "no TRANSCRIPT marker found",
-   "seen_at": "2026-10-12T08:45:03Z"
+   "seen_at": "2026-10-12T08:52:50Z"
   }
  }
 }
