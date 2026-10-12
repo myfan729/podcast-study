@@ -45,12 +45,14 @@
   },
   "big-take-asia:849cda2d616e": {
    "first_seen": "2026-10-12T05:09:47Z",
-   "attempts": 0,
-   "status": "failed",
+   "attempts": 1,
+   "status": "done",
    "title": "China’s New Message to Its Billionaires: Pay Up",
    "published_at": "2026-09-29T22:18:48Z",
    "error": "cannot access local variable 'meta' where it is not associated with a value",
-   "seen_at": "2026-10-12T06:10:16Z"
+   "seen_at": "2026-10-12T06:10:16Z",
+   "id": "big-take-asia-2026-09-29-chinas-new-message-to-its-billionaires-pay-up",
+   "done_at": "2026-10-12T06:19:42Z"
   },
   "think-fast-talk-smart:b6a6565ee868": {
    "first_seen": "2026-10-12T05:10:18Z",

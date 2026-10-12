@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-12T06:10:17Z",
+ "generated_at": "2026-10-12T06:19:42Z",
  "shows": [
   {
    "slug": "big-take",
@@ -358,6 +358,29 @@
     "billionaires",
     "local government finance",
     "AI data centers"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 1989,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "big-take-asia-2026-09-29-chinas-new-message-to-its-billionaires-pay-up",
+   "show": "big-take-asia",
+   "title": "China’s New Message to Its Billionaires: Pay Up",
+   "published_at": "2026-09-29T22:18:48Z",
+   "duration_sec": 806,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/4b0595dc-1f00-479e-8476-b4d4016da9e2/image.jpg?t=1790720148&size=Large",
+   "one_liner_ko": "재정난에 몰린 중국 지방정부와 AI 데이터센터 투자 때문에 베이징이 역외 신탁까지 겨냥해 억만장자들에게 세금을 걷고 있고, 부자들은 납부·협상·저항으로 갈리고 있다는 이야기.",
+   "tags": [
+    "China economy",
+    "tax policy",
+    "offshore trusts",
+    "wealth",
+    "AI data centers",
+    "Hong Kong"
    ],
    "cefr": "C1",
    "expressions": 12,
