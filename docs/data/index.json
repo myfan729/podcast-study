@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-12T06:26:15Z",
+ "generated_at": "2026-10-12T08:45:03Z",
  "shows": [
   {
    "slug": "big-take",
@@ -21,6 +21,13 @@
    "publisher": "Stanford GSB",
    "color": "#a8322d",
    "homepage": "https://www.fastersmarter.io/"
+  },
+  {
+   "slug": "bbc-6-minute-english",
+   "name": "6 Minute English",
+   "publisher": "BBC Learning English",
+   "color": "#b80000",
+   "homepage": "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english"
   }
  ],
  "episodes": [

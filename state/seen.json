@@ -167,6 +167,24 @@
    "title": "327. The Human Reset: Reclaiming Authenticity in the Age of AI",
    "published_at": "2026-09-28T13:00:00Z",
    "done_at": "2026-10-12T06:08:46Z"
+  },
+  "bbc-6-minute-english:7282d908fa38": {
+   "first_seen": "2026-10-12T08:45:02Z",
+   "attempts": 1,
+   "status": "failed",
+   "title": "Are people drinking less alcohol?",
+   "published_at": "2026-10-08T08:28:00Z",
+   "error": "no TRANSCRIPT marker found",
+   "seen_at": "2026-10-12T08:45:02Z"
+  },
+  "bbc-6-minute-english:b21325e495be": {
+   "first_seen": "2026-10-12T08:45:02Z",
+   "attempts": 1,
+   "status": "failed",
+   "title": "Why does heartbreak hurt so much?",
+   "published_at": "2026-10-01T09:47:00Z",
+   "error": "no TRANSCRIPT marker found",
+   "seen_at": "2026-10-12T08:45:03Z"
   }
  }
 }
