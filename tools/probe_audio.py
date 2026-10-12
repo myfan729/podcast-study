@@ -19,10 +19,6 @@ CLIP = "947bb858-7725-41b9-a0bc-b4de014c6b52"  # Big Take: Inside Jane Street (c
 
 CANDIDATES = {
     "A_feed_enclosure": "https://podtrac.com/pts/redirect.mp3/tracking.swap.fm/track/UVBrz8bN8aM2Xe47PEPu/traffic.omny.fm/d/clips/%s/%s/%s/audio.mp3?utm_source=Podcast&in_playlist=8b1dd624-a026-43e9-8b57-ae2b00130066" % (ORG, PROG, CLIP),
-    "B_traffic_direct": f"https://traffic.omny.fm/d/clips/{ORG}/{PROG}/{CLIP}/audio.mp3",
-    "C_omnycontent": f"https://www.omnycontent.com/d/clips/{ORG}/{PROG}/{CLIP}/audio.mp3",
-    "D_omnycontent_playlist": f"https://www.omnycontent.com/d/playlist/{ORG}/{PROG}/8b1dd624-a026-43e9-8b57-ae2b00130066/{CLIP}/audio.mp3",
-    "E_traffic_no_dai_guess": f"https://traffic.omny.fm/d/clips/{ORG}/{PROG}/{CLIP}/audio.mp3?ignore_dai=true",
     "F_tfts_transistor": "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques",  # resolved below to the latest enclosure
 }
 
@@ -42,7 +38,17 @@ def fetch(session: requests.Session, url: str, max_bytes: int = 60_000_000) -> d
         r = session.get(url, timeout=60, allow_redirects=True, stream=True,
                         headers={"User-Agent": "podcast-study-probe/1.0"})
         out.update(status=r.status_code, final_url=r.url, content_type=r.headers.get("Content-Type"),
-                   content_length=r.headers.get("Content-Length"), hops=[h.url for h in r.history])
+                   content_length=r.headers.get("Content-Length"), hops=[h.url for h in r.history],
+                   cors={k: v for k, v in r.headers.items() if k.lower().startswith("access-control")},
+                   accept_ranges=r.headers.get("Accept-Ranges"))
+        # a browser sends an Origin header on cross-origin fetches; some CDNs only answer CORS then
+        try:
+            pre = session.get(r.url, timeout=30, stream=True, headers={"User-Agent": "podcast-study-probe/1.0", "Origin": "https://myfan729.github.io", "Range": "bytes=0-1023"})
+            out["cors_with_origin"] = {k: v for k, v in pre.headers.items() if k.lower().startswith("access-control")}
+            out["range_status"] = pre.status_code
+            pre.close()
+        except Exception as e:  # noqa: BLE001
+            out["cors_with_origin"] = {"error": str(e)[:120]}
         buf = io.BytesIO()
         for chunk in r.iter_content(1 << 16):
             buf.write(chunk)
