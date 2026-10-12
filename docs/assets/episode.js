@@ -208,7 +208,7 @@
             if (res.anchors.length) {
               anchors = res.anchors.map(x => ({ c: x.c, a: x.a })); store.set('sync:' + ep.id, anchors);
               autoSyncDone = true; dismissedPrompt = null; renderSyncState(); update(true);
-              showToast(res.report.adTotal < 5 ? '자동 싱크 완료 · 이 음원엔 광고가 없어요' : `자동 싱크 완료 · 광고 ${(res.report.adTotal / 60).toFixed(1)}분, ${okRefs}구간 확인`);
+              showToast(res.report.adTotal < 60 ? '자동 싱크 완료' : `자동 싱크 완료 · 광고 약 ${(res.report.adTotal / 60).toFixed(1)}분 건너뜀`);
             } else {
               showToast('자동 싱크 실패 — 수동 모드');
             }

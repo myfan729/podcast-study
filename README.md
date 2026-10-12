@@ -47,7 +47,22 @@ python -m RangeHTTPServer 8000 --directory docs   # 로컬 미리보기 (pip ins
 `config/shows.yaml`에 항목을 추가합니다. 두 종류를 지원합니다.
 
 - **RSS 자막 쇼**: 아이템에 `<podcast:transcript>` 태그(VTT/SRT/JSON)가 있는 쇼. 완전 자동.
-- **웹 대본 쇼** (`transcript: web`): 대본이 에피소드 페이지에만 있는 쇼(BBC Learning English, NPR, HBR 등). 파이프라인이 음원을 받아 Whisper로 인식한 뒤 대본 문장을 정렬해 타임스탬프를 만듭니다. 사이트별 파서(`pipeline/webtranscript.py`)가 필요합니다 — 현재 `bbc_le`, `voa_le`, `generic`.
+- **웹 대본 쇼** (`transcript: web`): 대본이 에피소드 페이지에만 있는 쇼(BBC Learning English, NPR, HBR 등). 파이프라인이 음원을 받아 Whisper로 인식한 뒤 대본 문장을 정렬해 타임스탬프를 만듭니다. 사이트별 파서(`pipeline/webtranscript.py`)가 필요합니다 — 현재 `bbc_le`, `voa_le`, `generic`. `page_url` 템플릿(`{year}`, `{yymmdd}`)으로 피드 날짜에서 페이지 주소를 만들고, `audio_from_page: true`면 페이지가 제공하는 mp3(BBC는 광고 없는 프로그램 파일)를 재생합니다.
+
+예시(6 Minute English):
+
+```yaml
+  - slug: bbc-6-minute-english
+    name: 6 Minute English
+    publisher: BBC Learning English
+    feed: https://podcasts.files.bbci.co.uk/p02pc9tn.rss
+    transcript: web
+    parser: bbc_le
+    page_url: "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_{year}/ep-{yymmdd}"
+    audio_from_page: true
+    speaker_labels: named
+    level: "B1-B2"
+```
 
 ```yaml
   - slug: money-stuff
