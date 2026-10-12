@@ -1,33 +1,59 @@
 {
  "bbc-6-minute-english-2026-10-01-why-does-heartbreak-hurt-so-much": {
-  "anchors": [
+  "phase": "fixed",
+  "error": null,
+  "anchors": [],
+  "refs": [
    {
-    "c": 0,
-    "a": 3.904
+    "c": 4.29,
+    "ok": true,
+    "a": 4.288,
+    "offset": -0.002,
+    "ber": 0.025,
+    "second": 0.483,
+    "error": null
    }
   ],
-  "sync": "싱크 ✓",
-  "toast": "자동 싱크 완료 · 이 음원엔 광고가 없어요",
-  "duration": 371.28,
-  "seconds": 1.2,
-  "report": "sync report {\"fileDur\":371.35673469387507,\"contentDur\":366.83,\"adTotal\":4.526734693875085,\"refs\":[{\"c\":0,\"ber\":0.1,\"second\":0.484,\"at\":122,\"win\":[0,55.526734693875085],\"sr\":8000,\"a\":3.904,\"offset\":3.904,\"ok\":true}],\"ms\":271}",
+  "decode": [
+   "ctx8000→8000"
+  ],
+  "adTotal": 0.08,
+  "ms": 393,
+  "sync_btn": "싱크 ✓",
+  "adbar_hidden": true,
+  "first_line_ok": true,
+  "seconds": 2.0,
   "errors": []
  },
  "bbc-6-minute-english-2026-10-08-are-people-drinking-less-alcohol": {
-  "anchors": [
+  "phase": "fixed",
+  "error": null,
+  "anchors": [],
+  "refs": [
    {
-    "c": 0,
-    "a": 18.272000000000002
+    "c": 18.88,
+    "ok": true,
+    "a": 18.88,
+    "offset": 0,
+    "ber": 0.009,
+    "second": 0.483,
+    "error": null
    }
   ],
-  "sync": "싱크 ✓",
-  "toast": "자동 싱크 완료 · 광고 0.7분, 1구간 확인",
-  "duration": 409.602426,
-  "seconds": 0.8,
-  "report": "sync report {\"fileDur\":409.6783673469576,\"contentDur\":368.89,\"adTotal\":40.788367346957614,\"refs\":[{\"c\":0,\"ber\":0.055,\"second\":0.484,\"at\":571,\"win\":[0,91.78836734695761],\"sr\":8000,\"a\":18.272,\"offset\":18.272,\"ok\":true}],\"ms\":395}",
+  "decode": [
+   "ctx8000→8000"
+  ],
+  "adTotal": 0.08,
+  "ms": 423,
+  "sync_btn": "싱크 ✓",
+  "adbar_hidden": true,
+  "first_line_ok": true,
+  "seconds": 1.6,
   "errors": []
  },
  "big-take-2026-09-28-could-bond-yields-break-the-stock-market": {
+  "phase": "auto",
+  "error": null,
   "anchors": [
    {
     "c": 0,
@@ -35,17 +61,44 @@
    },
    {
     "c": 629.264,
-    "a": 871.7590204078764
+    "a": 911.9830204078764
    }
   ],
-  "sync": "싱크 ✓",
-  "toast": "자동 싱크 완료 · 광고 5.8분, 2구간 확인",
-  "duration": 1418.631837,
-  "seconds": 5.1,
-  "report": "sync report {\"fileDur\":1418.6579591822804,\"contentDur\":1071.276,\"adTotal\":347.3819591822803,\"refs\":[{\"c\":0,\"ber\":0.133,\"second\":0.482,\"at\":3408,\"win\":[0,398.3819591822803],\"sr\":8000,\"a\":109.056,\"offset\":109.056,\"ok\":true},{\"c\":629.264,\"ber\":0.026,\"second\":0.479,\"at\":4249,\"win\":[735.82,1027.6459591822804],\"sr\":8000,\"a\":871.759,\"offset\":242.495,\"ok\":true}],\"ms\":2678}",
+  "refs": [
+   {
+    "c": 0,
+    "ok": true,
+    "a": 109.056,
+    "offset": 109.056,
+    "ber": 0.133,
+    "second": 0.482,
+    "error": null
+   },
+   {
+    "c": 629.264,
+    "ok": true,
+    "a": 911.983,
+    "offset": 282.719,
+    "ber": 0.02,
+    "second": 0.479,
+    "error": null
+   }
+  ],
+  "decode": [
+   "ctx8000→8000",
+   "ctx8000→8000"
+  ],
+  "adTotal": 390.41,
+  "ms": 3005,
+  "sync_btn": "싱크 ✓",
+  "adbar_hidden": true,
+  "first_line_ok": true,
+  "seconds": 6.2,
   "errors": []
  },
  "big-take-2026-09-29-chinas-new-message-to-its-billionaires-pay-up": {
+  "phase": "auto",
+  "error": null,
   "anchors": [
    {
     "c": 0,
@@ -53,14 +106,84 @@
    },
    {
     "c": 432.226,
-    "a": 674.5893877551345
+    "a": 714.8133877551344
    }
   ],
-  "sync": "싱크 ✓",
-  "toast": "자동 싱크 완료 · 광고 5.8분, 2구간 확인",
-  "duration": 1152.966531,
-  "seconds": 4.9,
-  "report": "sync report {\"fileDur\":1152.9926530602618,\"contentDur\":805.596,\"adTotal\":347.39665306026177,\"refs\":[{\"c\":0,\"ber\":0.112,\"second\":0.48,\"at\":3408,\"win\":[0,398.39665306026177],\"sr\":8000,\"a\":109.056,\"offset\":109.056,\"ok\":true},{\"c\":432.226,\"ber\":0.125,\"second\":0.477,\"at\":4245,\"win\":[538.782,830.6226530602619],\"sr\":8000,\"a\":674.589,\"offset\":242.363,\"ok\":true}],\"ms\":2666}",
+  "refs": [
+   {
+    "c": 0,
+    "ok": true,
+    "a": 109.056,
+    "offset": 109.056,
+    "ber": 0.112,
+    "second": 0.48,
+    "error": null
+   },
+   {
+    "c": 432.226,
+    "ok": true,
+    "a": 714.813,
+    "offset": 282.587,
+    "ber": 0.096,
+    "second": 0.478,
+    "error": null
+   }
+  ],
+  "decode": [
+   "ctx8000→8000",
+   "ctx8000→8000"
+  ],
+  "adTotal": 387.05,
+  "ms": 2967,
+  "sync_btn": "싱크 ✓",
+  "adbar_hidden": true,
+  "first_line_ok": true,
+  "seconds": 6.1,
+  "errors": []
+ },
+ "big-take-2026-09-30-can-700-million-buy-republicans-the-us-senate": {
+  "phase": "auto",
+  "error": null,
+  "anchors": [
+   {
+    "c": 0,
+    "a": 109.152
+   },
+   {
+    "c": 566.74,
+    "a": 849.0703673467531
+   }
+  ],
+  "refs": [
+   {
+    "c": 0,
+    "ok": true,
+    "a": 109.152,
+    "offset": 109.152,
+    "ber": 0.072,
+    "second": 0.479,
+    "error": null
+   },
+   {
+    "c": 566.74,
+    "ok": true,
+    "a": 849.07,
+    "offset": 282.33,
+    "ber": 0.018,
+    "second": 0.479,
+    "error": null
+   }
+  ],
+  "decode": [
+   "ctx8000→8000",
+   "ctx8000→8000"
+  ],
+  "adTotal": 387.04,
+  "ms": 2933,
+  "sync_btn": "싱크 ✓",
+  "adbar_hidden": true,
+  "first_line_ok": true,
+  "seconds": 6.0,
   "errors": []
  }
 }
