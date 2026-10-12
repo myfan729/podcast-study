@@ -356,9 +356,11 @@ class StudyGenerator:
     def translate_segments(self, segments: list[Segment]) -> dict[str, str]:
         return self.translate_items([(s.id, s.text) for s in segments])
 
-    def translate_cues(self, cues) -> dict[str, str]:
-        """{cue index as string: Korean} — sentence-by-sentence, for the interleaved transcript view."""
-        return self.translate_items([(str(c.i if hasattr(c, "i") else c["i"]), c.t if hasattr(c, "t") else c["t"]) for c in cues])
+    def translate_sentences(self, cues, sentences: list[list[int]]) -> dict[str, str]:
+        """{"from-to": Korean} for each sentence (a run of cues), for the interleaved transcript view."""
+        by_i = {(c.i if hasattr(c, "i") else c["i"]): (c.t if hasattr(c, "t") else c["t"]) for c in cues}
+        items = [(f"{a}-{b}", " ".join(by_i[i] for i in range(a, b + 1) if i in by_i)) for a, b in sentences]
+        return self.translate_items(items)
 
     # -- internals ------------------------------------------------------------
     _plain_schemas: set[int] = set()  # schemas the API refused to compile → plain JSON from then on

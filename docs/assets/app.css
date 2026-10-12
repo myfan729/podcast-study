@@ -305,6 +305,6 @@ mark.hl:hover { outline: 2px solid var(--marker); }
 
 /* sentence-by-sentence Korean */
 .ko-cue { display: none; }
-.transcript.show-ko.by-sentence .seg p .cue { display: block; margin: 0 -2px; }
+.transcript.show-ko.by-sentence .sent { display: block; margin-top: 2px; }
 .transcript.show-ko.by-sentence .ko-cue { display: block; font-family: var(--sans); font-size: 14px; line-height: 1.55; color: var(--ink-3); margin: 2px 0 10px; padding-left: 2px; }
-.transcript.show-ko.by-sentence .seg p .cue.active + .ko-cue { color: var(--ink-2); }
+.transcript.show-ko.by-sentence .sent:has(.cue.active) .ko-cue { color: var(--ink-2); }

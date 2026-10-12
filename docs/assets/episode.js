@@ -30,7 +30,9 @@
     const segs = ep.transcript.segments;
     const study = ep.study || {};
     const tr = study.translations || {};              // paragraph-level (older episodes)
-    const trc = study.translations_cues || null;      // sentence-level: cue index → Korean
+    const trs = study.translations_sent || null;      // sentence-level: "firstCue-lastCue" → Korean
+    const sentOf = {};                                // first cue index → last cue index of its sentence
+    (ep.transcript.sentences || []).forEach(([a, b]) => { sentOf[a] = b; });
     const audio = $('#audio');
     document.title = ep.title + ' · Podcast Study';
 
@@ -62,20 +64,28 @@
         (shadowBy[seg.id] ? `<span class="shadow" title="${esc(shadowBy[seg.id])}">섀도잉 추천</span>` : '') +
         `<button class="loop" type="button" aria-pressed="false" title="이 문단 반복">반복</button>`;
       const p = document.createElement('p');
+      let holder = p, sentStart = -1, sentEnd = -1;
       for (let i = seg.cue_from; i <= seg.cue_to; i++) {
+        if (trs && sentOf[i] != null) {                 // start of a sentence: wrap its cues so Korean can follow it
+          holder = document.createElement('span'); holder.className = 'sent'; p.appendChild(holder); sentStart = i; sentEnd = sentOf[i];
+        }
         const c = cues[i]; const span = document.createElement('span'); span.className = 'cue'; span.dataset.i = i; span.textContent = c.t; cueEls[i] = span;
-        p.appendChild(span);
-        if (trc && trc[String(i)]) { const k = document.createElement('span'); k.className = 'ko-cue'; k.textContent = trc[String(i)]; p.appendChild(k); }
-        if (i < seg.cue_to) p.appendChild(document.createTextNode(' '));
+        holder.appendChild(span);
+        if (i < seg.cue_to) holder.appendChild(document.createTextNode(' '));
+        if (holder !== p && i === sentEnd) {
+          const ko = trs[sentStart + '-' + sentEnd];
+          if (ko) { const k = document.createElement('span'); k.className = 'ko-cue'; k.textContent = ko; holder.appendChild(k); }
+          holder = p;
+        }
       }
       art.appendChild(who); art.appendChild(p);
       if (shadowBy[seg.id]) { const why = document.createElement('div'); why.className = 'ko'; why.style.display = 'block'; why.style.color = 'var(--ink-3)'; why.textContent = shadowBy[seg.id]; art.appendChild(why); }
-      if (!trc && tr[seg.id]) { const ko = document.createElement('div'); ko.className = 'ko'; ko.textContent = tr[seg.id]; art.appendChild(ko); }
+      if (!trs && tr[seg.id]) { const ko = document.createElement('div'); ko.className = 'ko'; ko.textContent = tr[seg.id]; art.appendChild(ko); }
       tEl.appendChild(art); segEls[seg.id] = art;
       who.querySelector('.loop').addEventListener('click', (e) => { toggleLoop(seg, e.currentTarget); });
     });
-    if (!trc && !Object.keys(tr).length) $('#swKo').hidden = true;
-    if (trc) tEl.classList.add('by-sentence');
+    if (!trs && !Object.keys(tr).length) $('#swKo').hidden = true;
+    if (trs) tEl.classList.add('by-sentence');
 
     // expression highlights (quote may cross cue boundaries)
     (study.expressions || []).forEach((ex, idx) => {

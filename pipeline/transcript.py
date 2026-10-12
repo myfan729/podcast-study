@@ -264,3 +264,35 @@ def transcript_stats(cues: list[Cue], segments: list[Segment]) -> dict:
         "has_speakers": bool(speakers),
         "end_sec": round(cues[-1].e, 3) if cues else 0,
     }
+
+
+SENT_END_RE = re.compile(r"[.!?…][\"'”’)\]]*$")
+
+
+def group_sentences(cues: list, segments: list | None = None, max_words: int = 45) -> list[list[int]]:
+    """Merge caption-sized cues into sentences: [[first_cue, last_cue], ...].
+
+    A sentence ends at a cue whose text ends with . ! ? (closing quotes allowed), at a speaker change,
+    at a segment boundary, or after max_words (captions without punctuation)."""
+    def g(c, k):
+        return getattr(c, k, None) if not isinstance(c, dict) else c.get(k)
+    bounds = set()
+    if segments:
+        for sg in segments:
+            bounds.add(g(sg, "cue_from"))
+    out: list[list[int]] = []
+    start, words = None, 0
+    for idx, c in enumerate(cues):
+        i = g(c, "i")
+        nxt = cues[idx + 1] if idx + 1 < len(cues) else None
+        if start is None:
+            start, words = i, 0
+        words += len(g(c, "t").split())
+        ends = bool(SENT_END_RE.search(g(c, "t").strip())) or nxt is None or words >= max_words
+        if nxt is not None and not ends:
+            if (g(nxt, "spk") or None) != (g(c, "spk") or None) or g(nxt, "i") in bounds:
+                ends = True
+        if ends:
+            out.append([start, i])
+            start = None
+    return out

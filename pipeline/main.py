@@ -21,7 +21,7 @@ import yaml
 from . import build
 from .feeds import Episode, iter_eligible, parse_feed, strip_html
 from .llm import StudyGenerator
-from .transcript import cues_to_dicts, parse_transcript, segment_cues, segments_to_dicts, transcript_stats
+from .transcript import cues_to_dicts, group_sentences, parse_transcript, segment_cues, segments_to_dicts, transcript_stats
 from .util import http_get_text, http_session, log, read_json, resolve_final_url, setup_logging, slugify, utcnow_iso, write_json
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -228,13 +228,17 @@ def backfill_cue_translations(gen: StudyGenerator, max_n: int = 3, max_age_days:
         if datetime.fromisoformat(doc["published_at"].replace("Z", "+00:00")) < cutoff:
             continue
         study = doc.get("study") or {}
-        if study.get("mock") or study.get("translations_cues") is not None:
+        if study.get("mock") or study.get("translations_sent") is not None:
             continue
-        cues = (doc.get("transcript") or {}).get("cues") or []
+        tr = doc.get("transcript") or {}
+        cues = tr.get("cues") or []
         if not cues:
             continue
-        log.info("▶ sentence translations for %s (%d lines)", doc["id"], len(cues))
-        study["translations_cues"] = gen.translate_cues(cues)
+        sentences = tr.get("sentences") or group_sentences(cues, tr.get("segments"))
+        tr["sentences"] = sentences
+        log.info("▶ sentence translations for %s (%d sentences)", doc["id"], len(sentences))
+        study["translations_sent"] = gen.translate_sentences(cues, sentences)
+        study.pop("translations_cues", None)
         doc["study"] = study
         write_json(p, doc, compact=True)
         n += 1
@@ -288,6 +292,7 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
     if len(cues) < 10:
         raise RuntimeError(f"transcript parsed into only {len(cues)} cues — format not understood?")
     segments = segment_cues(cues)
+    sentences = group_sentences(cues, segments)
     stats = transcript_stats(cues, segments)
     log.info("  %d cues → %d segments, %d words, speakers=%s", stats["cues"], stats["segments"], stats["words"], stats["speakers"])
 
@@ -326,7 +331,7 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
         study["mock"] = gen.mock
         study["model"] = gen.model
         if translate:
-            study["translations_cues"] = gen.translate_cues(cues)      # sentence by sentence
+            study["translations_sent"] = gen.translate_sentences(cues, sentences)      # sentence by sentence
     study["generated_at"] = utcnow_iso()
 
     # Apply speaker names to segments for display.
@@ -365,6 +370,7 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
             "url": tref.url,
             "stats": stats,
             "cues": cues_to_dicts(cues),
+            "sentences": sentences,
             "segments": seg_dicts,
         },
         "study": study,
