@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-12T04:56:22Z",
+ "generated_at": "2026-10-12T05:10:23Z",
  "shows": [
   {
    "slug": "big-take",
@@ -25,6 +25,52 @@
  ],
  "episodes": [
   {
+   "id": "big-take-2026-10-11-weekend-listen-in-defense-of-melania",
+   "show": "big-take",
+   "title": "Weekend Listen: In Defense of Melania",
+   "published_at": "2026-10-11T14:00:00Z",
+   "duration_sec": 2281,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/10e449f1-4055-421d-a814-b4e000ca2f50/image.jpg?t=1791723908&size=Large",
+   "one_liner_ko": "저널리스트 아자데 모아베니가 신간 『The East Wing』을 통해 미국 영부인과 그 참모들의 숨은 영향력을 짚고, 멜라니아 트럼프를 재평가하며 이란 전쟁과 중동 정세까지 이야기한다.",
+   "tags": [
+    "first ladies",
+    "Melania Trump",
+    "Iran war",
+    "Gulf security",
+    "women's history",
+    "diaspora"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 6227,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "big-take-2026-10-09-inside-jane-street-the-enigmatic-firm-that-rules-wall-street",
+   "show": "big-take",
+   "title": "Inside Jane Street: The Enigmatic Firm That Rules Wall Street",
+   "published_at": "2026-10-09T20:14:51Z",
+   "duration_sec": 988,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/947bb858-7725-41b9-a0bc-b4de014c6b52/image.jpg?t=1791576738&size=Large",
+   "one_liner_ko": "트레이딩 수익으로 골드만삭스·JP모건을 넘어선 비밀주의 트레이딩 회사 제인 스트리트의 실체, 누가 이끄는지, 그리고 왜 그것이 시장에 중요한지를 파헤친 에피소드.",
+   "tags": [
+    "Jane Street",
+    "Wall Street",
+    "market making",
+    "AI investing",
+    "financial transparency",
+    "trading"
+   ],
+   "cefr": "C1",
+   "expressions": 13,
+   "words": 2560,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
    "id": "big-take-2026-10-09-why-airlines-sell-more-seats-than-they-have",
    "show": "big-take",
    "title": "Why Airlines Sell More Seats Than They Have",
@@ -45,6 +91,51 @@
    "has_translation": true,
    "mock": false,
    "demo": true
+  },
+  {
+   "id": "big-take-2026-10-08-what-happens-when-the-billionaires-brexit",
+   "show": "big-take",
+   "title": "What Happens When the Billionaires Brexit",
+   "published_at": "2026-10-08T20:00:29Z",
+   "duration_sec": 1071,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/0ccbdaa0-4469-4aeb-8807-b4dd01482c6b/image.jpg?t=1791489387&size=Large",
+   "one_liner_ko": "영국이 비거주자(non-dom) 세제 혜택을 폐지하고 상속세를 확대하자 1,600억 달러 규모의 억만장자 자산이 영국을 떠났고, 이것이 영국 경제와 부유층 유치 경쟁에 어떤 의미인지 짚는 에피소드.",
+   "tags": [
+    "UK tax",
+    "billionaires",
+    "non-dom",
+    "wealth migration",
+    "inheritance tax",
+    "Bloomberg"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 3351,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "big-take-asia-2026-10-06-the-surprising-people-getting-very-rich-off-ai",
+   "show": "big-take-asia",
+   "title": "The Surprising People Getting Very Rich Off AI",
+   "published_at": "2026-10-06T21:24:18Z",
+   "duration_sec": 874,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/9cb94873-19db-4b89-a303-b4db015ee58c/image.jpg?t=1791321570&size=Large",
+   "one_liner_ko": "AI 붐의 진짜 승자 중에는 서버 레일, 드릴 비트, 절연 소재처럼 눈에 띄지 않는 부품을 수십 년간 만들어온 아시아 제조업체들이 있고, 이들의 부와 함께 공급망의 지역 집중 위험과 AI 투자 거품 가능성도 커지고 있다는 이야기.",
+   "tags": [
+    "AI supply chain",
+    "Taiwan manufacturing",
+    "billionaires",
+    "geopolitics",
+    "tech infrastructure"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 2050,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
   }
  ]
 }

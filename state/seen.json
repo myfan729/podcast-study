@@ -6,6 +6,78 @@
    "published_at": "2026-10-04T18:06:43Z",
    "duration_sec": 2493,
    "seen_at": "2026-10-12T04:49:01Z"
+  },
+  "big-take:3b8bd52ddb75": {
+   "first_seen": "2026-10-12T04:59:42Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "big-take-2026-10-11-weekend-listen-in-defense-of-melania",
+   "title": "Weekend Listen: In Defense of Melania",
+   "published_at": "2026-10-11T14:00:00Z",
+   "done_at": "2026-10-12T05:03:16Z"
+  },
+  "big-take:0cc580daa0fb": {
+   "first_seen": "2026-10-12T05:03:16Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "big-take-2026-10-09-inside-jane-street-the-enigmatic-firm-that-rules-wall-street",
+   "title": "Inside Jane Street: The Enigmatic Firm That Rules Wall Street",
+   "published_at": "2026-10-09T20:14:51Z",
+   "done_at": "2026-10-12T05:05:29Z"
+  },
+  "big-take:d4684c65ab99": {
+   "first_seen": "2026-10-12T05:05:29Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "big-take-2026-10-08-what-happens-when-the-billionaires-brexit",
+   "title": "What Happens When the Billionaires Brexit",
+   "published_at": "2026-10-08T20:00:29Z",
+   "done_at": "2026-10-12T05:07:59Z"
+  },
+  "big-take-asia:24abe2b34f96": {
+   "first_seen": "2026-10-12T05:07:59Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "big-take-asia-2026-10-06-the-surprising-people-getting-very-rich-off-ai",
+   "title": "The Surprising People Getting Very Rich Off AI",
+   "published_at": "2026-10-06T21:24:18Z",
+   "done_at": "2026-10-12T05:09:47Z"
+  },
+  "big-take-asia:849cda2d616e": {
+   "first_seen": "2026-10-12T05:09:47Z",
+   "attempts": 1,
+   "status": "failed",
+   "title": "China’s New Message to Its Billionaires: Pay Up",
+   "published_at": "2026-09-29T22:18:48Z",
+   "error": "API error 400: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfwmQRLKPKGip6yQmX2wT'}",
+   "seen_at": "2026-10-12T05:10:18Z"
+  },
+  "think-fast-talk-smart:b6a6565ee868": {
+   "first_seen": "2026-10-12T05:10:18Z",
+   "attempts": 1,
+   "status": "failed",
+   "title": "330. Quick Thinks: A CLEAR Way Through Conflict",
+   "published_at": "2026-10-08T13:00:00Z",
+   "error": "API error 400: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfwmSqJXSJa83ZMVzNBLS'}",
+   "seen_at": "2026-10-12T05:10:21Z"
+  },
+  "think-fast-talk-smart:e3632433ea59": {
+   "first_seen": "2026-10-12T05:10:21Z",
+   "attempts": 1,
+   "status": "failed",
+   "title": "329. Your Brand is Your Promise: The 4 C’s for Better Communication",
+   "published_at": "2026-10-05T13:00:00Z",
+   "error": "API error 400: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfwmSufwwm9sTYGT7ebuU'}",
+   "seen_at": "2026-10-12T05:10:22Z"
+  },
+  "think-fast-talk-smart:9c61f8a47cb4": {
+   "first_seen": "2026-10-12T05:10:22Z",
+   "attempts": 1,
+   "status": "failed",
+   "title": "328. Ask Matt Anything: Don’t Let Your Communication Fizzle at the Finish",
+   "published_at": "2026-10-01T13:00:00Z",
+   "error": "API error 400: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfwmSz3dpeRPBPgyUKTxp'}",
+   "seen_at": "2026-10-12T05:10:23Z"
   }
  }
 }
