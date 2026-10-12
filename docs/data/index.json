@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-12T05:33:32Z",
+ "generated_at": "2026-10-12T05:35:48Z",
  "shows": [
   {
    "slug": "big-take",
@@ -116,6 +116,52 @@
    "demo": false
   },
   {
+   "id": "big-take-2026-10-07-could-democrats-actually-flip-texas-this-time",
+   "show": "big-take",
+   "title": "Could Democrats Actually Flip Texas This Time?",
+   "published_at": "2026-10-07T20:41:05Z",
+   "duration_sec": 981,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/c9ed4b91-22bc-42cf-af0b-b4dc0150c9d7/image.jpg?t=1791404897&size=Large",
+   "one_liner_ko": "역대급 자금이 쏟아지는 텍사스 상원 선거가 왜 이렇게 접전인지, 그리고 트럼프가 여기서 지면 남은 2년이 어떻게 흔들리는지를 짚은 에피소드.",
+   "tags": [
+    "US politics",
+    "Texas Senate race",
+    "midterms",
+    "campaign finance",
+    "Trump",
+    "idioms"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 3128,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "big-take-2026-10-06-the-surprising-people-getting-very-rich-off-ai",
+   "show": "big-take",
+   "title": "The Surprising People Getting Very Rich Off AI",
+   "published_at": "2026-10-06T21:24:18Z",
+   "duration_sec": 874,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/9cb94873-19db-4b89-a303-b4db015ee58c/image.jpg?t=1791321570&size=Large",
+   "one_liner_ko": "AI 붐의 진짜 승자 중에는 서버 레일, 드릴 비트, 변기 회사처럼 눈에 띄지 않는 아시아 제조업체들이 있고, 이들이 새 억만장자를 만들어내는 한편 공급망 집중과 거품 위험도 커지고 있다는 이야기.",
+   "tags": [
+    "AI boom",
+    "supply chain",
+    "Taiwan",
+    "manufacturing",
+    "geopolitics",
+    "billionaires"
+   ],
+   "cefr": "C1",
+   "expressions": 13,
+   "words": 2050,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
    "id": "big-take-asia-2026-10-06-the-surprising-people-getting-very-rich-off-ai",
    "show": "big-take-asia",
    "title": "The Surprising People Getting Very Rich Off AI",
@@ -133,6 +179,144 @@
    "cefr": "C1",
    "expressions": 12,
    "words": 2050,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "big-take-2026-10-05-europes-debt-problem-is-back",
+   "show": "big-take",
+   "title": "Europe’s Debt Problem Is Back",
+   "published_at": "2026-10-05T20:44:00Z",
+   "duration_sec": 1224,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/6a7d043f-720e-439e-9a06-b4da015155ba/image.jpg?t=1791232811&size=Large",
+   "one_liner_ko": "미국·일본·영국·프랑스에서 장기금리가 급등하는 가운데, 특히 프랑스발 유로존 위기 가능성과 미국 소비자의 압박을 두 전문가가 진단한다.",
+   "tags": [
+    "bond yields",
+    "eurozone",
+    "France",
+    "Federal Reserve",
+    "US consumer",
+    "sovereign debt"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 3367,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "big-take-2026-10-02-the-steamy-billion-dollar-world-of-romantasy",
+   "show": "big-take",
+   "title": "The Steamy, Billion-Dollar World of Romantasy",
+   "published_at": "2026-10-02T21:03:36Z",
+   "duration_sec": 1099,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/aa2c0cd2-20c6-457f-80ff-b4d70158d37a/image.jpg?t=1790974696&size=Large",
+   "one_liner_ko": "판타지와 로맨스를 결합한 '로맨타지'가 북톡과 굿즈, 영상화 계약까지 아우르는 10억 달러 규모의 산업이 되어 출판계의 힘의 균형을 바꾸고 있다는 이야기.",
+   "tags": [
+    "romantasy",
+    "publishing",
+    "BookTok",
+    "creator economy",
+    "media & entertainment",
+    "fandom"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 3139,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "big-take-2026-10-01-the-man-city-scandal-rocking-the-premier-league",
+   "show": "big-take",
+   "title": "The Man City Scandal Rocking the Premier League",
+   "published_at": "2026-10-01T20:28:17Z",
+   "duration_sec": 974,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/abae279e-85d6-4fc5-82a6-b4d6014e5ef5/image.jpg?t=1790886006&size=Large",
+   "one_liner_ko": "프리미어리그가 맨체스터 시티가 '가짜' 스폰서 계약으로 9년간 9억 파운드 넘게 재무 실적을 부풀렸다고 판정했고, 이 사건이 처벌 수위, 구단주 자본, 영국-UAE 관계, 스포츠 투자 전반에 어떤 파장을 줄지 짚는 에피소드.",
+   "tags": [
+    "Manchester City",
+    "Premier League",
+    "sports business",
+    "soft power",
+    "financial fair play",
+    "sports ownership"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 2928,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "big-take-2026-09-30-can-700-million-buy-republicans-the-us-senate",
+   "show": "big-take",
+   "title": "Can $700 Million Buy Republicans the US Senate?",
+   "published_at": "2026-09-30T19:44:27Z",
+   "duration_sec": 992,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/e08555ea-559c-42e6-820d-b4d5014257a9/image.jpg?t=1790796944&size=Large",
+   "one_liner_ko": "2026 미국 중간선거 상원 경쟁에서 공화당은 슈퍼팩·정당 자금으로 압도적 물량 우위를, 민주당은 소액 개인 후원과 후보 개인 모금력으로 맞서는 구도를 분석한 에피소드.",
+   "tags": [
+    "US midterms",
+    "campaign finance",
+    "Senate",
+    "super PAC",
+    "politics",
+    "Bloomberg"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 2893,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "big-take-2026-09-29-chinas-new-message-to-its-billionaires-pay-up",
+   "show": "big-take",
+   "title": "China’s New Message to Its Billionaires: Pay Up",
+   "published_at": "2026-09-29T22:18:48Z",
+   "duration_sec": 806,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/4b0595dc-1f00-479e-8476-b4d4016da9e2/image.jpg?t=1790720148&size=Large",
+   "one_liner_ko": "지방정부 재정난과 AI 데이터센터 투자 때문에 중국이 역외 신탁까지 겨냥해 억만장자들에게 세금을 걷고 있고, 부자들은 현금 마련, 협상, 저항 등으로 제각각 대응하고 있다.",
+   "tags": [
+    "China",
+    "wealth tax",
+    "offshore trusts",
+    "billionaires",
+    "local government finance",
+    "AI data centers"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 1989,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "big-take-2026-09-28-could-bond-yields-break-the-stock-market",
+   "show": "big-take",
+   "title": "Could Bond Yields Break the Stock Market?",
+   "published_at": "2026-09-28T21:00:09Z",
+   "duration_sec": 1071,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/c09af70b-8ecf-4b5c-a06a-b4d301570ea4/image.jpg?t=1790628698&size=Large",
+   "one_liner_ko": "미국 10년물 금리가 5%를 넘어서며 주식에서 채권으로의 대규모 자산 재배분 가능성, AI 거품 논란, 인플레이션에 지친 소비자 현실을 짚어보는 에피소드.",
+   "tags": [
+    "bond yields",
+    "stock market",
+    "AI bubble",
+    "inflation",
+    "asset allocation",
+    "Buffett indicator"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 3143,
    "has_translation": true,
    "mock": false,
    "demo": false
