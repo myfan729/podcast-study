@@ -94,8 +94,13 @@ jobs:
             echo "No changes."
           else
             git commit -m "update $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git pull --rebase origin "${GITHUB_REF_NAME}" || true
-            git push
+            # another workflow (probe/verify, or a run that overlapped) may have pushed meanwhile: rebase, keeping
+            # this run's generated files where they conflict, and retry the push a few times
+            for i in 1 2 3; do
+              if git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" && git push; then break; fi
+              git rebase --abort 2>/dev/null || true
+              sleep $((i * 7))
+            done
           fi
 
       - name: Report
