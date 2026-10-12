@@ -61,6 +61,7 @@ python -m RangeHTTPServer 8000 --directory docs   # 로컬 미리보기 (pip ins
 
 ## 동작 세부
 
+- API 키가 잘못되면(401) 첫 에피소드에서 실행을 멈추고 재시도 횟수를 소모하지 않습니다. 시크릿을 고친 뒤 다시 실행하면 됩니다.
 - `state/seen.json`이 처리 이력입니다. `done`, `skipped_long`(40분 초과), `pending_transcript`(자막 태그가 아직 없음 → 4일간 재시도), `no_transcript`, `failed`(다음 실행 때 재시도).
 - 한 번에 최대 6편(`--max-new`)만 처리합니다. 밀린 건 다음 실행으로 넘어갑니다.
 - 에피소드당 Claude API 호출 2회(학습팩 + 번역). Sonnet 기준 에피소드당 대략 US$0.15 안팎, 한 달 25편이면 US$4 내외.
