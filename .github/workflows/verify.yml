@@ -1,0 +1,20 @@
+name: Verify auto sync in browser
+on:
+  workflow_dispatch:
+  push:
+    paths: ["tools/browser_verify.py"]
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install playwright RangeHTTPServer && python -m playwright install --with-deps chromium
+      - run: python tools/browser_verify.py
+      - run: |
+          git config user.name "podcast-study bot"; git config user.email "actions@users.noreply.github.com"
+          git add tools/browser_verify.json && git commit -m "verify: browser auto-sync results" && git pull --rebase origin main && git push

@@ -212,7 +212,7 @@
             } else {
               showToast('자동 싱크 실패 — 수동 모드');
             }
-            console.log('sync report', res.report);
+            console.log('sync report ' + JSON.stringify(res.report));
           } catch (e) { console.warn('auto-sync failed', e); showToast('자동 싱크 실패 — 수동 모드'); }
           $('#nowLine').style.display = ''; update(true);
         })
