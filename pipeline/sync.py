@@ -213,7 +213,8 @@ def build(doc: dict, asr: Asr, session, do_selftest: bool = False) -> dict:
     cues = doc["transcript"]["cues"]
     am = doc.get("audio_meta") or {}
     content_dur = float(am.get("content_duration") or doc.get("duration_sec") or cues[-1]["e"])
-    markers = [m["sec"] for m in am.get("ad_markers", []) if m.get("type") == "mid"] if am.get("source") == "omny" else None
+    markers = ([m["sec"] for m in am.get("ad_markers", []) if m.get("type") == "mid"]
+               if am.get("source") in ("omny", "asr-align") else None)
     with tempfile.TemporaryDirectory() as td:
         p = Path(td) / "a.mp3"
         n = download(session, url, p)

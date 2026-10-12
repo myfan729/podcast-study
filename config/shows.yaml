@@ -37,3 +37,19 @@ shows:
     # Transistor VTT has no speaker tags; the study pack assigns speakers per segment.
     speaker_labels: none
     style: "Communication-skills interview show hosted by Matt Abrahams (Stanford GSB); ~15-25 min; Mon & Thu. Contains a ~1 min sponsor read."
+
+  - slug: bbc-6-minute-english
+    name: 6 Minute English
+    publisher: BBC Learning English
+    color: "#b80000"
+    feed: https://podcasts.files.bbci.co.uk/p02pc9tn.rss
+    homepage: https://www.bbc.co.uk/learningenglish/english/features/6-minute-english
+    # No transcript tag in the feed; the scripted transcript is on the episode page. The pipeline
+    # downloads the audio, recognises it with Whisper and aligns the text to get timestamps.
+    transcript: web
+    parser: bbc_le
+    speaker_labels: named
+    max_minutes: 10
+    backfill: 2
+    level: "B1-B2"
+    style: "Two presenters discuss one topic in clear, simple English for learners; ~6 min; weekly. Scripted, with a vocabulary recap."

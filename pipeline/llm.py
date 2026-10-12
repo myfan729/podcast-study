@@ -252,8 +252,10 @@ def render_transcript(segments: list[Segment]) -> str:
 
 def build_study_prompt(meta: dict, show: dict, segments: list[Segment], speaker_mode: str) -> str:
     desc = (meta.get("description_text") or "").strip()
+    level_line = (f" Target level of the show: {show['level']} — still pick the most useful natural expressions "
+                  f"for an advanced learner, and say in difficulty.note_ko who this episode suits." if show.get("level") else "")
     return (
-        f"PODCAST: {show['name']} ({show.get('publisher', '')}). {show.get('style', '')}\n"
+        f"PODCAST: {show['name']} ({show.get('publisher', '')}). {show.get('style', '')}{level_line}\n"
         f"EPISODE: {meta['title']} — published {meta['published_at'][:10]}, {fmt_clock(meta.get('duration_sec') or 0)} long.\n"
         f"SHOW NOTES: {desc[:1200]}\n\n"
         f"SPEAKERS: {_speaker_instruction(speaker_mode)}\n\n"

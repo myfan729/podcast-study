@@ -96,12 +96,59 @@ def fetch_audio_meta(session, transcript_url: str) -> dict:
     return meta
 
 
+_asr = None
+
+
+def get_asr():
+    """Speech recognition (faster-whisper), loaded once per run and only when a show needs it."""
+    global _asr
+    if _asr is None:
+        from .sync import Asr
+        _asr = Asr()
+    return _asr
+
+
+def web_transcript_cues(session, show: dict, ep: Episode) -> tuple[list, dict, str]:
+    """Shows whose transcript is a web page without timestamps: fetch the text, download the
+    audio once, recognise it, and align the two → timed cues on an ad-free content timeline."""
+    import tempfile
+    from . import align as A, fingerprint as F, webtranscript as W
+    from .sync import download
+
+    if not ep.link:
+        raise RuntimeError("episode has no <link> to a transcript page")
+    paras = _overrides.get("web_paragraphs") or W.fetch_paragraphs(session, ep.link, show.get("parser", "generic"))
+    if _overrides.get("web_words"):
+        words, dur = _overrides["web_words"], _overrides.get("web_duration", 0.0)
+    else:
+        with tempfile.TemporaryDirectory() as td:
+            p = Path(td) / "audio.mp3"
+            download(session, ep.audio_url, p)
+            pcm16 = F.decode_pcm(p, 16000)
+        dur = len(pcm16) / 16000
+        words = get_asr().words(pcm16, 0.0, dur)
+    cues, info = A.align_paragraphs(paras, words, dur)
+    log.info("  aligned %d cues (coverage %.0f%%, pre-roll %.1fs, gaps %s)", len(cues), info["coverage"] * 100,
+             info["preroll_runner"], info["ad_gaps_runner"])
+    meta = {"dai": "detected" if (info["preroll_runner"] > 3 or info["ad_gaps_runner"]) else "none",
+            "content_duration": info["content_duration"], "ad_markers": info["markers"], "source": "asr-align",
+            "alignment": {k: info[k] for k in ("coverage", "preroll_runner", "ad_gaps_runner", "runner_duration")}}
+    return cues, meta, ep.link
+
+
 def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, translate: bool) -> dict:
     tref = ep.best_transcript
-    assert tref is not None
-    log.info("  transcript: %s (%s)", tref.kind, tref.url)
-    raw = _overrides["transcript_text"] or http_get_text(session, tref.url)
-    cues = parse_transcript(raw, tref.kind)
+    web_meta = None
+    if tref is None and show.get("transcript") == "web":
+        cues, web_meta, page_url = web_transcript_cues(session, show, ep)
+        class _Ref:  # stands in for a feed transcript reference
+            url, type, kind = page_url, "web", "web"
+        tref = _Ref()
+    else:
+        assert tref is not None
+        log.info("  transcript: %s (%s)", tref.kind, tref.url)
+        raw = _overrides["transcript_text"] or http_get_text(session, tref.url)
+        cues = parse_transcript(raw, tref.kind)
     if len(cues) < 10:
         raise RuntimeError(f"transcript parsed into only {len(cues)} cues — format not understood?")
     segments = segment_cues(cues)
@@ -113,7 +160,7 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
         speaker_mode = "none" if not stats["has_speakers"] else (
             "generic" if all(s.lower().startswith("speaker") for s in stats["speakers"]) else "named")
 
-    audio_meta = fetch_audio_meta(session, tref.url)
+    audio_meta = web_meta or fetch_audio_meta(session, tref.url)
     if audio_meta.get("ad_markers"):
         log.info("  ad markers: %s", ", ".join(f"{a['type']}@{a['sec']:.0f}s" for a in audio_meta["ad_markers"]))
 
@@ -299,7 +346,7 @@ def main(argv: list[str] | None = None) -> int:
                 break
             key = episode_key(slug, ep)
             rec = seen.get(key, {"first_seen": utcnow_iso(), "attempts": 0})
-            if not ep.best_transcript:
+            if not ep.best_transcript and show.get("transcript") != "web":
                 age = now - ep.published_at
                 status = "pending_transcript" if age < timedelta(days=retry_days) else "no_transcript"
                 rec.update({"status": status, "title": ep.title, "published_at": ep.published_iso, "seen_at": utcnow_iso()})

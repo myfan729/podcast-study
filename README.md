@@ -44,7 +44,10 @@ python -m RangeHTTPServer 8000 --directory docs   # 로컬 미리보기 (pip ins
 
 ## 쇼 추가하기
 
-`config/shows.yaml`에 항목을 추가합니다. 조건은 하나: RSS 아이템에 `<podcast:transcript>` 태그(VTT/SRT/JSON)가 있을 것.
+`config/shows.yaml`에 항목을 추가합니다. 두 종류를 지원합니다.
+
+- **RSS 자막 쇼**: 아이템에 `<podcast:transcript>` 태그(VTT/SRT/JSON)가 있는 쇼. 완전 자동.
+- **웹 대본 쇼** (`transcript: web`): 대본이 에피소드 페이지에만 있는 쇼(BBC Learning English, NPR, HBR 등). 파이프라인이 음원을 받아 Whisper로 인식한 뒤 대본 문장을 정렬해 타임스탬프를 만듭니다. 사이트별 파서(`pipeline/webtranscript.py`)가 필요합니다 — 현재 `bbc_le`, `voa_le`, `generic`.
 
 ```yaml
   - slug: money-stuff

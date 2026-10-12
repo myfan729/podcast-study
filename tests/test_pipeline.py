@@ -201,3 +201,73 @@ def test_sync_content_map_with_known_and_unknown_markers():
     assert 60.0 <= breaks2[1]["c"] <= 75.0 and abs((breaks2[1]["a"] - breaks2[1]["c"]) - 123.0) < 0.6
     # locate() refuses when the text is absent
     assert locate(cue_tokens(cues, 0.0), fake.words_in(0, 20), 0, 20) is None
+
+
+def test_bbc_page_parser():
+    from pipeline.webtranscript import parse_bbc_le
+    paras = parse_bbc_le((FIX / "bbc_6min_page.html").read_text())
+    assert [p["speaker"] for p in paras][:3] == ["Neil", "Beth", "Neil"]
+    assert paras[0]["text"].startswith("Hello. This is 6 Minute English")
+    assert all("word-for-word" not in p["text"] for p in paras)
+    assert paras[-1]["text"] == "Bye!" and paras[-1]["speaker"] == "Beth"
+    assert not any("More episodes" in p["text"] for p in paras)
+
+
+def _fake_words_from_paragraphs(paras, pre, gaps):
+    """ASR-like words with a pre-roll and inserted ad gaps (gaps = {sentence_index: seconds})."""
+    from pipeline.align import split_sentences
+    from pipeline.sync import tokens
+    words, t, si = [], pre, 0
+    for p in paras:
+        for s in split_sentences(p["text"]):
+            if si in gaps:
+                t += gaps[si]
+            for tok in tokens(s):
+                words.append((tok, round(t, 3), round(t + 0.25, 3)))
+                t += 0.3
+            t += 0.4
+            si += 1
+    return words, t + 5.0
+
+
+def test_alignment_builds_content_timeline_and_detects_ads():
+    from pipeline.align import align_paragraphs
+    from pipeline.webtranscript import parse_bbc_le
+    paras = parse_bbc_le((FIX / "bbc_6min_page.html").read_text())
+    words, dur = _fake_words_from_paragraphs(paras, pre=25.0, gaps={6: 40.0})
+    cues, info = align_paragraphs(paras, words, dur)
+    assert info["coverage"] > 0.9
+    assert abs(info["preroll_runner"] - 24.7) < 0.5
+    assert len(info["ad_gaps_runner"]) == 1 and abs((info["ad_gaps_runner"][0][1] - info["ad_gaps_runner"][0][0]) - 40) < 2
+    assert cues[0].s < 0.5 and cues[0].spk == "Neil"
+    # content timeline is continuous: no cue starts 30+ s after the previous one ends
+    assert all(b.s - a.e < 5 for a, b in zip(cues, cues[1:]))
+    assert len(info["markers"]) == 1 and 0 < info["markers"][0]["sec"] < info["content_duration"]
+    assert all(b.s >= a.e - 0.01 for a, b in zip(cues, cues[1:]))
+
+
+def test_web_transcript_show_end_to_end(tmp_path, monkeypatch):
+    """BBC-style show: no feed transcript → page paragraphs + (fake) ASR → timed cues → episode JSON."""
+    import pipeline.main as M
+    from pipeline import build
+    from pipeline.webtranscript import parse_bbc_le
+    paras = parse_bbc_le((FIX / "bbc_6min_page.html").read_text())
+    words, dur = _fake_words_from_paragraphs(paras, pre=12.0, gaps={})
+    monkeypatch.setitem(M._overrides, "web_paragraphs", paras)
+    monkeypatch.setitem(M._overrides, "web_words", words)
+    monkeypatch.setitem(M._overrides, "web_duration", dur)
+    monkeypatch.setitem(M._overrides, "resolve", False)
+    monkeypatch.setattr(M, "STATE_PATH", tmp_path / "seen.json")
+    monkeypatch.setattr(build, "EPISODES_DIR", tmp_path / "episodes")
+    monkeypatch.setattr(build, "INDEX_PATH", tmp_path / "index.json")
+    rc = M.main(["--mock", "--no-resolve", "--show", "bbc-6-minute-english",
+                 "--feed-file", f"bbc-6-minute-english={FIX / 'bbc_feed.xml'}"])
+    assert rc == 0
+    files = list((tmp_path / "episodes").glob("*.json"))
+    assert len(files) == 1
+    doc = json.loads(files[0].read_text())
+    assert doc["transcript"]["source"] == "rss:web"
+    assert doc["audio_meta"]["source"] == "asr-align" and doc["audio_meta"]["dai"] == "detected"
+    assert doc["transcript"]["cues"][0]["spk"] == "Neil" and doc["transcript"]["cues"][0]["s"] < 0.5
+    assert doc["transcript"]["segments"][0]["display_speaker"] == "Neil"
+    assert doc["duration_sec"] == round(doc["audio_meta"]["content_duration"])

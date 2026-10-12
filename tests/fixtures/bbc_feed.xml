@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+  <channel>
+    <title>6 Minute English</title>
+    <link>https://www.bbc.co.uk/learningenglish</link>
+    <description>Fixture shaped like the BBC feed: no transcript tag, link to the episode page.</description>
+    <item>
+      <title>Why do we like gossip?</title>
+      <pubDate>Thu, 09 Oct 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">urn:bbc:podcast:p0fixture</guid>
+      <link>https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-261009</link>
+      <itunes:duration>00:06:12</itunes:duration>
+      <description>Neil and Beth discuss why people share stories about others.</description>
+      <enclosure url="https://open.live.bbc.co.uk/mediaselector/6/redir/version/2.0/mediaset/audio-nondrm-download/proto/https/vpid/p0fixture.mp3" type="audio/mpeg" length="5000000" />
+    </item>
+  </channel>
+</rss>
