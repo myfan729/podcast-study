@@ -292,7 +292,9 @@
     const am = ep.audio_meta || {};
     const contentDur = am.content_duration || ep.duration_sec || (cues.length ? cues[cues.length - 1].e : 0);
     const midMarkers = (am.ad_markers || []).filter(m => m.type === 'mid').map(m => m.sec).sort((a, b) => a - b);
-    let anchors = (ep.sync && ep.sync.refs && ep.sync.refs.length) ? [] : (store.get('sync:' + ep.id, []) || []).filter(x => typeof x.c === 'number' && typeof x.a === 'number').sort((x, y) => x.c - y.c);
+    // anchors persist only for shows without references (nothing else can re-derive them); with references
+    // (or a fixed file) every visit starts from the file's clock and the automatic step takes it from there
+    let anchors = (hasRefs || fixedSync) ? [] : (store.get('sync:' + ep.id, []) || []).filter(x => typeof x.c === 'number' && typeof x.a === 'number').sort((x, y) => x.c - y.c);
     let adTotal = 0;                              // audio duration − content duration, once metadata is known
     // the first anchor's offset also covers the content before it (the pre-roll sits before everything)
     const offsetAt = (c) => { let off = anchors.length ? anchors[0].a - anchors[0].c : 0; for (const an of anchors) { if (an.c <= c + 0.05) off = an.a - an.c; else break; } return off; };
