@@ -418,7 +418,10 @@ def main(argv: list[str] | None = None) -> int:
     setup_logging(args.verbose)
 
     cfg = load_config(Path(args.config))
-    shows = [s for s in cfg["shows"] if not args.show or s["slug"] in args.show]
+    shows = [s for s in cfg["shows"] if (s["slug"] in args.show) if args.show else s.get("enabled", True)]
+    daily_limit = int(cfg.get("daily_limit") or 0)
+    kst = timezone(timedelta(hours=9))
+    today_kst = datetime.now(kst).strftime("%Y-%m-%d")
     state = read_json(STATE_PATH, {"episodes": {}})
     seen: dict = state.setdefault("episodes", {})
     session = http_session()
@@ -467,7 +470,7 @@ def main(argv: list[str] | None = None) -> int:
             if forced:
                 candidates.append(ep)
                 continue
-            if rec and rec.get("status") in ("done", "skipped_long", "no_transcript", "gave_up"):
+            if rec and rec.get("status") in ("done", "skipped_long", "skipped_daily", "no_transcript", "gave_up"):
                 continue
             if rec and rec.get("status") == "failed" and rec.get("attempts", 0) >= 3:
                 rec["status"] = "gave_up"
@@ -486,7 +489,17 @@ def main(argv: list[str] | None = None) -> int:
             candidates = candidates[:backfill]
             log.info("  first run: backfilling up to %d episodes", backfill)
 
+        candidates.sort(key=lambda e: e.published_at, reverse=True)
         for ep in candidates:
+            if daily_limit and not args.force:
+                done_today = sum(1 for v in seen.values() if v.get("status") == "done"
+                                 and datetime.fromisoformat(v.get("done_at", "1970-01-01T00:00:00Z").replace("Z", "+00:00")).astimezone(kst).strftime("%Y-%m-%d") == today_kst)
+                if done_today >= daily_limit:
+                    key = episode_key(slug, ep)
+                    if key not in seen or seen[key].get("status") not in ("done",):
+                        seen[key] = {"status": "skipped_daily", "title": ep.title, "published_at": ep.published_iso, "seen_at": utcnow_iso()}
+                        log.info("  skip (daily limit %d reached): %s", daily_limit, ep.title)
+                    continue
             if processed >= args.max_new:
                 log.info("  reached --max-new=%d; remaining episodes wait for the next run", args.max_new)
                 break

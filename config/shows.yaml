@@ -4,6 +4,9 @@
 # public address of the site (used in daily post links)
 site_url: https://myfan729.github.io/podcast-study/
 
+# at most this many new episodes are produced per day (KST); the newest wins, the rest are skipped
+daily_limit: 1
+
 defaults:
   max_minutes: 40          # skip episodes longer than this (e.g. Big Take "Weekend Listen")
   backfill: 3              # on first run, process the newest N eligible episodes per show
@@ -43,6 +46,7 @@ shows:
 
   - slug: bbc-6-minute-english
     name: 6 Minute English
+    enabled: false            # too easy for now — kept for reference
     publisher: BBC Learning English
     color: "#b80000"
     feed: https://podcasts.files.bbci.co.uk/p02pc9tn.rss
