@@ -50,6 +50,9 @@ shows:
     parser: bbc_le
     # the feed links to bbc.co.uk/programmes (no transcript); the Learning English page is date-coded
     page_url: "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_{year}/ep-{yymmdd}"
+    # the page offers the programme itself as an ad-free https download with CORS — use it instead of
+    # the podcast enclosure (which carries inserted ads and whose first redirect blocks browser fetches)
+    audio_from_page: true
     speaker_labels: named
     max_minutes: 10
     backfill: 2

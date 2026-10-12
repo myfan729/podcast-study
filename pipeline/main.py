@@ -115,14 +115,24 @@ def web_transcript_cues(session, show: dict, ep: Episode) -> tuple[list, dict, s
     from . import align as A, fingerprint as F, webtranscript as W
     from .sync import download
 
-    page_url = ep.link if _overrides.get("web_paragraphs") else W.resolve_page_url(session, show, ep)
-    paras = _overrides.get("web_paragraphs") or W.fetch_paragraphs(session, page_url, show.get("parser", "generic"))
+    audio_url = ep.audio_url
+    if _overrides.get("web_paragraphs"):
+        page_url, paras = ep.link, _overrides["web_paragraphs"]
+    else:
+        page_url = W.resolve_page_url(session, show, ep)
+        html = W.fetch_page(session, page_url)
+        paras = W.parse_paragraphs(html, show.get("parser", "generic"))
+        if show.get("audio_from_page"):
+            link = W.find_audio_link(html, page_url)
+            if link:
+                audio_url = link          # e.g. BBC's ad-free programme file (https, CORS-enabled)
+                log.info("  audio from page: %s", link)
     if _overrides.get("web_words"):
         words, dur = _overrides["web_words"], _overrides.get("web_duration", 0.0)
     else:
         with tempfile.TemporaryDirectory() as td:
             p = Path(td) / "audio.mp3"
-            download(session, ep.audio_url, p)
+            download(session, audio_url, p)
             pcm16 = F.decode_pcm(p, 16000)
         dur = len(pcm16) / 16000
         words = get_asr().words(pcm16, 0.0, dur)
@@ -131,7 +141,8 @@ def web_transcript_cues(session, show: dict, ep: Episode) -> tuple[list, dict, s
              info["preroll_runner"], info["ad_gaps_runner"])
     meta = {"dai": "detected" if (info["preroll_runner"] > 3 or info["ad_gaps_runner"]) else "none",
             "content_duration": info["content_duration"], "ad_markers": info["markers"], "source": "asr-align",
-            "alignment": {k: info[k] for k in ("coverage", "preroll_runner", "ad_gaps_runner", "runner_duration")}}
+            "alignment": {k: info[k] for k in ("coverage", "preroll_runner", "ad_gaps_runner", "runner_duration")},
+            "audio_url": audio_url}
     return cues, meta, page_url
 
 
@@ -163,6 +174,8 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
     if audio_meta.get("ad_markers"):
         log.info("  ad markers: %s", ", ".join(f"{a['type']}@{a['sec']:.0f}s" for a in audio_meta["ad_markers"]))
 
+    if web_meta and web_meta.get("audio_url") and web_meta["audio_url"] != ep.audio_url:
+        ep.audio_url = web_meta["audio_url"]      # the page's own (ad-free, CORS-enabled) file
     if _overrides["audio_url"]:
         audio_final = _overrides["audio_url"]
     elif ep.audio_url and _overrides["resolve"]:

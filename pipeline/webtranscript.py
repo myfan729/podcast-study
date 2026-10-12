@@ -130,14 +130,33 @@ def parse_generic(html: str) -> list[dict]:
 PARSERS = {"bbc_le": parse_bbc_le, "voa_le": parse_voa_le, "generic": parse_generic}
 
 
-def fetch_paragraphs(session, url: str, parser: str) -> list[dict]:
+def fetch_page(session, url: str) -> str:
     r = session.get(url, timeout=40, headers={"Accept": "text/html"})
     r.raise_for_status()
+    return r.text
+
+
+def parse_paragraphs(html: str, parser: str) -> list[dict]:
     fn = PARSERS.get(parser or "generic", parse_generic)
-    paras = fn(r.text)
+    paras = fn(html)
     words = sum(len(p["text"].split()) for p in paras)
     log.info("  web transcript: %d paragraphs, %d words (%s)", len(paras), words, parser)
     return paras
+
+
+def fetch_paragraphs(session, url: str, parser: str) -> list[dict]:
+    return parse_paragraphs(fetch_page(session, url), parser)
+
+
+def find_audio_link(html: str, base_url: str = "") -> str | None:
+    """An .mp3 the page itself offers (BBC Learning English links an ad-free programme download)."""
+    from urllib.parse import urljoin
+    soup = BeautifulSoup(html, "html.parser")
+    links = [urljoin(base_url, a["href"]) for a in soup.find_all("a", href=True) if re.search(r"\.mp3(\?|$)", a["href"], re.I)]
+    if not links:
+        return None
+    links.sort(key=lambda u: (0 if "download" in u.lower() else 1, len(u)))
+    return links[0]
 
 
 def resolve_page_url(session, show: dict, ep) -> str:
