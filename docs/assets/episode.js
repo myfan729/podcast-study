@@ -111,25 +111,7 @@
     $('#panel-expr').innerHTML = `<div class="card">` + (study.expressions || []).map((ex, i) => exprHTML(ex, i, true)).join('') + `</div>`;
     $('#panel-expr').addEventListener('click', (e) => { const b = e.target.closest('.jump'); if (b) seekTo(toAudio(+b.dataset.t), true); });
 
-    const disc = study.discussion || {};
-    const qs = [...(disc.warmup || []).map(q => ({ ...q, kind: 'warmup' })), ...(disc.opinion || []).map(q => ({ ...q, kind: 'opinion' })), ...(disc.debate || []).map(q => ({ ...q, kind: 'debate' }))];
-    $('#panel-talk').innerHTML = `
-      <div class="card"><h3>오늘의 질문<small>랜덤</small></h3><div id="randomQ" class="q" style="border:0;padding:0"><span style="color:var(--ink-3)">버튼을 누르면 아래 질문 중 하나를 뽑습니다.</span></div>
-        <div class="timer"><button type="button" id="pickQ">질문 뽑기</button><div class="row2"><span class="clock" id="clock">0:00</span><span style="font-size:12.5px;color:var(--ink-3)">말하기 타이머</span><button type="button" data-min="1">1분</button><button type="button" data-min="2">2분</button><button type="button" data-min="3">3분</button><button type="button" id="tStop">정지</button></div></div></div>
-      ${disc.warmup?.length ? `<div class="card"><h3>Warm-up<small>내용 확인</small></h3>${disc.warmup.map(q => `<div class="q"><div class="en">${esc(q.q)}</div><div class="hint">${esc(q.hint_ko)}</div></div>`).join('')}</div>` : ''}
-      ${disc.opinion?.length ? `<div class="card"><h3>Your take<small>의견</small></h3>${disc.opinion.map(q => `<div class="q"><div class="en">${esc(q.q)}</div><div class="hint">${esc(q.hint_ko)}</div></div>`).join('')}</div>` : ''}
-      ${disc.debate?.length ? `<div class="card"><h3>Debate<small>양쪽 다 말해보기</small></h3>${disc.debate.map(q => `<div class="q"><div class="en">${esc(q.q)}</div><div class="sides"><div><b>For</b>${esc(q.for)}</div><div><b>Against</b>${esc(q.against)}</div></div></div>`).join('')}</div>` : ''}
-      ${disc.roleplay ? `<div class="card"><h3>Role-play</h3><div class="role"><p>${esc(disc.roleplay.scenario)}</p><div><b>You</b> · ${esc(disc.roleplay.your_role)}</div><div><b>Partner</b> · ${esc(disc.roleplay.partner_role)}</div><ul>${(disc.roleplay.goals || []).map(g => `<li>${esc(g)}</li>`).join('')}</ul></div></div>` : ''}
-      ${disc.useful_phrases?.length ? `<div class="card"><h3>Useful phrases</h3><ul class="phr">${disc.useful_phrases.map(p => `<li><span class="en">${esc(p.phrase)}</span><span class="ko">${esc(p.ko)}</span></li>`).join('')}</ul></div>` : ''}`;
-    $('#pickQ')?.addEventListener('click', () => {
-      if (!qs.length) return; const q = qs[Math.floor(Math.random() * qs.length)];
-      $('#randomQ').innerHTML = `<div class="en">${esc(q.q)}</div>` + (q.hint_ko ? `<div class="hint">${esc(q.hint_ko)}</div>` : '') + (q.kind === 'debate' ? `<div class="sides"><div><b>For</b>${esc(q.for)}</div><div><b>Against</b>${esc(q.against)}</div></div>` : '');
-    });
-    // speaking timer
-    let tTimer = null, tStart = 0, tTarget = 0;
-    const tick = () => { const s = Math.floor((Date.now() - tStart) / 1000); const c = $('#clock'); c.textContent = fmt(s); c.classList.toggle('over', tTarget && s >= tTarget); };
-    $$('#panel-talk .timer button[data-min]').forEach(b => b.addEventListener('click', () => { clearInterval(tTimer); tStart = Date.now(); tTarget = +b.dataset.min * 60; $$('#panel-talk .timer button').forEach(x => x.classList.remove('on')); b.classList.add('on'); tick(); tTimer = setInterval(tick, 500); }));
-    $('#tStop')?.addEventListener('click', () => { clearInterval(tTimer); tTimer = null; $$('#panel-talk .timer button').forEach(x => x.classList.remove('on')); });
+    // (회화/discussion panel removed from the UI for now; study.discussion is still generated and stored)
 
     function exprHTML(ex, i, withJump) {
       const seg = segById[ex.segment_id]; const t = seg ? seg.start : 0;
@@ -164,7 +146,7 @@
       view = mobile ? v : 'transcript';   // on desktop the transcript is always on screen
       $('#main').hidden = mobile && view !== 'transcript';
       $('#rail').hidden = mobile && view === 'transcript';
-      ['summary', 'expr', 'talk'].forEach(k => { const on = (mobile ? view : railView) === k; $('#panel-' + k).classList.toggle('on', on); $('#panel-' + k).classList.toggle('on-mobile', on); });
+      ['summary', 'expr'].forEach(k => { const on = (mobile ? view : railView) === k; $('#panel-' + k).classList.toggle('on', on); $('#panel-' + k).classList.toggle('on-mobile', on); });
       $$('#mtabs [role=tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.view === view)));
       $$('#rtabs [role=tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.view === railView)));
       if (view !== 'transcript') { userScrolled = false; $('#repill').classList.remove('on'); }

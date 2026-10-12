@@ -47,7 +47,36 @@ def episode_key(show_slug: str, ep: Episode) -> str:
 
 
 def episode_id(show_slug: str, ep: Episode) -> str:
-    return f"{show_slug}-{ep.published_at.strftime('%Y-%m-%d')}-{slugify(ep.title, 60)}"
+    base = f"{show_slug}-{ep.published_at.strftime('%Y-%m-%d')}-{slugify(ep.title, 60)}"
+    tok = build.id_token(episode_key(show_slug, ep))
+    return f"{base}-{tok}" if tok else base
+
+
+def migrate_ids(seen: dict) -> int:
+    """Once a site password exists, episode ids gain an unguessable token; rename files already built."""
+    n = 0
+    for key, rec in seen.items():
+        old = rec.get("id")
+        if rec.get("status") != "done" or not old:
+            continue
+        tok = build.id_token(key)
+        if not tok or old.endswith("-" + tok):
+            continue
+        new = f"{old}-{tok}"
+        src = build.episode_path(old)
+        if not src.exists():
+            continue
+        doc = read_json(src, None) or {}
+        doc["id"] = new
+        write_json(build.episode_path(new), doc, compact=True)
+        src.unlink()
+        sync_old = build.DATA / "sync" / f"{old}.json"
+        if sync_old.exists():
+            sync_old.rename(build.DATA / "sync" / f"{new}.json")
+        rec["id"] = new
+        n += 1
+        log.info("  id → %s", new)
+    return n
 
 
 OMNY_CLIP_RE = re.compile(r"https://api\.omny\.fm/orgs/([0-9a-f-]+)/clips/([0-9a-f-]+)/transcript", re.I)
@@ -469,6 +498,8 @@ def main(argv: list[str] | None = None) -> int:
             break
 
     refresh_missing_audio_meta(session)
+    if migrate_ids(seen):
+        write_json(STATE_PATH, state)
     retimed = 0
     if args.retime or not (args.no_retime or stop_all):
         retimed = retime_stale(session, cfg["shows"], max_n=4 if not args.retime else 50, only=args.retime)

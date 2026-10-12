@@ -1,6 +1,9 @@
 # Podcast sources. Only shows whose RSS feed carries a <podcast:transcript> tag
 # (timestamped VTT/SRT) are fully automatic. See README for how to add more.
 
+# public address of the site (used in daily post links)
+site_url: https://myfan729.github.io/podcast-study/
+
 defaults:
   max_minutes: 40          # skip episodes longer than this (e.g. Big Take "Weekend Listen")
   backfill: 3              # on first run, process the newest N eligible episodes per show

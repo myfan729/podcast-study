@@ -27,6 +27,12 @@
 
   <div class="filters" id="filters" role="group" aria-label="프로그램 필터"></div>
   <ul class="list" id="list"></ul>
+  <form class="gate" id="gate" hidden autocomplete="off">
+    <p>에피소드 목록은 비공개입니다. 비밀번호를 입력하세요.</p>
+    <div class="row"><input type="password" id="pw" placeholder="비밀번호" autocomplete="current-password" autofocus><button type="submit" class="btn">열기</button></div>
+    <label><input type="checkbox" id="remember" checked> 이 기기에서 기억</label>
+    <p class="err" id="gateErr" hidden>비밀번호가 맞지 않습니다.</p>
+  </form>
   <div class="empty" id="empty" hidden>
     아직 에피소드가 없습니다. GitHub Actions의 <code>Update podcast study</code> 워크플로를 한 번 실행하면 최신 에피소드가 여기에 쌓입니다.
   </div>
@@ -104,9 +110,30 @@
     $('#foot').textContent = data.generated_at ? `마지막 갱신 ${new Date(data.generated_at).toLocaleString('ko-KR')} · 자막·음원은 각 팟캐스트 발행사의 공개 RSS에서 가져옵니다.` : '';
   }
 
-  fetch('data/index.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(d => { data = d; render(); })
-    .catch(err => { $('#empty').hidden = false; $('#empty').innerHTML = `목록을 불러오지 못했습니다 (${esc(err.message)}). <code>docs/data/index.json</code>이 있는지 확인하세요.`; });
+  // ---- private list: data/index.enc.json (AES-GCM, key from PBKDF2 of the owner's password) ----
+  const b64 = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  async function decrypt(enc, password) {
+    const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+    const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', hash: 'SHA-256', salt: b64(enc.salt), iterations: enc.iter }, km, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+    const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(enc.iv) }, key, b64(enc.ct));
+    return JSON.parse(new TextDecoder().decode(pt));
+  }
+  function showGate(enc) {
+    const gate = $('#gate'); gate.hidden = false;
+    const saved = (() => { try { return localStorage.getItem('site:pw') || ''; } catch (e) { return ''; } })();
+    const tryPw = async (pw, remember) => {
+      try {
+        data = await decrypt(enc, pw);
+        if (remember) { try { localStorage.setItem('site:pw', pw); } catch (e) {} }
+        gate.hidden = true; render();
+      } catch (e) { $('#gateErr').hidden = false; try { localStorage.removeItem('site:pw'); } catch (x) {} }
+    };
+    gate.addEventListener('submit', (e) => { e.preventDefault(); $('#gateErr').hidden = true; tryPw($('#pw').value, $('#remember').checked); });
+    if (saved) tryPw(saved, true);
+  }
+  fetch('data/index.enc.json', { cache: 'no-cache' })
+    .then(r => r.ok ? r.json().then(showGate) : fetch('data/index.json', { cache: 'no-cache' }).then(r2 => { if (!r2.ok) throw new Error(r2.status); return r2.json(); }).then(d => { data = d; render(); }))
+    .catch(err => { $('#empty').hidden = false; $('#empty').innerHTML = `목록을 불러오지 못했습니다 (${esc(err.message)}).`; });
 })();
 </script>
 </body>

@@ -50,7 +50,7 @@ def make_fixture(dst: Path) -> tuple[str, dict]:
     shutil.copytree(ROOT / "docs", dst, ignore=shutil.ignore_patterns("data"))
     (dst / "data" / "episodes").mkdir(parents=True)
     (dst / "data" / "sync").mkdir(parents=True)
-    demo = next((ROOT / "docs" / "data" / "episodes").glob("*airlines*.json"))
+    demo = ROOT / "tests" / "fixtures" / "demo-episode.json"
     doc = json.loads(demo.read_text())
     mp3 = ROOT / "docs" / "demo" / "airlines-demo.mp3"
     dur = len(F.decode_pcm(mp3, F.SR)) / F.SR
