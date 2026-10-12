@@ -91,7 +91,9 @@
       const mark = e.target.closest('mark.hl');
       if (mark && !tEl.classList.contains('no-hl')) { openSheet(+mark.dataset.ex); e.stopPropagation(); return; }
       const cue = e.target.closest('.cue'); if (!cue) return;
-      seekTo(cues[+cue.dataset.i].s, true);
+      const c = cues[+cue.dataset.i];
+      if (syncMode) { addAnchor(c.s, audio.currentTime - REACTION); setSyncMode(false); showToast('싱크 맞춤: ' + fmt(c.s) + ' 문장'); return; }
+      seekTo(toAudio(c.s), true);
     });
 
     // ---- rail panels -----------------------------------------------------
@@ -103,10 +105,10 @@
       ${study.vocab?.length ? `<div class="card"><h3>단어<small>${study.vocab.length}</small></h3><ul class="vocab">${study.vocab.map(v => `<li><span><b>${esc(v.word)}</b><i>${esc(v.pos)}</i></span><span>${esc(v.meaning_ko)}<br><span class="ex">${esc(v.example)}</span></span></li>`).join('')}</ul></div>` : ''}
       ${study.difficulty?.note_ko ? `<div class="card"><h3>난이도 ${esc(study.difficulty.cefr || '')}</h3><p>${esc(study.difficulty.note_ko)}</p></div>` : ''}
       ${study.model ? `<p class="foot" style="margin:4px 2px">생성: ${esc(study.model)}${study.generated_at ? ' · ' + new Date(study.generated_at).toLocaleString('ko-KR') : ''}</p>` : ''}`;
-    $$('#panel-summary .chapters li').forEach(li => li.addEventListener('click', () => seekTo(+li.dataset.t, true)));
+    $$('#panel-summary .chapters li').forEach(li => li.addEventListener('click', () => seekTo(toAudio(+li.dataset.t), true)));
 
     $('#panel-expr').innerHTML = `<div class="card">` + (study.expressions || []).map((ex, i) => exprHTML(ex, i, true)).join('') + `</div>`;
-    $('#panel-expr').addEventListener('click', (e) => { const b = e.target.closest('.jump'); if (b) seekTo(+b.dataset.t, true); });
+    $('#panel-expr').addEventListener('click', (e) => { const b = e.target.closest('.jump'); if (b) seekTo(toAudio(+b.dataset.t), true); });
 
     const disc = study.discussion || {};
     const qs = [...(disc.warmup || []).map(q => ({ ...q, kind: 'warmup' })), ...(disc.opinion || []).map(q => ({ ...q, kind: 'opinion' })), ...(disc.debate || []).map(q => ({ ...q, kind: 'debate' }))];
@@ -146,7 +148,7 @@
       $('#bsBody').innerHTML = exprHTML(ex, i, false).replace('<details>', '<details open>') +
         `<div style="display:flex;gap:8px;margin-top:10px"><button class="pbtn" type="button" id="bsPlay">▶ 이 문장 듣기</button><button class="pbtn" type="button" id="bsGo">표현 탭에서 보기</button></div>`;
       $('#bsheet').classList.add('on'); $('#scrim').classList.add('on');
-      $('#bsPlay').addEventListener('click', () => { if (seg) seekTo(seg.start, true); closeSheet(); });
+      $('#bsPlay').addEventListener('click', () => { if (seg) seekTo(toAudio(seg.start), true); closeSheet(); });
       $('#bsGo').addEventListener('click', () => { closeSheet(); setView('expr'); setTimeout(() => $('#ex-' + i)?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 50); });
     }
     function closeSheet() { $('#bsheet').classList.remove('on'); $('#scrim').classList.remove('on'); }
@@ -187,6 +189,8 @@
 
     // ---- audio -------------------------------------------------------------
     audio.src = ep.audio_url; $('#player').hidden = false;
+    const setPlayerH = () => document.documentElement.style.setProperty('--player-h', $('#player').offsetHeight + 'px');
+    if ('ResizeObserver' in window) new ResizeObserver(setPlayerH).observe($('#player')); setPlayerH();
     const prog = store.get('prog:' + ep.id, null);
     if (prog && prog.pos > 20 && prog.pos < (ep.duration_sec || 1e9) - 30) audio.currentTime = prog.pos;
     audio.addEventListener('loadedmetadata', () => { $('#tDur').textContent = fmt(audio.duration); if (prog && prog.pos > 20 && audio.currentTime < 1) audio.currentTime = prog.pos; });
@@ -218,19 +222,107 @@
       const on = loopSeg && loopSeg.id === seg.id;
       $$('.seg .loop[aria-pressed=true]').forEach(b => b.setAttribute('aria-pressed', 'false'));
       loopSeg = on ? null : seg; $('#loop').setAttribute('aria-pressed', String(!!loopSeg)); $('#loop').textContent = loopSeg ? '반복 중' : '반복';
-      if (loopSeg) { if (btn) btn.setAttribute('aria-pressed', 'true'); seekTo(seg.start, true); }
+      if (loopSeg) { if (btn) btn.setAttribute('aria-pressed', 'true'); seekTo(toAudio(seg.start), true); }
     }
     $('#loop').addEventListener('click', () => { const seg = segs.find(s => s.id === activeSegId) || segs[0]; toggleLoop(seg, segEls[seg.id]?.querySelector('.loop')); });
 
-    // ---- sync ------------------------------------------------------------
+    // ---- time map: content time (transcript) ↔ audio time (file with inserted ads) ----------
+    // Podcast hosts stitch ads into the file at download time, so the transcript's timestamps (content
+    // time) drift from the audio clock by the length of each ad break. The listener anchors the map
+    // with one tap per ad break ("지금 들려요"); between anchors the offset is constant.
+    const REACTION = 0.4;                         // seconds between hearing a line start and tapping
+    const am = ep.audio_meta || {};
+    const contentDur = am.content_duration || ep.duration_sec || (cues.length ? cues[cues.length - 1].e : 0);
+    const midMarkers = (am.ad_markers || []).filter(m => m.type === 'mid').map(m => m.sec).sort((a, b) => a - b);
+    let anchors = (store.get('sync:' + ep.id, []) || []).filter(x => typeof x.c === 'number' && typeof x.a === 'number').sort((x, y) => x.c - y.c);
+    let adTotal = 0;                              // audio duration − content duration, once metadata is known
+    const offsetAt = (c) => { let off = 0; for (const an of anchors) { if (an.c <= c + 0.05) off = an.a - an.c; else break; } return off; };
+    const toAudio = (c) => c + offsetAt(c);
+    function toContent(a) {
+      let off = 0;
+      for (const an of anchors) { if (an.a <= a) off = an.a - an.c; else break; }
+      const c = a - off;
+      const next = anchors.find(an => an.a > a);
+      if (next && c >= next.c - 0.05) return { c: next.c, inAd: true, adEnd: next.a };   // inside a known ad break
+      return { c, inAd: false };
+    }
+    function addAnchor(c, a) {
+      anchors = anchors.filter(an => an.c < c - 0.05);
+      anchors.push({ c: Math.max(0, c), a: Math.max(0, a) }); anchors.sort((x, y) => x.c - y.c);
+      store.set('sync:' + ep.id, anchors); dismissedPrompt = null; renderSyncState(); update(true);
+    }
+    function nudge(delta) {                       // fine-tune the anchor that governs the current position
+      if (!anchors.length) { addAnchor(0, delta); return; }
+      const a = audio.currentTime; let idx = 0;
+      anchors.forEach((an, i) => { if (an.a <= a) idx = i; });
+      anchors[idx].a = Math.max(0, anchors[idx].a + delta); store.set('sync:' + ep.id, anchors); renderSyncState(); update(true);
+    }
+    let syncMode = false, dismissedPrompt = null, toastTimer = null;
+    function setSyncMode(on) { syncMode = on; $('#syncBtn').setAttribute('aria-pressed', String(on)); tEl.classList.toggle('syncing', on); renderBanner(); }
+    function showToast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('on'), 2200); }
+    function renderSyncState() {
+      const off = offsetAt(toContent(audio.currentTime).c);
+      const narrow = window.innerWidth < 600;
+      $('#syncBtn').textContent = !anchors.length ? '싱크' : narrow ? '싱크 ✓' : `싱크 ${off >= 0 ? '+' : '−'}${fmt(Math.abs(off))}`;
+    }
+    $('#syncBtn').addEventListener('click', () => setSyncMode(!syncMode));
+    $('#adbar').addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      const act = b.dataset.act;
+      if (act === 'hear') { const target = +b.dataset.c; addAnchor(target, audio.currentTime - REACTION); showToast('싱크 맞춤'); }
+      else if (act === 'skip') { seekTo(+b.dataset.a + 0.05, true); }
+      else if (act === 'nudge') { nudge(+b.dataset.d); }
+      else if (act === 'reset') { anchors = []; store.set('sync:' + ep.id, anchors); dismissedPrompt = null; renderSyncState(); update(true); }
+      else if (act === 'close') { dismissedPrompt = b.dataset.key || 'x'; renderBanner(); }
+      else if (act === 'cancel') { setSyncMode(false); }
+    });
+    // ad-break dividers in the transcript (where the host inserts mid-roll ads)
+    midMarkers.forEach(m => {
+      const seg = segs.find(s => s.start >= m - 0.5); if (!seg) return;
+      const div = document.createElement('div'); div.className = 'adbreak';
+      div.innerHTML = `<span>광고 삽입 지점 ${fmt(m)}</span><span class="hint">광고가 끝나고 다음 문장이 들리면 '지금 들려요'를 누르세요</span>`;
+      segEls[seg.id].before(div);
+    });
+    let bannerState = '';
+    function renderBanner(info) {
+      const bar = $('#adbar'); let html = '', key = '';
+      const daiLikely = adTotal > 15 || am.dai === 'yes' || am.dai === 'likely';
+      if (syncMode) {
+        key = 'sync'; html = `<span>지금 들리는 문장을 스크립트에서 탭하세요 — 그 문장부터 싱크가 맞춰집니다.</span><button data-act="cancel">취소</button>`;
+      } else if (info && info.inAd) {
+        key = 'inad:' + Math.round(info.adEnd);
+        html = `<span>광고 구간 (이미 맞춘 위치)</span><button data-act="skip" data-a="${info.adEnd}">광고 건너뛰기 →</button>`;
+      } else if (info && info.prompt) {
+        key = 'prompt:' + info.prompt.kind + ':' + Math.round(info.prompt.c);
+        const label = info.prompt.kind === 'pre' ? '이 음원은 앞뒤·중간에 광고가 들어 있어요(재생마다 길이가 달라져요). 광고가 끝나고 첫 문장이 들리면 눌러 주세요.' : '중간 광고 구간입니다. 광고가 끝나고 다음 문장이 들리면 눌러 주세요.';
+        html = `<span>${label}<br><em>“${esc(info.prompt.text)}”</em></span><button class="primary" data-act="hear" data-c="${info.prompt.c}">지금 들려요</button><button data-act="close" data-key="${key}" aria-label="닫기">✕</button>`;
+      } else if (anchors.length && info && info.fine) {
+        key = 'fine'; html = `<span>미세 조정</span><button data-act="nudge" data-d="-1">−1s</button><button data-act="nudge" data-d="-0.3">−0.3</button><button data-act="nudge" data-d="0.3">+0.3</button><button data-act="nudge" data-d="1">+1s</button><button data-act="reset">초기화</button><button data-act="close" data-key="fine" aria-label="닫기">✕</button>`;
+      }
+      if (key && dismissedPrompt === key) { html = ''; key = ''; }
+      if (html !== bannerState) { bar.innerHTML = html; bar.hidden = !html; bannerState = html; }
+    }
+    audio.addEventListener('loadedmetadata', () => { if (audio.duration && contentDur) adTotal = audio.duration - contentDur; renderSyncState(); update(true); });
+
     let activeIdx = -1, activeSegId = null, progScroll = 0, lastSave = 0;
     const starts = cues.map(c => c.s);
     const findCue = (t) => { let lo = 0, hi = starts.length - 1, ans = -1; while (lo <= hi) { const mid = (lo + hi) >> 1; if (starts[mid] <= t) { ans = mid; lo = mid + 1; } else hi = mid - 1; } return ans; };
+    function promptFor(c, a) {                   // which ad break (if any) should the listener confirm now?
+      const daiLikely = adTotal > 15 || am.dai === 'yes' || am.dai === 'likely';
+      if (!daiLikely) return null;
+      if (!anchors.length) { const first = cues[0]; return first && a >= 0.5 ? { kind: 'pre', c: first.s, text: first.t } : null; }
+      const last = anchors[anchors.length - 1];
+      const m = midMarkers.find(x => x > last.c + 1 && c >= x - 1.5);
+      if (m == null) return null;
+      const cue = cues.find(x => x.s >= m - 0.5); return cue ? { kind: 'mid', c: cue.s, text: cue.t } : null;
+    }
     function update(force) {
       const t = audio.currentTime;
       if (!seeking) { seek.value = Math.round(t / (audio.duration || ep.duration_sec || 1) * 1000); $('#tCur').textContent = fmt(t); }
-      if (loopSeg && t >= loopSeg.end - 0.05) { audio.currentTime = loopSeg.start; return; }
-      const i = findCue(t);
+      const pos = toContent(t);
+      if (loopSeg && pos.c >= loopSeg.end - 0.05) { audio.currentTime = toAudio(loopSeg.start); return; }
+      renderBanner({ inAd: pos.inAd, adEnd: pos.adEnd, prompt: pos.inAd ? null : promptFor(pos.c, t), fine: anchors.length > 0 && syncFineOpen });
+      const i = pos.inAd ? activeIdx : findCue(pos.c);
       if (i !== activeIdx || force) {
         if (activeIdx >= 0 && cueEls[activeIdx]) cueEls[activeIdx].classList.remove('active');
         activeIdx = i;
@@ -250,6 +342,9 @@
       progScroll = Date.now();
       window.scrollTo({ top: window.scrollY + r.top - target, behavior: immediate ? 'auto' : 'smooth' });
     }
+    let syncFineOpen = false;
+    $('#syncBtn').addEventListener('contextmenu', (e) => { e.preventDefault(); syncFineOpen = !syncFineOpen; dismissedPrompt = null; update(true); });
+    $('#syncBtn').addEventListener('dblclick', () => { syncFineOpen = !syncFineOpen; dismissedPrompt = null; update(true); });
     function saveProgress() {
       lastSave = Date.now(); const dur = audio.duration || ep.duration_sec || 0;
       const done = dur && audio.currentTime > dur * 0.9;
@@ -257,7 +352,7 @@
     }
     audio.addEventListener('timeupdate', () => update(false));
     audio.addEventListener('ended', () => { saveProgress(); setPlayIcon(); });
-    update(true);
+    renderSyncState(); update(true);
 
     // user scroll detection → pause auto-scroll until the pill is tapped
     let lastY = window.scrollY;
@@ -281,7 +376,9 @@
       else if (k === 't' || k === 'T') $('#swKo').click();
       else if (k === 'h' || k === 'H') $('#swHl').click();
       else if (k === 'a' || k === 'A') $('#swAuto').click();
-      else if (k === 'Escape') closeSheet();
+      else if (k === 's' || k === 'S') setSyncMode(!syncMode);
+      else if (k === 'f' || k === 'F') { syncFineOpen = !syncFineOpen; dismissedPrompt = null; update(true); }
+      else if (k === 'Escape') { closeSheet(); setSyncMode(false); }
     });
 
     // lock-screen controls

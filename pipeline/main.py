@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import re
 import sys
 import traceback
 from datetime import datetime, timedelta, timezone
@@ -28,7 +29,7 @@ STATE_PATH = ROOT / "state" / "seen.json"
 CONFIG_PATH = ROOT / "config" / "shows.yaml"
 
 # Testing hooks: when set, used instead of downloading the transcript / calling the API.
-_overrides: dict = {"transcript_text": None, "study": None, "audio_url": None, "resolve": True}
+_overrides: dict = {"transcript_text": None, "study": None, "audio_url": None, "resolve": True, "audio_meta": None}
 
 
 def load_config(path: Path) -> dict:
@@ -49,6 +50,52 @@ def episode_id(show_slug: str, ep: Episode) -> str:
     return f"{show_slug}-{ep.published_at.strftime('%Y-%m-%d')}-{slugify(ep.title, 60)}"
 
 
+OMNY_CLIP_RE = re.compile(r"https://api\.omny\.fm/orgs/([0-9a-f-]+)/clips/([0-9a-f-]+)/transcript", re.I)
+HMS_RE = re.compile(r"^(\d+):(\d{2}):(\d{2})(?:\.(\d+))?$")
+
+
+def _hms(raw: str) -> float | None:
+    m = HMS_RE.match((raw or "").strip())
+    if not m:
+        return None
+    h, mi, sec, frac = m.groups()
+    return int(h) * 3600 + int(mi) * 60 + int(sec) + (float("0." + frac) if frac else 0.0)
+
+
+def fetch_audio_meta(session, transcript_url: str) -> dict:
+    """Where the audio comes from, whether ads are inserted dynamically, and where the ad breaks sit
+    (in content time). Omny exposes this through its clip API; other hosts are 'unknown'."""
+    meta: dict = {"dai": "unknown", "content_duration": None, "ad_markers": []}
+    if _overrides.get("audio_meta"):
+        return dict(_overrides["audio_meta"])
+    m = OMNY_CLIP_RE.match(transcript_url or "")
+    if not m:
+        if "transistor.fm" in (transcript_url or ""):
+            meta["dai"] = "likely"      # Transistor serves audio through dai.transistor.fm
+        return meta
+    org, clip = m.groups()
+    try:
+        r = session.get(f"https://api.omny.fm/orgs/{org}/clips/{clip}", timeout=30)
+        r.raise_for_status()
+        data = r.json()
+    except Exception as e:  # noqa: BLE001
+        log.warning("  omny clip meta failed: %s", e)
+        meta.update(dai="yes", error=str(e)[:200])   # Omny always inserts ads; markers unknown this time
+        return meta
+    meta["dai"] = "yes"
+    meta["content_duration"] = data.get("DurationSeconds")
+    markers = []
+    for mk in data.get("AdMarkers") or []:
+        sec = _hms(str(mk.get("Offset", "")))
+        kind = str(mk.get("AdMarkerType", "")).lower()
+        kind = "pre" if "pre" in kind else "post" if "post" in kind else "mid"
+        if sec is not None:
+            markers.append({"type": kind, "sec": round(sec, 3)})
+    meta["ad_markers"] = markers
+    meta["source"] = "omny"
+    return meta
+
+
 def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, translate: bool) -> dict:
     tref = ep.best_transcript
     assert tref is not None
@@ -65,6 +112,12 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
     if speaker_mode == "auto":
         speaker_mode = "none" if not stats["has_speakers"] else (
             "generic" if all(s.lower().startswith("speaker") for s in stats["speakers"]) else "named")
+
+    audio_meta = fetch_audio_meta(session, tref.url)
+    if audio_meta.get("content_duration"):
+        meta["duration_sec"] = int(round(audio_meta["content_duration"]))
+    if audio_meta.get("ad_markers"):
+        log.info("  ad markers: %s", ", ".join(f"{a['type']}@{a['sec']:.0f}s" for a in audio_meta["ad_markers"]))
 
     if _overrides["audio_url"]:
         audio_final = _overrides["audio_url"]
@@ -118,6 +171,7 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
         "audio_url_original": ep.audio_url,
         "demo": bool(_overrides["study"]),
         "audio_type": ep.audio_type or "audio/mpeg",
+        "audio_meta": audio_meta,
         "episode_url": ep.link,
         "image_url": ep.image_url,
         "description_html": ep.description_html,
@@ -131,6 +185,23 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
         "study": study,
         "built_at": utcnow_iso(),
     }
+
+
+def refresh_missing_audio_meta(session) -> None:
+    """Older episode files predate audio_meta; fill it in so the player knows about ad breaks."""
+    for p in sorted(build.EPISODES_DIR.glob("*.json")):
+        doc = read_json(p, None)
+        if not doc or doc.get("audio_meta") or doc.get("demo"):
+            continue
+        turl = (doc.get("transcript") or {}).get("url", "")
+        am = fetch_audio_meta(session, turl)
+        if am.get("error"):
+            continue  # try again next run
+        doc["audio_meta"] = am
+        if am.get("content_duration"):
+            doc["duration_sec"] = int(round(am["content_duration"]))
+        write_json(p, doc, compact=True)
+        log.info("  audio_meta added: %s (%s, %d markers)", doc["id"], am.get("dai"), len(am.get("ad_markers", [])))
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -147,6 +218,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--transcript-file", help="path : read the transcript from a local file instead of the URL (testing)")
     ap.add_argument("--study-file", help="path : use this study-pack JSON instead of calling the API (testing/demo)")
     ap.add_argument("--audio-url", help="override the episode audio URL (testing/demo)")
+    ap.add_argument("--ad-markers", help="comma-separated mid-roll positions in content seconds (testing/demo)")
     ap.add_argument("--no-resolve", action="store_true", help="don't follow enclosure redirects (offline testing)")
     ap.add_argument("-v", "--verbose", action="store_true")
     args = ap.parse_args(argv)
@@ -165,6 +237,9 @@ def main(argv: list[str] | None = None) -> int:
         _overrides["study"] = read_json(Path(args.study_file), None)
     if args.audio_url:
         _overrides["audio_url"] = args.audio_url
+    if args.ad_markers:
+        _overrides["audio_meta"] = {"dai": "yes", "content_duration": None, "source": "fixture",
+                                    "ad_markers": [{"type": "mid", "sec": float(x)} for x in args.ad_markers.split(",") if x]}
     if args.no_resolve:
         _overrides["resolve"] = False
 
@@ -263,6 +338,7 @@ def main(argv: list[str] | None = None) -> int:
         if stop_all:
             break
 
+    refresh_missing_audio_meta(session)
     write_json(STATE_PATH, state)
     index = build.rebuild_index(cfg["shows"])
     log.info("index: %d episodes, processed %d new, %d failures", len(index["episodes"]), processed, failures)
