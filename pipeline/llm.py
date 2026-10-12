@@ -45,7 +45,7 @@ STUDY_SCHEMA: dict[str, Any] = {
                 "required": ["label", "name", "role"],
                 "properties": {
                     "label": {"type": "string", "description": "Label exactly as in the transcript, e.g. 'Speaker 2'"},
-                    "name": {"type": "string", "description": "Person's name if identifiable from context, else a descriptive stand-in like 'Guest (economist)'"},
+                    "name": {"type": "string", "description": "Person's name if identifiable from context, else a short stand-in like 'Guest (economist)' or 'Announcer' — at most 4 words"},
                     "role": {"type": "string", "description": "host | reporter | guest | narrator | ad | other"},
                 },
             },

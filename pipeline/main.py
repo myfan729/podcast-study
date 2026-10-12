@@ -242,7 +242,8 @@ def main(argv: list[str] | None = None) -> int:
             except Exception as e:  # noqa: BLE001
                 failures += 1
                 msg = str(e)
-                auth_problem = "API error 401" in msg or "ANTHROPIC_API_KEY is not set" in msg
+                auth_problem = ("API error 401" in msg or "ANTHROPIC_API_KEY is not set" in msg
+                                or "credit balance" in msg.lower())
                 rec.update({"status": "failed", "title": ep.title, "published_at": ep.published_iso,
                             "error": msg[:300], "seen_at": utcnow_iso(),
                             # an invalid/missing API key is not the episode's fault: don't burn its retry budget
@@ -253,8 +254,8 @@ def main(argv: list[str] | None = None) -> int:
                 if auth_problem:
                     seen[key] = rec
                     write_json(STATE_PATH, state)
-                    log.error("API key problem — stopping this run. Fix the ANTHROPIC_API_KEY secret "
-                              "(Console key starting with sk-ant-, no spaces) and re-run; nothing was lost.")
+                    log.error("API key/billing problem — stopping this run. Fix the ANTHROPIC_API_KEY secret "
+                              "or top up credits in the Claude Console, then re-run; nothing was lost.")
                     stop_all = True
                     break
             seen[key] = rec
