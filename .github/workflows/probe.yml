@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
-      - run: pip install requests mutagen
+      - run: pip install requests mutagen beautifulsoup4
       - run: python tools/probe_audio.py
       - run: |
           git config user.name "podcast-study bot"; git config user.email "actions@users.noreply.github.com"
