@@ -4,6 +4,9 @@ on:
   schedule:
     # Every 3 hours. Big Take lands ~20:00–21:30 UTC on weekdays, Think Fast Talk Smart at 13:00 UTC Mon/Thu.
     - cron: "17 */3 * * *"
+  push:
+    branches: [main]
+    paths-ignore: ["docs/data/**", "state/**"]   # code/config changes trigger a run; the bot's own data commits do not
   workflow_dispatch:
     inputs:
       backfill:
