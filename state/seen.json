@@ -13,8 +13,8 @@
    "status": "failed",
    "title": "Weekend Listen: In Defense of Melania",
    "published_at": "2026-10-11T14:00:00Z",
-   "error": "API error 401: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CfwjpimkXywfgFug3opDN'}",
-   "seen_at": "2026-10-12T04:49:04Z"
+   "error": "API error 401: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011Cfwk9oKdJyRddKZYUYhCf'}",
+   "seen_at": "2026-10-12T04:53:23Z"
   },
   "big-take:0cc580daa0fb": {
    "first_seen": "2026-10-12T04:49:04Z",
