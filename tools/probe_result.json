@@ -1,83 +1,1099 @@
 {
- "page_media_links": [
-  "https://downloads.bbc.co.uk/learningenglish/features/6min/261008_6_minute_english_are_people_drinking_less_alcohol_download.mp3",
-  "https://downloads.bbc.co.uk/learningenglish/features/6min/261008_6_minute_english_are_people_drinking_less_alcohol_transcript.pdf",
-  "https://downloads.bbc.co.uk/learningenglish/features/6min/261008_6_minute_english_are_people_drinking_less_alcohol_worksheet.pdf"
+ "model": "WAV2VEC2_ASR_BASE_960H",
+ "cues": [
+  {
+   "i": 0,
+   "whisper": [
+    0.3,
+    1.03
+   ],
+   "ctc": [
+    -0.42,
+    1.0
+   ],
+   "diff_start": -0.72,
+   "t": "Hi Neil."
+  },
+  {
+   "i": 1,
+   "whisper": [
+    1.36,
+    2.03
+   ],
+   "ctc": [
+    1.36,
+    1.86
+   ],
+   "diff_start": 0.0,
+   "t": "Hi Georgie."
+  },
+  {
+   "i": 2,
+   "whisper": [
+    2.26,
+    4.79
+   ],
+   "ctc": [
+    1.94,
+    4.62
+   ],
+   "diff_start": -0.32,
+   "t": "Do you want to hear something quite unusual for me"
+  },
+  {
+   "i": 3,
+   "whisper": [
+    4.79,
+    5.63
+   ],
+   "ctc": [
+    5.16,
+    5.64
+   ],
+   "diff_start": 0.37,
+   "t": "Err, yes!"
+  },
+  {
+   "i": 4,
+   "whisper": [
+    6.12,
+    9.49
+   ],
+   "ctc": [
+    6.26,
+    9.4
+   ],
+   "diff_start": 0.14,
+   "t": "I haven't had an alcoholic drink this year."
+  },
+  {
+   "i": 5,
+   "whisper": [
+    9.49,
+    10.35
+   ],
+   "ctc": [
+    10.12,
+    10.3
+   ],
+   "diff_start": 0.63,
+   "t": "Wow!"
+  },
+  {
+   "i": 6,
+   "whisper": [
+    10.42,
+    11.71
+   ],
+   "ctc": [
+    10.46,
+    11.98
+   ],
+   "diff_start": 0.04,
+   "t": "That is really impressive."
+  },
+  {
+   "i": 7,
+   "whisper": [
+    12.12,
+    12.75
+   ],
+   "ctc": [
+    12.08,
+    12.74
+   ],
+   "diff_start": -0.04,
+   "t": "How do you feel?"
+  },
+  {
+   "i": 8,
+   "whisper": [
+    12.75,
+    13.81
+   ],
+   "ctc": [
+    12.98,
+    13.72
+   ],
+   "diff_start": 0.23,
+   "t": "Like a new person?"
+  },
+  {
+   "i": 9,
+   "whisper": [
+    14.36,
+    16.53
+   ],
+   "ctc": [
+    14.42,
+    16.42
+   ],
+   "diff_start": 0.06,
+   "t": "I do feel very good, I have to say."
+  },
+  {
+   "i": 10,
+   "whisper": [
+    16.72,
+    21.65
+   ],
+   "ctc": [
+    16.98,
+    21.6
+   ],
+   "diff_start": 0.26,
+   "t": "I can't say the same \u2013 I did have a few alcoholic "
+  },
+  {
+   "i": 11,
+   "whisper": [
+    22.1,
+    25.85
+   ],
+   "ctc": [
+    22.52,
+    25.82
+   ],
+   "diff_start": 0.42,
+   "t": "But in many parts of the world, people don't drink"
+  },
+  {
+   "i": 12,
+   "whisper": [
+    26.24,
+    30.13
+   ],
+   "ctc": [
+    26.4,
+    30.16
+   ],
+   "diff_start": 0.16,
+   "t": "In the UK it's very common \u2013 that is until recentl"
+  },
+  {
+   "i": 13,
+   "whisper": [
+    30.44,
+    42.21
+   ],
+   "ctc": [
+    30.58,
+    42.25
+   ],
+   "diff_start": 0.14,
+   "t": "Today on 6 Minute English, we're going to find out"
+  },
+  {
+   "i": 14,
+   "whisper": [
+    42.46,
+    43.34
+   ],
+   "ctc": [
+    44.17,
+    44.27
+   ],
+   "diff_start": 1.71,
+   "t": "OK."
+  },
+  {
+   "i": 15,
+   "whisper": [
+    44.32,
+    46.73
+   ],
+   "ctc": [
+    44.49,
+    46.75
+   ],
+   "diff_start": 0.17,
+   "t": "Neil, let's start with a quiz question."
+  },
+  {
+   "i": 16,
+   "whisper": [
+    47.24,
+    57.33
+   ],
+   "ctc": [
+    47.27,
+    57.39
+   ],
+   "diff_start": 0.03,
+   "t": "Many people in the UK and other countries choose t"
+  },
+  {
+   "i": 17,
+   "whisper": [
+    57.82,
+    64.65
+   ],
+   "ctc": [
+    57.81,
+    64.67
+   ],
+   "diff_start": -0.01,
+   "t": "Is it: a) No-drink New Year b) Alcohol-free Januar"
+  },
+  {
+   "i": 18,
+   "whisper": [
+    65.1,
+    68.85
+   ],
+   "ctc": [
+    65.25,
+    68.79
+   ],
+   "diff_start": 0.15,
+   "t": "Well, I know the answer to this, but I'm not going"
+  },
+  {
+   "i": 19,
+   "whisper": [
+    68.85,
+    69.28
+   ],
+   "ctc": [
+    69.25,
+    69.33
+   ],
+   "diff_start": 0.4,
+   "t": "OK."
+  },
+  {
+   "i": 20,
+   "whisper": [
+    69.56,
+    72.75
+   ],
+   "ctc": [
+    69.57,
+    73.41
+   ],
+   "diff_start": 0.01,
+   "t": "Well, then our listeners can find out the answer a"
+  },
+  {
+   "i": 21,
+   "whisper": [
+    73.04,
+    73.81
+   ],
+   "ctc": [
+    72.04,
+    73.64
+   ],
+   "diff_start": -1.0,
+   "t": "Yes, they can."
+  },
+  {
+   "i": 22,
+   "whisper": [
+    73.96,
+    81.37
+   ],
+   "ctc": [
+    74.0,
+    81.44
+   ],
+   "diff_start": 0.04,
+   "t": "So, Georgie, I hear all the time that younger peop"
+  },
+  {
+   "i": 23,
+   "whisper": [
+    81.68,
+    82.63
+   ],
+   "ctc": [
+    81.94,
+    82.6
+   ],
+   "diff_start": 0.26,
+   "t": "Is that true?"
+  },
+  {
+   "i": 24,
+   "whisper": [
+    83.0,
+    91.57
+   ],
+   "ctc": [
+    83.28,
+    91.82
+   ],
+   "diff_start": 0.28,
+   "t": "Well, in the UK, surveys suggest that 16 to 24-yea"
+  },
+  {
+   "i": 25,
+   "whisper": [
+    91.57,
+    92.12
+   ],
+   "ctc": [
+    92.22,
+    92.34
+   ],
+   "diff_start": 0.65,
+   "t": "OK."
+  },
+  {
+   "i": 26,
+   "whisper": [
+    92.52,
+    95.97
+   ],
+   "ctc": [
+    92.7,
+    96.04
+   ],
+   "diff_start": 0.18,
+   "t": "So, why are more young people choosing to be sober"
+  },
+  {
+   "i": 27,
+   "whisper": [
+    96.54,
+    98.07
+   ],
+   "ctc": [
+    96.5,
+    98.22
+   ],
+   "diff_start": -0.04,
+   "t": "That means not to drink alcohol."
+  },
+  {
+   "i": 28,
+   "whisper": [
+    98.56,
+    103.37
+   ],
+   "ctc": [
+    98.9,
+    103.26
+   ],
+   "diff_start": 0.34,
+   "t": "Well, the BBC World Service podcast What in the Wo"
+  },
+  {
+   "i": 29,
+   "whisper": [
+    103.7,
+    111.05
+   ],
+   "ctc": [
+    103.74,
+    111.0
+   ],
+   "diff_start": 0.04,
+   "t": "Presenter Hannah Gelbart met three young people wh"
+  },
+  {
+   "i": 30,
+   "whisper": [
+    111.38,
+    112.47
+   ],
+   "ctc": [
+    111.38,
+    112.4
+   ],
+   "diff_start": 0.0,
+   "t": "Here's Daniel's story:"
+  },
+  {
+   "i": 31,
+   "whisper": [
+    113.26,
+    113.66
+   ],
+   "ctc": [
+    113.4,
+    113.5
+   ],
+   "diff_start": 0.14,
+   "t": "Yeah."
+  },
+  {
+   "i": 32,
+   "whisper": [
+    113.66,
+    122.97
+   ],
+   "ctc": [
+    113.56,
+    122.83
+   ],
+   "diff_start": -0.1,
+   "t": "So, today I don't drink at all, but when I was in "
+  },
+  {
+   "i": 33,
+   "whisper": [
+    123.18,
+    132.65
+   ],
+   "ctc": [
+    123.41,
+    132.51
+   ],
+   "diff_start": 0.23,
+   "t": "I think you'd probably get a few weird glances if "
+  },
+  {
+   "i": 34,
+   "whisper": [
+    132.65,
+    135.03
+   ],
+   "ctc": [
+    132.55,
+    134.95
+   ],
+   "diff_start": -0.1,
+   "t": "It's not necessarily something I want to do moving"
+  },
+  {
+   "i": 35,
+   "whisper": [
+    135.26,
+    137.07
+   ],
+   "ctc": [
+    135.37,
+    136.93
+   ],
+   "diff_start": 0.11,
+   "t": "So, how many years have you been sober for?"
+  },
+  {
+   "i": 36,
+   "whisper": [
+    137.16,
+    139.57
+   ],
+   "ctc": [
+    137.63,
+    139.41
+   ],
+   "diff_start": 0.47,
+   "t": "I would say it's been six years now."
+  },
+  {
+   "i": 37,
+   "whisper": [
+    139.58,
+    140.05
+   ],
+   "ctc": [
+    139.57,
+    139.97
+   ],
+   "diff_start": -0.01,
+   "t": "Six years?"
+  },
+  {
+   "i": 38,
+   "whisper": [
+    140.64,
+    145.83
+   ],
+   "ctc": [
+    140.93,
+    145.89
+   ],
+   "diff_start": 0.29,
+   "t": "So, Daniel says that when he was younger, he felt "
+  },
+  {
+   "i": 39,
+   "whisper": [
+    146.26,
+    152.23
+   ],
+   "ctc": [
+    146.41,
+    152.11
+   ],
+   "diff_start": 0.15,
+   "t": "Societal pressure is feeling like you need to do s"
+  },
+  {
+   "i": 40,
+   "whisper": [
+    152.54,
+    152.94
+   ],
+   "ctc": [
+    152.65,
+    152.87
+   ],
+   "diff_start": 0.11,
+   "t": "Right."
+  },
+  {
+   "i": 41,
+   "whisper": [
+    152.96,
+    157.21
+   ],
+   "ctc": [
+    153.13,
+    157.11
+   ],
+   "diff_start": 0.17,
+   "t": "So, Daniel says drinking was the norm at universit"
+  },
+  {
+   "i": 42,
+   "whisper": [
+    157.66,
+    161.07
+   ],
+   "ctc": [
+    157.71,
+    160.97
+   ],
+   "diff_start": 0.05,
+   "t": "The norm is a way of saying that something is norm"
+  },
+  {
+   "i": 43,
+   "whisper": [
+    161.46,
+    171.11
+   ],
+   "ctc": [
+    161.56,
+    171.22
+   ],
+   "diff_start": 0.1,
+   "t": "But during the Covid-19 pandemic, when people in t"
+  },
+  {
+   "i": 44,
+   "whisper": [
+    171.58,
+    176.33
+   ],
+   "ctc": [
+    171.78,
+    176.32
+   ],
+   "diff_start": 0.2,
+   "t": "After that, he decided to be sober and he hasn't h"
+  },
+  {
+   "i": 45,
+   "whisper": [
+    177.1,
+    185.39
+   ],
+   "ctc": [
+    177.26,
+    185.34
+   ],
+   "diff_start": 0.16,
+   "t": "So, Georgie, it seems like many young people don't"
+  },
+  {
+   "i": 46,
+   "whisper": [
+    185.82,
+    188.91
+   ],
+   "ctc": [
+    185.98,
+    188.8
+   ],
+   "diff_start": 0.16,
+   "t": "But recently there's been a bit of a change, hasn'"
+  },
+  {
+   "i": 47,
+   "whisper": [
+    189.02,
+    189.63
+   ],
+   "ctc": [
+    189.3,
+    189.6
+   ],
+   "diff_start": 0.28,
+   "t": "Yes."
+  },
+  {
+   "i": 48,
+   "whisper": [
+    189.63,
+    201.29
+   ],
+   "ctc": [
+    189.94,
+    201.36
+   ],
+   "diff_start": 0.31,
+   "t": "Whilst many people use social media to share their"
+  },
+  {
+   "i": 49,
+   "whisper": [
+    201.9,
+    208.13
+   ],
+   "ctc": [
+    201.94,
+    208.19
+   ],
+   "diff_start": 0.04,
+   "t": "They argue we're too worried about fitness and wel"
+  },
+  {
+   "i": 50,
+   "whisper": [
+    208.72,
+    213.39
+   ],
+   "ctc": [
+    208.85,
+    213.33
+   ],
+   "diff_start": 0.13,
+   "t": "Here's Millie talking more about this to BBC World"
+  },
+  {
+   "i": 51,
+   "whisper": [
+    213.86,
+    217.69
+   ],
+   "ctc": [
+    214.07,
+    217.69
+   ],
+   "diff_start": 0.21,
+   "t": "I think we had this, like, rise of self-optimisati"
+  },
+  {
+   "i": 52,
+   "whisper": [
+    217.78,
+    223.85
+   ],
+   "ctc": [
+    217.77,
+    223.97
+   ],
+   "diff_start": -0.01,
+   "t": "I think unfortunately sobriety, kind of, got swept"
+  },
+  {
+   "i": 53,
+   "whisper": [
+    223.9,
+    226.83
+   ],
+   "ctc": [
+    224.15,
+    226.97
+   ],
+   "diff_start": 0.25,
+   "t": "And, you know, for many of us, that's probably not"
+  },
+  {
+   "i": 54,
+   "whisper": [
+    226.83,
+    230.57
+   ],
+   "ctc": [
+    227.07,
+    230.45
+   ],
+   "diff_start": 0.24,
+   "t": "It's that we do it to feel a bit more sane or, you"
+  },
+  {
+   "i": 55,
+   "whisper": [
+    230.6,
+    236.27
+   ],
+   "ctc": [
+    230.57,
+    236.35
+   ],
+   "diff_start": -0.03,
+   "t": "And so, I think now we are entering this, like, al"
+  },
+  {
+   "i": 56,
+   "whisper": [
+    236.27,
+    241.95
+   ],
+   "ctc": [
+    236.39,
+    241.83
+   ],
+   "diff_start": 0.12,
+   "t": "Like, it's not just alcohol \u2013 you're seeing more c"
+  },
+  {
+   "i": 57,
+   "whisper": [
+    241.95,
+    242.38
+   ],
+   "ctc": [
+    242.23,
+    242.33
+   ],
+   "diff_start": 0.28,
+   "t": "OK."
+  },
+  {
+   "i": 58,
+   "whisper": [
+    242.66,
+    252.87
+   ],
+   "ctc": [
+    242.67,
+    253.79
+   ],
+   "diff_start": 0.01,
+   "t": "So, Millie thinks that being sober is associated w"
+  },
+  {
+   "i": 59,
+   "whisper": [
+    253.24,
+    259.21
+   ],
+   "ctc": [
+    253.46,
+    259.46
+   ],
+   "diff_start": 0.22,
+   "t": "Yes, and Millie says being sober gets touted as a "
+  },
+  {
+   "i": 60,
+   "whisper": [
+    259.9,
+    264.15
+   ],
+   "ctc": [
+    259.96,
+    264.02
+   ],
+   "diff_start": 0.06,
+   "t": "In other words, people talk about it a lot and try"
+  },
+  {
+   "i": 61,
+   "whisper": [
+    264.46,
+    268.91
+   ],
+   "ctc": [
+    264.46,
+    268.9
+   ],
+   "diff_start": 0.0,
+   "t": "But Millie says that being sober isn't always abou"
+  },
+  {
+   "i": 62,
+   "whisper": [
+    269.34,
+    271.27
+   ],
+   "ctc": [
+    269.28,
+    271.3
+   ],
+   "diff_start": -0.06,
+   "t": "For her, it's about being sane."
+  },
+  {
+   "i": 63,
+   "whisper": [
+    271.78,
+    276.63
+   ],
+   "ctc": [
+    271.86,
+    276.7
+   ],
+   "diff_start": 0.08,
+   "t": "But still, Millie thinks there's a pushback agains"
+  },
+  {
+   "i": 64,
+   "whisper": [
+    277.0,
+    282.49
+   ],
+   "ctc": [
+    277.12,
+    282.6
+   ],
+   "diff_start": 0.12,
+   "t": "Pushback means a criticism of the content, and peo"
+  },
+  {
+   "i": 65,
+   "whisper": [
+    282.88,
+    286.83
+   ],
+   "ctc": [
+    282.94,
+    286.98
+   ],
+   "diff_start": 0.06,
+   "t": "For example, lots of celebrities post about themse"
+  },
+  {
+   "i": 66,
+   "whisper": [
+    287.72,
+    295.33
+   ],
+   "ctc": [
+    287.9,
+    295.18
+   ],
+   "diff_start": 0.18,
+   "t": "Well, Georgie, I've decided to try to give up alco"
+  },
+  {
+   "i": 67,
+   "whisper": [
+    295.34,
+    297.21
+   ],
+   "ctc": [
+    295.36,
+    297.2
+   ],
+   "diff_start": 0.02,
+   "t": "It's really up to the individual."
+  },
+  {
+   "i": 68,
+   "whisper": [
+    297.44,
+    300.45
+   ],
+   "ctc": [
+    297.58,
+    300.47
+   ],
+   "diff_start": 0.14,
+   "t": "Yeah, I still enjoy having a few drinks with my fr"
+  },
+  {
+   "i": 69,
+   "whisper": [
+    300.62,
+    302.82
+   ],
+   "ctc": [
+    300.65,
+    302.99
+   ],
+   "diff_start": 0.03,
+   "t": "I think it's just all about balance, really. OK."
+  },
+  {
+   "i": 70,
+   "whisper": [
+    303.06,
+    306.67
+   ],
+   "ctc": [
+    303.23,
+    306.61
+   ],
+   "diff_start": 0.17,
+   "t": "Neil, it's time to reveal the answer to this week'"
+  },
+  {
+   "i": 71,
+   "whisper": [
+    306.84,
+    315.35
+   ],
+   "ctc": [
+    307.09,
+    312.23
+   ],
+   "diff_start": 0.25,
+   "t": "I asked, \"What was the name given for when people "
+  },
+  {
+   "i": 72,
+   "whisper": [
+    315.35,
+    315.75
+   ],
+   "ctc": [
+    312.85,
+    313.07
+   ],
+   "diff_start": -2.5,
+   "t": "Yes."
+  },
+  {
+   "i": 73,
+   "whisper": [
+    315.75,
+    316.15
+   ],
+   "ctc": [
+    313.41,
+    315.79
+   ],
+   "diff_start": -2.34,
+   "t": "And the answer is Dry January."
+  },
+  {
+   "i": 74,
+   "whisper": [
+    316.15,
+    317.41
+   ],
+   "ctc": [
+    316.13,
+    317.35
+   ],
+   "diff_start": -0.02,
+   "t": "That is correct. Well done!"
+  },
+  {
+   "i": 75,
+   "whisper": [
+    317.68,
+    326.85
+   ],
+   "ctc": [
+    317.73,
+    326.69
+   ],
+   "diff_start": 0.05,
+   "t": "Let's recap the vocabulary we learned in this prog"
+  },
+  {
+   "i": 76,
+   "whisper": [
+    327.5,
+    333.41
+   ],
+   "ctc": [
+    327.61,
+    333.23
+   ],
+   "diff_start": 0.11,
+   "t": "Societal pressure is the feeling that you should d"
+  },
+  {
+   "i": 77,
+   "whisper": [
+    333.74,
+    338.07
+   ],
+   "ctc": [
+    333.87,
+    338.05
+   ],
+   "diff_start": 0.13,
+   "t": "Saying something is the norm is a way to say it's "
+  },
+  {
+   "i": 78,
+   "whisper": [
+    338.58,
+    345.79
+   ],
+   "ctc": [
+    338.95,
+    346.57
+   ],
+   "diff_start": 0.37,
+   "t": "Self-optimisation content means videos and posts a"
+  },
+  {
+   "i": 79,
+   "whisper": [
+    346.28,
+    352.49
+   ],
+   "ctc": [
+    346.38,
+    352.34
+   ],
+   "diff_start": 0.1,
+   "t": "If somebody touts an idea or lifestyle, they talk "
+  },
+  {
+   "i": 80,
+   "whisper": [
+    352.86,
+    358.09
+   ],
+   "ctc": [
+    352.98,
+    358.19
+   ],
+   "diff_start": 0.12,
+   "t": "And pushback is strong criticism of a trend, and p"
+  },
+  {
+   "i": 81,
+   "whisper": [
+    358.74,
+    366.53
+   ],
+   "ctc": [
+    358.97,
+    366.41
+   ],
+   "diff_start": 0.23,
+   "t": "Once again, our six minutes are up, but don't forg"
+  },
+  {
+   "i": 82,
+   "whisper": [
+    366.62,
+    368.11
+   ],
+   "ctc": [
+    366.75,
+    368.83
+   ],
+   "diff_start": 0.13,
+   "t": "Thank you for joining us and goodbye."
+  },
+  {
+   "i": 83,
+   "whisper": [
+    368.36,
+    368.89
+   ],
+   "ctc": [
+    369.33,
+    369.77
+   ],
+   "diff_start": 0.97,
+   "t": "Goodbye!"
+  }
  ],
- "audio_0": {
-  "url": "https://downloads.bbc.co.uk/learningenglish/features/6min/261008_6_minute_english_are_people_drinking_less_alcohol_downl",
-  "status": 200,
-  "final": "https://downloads.bbc.co.uk/learningenglish/features/6min/261008_6_minute_english_are_people_drinking_less_alcohol_downl",
-  "bytes": 6620434,
-  "duration": 409.6024263038549,
-  "cors": {
-   "Access-Control-Max-Age": "300",
-   "Access-Control-Allow-Headers": "*",
-   "Access-Control-Allow-Methods": "HEAD,GET",
-   "Access-Control-Allow-Origin": "*"
-  },
-  "hops": []
- },
- "audio_1": {
-  "url": "http://open.live.bbc.co.uk/mediaselector/6/redir/version/2.0/mediaset/audio-nondrm-download-rss-low/proto/http/vpid/p0pf",
-  "status": 200,
-  "final": "http://bbc.pdn.tritondigital.com/v1/variant/794782ec-daf4-535a-8ba8-cec31ffad768.mp3?si=d5cd3404-2e83-571d-89b9-8ef80971",
-  "bytes": 4129052,
-  "duration": 506.461625,
-  "cors": {
-   "Access-Control-Allow-Origin": "*"
-  },
-  "hops": [
-   [
-    302,
-    "http://open.live.bbc.co.uk/mediaselector/6/redir/version/2.0/mediaset/audio-nond",
-    {}
-   ],
-   [
-    302,
-    "http://bbc.pdn.tritondigital.com/ak/mpg_mp3_vlow/modav/bUnknown-63EE2F23D0C71F5-",
-    {
-     "Access-Control-Allow-Origin": "*"
-    }
-   ],
-   [
-    302,
-    "http://bbc.pdn.tritondigital.com/v1/download/media/19bd0757-acbd-5bd6-b3a7-6575f",
-    {
-     "Access-Control-Allow-Origin": "*"
-    }
-   ]
-  ]
- },
- "audio_2": {
-  "url": "https://open.live.bbc.co.uk/mediaselector/6/redir/version/2.0/mediaset/audio-nondrm-download-rss-low/proto/http/vpid/p0p",
-  "status": 200,
-  "final": "http://bbc.pdn.tritondigital.com/v1/variant/794782ec-daf4-535a-8ba8-cec31ffad768.mp3?si=d5cd3404-2e83-571d-89b9-8ef80971",
-  "bytes": 4129052,
-  "duration": 506.461625,
-  "cors": {
-   "Access-Control-Allow-Origin": "*"
-  },
-  "hops": [
-   [
-    302,
-    "https://open.live.bbc.co.uk/mediaselector/6/redir/version/2.0/mediaset/audio-non",
-    {}
-   ],
-   [
-    302,
-    "http://bbc.pdn.tritondigital.com/ak/mpg_mp3_vlow/modav/bUnknown-63EE2F23D0C71F5-",
-    {
-     "Access-Control-Allow-Origin": "*"
-    }
-   ],
-   [
-    302,
-    "http://bbc.pdn.tritondigital.com/v1/download/media/19bd0757-acbd-5bd6-b3a7-6575f",
-    {
-     "Access-Control-Allow-Origin": "*"
-    }
-   ]
-  ]
- }
+ "load_s": 3.3,
+ "seconds": 56.8
 }
