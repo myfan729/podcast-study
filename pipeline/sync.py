@@ -32,10 +32,20 @@ MIN_SCORE = 0.55
 ASR_MODEL = "base.en"
 
 _token_re = re.compile(r"[^a-z0-9']+")
+# spellings that differ between scripts and ASR output but are the same spoken word
+_NORMALISE = {"okay": "ok", "mmm": "hmm", "mm": "hmm", "umm": "um", "uhm": "um", "erm": "um", "er": "uh", "err": "uh",
+              "alright": "allright", "mr": "mister", "mrs": "missus", "dr": "doctor", "vs": "versus"}
+_ISE_RE = re.compile(r"(?<=[a-z]{3})i[sz](e[sd]?|ing|ation|ations|ational)$")
+
+
+def _norm(tok: str) -> str:
+    tok = _NORMALISE.get(tok, tok)
+    # British -ise / American -ize (optimisation vs optimization)
+    return _ISE_RE.sub(lambda m: "iz" + m.group(1), tok)
 
 
 def tokens(text: str) -> list[str]:
-    return [t for t in _token_re.split(text.lower().replace("’", "'")) if t]
+    return [_norm(t) for t in _token_re.split(text.lower().replace("’", "'")) if t]
 
 
 # ---------------------------------------------------------------------------
@@ -208,7 +218,37 @@ def selftest(session, url: str, refs: list[dict], content_dur: float) -> dict:
     return {"duration": round(dur, 3), "results": results}
 
 
-def build(doc: dict, asr: Asr, session, do_selftest: bool = False) -> dict:
+def build_fixed(doc: dict, session) -> dict:
+    """Ad-free file whose cue times are already on the file's clock (audio_meta.fixed): no alignment is
+    needed, but a fingerprint of the first spoken passage lets the page confirm it plays the same file."""
+    url = doc.get("audio_url_original") or doc["audio_url"]
+    cues = doc["transcript"]["cues"]
+    am = doc.get("audio_meta") or {}
+    a0 = float((am.get("alignment") or {}).get("first_word_runner") or cues[0]["s"])
+    with tempfile.TemporaryDirectory() as td:
+        p = Path(td) / "a.mp3"
+        n = download(session, url, p)
+        pcm8 = F.decode_pcm(p, F.SR)
+    dur = len(pcm8) / F.SR
+    i0 = max(0, int(a0 * F.SR))
+    seg = pcm8[i0:i0 + int(REF_LEN * F.SR)]
+    if len(seg) < F.N_FFT * 4:
+        raise RuntimeError("audio too short for a reference fingerprint")
+    log.info("  fixed file %.1fs (%.1f MB); reference at %.1fs", dur, n / 1048576, a0)
+    return {
+        "v": 1, "sr": F.SR, "hop": F.HOP_SEC, "fixed": True,
+        "content_duration": float(am.get("content_duration") or dur), "runner_duration": round(dur, 3),
+        "ad_total_runner": 0.0, "markers": [], "breaks": [{"c": round(a0, 3), "a": round(a0, 3), "score": 1.0}],
+        "refs": [{"c": round(a0, 3), "len": round(len(seg) / F.SR, 3), "fp": F.encode(F.fingerprint(seg))}],
+        "method": "fixed", "built_at": utcnow_iso(), "status": "ok",
+    }
+
+
+def build(doc: dict, asr: Asr | None, session, do_selftest: bool = False) -> dict:
+    if (doc.get("audio_meta") or {}).get("fixed"):
+        return build_fixed(doc, session)
+    if asr is None:
+        raise RuntimeError("ASR model required")
     url = doc.get("audio_url_original") or doc["audio_url"]
     cues = doc["transcript"]["cues"]
     am = doc.get("audio_meta") or {}
@@ -275,13 +315,15 @@ def main(argv: list[str] | None = None) -> int:
     if not todo:
         log.info("sync: nothing to do")
         return 0
-    asr = Asr(args.model)
+    asr = None
     session = http_session()
     failures = 0
     for p, doc, existing in todo:
         log.info("▶ sync %s", p.stem)
         attempts = (existing or {}).get("attempts", 0) + 1
         try:
+            if asr is None and not (doc.get("audio_meta") or {}).get("fixed"):
+                asr = Asr(args.model)
             out = build(doc, asr, session, do_selftest=args.selftest)
             out["attempts"] = attempts
             write_json(SYNC_DIR / p.name, out, compact=True)

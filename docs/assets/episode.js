@@ -93,7 +93,7 @@
       if (mark && !tEl.classList.contains('no-hl')) { openSheet(+mark.dataset.ex); e.stopPropagation(); return; }
       const cue = e.target.closest('.cue'); if (!cue) return;
       const c = cues[+cue.dataset.i];
-      if (syncMode) { addAnchor(c.s, audio.currentTime - REACTION); setSyncMode(false); showToast('싱크 맞춤: ' + fmt(c.s) + ' 문장'); return; }
+      if (syncMode) { const guess = audio.currentTime - REACTION; addAnchor(c.s, guess); setSyncMode(false); showToast('싱크 맞춤: ' + fmt(c.s) + ' 문장'); snapAnchor(c.s, guess); return; }
       seekTo(toAudio(c.s), true);
     });
 
@@ -191,32 +191,59 @@
     // ---- audio -------------------------------------------------------------
     $('#player').hidden = false;
     const srcUrl = ep.demo ? ep.audio_url : (ep.audio_url_original || ep.audio_url);
-    let autoSyncDone = false, wantPlay = false, blobUrl = null;
-    if (ep.sync && window.PodSync && ep.sync.refs && ep.sync.refs.length) {
+    const hasRefs = !!(ep.sync && window.PodSync && ep.sync.refs && ep.sync.refs.length);
+    // fixed: the file has no inserted ads and is identical for everyone (e.g. BBC's programme download);
+    // cue times are already on its clock, so nothing needs aligning — the fingerprint only confirms it.
+    const fixedSync = !!((ep.sync && ep.sync.fixed) || (ep.audio_meta && ep.audio_meta.fixed));
+    let wantPlay = false, blobUrl = null, syncBlob = null, syncIndex = null;
+    // phase: none | downloading | aligning | auto | fixed | failed | stream | manual
+    const sync = { phase: hasRefs ? 'downloading' : (fixedSync ? 'fixed' : 'none'), report: null, error: null, snaps: [] };
+    function saveReport() {
+      sync.saved = new Date().toISOString();
+      store.set('syncrep:' + ep.id, { phase: sync.phase, error: sync.error, report: sync.report, snaps: sync.snaps.slice(-5), anchors, ua: navigator.userAgent, at: sync.saved });
+    }
+    if (hasRefs) {
       // Download the stream once (counted by the publisher like any podcast app), play it from memory,
       // and find this download's ad breaks automatically.
       $('#play').disabled = true; $('#play').classList.add('busy');
       $('#nowLine').style.display = 'block'; $('#nowLine').textContent = '음원 받는 중…';
       PodSync.download(srcUrl, (got, total) => { $('#nowLine').textContent = total ? `음원 받는 중 ${Math.round(got / total * 100)}% (${(total / 1048576).toFixed(0)} MB)` : `음원 받는 중 ${(got / 1048576).toFixed(1)} MB`; })
         .then(async (blob) => {
-          blobUrl = URL.createObjectURL(blob); audio.src = blobUrl;
+          blobUrl = URL.createObjectURL(blob); audio.src = blobUrl; syncBlob = blob;
           $('#play').disabled = false; $('#play').classList.remove('busy');
           if (wantPlay) audio.play().catch(() => {});
+          sync.phase = 'aligning'; renderSyncState();
           try {
-            const res = await PodSync.align(blob, ep.sync, (s) => { $('#nowLine').textContent = s; });
-            const okRefs = res.report.refs.filter(r => r.ok).length;
-            if (res.anchors.length) {
+            const res = await PodSync.align(blob, ep.sync, (s) => { if (!fixedSync) $('#nowLine').textContent = s; }, { slack: fixedSync ? 30 : 0 });
+            sync.report = res.report; syncIndex = res.index;
+            if (fixedSync) {
+              // only move away from the file's own clock on a strong match that disagrees with it (file replaced)
+              const r = res.report.refs.find(x => x.ok);
+              if (r && r.ber < 0.2 && r.second - r.ber > 0.1 && Math.abs(r.offset) > 0.7) {
+                anchors = [{ c: r.c, a: r.a }]; store.set('sync:' + ep.id, anchors);
+                sync.phase = 'auto'; showToast(`음원이 바뀌어 싱크를 ${r.offset > 0 ? '+' : '−'}${Math.abs(r.offset).toFixed(1)}초 맞췄습니다`);
+              } else {
+                sync.phase = 'fixed';
+              }
+            } else if (res.anchors.length) {
               anchors = res.anchors.map(x => ({ c: x.c, a: x.a })); store.set('sync:' + ep.id, anchors);
-              autoSyncDone = true; dismissedPrompt = null; renderSyncState(); update(true);
+              sync.phase = 'auto'; dismissedPrompt = null;
               showToast(res.report.adTotal < 60 ? '자동 싱크 완료' : `자동 싱크 완료 · 광고 약 ${(res.report.adTotal / 60).toFixed(1)}분 건너뜀`);
             } else {
-              showToast('자동 싱크 실패 — 수동 모드');
+              sync.phase = 'failed'; sync.error = 'no reference matched';
+              showToast('자동 싱크 실패 — 첫 문장이 들리면 눌러 주세요');
             }
             console.log('sync report ' + JSON.stringify(res.report));
-          } catch (e) { console.warn('auto-sync failed', e); showToast('자동 싱크 실패 — 수동 모드'); }
-          $('#nowLine').style.display = ''; update(true);
+          } catch (e) {
+            console.warn('auto-sync failed', e); sync.phase = fixedSync ? 'fixed' : 'failed'; sync.error = String(e && e.message || e);
+            if (!fixedSync) showToast('자동 싱크 실패 — 첫 문장이 들리면 눌러 주세요');
+          }
+          saveReport(); renderSyncState(); $('#nowLine').style.display = ''; update(true);
         })
-        .catch((e) => { console.warn('download failed, streaming instead', e); audio.src = srcUrl; $('#play').disabled = false; $('#play').classList.remove('busy'); $('#nowLine').style.display = ''; if (wantPlay) audio.play().catch(() => {}); });
+        .catch((e) => {
+          console.warn('download failed, streaming instead', e); audio.src = srcUrl; sync.phase = fixedSync ? 'fixed' : 'stream'; sync.error = String(e && e.message || e); saveReport();
+          $('#play').disabled = false; $('#play').classList.remove('busy'); $('#nowLine').style.display = ''; renderSyncState(); update(true); if (wantPlay) audio.play().catch(() => {});
+        });
     } else {
       audio.src = ep.audio_url;
     }
@@ -279,10 +306,30 @@
       if (next && c >= next.c - 0.05) return { c: next.c, inAd: true, adEnd: next.a };   // inside a known ad break
       return { c, inAd: false };
     }
+    let anchorRev = 0;
     function addAnchor(c, a) {
       anchors = anchors.filter(an => an.c < c - 0.05);
       anchors.push({ c: Math.max(0, c), a: Math.max(0, a) }); anchors.sort((x, y) => x.c - y.c);
+      anchorRev++; if (sync.phase !== 'auto' && sync.phase !== 'fixed') sync.phase = 'manual';
       store.set('sync:' + ep.id, anchors); dismissedPrompt = null; renderSyncState(); update(true);
+    }
+    // A tap carries reaction time; when the downloaded audio and reference fingerprints are at hand,
+    // look for the reference within ±6 s of the tap and replace the guess with the exact position.
+    async function snapAnchor(c, aGuess) {
+      if (!syncBlob || !syncIndex || !hasRefs) return;
+      const refs = ep.sync.refs.slice().sort((x, y) => x.c - y.c);
+      const ref = refs.filter(r => r.c <= c + 0.05).pop() || refs[0];
+      const rev = anchorRev;
+      try {
+        const r = await PodSync.alignLocal(syncBlob, syncIndex, ref, aGuess + (ref.c - c), 6);
+        sync.snaps.push({ c: +c.toFixed(2), tap: +aGuess.toFixed(2), ref: ref.c, ok: r.ok, ber: r.ber, a: r.a == null ? null : +r.a.toFixed(3) });
+        if (rev !== anchorRev) return;                 // the listener moved on
+        if (r.ok) {
+          const a = c + (r.a - ref.c);
+          if (Math.abs(a - aGuess) > 0.05) { addAnchor(c, a); showToast(`지문으로 ${(aGuess - a) >= 0 ? '−' : '+'}${Math.abs(aGuess - a).toFixed(1)}초 보정했습니다`); }
+        }
+      } catch (e) { sync.snaps.push({ c, error: String(e && e.message || e) }); }
+      saveReport();
     }
     function nudge(delta) {                       // fine-tune the anchor that governs the current position
       if (!anchors.length) { addAnchor(0, delta); return; }
@@ -296,16 +343,44 @@
     function renderSyncState() {
       const off = offsetAt(toContent(audio.currentTime).c);
       const narrow = window.innerWidth < 600;
-      $('#syncBtn').textContent = !anchors.length ? '싱크' : narrow ? '싱크 ✓' : `싱크 ${off >= 0 ? '+' : '−'}${fmt(Math.abs(off))}`;
+      const b = $('#syncBtn');
+      const label = { downloading: '싱크 …', aligning: '싱크 …', failed: '싱크 !', stream: '싱크 !' }[sync.phase];
+      b.textContent = label || (!anchors.length ? (sync.phase === 'fixed' ? '싱크 ✓' : '싱크') : narrow ? '싱크 ✓' : `싱크 ${off >= 0 ? '+' : '−'}${fmt(Math.abs(off))}`);
+      b.title = { downloading: '음원을 받는 중입니다', aligning: '광고 위치를 찾는 중입니다', auto: '자동으로 맞춰졌습니다 (F: 미세 조정·정보)',
+        fixed: '광고 없는 파일 — 싱크가 고정돼 있습니다 (F: 정보)', failed: '자동 싱크 실패 — 첫 문장이 들리면 눌러 주세요', stream: '음원을 스트리밍 중 — 수동으로 맞춰 주세요',
+        manual: '수동으로 맞춘 상태 (F: 미세 조정)', none: '들리는 문장을 탭해 싱크를 맞춥니다' }[sync.phase] || '';
+    }
+    function syncInfoText() {
+      const rep = sync.report || {}, L = [];
+      const phaseKo = { downloading: '음원 받는 중', aligning: '맞추는 중', auto: '자동 싱크 완료', fixed: '고정(광고 없는 파일)', failed: '자동 싱크 실패 → 수동', stream: '스트리밍(수동)', manual: '수동', none: '수동' }[sync.phase] || sync.phase;
+      L.push(`상태: ${phaseKo}`);
+      if (sync.error) L.push(`오류: ${sync.error}`);
+      if (rep.fileDur) L.push(`음원 ${fmt(rep.fileDur)} · 대본 ${fmt(rep.contentDur)} · 광고 합계 ${rep.adTotal != null ? rep.adTotal.toFixed(1) + 's' : '?'} · ${rep.ms || 0}ms`);
+      (rep.refs || []).forEach((r, i) => L.push(`기준점 ${i + 1} (대본 ${fmt(r.c)}): ${r.ok ? `음원 ${fmt(r.a)} (오프셋 ${r.offset >= 0 ? '+' : ''}${r.offset}s)` : '불일치'} · BER ${r.ber ?? '-'} / 차순위 ${r.second ?? '-'}${r.error ? ' · ' + r.error : ''}`));
+      if (rep.decode && rep.decode.length) L.push(`디코더: ${rep.decode.join(', ')}`);
+      if (anchors.length) L.push(`앵커: ${anchors.map(a => `${fmt(a.c)}→${fmt(a.a)} (${(a.a - a.c) >= 0 ? '+' : ''}${(a.a - a.c).toFixed(2)}s)`).join(', ')}`);
+      sync.snaps.slice(-3).forEach(s => L.push(`탭 보정: 대본 ${fmt(s.c)} 탭 ${s.tap != null ? fmt(s.tap) : '?'} → ${s.ok ? fmt(s.a) + ' (BER ' + s.ber + ')' : '지문 불일치' + (s.ber != null ? ' (BER ' + s.ber + ')' : '') + (s.error ? ' ' + s.error : '')}`));
+      L.push(`재생 위치 ${fmt(audio.currentTime)} · 대본 위치 ${fmt(toContent(audio.currentTime).c)} · 속도 ${(prefs.speed || 1).toFixed(1)}×`);
+      L.push(`${navigator.userAgent}`);
+      return L.join('\n');
+    }
+    function openSyncInfo() {
+      const txt = syncInfoText();
+      $('#bsBody').innerHTML = `<div class="ex"><div class="head"><span class="expr">싱크 상태</span></div><pre class="diag">${esc(txt)}</pre>` +
+        `<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="pbtn" type="button" id="diagCopy">복사</button><button class="pbtn" type="button" id="diagReset">싱크 초기화</button></div></div>`;
+      $('#bsheet').classList.add('on'); $('#scrim').classList.add('on');
+      $('#diagCopy').addEventListener('click', () => { (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => showToast('복사했습니다'), () => showToast('복사 실패 — 길게 눌러 선택하세요')); });
+      $('#diagReset').addEventListener('click', () => { anchors = []; store.set('sync:' + ep.id, anchors); dismissedPrompt = null; if (sync.phase === 'manual') sync.phase = hasRefs ? 'failed' : 'none'; renderSyncState(); update(true); closeSheet(); });
     }
     $('#syncBtn').addEventListener('click', () => setSyncMode(!syncMode));
     $('#adbar').addEventListener('click', (e) => {
       const b = e.target.closest('button'); if (!b) return;
       const act = b.dataset.act;
-      if (act === 'hear') { const target = +b.dataset.c; addAnchor(target, audio.currentTime - REACTION); showToast('싱크 맞춤'); }
+      if (act === 'hear') { const target = +b.dataset.c; const guess = audio.currentTime - REACTION; addAnchor(target, guess); showToast('싱크 맞춤'); snapAnchor(target, guess); }
       else if (act === 'skip') { seekTo(+b.dataset.a + 0.05, true); }
       else if (act === 'nudge') { nudge(+b.dataset.d); }
-      else if (act === 'reset') { anchors = []; store.set('sync:' + ep.id, anchors); dismissedPrompt = null; renderSyncState(); update(true); }
+      else if (act === 'reset') { anchors = []; store.set('sync:' + ep.id, anchors); dismissedPrompt = null; if (sync.phase === 'manual') sync.phase = hasRefs ? 'failed' : 'none'; renderSyncState(); update(true); }
+      else if (act === 'info') { openSyncInfo(); }
       else if (act === 'close') { dismissedPrompt = b.dataset.key || 'x'; renderBanner(); }
       else if (act === 'cancel') { setSyncMode(false); }
     });
@@ -329,20 +404,21 @@
         key = 'prompt:' + info.prompt.kind + ':' + Math.round(info.prompt.c);
         const label = info.prompt.kind === 'pre' ? '이 음원은 앞뒤·중간에 광고가 들어 있어요(재생마다 길이가 달라져요). 광고가 끝나고 첫 문장이 들리면 눌러 주세요.' : '중간 광고 구간입니다. 광고가 끝나고 다음 문장이 들리면 눌러 주세요.';
         html = `<span>${label}<br><em>“${esc(info.prompt.text)}”</em></span><button class="primary" data-act="hear" data-c="${info.prompt.c}">지금 들려요</button><button data-act="close" data-key="${key}" aria-label="닫기">✕</button>`;
-      } else if (anchors.length && info && info.fine) {
-        key = 'fine'; html = `<span>미세 조정</span><button data-act="nudge" data-d="-1">−1s</button><button data-act="nudge" data-d="-0.3">−0.3</button><button data-act="nudge" data-d="0.3">+0.3</button><button data-act="nudge" data-d="1">+1s</button><button data-act="reset">초기화</button><button data-act="close" data-key="fine" aria-label="닫기">✕</button>`;
+      } else if (info && info.fine) {
+        key = 'fine'; html = `<span>미세 조정</span><button data-act="nudge" data-d="-1">−1s</button><button data-act="nudge" data-d="-0.3">−0.3</button><button data-act="nudge" data-d="0.3">+0.3</button><button data-act="nudge" data-d="1">+1s</button>${anchors.length ? '<button data-act="reset">초기화</button>' : ''}<button data-act="info">정보</button><button data-act="close" data-key="fine" aria-label="닫기">✕</button>`;
       }
       if (key && dismissedPrompt === key) { html = ''; key = ''; }
       if (html !== bannerState) { bar.innerHTML = html; bar.hidden = !html; bannerState = html; }
     }
     audio.addEventListener('loadedmetadata', () => { if (audio.duration && contentDur) adTotal = audio.duration - contentDur; renderSyncState(); update(true); });
 
-    let activeIdx = -1, activeSegId = null, progScroll = 0, lastSave = 0;
+    let activeIdx = -1, activeSegId = null, progScroll = 0, lastSave = 0, lastNow = null;
     const starts = cues.map(c => c.s);
     const findCue = (t) => { let lo = 0, hi = starts.length - 1, ans = -1; while (lo <= hi) { const mid = (lo + hi) >> 1; if (starts[mid] <= t) { ans = mid; lo = mid + 1; } else hi = mid - 1; } return ans; };
     function promptFor(c, a) {                   // which ad break (if any) should the listener confirm now?
       const daiLikely = adTotal > 15 || am.dai === 'yes' || am.dai === 'likely';
-      if (!daiLikely) return null;
+      if (!daiLikely || fixedSync) return null;
+      if (sync.phase === 'downloading' || sync.phase === 'aligning') return null;   // the automatic step is still running
       if (!anchors.length) { const first = cues[0]; return first && a >= 0.5 ? { kind: 'pre', c: first.s, text: first.t } : null; }
       const last = anchors[anchors.length - 1];
       const m = midMarkers.find(x => x > last.c + 1 && c >= x - 1.5);
@@ -354,17 +430,24 @@
       if (!seeking) { seek.value = Math.round(t / (audio.duration || ep.duration_sec || 1) * 1000); $('#tCur').textContent = fmt(t); }
       const pos = toContent(t);
       if (loopSeg && pos.c >= loopSeg.end - 0.05) { audio.currentTime = toAudio(loopSeg.start); return; }
-      renderBanner({ inAd: pos.inAd, adEnd: pos.adEnd, prompt: pos.inAd ? null : promptFor(pos.c, t), fine: anchors.length > 0 && syncFineOpen });
+      renderBanner({ inAd: pos.inAd, adEnd: pos.adEnd, prompt: pos.inAd ? null : promptFor(pos.c, t), fine: syncFineOpen });
       const i = pos.inAd ? activeIdx : findCue(pos.c);
       if (i !== activeIdx || force) {
         if (activeIdx >= 0 && cueEls[activeIdx]) cueEls[activeIdx].classList.remove('active');
         activeIdx = i;
         if (i >= 0) {
-          cueEls[i].classList.add('active'); $('#nowLine').textContent = cues[i].t;
+          cueEls[i].classList.add('active');
           const segEl = cueEls[i].closest('.seg');
           if (segEl && segEl.id !== activeSegId) { if (activeSegId) segEls[activeSegId]?.classList.remove('now'); segEl.classList.add('now'); activeSegId = segEl.id; }
           if (prefs.auto && !userScrolled && view === 'transcript') scrollToActive(false);
         }
+      }
+      // the "now playing" line: current sentence, or where we are relative to the script
+      if (sync.phase !== 'downloading' && sync.phase !== 'aligning' && cues.length) {
+        let now = '';
+        if (i >= 0) now = (i === cues.length - 1 && pos.c > cues[i].e + 1) ? '대본 끝 · 아웃트로' : cues[i].t;
+        else if (!pos.inAd && pos.c < cues[0].s) now = `인트로 · 대본은 ${fmt(cues[0].s)}부터 시작합니다`;
+        if (now !== lastNow) { lastNow = now; $('#nowLine').textContent = now; }
       }
       if (Date.now() - lastSave > 5000) saveProgress();
     }

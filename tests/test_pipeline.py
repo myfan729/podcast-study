@@ -267,7 +267,99 @@ def test_web_transcript_show_end_to_end(tmp_path, monkeypatch):
     assert len(files) == 1
     doc = json.loads(files[0].read_text())
     assert doc["transcript"]["source"] == "rss:web"
-    assert doc["audio_meta"]["source"] == "asr-align" and doc["audio_meta"]["dai"] == "detected"
-    assert doc["transcript"]["cues"][0]["spk"] == "Neil" and doc["transcript"]["cues"][0]["s"] < 0.5
+    # the show is configured ad_free: cue times stay on the file's clock (the 12 s intro is not content)
+    assert doc["audio_meta"]["source"] == "asr-align" and doc["audio_meta"]["dai"] == "none" and doc["audio_meta"]["fixed"] is True
+    assert doc["transcript"]["cues"][0]["spk"] == "Neil" and 11.5 < doc["transcript"]["cues"][0]["s"] < 12.5
     assert doc["transcript"]["segments"][0]["display_speaker"] == "Neil"
-    assert doc["duration_sec"] == round(doc["audio_meta"]["content_duration"])
+    assert doc["duration_sec"] == round(doc["audio_meta"]["content_duration"]) == round(dur)
+    assert doc["audio_meta"]["alignment"]["version"] >= 2
+
+    # --- re-timing keeps the study pack and paragraphs, only moves times; the sync file is rebuilt ---
+    from pipeline.sync import SYNC_DIR
+    monkeypatch.setattr(M.build, "DATA", tmp_path)
+    (tmp_path / "sync").mkdir()
+    (tmp_path / "sync" / files[0].name).write_text("{}")
+    words2, dur2 = _fake_words_from_paragraphs(paras, pre=20.0, gaps={})
+    monkeypatch.setitem(M._overrides, "web_words", words2)
+    monkeypatch.setitem(M._overrides, "web_duration", dur2)
+    doc["audio_meta"]["alignment"]["version"] = 1          # pretend an older algorithm aligned it
+    files[0].write_text(json.dumps(doc))
+    cfg = M.load_config(M.CONFIG_PATH)
+    n = M.retime_stale(M.http_session(), cfg["shows"], max_n=4)
+    assert n == 1
+    doc2 = json.loads(files[0].read_text())
+    assert doc2["study"] == doc["study"]
+    assert [s["text"] for s in doc2["transcript"]["segments"]] == [s["text"] for s in doc["transcript"]["segments"]]
+    assert 19.5 < doc2["transcript"]["cues"][0]["s"] < 20.5 and doc2["transcript"]["segments"][0]["start"] == doc2["transcript"]["cues"][0]["s"]
+    assert doc2["retimed_at"] and not (tmp_path / "sync" / files[0].name).exists()
+    assert M.retime_stale(M.http_session(), cfg["shows"], max_n=4) == 0   # up to date now
+
+
+def test_alignment_ad_free_squeeze_repair_and_pauses():
+    from pipeline.align import align_paragraphs
+    from pipeline.sync import tokens
+    # Quiz question and answer share the phrase "dry january"; the ASR missed the first occurrence.
+    paras = [
+        {"speaker": "Georgie", "text": "Neil, it's time to reveal the answer to this week's question. I asked, what was the name given for when people give up alcohol in January?"},
+        {"speaker": "Neil", "text": "Yes. And the answer is Dry January."},
+        {"speaker": "Georgie", "text": "That is correct. Well done! Let's recap the vocabulary we learned in this programme."},
+        {"speaker": "Neil", "text": "OK. Societal pressure is the feeling that you should do something because other people do it."},
+    ]
+    spoken = ("neil it's time to reveal the answer to this week's question i asked what was the name given for when people "
+              "give up alcohol in general | yes and the answer is dry january | that is correct well done let's recap the "
+              "vocabulary we learned in this programme | okay | societal pressure is the feeling that you should do something because other people do it")
+    words, t = [], 10.0
+    for chunk in spoken.split("|"):
+        for tok in tokens(chunk):
+            words.append((tok, round(t, 3), round(t + 0.25, 3)))
+            t += 0.3
+        t += 1.5                                    # pause between turns
+    cues, info = align_paragraphs(paras, words, t + 3, ad_free=True)
+    assert info["ad_free"] and info["preroll_runner"] == 0 and info["ad_gaps_runner"] == []
+    assert info["content_duration"] == round(t + 3, 3)
+    by_text = {c.t: c for c in cues}
+    yes, ans = by_text["Yes."], by_text["And the answer is Dry January."]
+    q = [c for c in cues if c.t.startswith("I asked")][0]
+    # the question must end before "yes" is spoken, and the answer sentence must take a realistic time
+    yes_w = next(w for w in words if w[0] == "yes")
+    assert q.e <= yes_w[1] + 0.5, (q, yes_w)
+    assert abs(yes.s - yes_w[1]) < 0.5
+    assert ans.e - ans.s > 1.2
+    # "OK." (spoken "okay") is matched via normalisation and sits after the pause, not interpolated before it
+    ok = by_text["OK."]
+    ok_w = next(w for w in words if w[0] == "ok")
+    assert abs(ok.s - ok_w[1]) < 0.2
+    assert all(b.s >= a.e - 0.01 for a, b in zip(cues, cues[1:]))
+
+
+def test_alignment_peels_stray_match_after_asr_dropout():
+    """The real failure on BBC 'Are people drinking less alcohol?': whisper dropped '…January? Yes. And the
+    answer is Dry' and kept one 'January' (the answer's, 3 s later). difflib then matched the question's
+    'January' to it and squeezed seven words into 0.8 s."""
+    from pipeline.align import align_paragraphs
+    from pipeline.sync import tokens
+    paras = [
+        {"speaker": "Georgie", "text": "I asked, what was the name given for when people give up alcohol in January?"},
+        {"speaker": "Neil", "text": "Yes. And the answer is Dry January."},
+        {"speaker": "Georgie", "text": "That is correct. Well done! Let's recap the vocabulary we learned in this programme."},
+    ]
+    words, t = [], 307.7
+    for tok in tokens("i asked what was the name given for when people give up alcohol in"):
+        words.append((tok, round(t, 3), round(t + 0.25, 3))); t += 0.3      # "in" ends at 312.15
+    words.append(("january", 315.1, 315.35))              # the answer's "January", 3 s after "in"
+    t = 316.13
+    for tok in tokens("that is correct well done let's recap the vocabulary we learned in this programme"):
+        words.append((tok, round(t, 3), round(t + 0.25, 3))); t += 0.3
+    cues, info = align_paragraphs(paras, words, 330.0, ad_free=True)
+    assert info["repaired_blocks"] >= 1
+    q, yes, ans, ok = cues[0], cues[1], cues[2], cues[3]
+    assert q.e < 313.2, q                               # question no longer stretched to the stray word
+    assert 312.3 < yes.s < 313.5, yes                   # ground truth (wav2vec2): 312.85
+    assert ans.e - ans.s > 1.5 and 312.8 < ans.s < 314.0 and ans.e <= 316.3, ans   # ground truth: 313.41–315.79
+    assert abs(ok.s - 316.13) < 0.2
+
+
+def test_tokens_normalise_spellings():
+    from pipeline.sync import tokens
+    assert tokens("Okay, erm, self-optimisation!") == tokens("OK um self optimization")
+    assert tokens("Dr Smith realised") == tokens("doctor smith realized")

@@ -118,13 +118,45 @@ window.PodSync = (function () {
   function b64ToU16(s) { const bin = atob(s); const out = new Uint16Array(bin.length >> 1); for (let i = 0; i < out.length; i++) out[i] = bin.charCodeAt(2 * i) | (bin.charCodeAt(2 * i + 1) << 8); return out; }
 
   // ---------------- decoding windows ----------------
-  async function decodeBytes(bytes) {
-    let buf = null;
-    for (const sr of [8000, 16000]) {
-      try { buf = await new OfflineAudioContext(1, 1, sr).decodeAudioData(bytes.slice(0)); break; } catch (e) { /* try next rate */ }
+  const decodeLog = [];     // which decoder path worked, for the diagnostics sheet
+  function decodeWith(ctx, bytes) {   // promise- and callback-style decodeAudioData (older Safari)
+    return new Promise((resolve, reject) => {
+      let p = null;
+      try { p = ctx.decodeAudioData(bytes, resolve, reject); } catch (e) { reject(e); return; }
+      if (p && typeof p.then === 'function') p.then(resolve, reject);
+    });
+  }
+  /** Low-pass + resample to 8 kHz (for browsers whose audio contexts only run at 44.1/48 kHz). */
+  function resampleTo8k(pcm, sr) {
+    const ratio = sr / 8000, half = Math.ceil(4 * ratio), fc = 3600 / sr;
+    const taps = new Float32Array(2 * half + 1); let sum = 0;
+    for (let i = -half; i <= half; i++) { const x = i === 0 ? 2 * fc : Math.sin(2 * Math.PI * fc * i) / (Math.PI * i); const w = 0.5 + 0.5 * Math.cos(Math.PI * i / half); taps[i + half] = x * w; sum += x * w; }
+    for (let i = 0; i < taps.length; i++) taps[i] /= sum;
+    const out = new Float32Array(Math.floor(pcm.length / ratio));
+    for (let n = 0; n < out.length; n++) {
+      const c = Math.round(n * ratio); let acc = 0;
+      const k0 = Math.max(-half, -c), k1 = Math.min(half, pcm.length - 1 - c);
+      for (let k = k0; k <= k1; k++) acc += pcm[c + k] * taps[k + half];
+      out[n] = acc;
     }
-    if (!buf) throw new Error('decode failed');
-    return buf;
+    return out;
+  }
+  async function decodeBytes(bytes) {
+    let lastErr = null;
+    const Ctx = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+    if (!Ctx) throw new Error('no OfflineAudioContext');
+    for (const sr of [8000, 16000, 48000, 44100]) {
+      let ctx;
+      try { ctx = new Ctx(1, 1, sr); } catch (e) { lastErr = e; continue; }
+      try {
+        const buf = await decodeWith(ctx, bytes.slice(0));
+        let pcm = buf.getChannelData(0), rate = buf.sampleRate;
+        if (rate !== 8000 && rate !== 16000) { pcm = resampleTo8k(pcm, rate); rate = 8000; }
+        if (decodeLog.length < 6) decodeLog.push('ctx' + sr + '→' + rate);
+        return { pcm, sr: rate };
+      } catch (e) { lastErr = e; }
+    }
+    throw new Error('decode failed: ' + (lastErr && lastErr.message || lastErr));
   }
   let wholeFile = null;   // {pcm, sr} — fallback when a browser refuses to decode a mid-stream slice
   async function decodeWindow(blob, index, startSec, endSec) {
@@ -133,11 +165,13 @@ window.PodSync = (function () {
       try {
         let i0 = lowerBound(times, startSec), i1 = lowerBound(times, endSec);
         i0 = Math.max(0, i0 - 2); i1 = Math.min(offsets.length - 1, i1 + 1);  // frames of lead-in for the bit reservoir
-        const buf = await decodeBytes(await blob.slice(offsets[i0], offsets[i1]).arrayBuffer());
-        return { pcm: buf.getChannelData(0), sr: buf.sampleRate, startSec: times[i0] };
+        const d = await decodeBytes(await blob.slice(offsets[i0], offsets[i1]).arrayBuffer());
+        return { pcm: d.pcm, sr: d.sr, startSec: times[i0] };
       } catch (e) {
-        const buf = await decodeBytes(await blob.arrayBuffer());   // whole file at 8 kHz: ~40 MB for 20 min
-        wholeFile = { pcm: buf.getChannelData(0), sr: buf.sampleRate };
+        if (decodeLog.length < 6) decodeLog.push('slice failed: ' + (e.message || e));
+        const d = await decodeBytes(await blob.arrayBuffer());   // whole file at 8 kHz: ~40 MB for 20 min
+        wholeFile = { pcm: d.pcm, sr: d.sr };
+        if (decodeLog.length < 6) decodeLog.push('whole file @' + d.sr);
       }
     }
     const a = Math.max(0, Math.floor(startSec * wholeFile.sr)), b = Math.min(wholeFile.pcm.length, Math.ceil(endSec * wholeFile.sr));
@@ -152,27 +186,28 @@ window.PodSync = (function () {
    * @param onStatus  progress callback(text)
    * @returns {anchors: [{c, a}], breaks: [...], report}
    */
-  async function align(blob, syncData, onStatus) {
-    const t0 = performance.now(); wholeFile = null;
+  async function align(blob, syncData, onStatus, opts) {
+    const t0 = performance.now(); wholeFile = null; decodeLog.length = 0;
+    const slack = (opts && opts.slack) || 0;                   // extra seconds searched on both sides (fixed files)
     const index = indexMp3(await blob.slice(0, Math.min(blob.size, 64 * 1024 * 1024)).arrayBuffer());
     if (index.offsets.length < 100) throw new Error('not an MP3 stream (' + index.offsets.length + ' frames)');
     const fileDur = index.duration;
     const contentDur = syncData.content_duration;
     let budget = Math.max(0, fileDur - contentDur);           // total inserted ad time in this download
     let offset = 0;
-    const anchors = [], report = { fileDur, contentDur, adTotal: budget, refs: [] };
+    const anchors = [], report = { fileDur: +fileDur.toFixed(2), contentDur, adTotal: +budget.toFixed(2), fixed: !!syncData.fixed, refs: [], decode: decodeLog };
     const refs = (syncData.refs || []).slice().sort((x, y) => x.c - y.c);
     for (let k = 0; k < refs.length; k++) {
       const ref = refs[k]; const fp = b64ToU16(ref.fp);
       const expA = ref.c + offset;
-      const winStart = Math.max(0, expA - 2.5), winEnd = Math.min(fileDur, expA + budget + ref.len + 6);
+      const winStart = Math.max(0, expA - 2.5 - slack), winEnd = Math.min(fileDur, expA + budget + ref.len + 6 + slack);
       onStatus && onStatus(`자동 싱크 ${k + 1}/${refs.length}…`);
       let r = { c: ref.c, ok: false };
       try {
         const w = await decodeWindow(blob, index, winStart, winEnd);
         const probe = fingerprint(w.pcm, w.sr, 2);
         const m = bestMatch(fp, probe, 2);
-        r = { c: ref.c, ber: +m.ber.toFixed(3), second: +m.second.toFixed(3), at: m.at, win: [winStart, winEnd], sr: w.sr };
+        r = { c: ref.c, ok: false, ber: +m.ber.toFixed(3), second: +m.second.toFixed(3), win: [+winStart.toFixed(1), +winEnd.toFixed(1)], sr: w.sr };
         if (m.at >= 0 && m.ber < 0.33 && m.second - m.ber > 0.04) {
           const a = w.startSec + m.at * probe.stepSec;
           const newOffset = a - ref.c;
@@ -180,11 +215,25 @@ window.PodSync = (function () {
           if (k === 0 || Math.abs(newOffset - offset) > 0.5) anchors.push({ c: ref.c, a });
           budget = Math.max(0, budget - Math.max(0, newOffset - offset)); offset = newOffset;
         }
-      } catch (e) { r.error = String(e); }
+      } catch (e) { r.error = String(e && e.message || e); }
       report.refs.push(r);
     }
     report.ms = Math.round(performance.now() - t0);
     return { anchors, report, index };
+  }
+
+  /**
+   * Refine a listener's tap: look for reference `ref` within ±radius s of `approxA` (audio seconds).
+   * The search space is tiny, so a slightly looser threshold than align() is safe.
+   */
+  async function alignLocal(blob, index, ref, approxA, radius) {
+    const fp = b64ToU16(ref.fp);
+    const winStart = Math.max(0, approxA - radius - 1), winEnd = Math.min(index.duration, approxA + radius + ref.len + 1);
+    const w = await decodeWindow(blob, index, winStart, winEnd);
+    const probe = fingerprint(w.pcm, w.sr, 2);
+    const m = bestMatch(fp, probe, 2);
+    const ok = m.at >= 0 && (m.ber < 0.30 || (m.ber < 0.36 && m.second - m.ber > 0.03));
+    return { ok, a: ok ? w.startSec + m.at * probe.stepSec : null, ber: +m.ber.toFixed(3), second: +m.second.toFixed(3) };
   }
 
   /** Download with progress; resolves to a Blob. */
@@ -197,5 +246,5 @@ window.PodSync = (function () {
     return new Blob(chunks, { type: res.headers.get('content-type') || 'audio/mpeg' });
   }
 
-  return { indexMp3, fingerprint, bestMatch, decodeWindow, align, download, b64ToU16, ber };
+  return { indexMp3, fingerprint, bestMatch, decodeWindow, align, alignLocal, download, b64ToU16, ber, resampleTo8k };
 })();

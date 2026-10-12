@@ -18,6 +18,9 @@ on:
       force:
         description: "Re-process an episode whose title/guid contains this text (optional)"
         default: ""
+      retime:
+        description: "Re-align timestamps of a web-transcript episode whose title contains this text (study pack kept, no API cost)"
+        default: ""
       mock:
         description: "Skip the Claude API (placeholder content) — for plumbing tests"
         type: boolean
@@ -62,11 +65,13 @@ jobs:
           IN_MAX_NEW: ${{ github.event.inputs.max_new }}
           IN_BACKFILL: ${{ github.event.inputs.backfill }}
           IN_FORCE: ${{ github.event.inputs.force }}
+          IN_RETIME: ${{ github.event.inputs.retime }}
           IN_MOCK: ${{ github.event.inputs.mock }}
         run: |
           args=(--max-new "${IN_MAX_NEW:-8}")
           if [ -n "$IN_BACKFILL" ]; then args+=(--backfill "$IN_BACKFILL"); fi
           if [ -n "$IN_FORCE" ]; then args+=(--force "$IN_FORCE"); fi
+          if [ -n "$IN_RETIME" ]; then args+=(--retime "$IN_RETIME"); fi
           if [ "$IN_MOCK" = "true" ]; then args+=(--mock); fi
           echo "python -m pipeline ${args[*]}"
           python -m pipeline "${args[@]}"

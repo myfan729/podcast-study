@@ -53,6 +53,9 @@ shows:
     # the page offers the programme itself as an ad-free https download with CORS — use it instead of
     # the podcast enclosure (which carries inserted ads and whose first redirect blocks browser fetches)
     audio_from_page: true
+    # that file has no inserted ads and is the same for everyone, so cue times use the file's own clock
+    # (the 18 s intro and the trailer at the end are simply not highlighted) — no sync step needed
+    ad_free: true
     speaker_labels: named
     max_minutes: 10
     backfill: 2

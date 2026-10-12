@@ -136,14 +136,83 @@ def web_transcript_cues(session, show: dict, ep: Episode) -> tuple[list, dict, s
             pcm16 = F.decode_pcm(p, 16000)
         dur = len(pcm16) / 16000
         words = get_asr().words(pcm16, 0.0, dur)
-    cues, info = A.align_paragraphs(paras, words, dur)
-    log.info("  aligned %d cues (coverage %.0f%%, pre-roll %.1fs, gaps %s)", len(cues), info["coverage"] * 100,
-             info["preroll_runner"], info["ad_gaps_runner"])
-    meta = {"dai": "detected" if (info["preroll_runner"] > 3 or info["ad_gaps_runner"]) else "none",
+    ad_free = bool(show.get("ad_free"))
+    cues, info = A.align_paragraphs(paras, words, dur, ad_free=ad_free)
+    log.info("  aligned %d cues (coverage %.0f%%, repaired %d, first word %.1fs, pre-roll %.1fs, gaps %s)", len(cues),
+             info["coverage"] * 100, info["repaired_blocks"], info["first_word_runner"], info["preroll_runner"], info["ad_gaps_runner"])
+    meta = {"dai": "none" if ad_free else ("detected" if (info["preroll_runner"] > 3 or info["ad_gaps_runner"]) else "none"),
             "content_duration": info["content_duration"], "ad_markers": info["markers"], "source": "asr-align",
-            "alignment": {k: info[k] for k in ("coverage", "preroll_runner", "ad_gaps_runner", "runner_duration")},
+            # fixed: the file is identical for every listener and cue times are on its clock → no sync needed
+            "fixed": ad_free,
+            "alignment": {k: info[k] for k in ("version", "ad_free", "coverage", "repaired_blocks", "preroll_runner",
+                                                "first_word_runner", "last_word_runner", "ad_gaps_runner", "runner_duration")},
             "audio_url": audio_url}
     return cues, meta, page_url
+
+
+def retime_episode(session, show: dict, path: Path, doc: dict) -> bool:
+    """Re-run the ASR alignment of a web-transcript episode and update cue/segment times in place,
+    keeping the study pack and paragraphing. Returns True if the file was updated."""
+    from .feeds import Episode
+    tr = doc.get("transcript") or {}
+    old_cues = tr.get("cues") or []
+    ep = Episode(guid=doc["id"], title=doc["title"], link=tr.get("url") or doc.get("episode_url") or "",
+                 published_at=datetime.fromisoformat(doc["published_at"].replace("Z", "+00:00")),
+                 duration_sec=doc.get("duration_sec"), audio_url=doc.get("audio_url"), audio_type=doc.get("audio_type"),
+                 description_html=doc.get("description_html", ""), image_url=doc.get("image_url"), episode_number=doc.get("episode_number"),
+                 transcripts=[])
+    cues, web_meta, _page = web_transcript_cues(session, show, ep)
+    if len(cues) != len(old_cues) or any(c.t != o["t"] for c, o in zip(cues, old_cues)):
+        log.warning("  retime: transcript text changed (%d → %d cues); leaving %s for a full re-run", len(old_cues), len(cues), doc["id"])
+        return False
+    for c, o in zip(cues, old_cues):
+        o["s"], o["e"] = round(c.s, 3), round(c.e, 3)
+    for sg in tr.get("segments") or []:
+        sg["start"] = old_cues[sg["cue_from"]]["s"]
+        sg["end"] = old_cues[sg["cue_to"]]["e"]
+    tr["stats"] = dict(tr.get("stats") or {}, end_sec=round(old_cues[-1]["e"], 3))
+    doc["audio_meta"] = web_meta
+    if web_meta.get("content_duration"):
+        doc["duration_sec"] = int(round(web_meta["content_duration"]))
+    if web_meta.get("audio_url"):
+        doc["audio_url"] = doc["audio_url_original"] = web_meta["audio_url"]
+    doc["retimed_at"] = utcnow_iso()
+    write_json(path, doc, compact=True)
+    sync_path = build.DATA / "sync" / path.name
+    if sync_path.exists():
+        sync_path.unlink()                 # rebuilt by pipeline.sync on this run
+    return True
+
+
+def retime_stale(session, shows: list[dict], max_n: int = 4, only: str | None = None) -> int:
+    """Web-transcript episodes aligned by an older algorithm version are re-timed (study pack kept)."""
+    from .align import ALIGN_VERSION
+    by_slug = {s["slug"]: s for s in shows}
+    n = 0
+    for p in sorted(build.EPISODES_DIR.glob("*.json"), reverse=True):
+        if n >= max_n:
+            break
+        doc = read_json(p, None)
+        if not doc or doc.get("demo"):
+            continue
+        show = by_slug.get((doc.get("show") or {}).get("slug"))
+        if not show or show.get("transcript") != "web":
+            continue
+        am = doc.get("audio_meta") or {}
+        ver = int((am.get("alignment") or {}).get("version") or 1)
+        stale = ver < ALIGN_VERSION or bool(show.get("ad_free")) != bool(am.get("fixed"))
+        if only:
+            stale = only in doc["id"] or only.lower() in doc["title"].lower()
+        if not stale:
+            continue
+        log.info("▶ retime %s (alignment v%d → v%d)", doc["id"], ver, ALIGN_VERSION)
+        try:
+            if retime_episode(session, show, p, doc):
+                n += 1
+                log.info("  ✓ re-timed %s", doc["id"])
+        except Exception as e:  # noqa: BLE001
+            log.error("  ✗ retime failed: %s", e)
+    return n
 
 
 def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, translate: bool) -> dict:
@@ -279,6 +348,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--audio-url", help="override the episode audio URL (testing/demo)")
     ap.add_argument("--ad-markers", help="comma-separated mid-roll positions in content seconds (testing/demo)")
     ap.add_argument("--no-resolve", action="store_true", help="don't follow enclosure redirects (offline testing)")
+    ap.add_argument("--retime", help="re-align the web-transcript episode whose id or title contains this text (study pack kept)")
+    ap.add_argument("--no-retime", action="store_true", help="skip the automatic re-timing of episodes aligned by an older version")
     ap.add_argument("-v", "--verbose", action="store_true")
     args = ap.parse_args(argv)
     setup_logging(args.verbose)
@@ -398,9 +469,12 @@ def main(argv: list[str] | None = None) -> int:
             break
 
     refresh_missing_audio_meta(session)
+    retimed = 0
+    if args.retime or not (args.no_retime or stop_all):
+        retimed = retime_stale(session, cfg["shows"], max_n=4 if not args.retime else 50, only=args.retime)
     write_json(STATE_PATH, state)
     index = build.rebuild_index(cfg["shows"])
-    log.info("index: %d episodes, processed %d new, %d failures", len(index["episodes"]), processed, failures)
+    log.info("index: %d episodes, processed %d new, re-timed %d, %d failures", len(index["episodes"]), processed, retimed, failures)
     return 0 if failures == 0 or processed > 0 else 1
 
 
