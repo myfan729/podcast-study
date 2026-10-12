@@ -267,12 +267,14 @@
     const midMarkers = (am.ad_markers || []).filter(m => m.type === 'mid').map(m => m.sec).sort((a, b) => a - b);
     let anchors = (ep.sync && ep.sync.refs && ep.sync.refs.length) ? [] : (store.get('sync:' + ep.id, []) || []).filter(x => typeof x.c === 'number' && typeof x.a === 'number').sort((x, y) => x.c - y.c);
     let adTotal = 0;                              // audio duration − content duration, once metadata is known
-    const offsetAt = (c) => { let off = 0; for (const an of anchors) { if (an.c <= c + 0.05) off = an.a - an.c; else break; } return off; };
+    // the first anchor's offset also covers the content before it (the pre-roll sits before everything)
+    const offsetAt = (c) => { let off = anchors.length ? anchors[0].a - anchors[0].c : 0; for (const an of anchors) { if (an.c <= c + 0.05) off = an.a - an.c; else break; } return off; };
     const toAudio = (c) => c + offsetAt(c);
     function toContent(a) {
-      let off = 0;
+      let off = anchors.length ? anchors[0].a - anchors[0].c : 0;
       for (const an of anchors) { if (an.a <= a) off = an.a - an.c; else break; }
       const c = a - off;
+      if (anchors.length && c < -0.05) return { c: 0, inAd: true, adEnd: off };           // pre-roll ads
       const next = anchors.find(an => an.a > a);
       if (next && c >= next.c - 0.05) return { c: next.c, inAd: true, adEnd: next.a };   // inside a known ad break
       return { c, inAd: false };

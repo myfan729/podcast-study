@@ -227,7 +227,7 @@ def build(doc: dict, asr: Asr, session, do_selftest: bool = False) -> dict:
     for br in breaks:
         if br.get("a") is None:
             continue
-        a0 = int(br["a"] * F.SR)
+        a0 = max(0, int(br["a"] * F.SR))
         seg = pcm8[a0:a0 + int(REF_LEN * F.SR)]
         if len(seg) < F.N_FFT * 4:
             continue

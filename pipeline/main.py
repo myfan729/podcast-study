@@ -114,8 +114,6 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
             "generic" if all(s.lower().startswith("speaker") for s in stats["speakers"]) else "named")
 
     audio_meta = fetch_audio_meta(session, tref.url)
-    if audio_meta.get("content_duration"):
-        meta["duration_sec"] = int(round(audio_meta["content_duration"]))
     if audio_meta.get("ad_markers"):
         log.info("  ad markers: %s", ", ".join(f"{a['type']}@{a['sec']:.0f}s" for a in audio_meta["ad_markers"]))
 
@@ -131,6 +129,8 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
         "duration_sec": ep.duration_sec or int(stats["end_sec"]),
         "description_text": strip_html(ep.description_html, 2000),
     }
+    if audio_meta.get("content_duration"):
+        meta["duration_sec"] = int(round(audio_meta["content_duration"]))
     if _overrides["study"]:
         from .llm import postprocess_study_pack
         study = postprocess_study_pack(dict(_overrides["study"]), segments)
