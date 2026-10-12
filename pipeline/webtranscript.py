@@ -18,6 +18,7 @@ STOP_HEADINGS = re.compile(r"^(vocabulary|try|latest|more|download|credits|relat
 def _clean(s: str) -> str:
     s = s.replace("\xa0", " ")
     s = re.sub(r"[ \t]+", " ", s)
+    s = re.sub(r"\s+([,.;:?!])", r"\1", s)
     return s.strip()
 
 
@@ -35,57 +36,57 @@ def _para_lines(p: Tag) -> list[str]:
 def parse_bbc_le(html: str) -> list[dict]:
     """BBC Learning English feature pages (6 Minute English, The English We Speak, …).
 
-    The transcript sits in a rich-text block after a 'TRANSCRIPT' marker; each turn is a <p> whose
-    bold lead-in is the speaker's name followed by a <br> and the line.
+    After a <p><strong>TRANSCRIPT</strong></p> marker, turns are laid out as
+    <strong>Name</strong><br>line<br>line<br><strong>Name</strong><br>… — several turns per <p>.
+    Vocabulary words are also bold but are followed by text, not by a line break.
     """
     soup = BeautifulSoup(html, "html.parser")
-    # candidates: every <p>/<h*> in document order; find the TRANSCRIPT marker
-    nodes = [n for n in soup.find_all(["p", "h2", "h3", "h4", "div"])]
-    start = None
-    for i, n in enumerate(nodes):
-        txt = _clean(n.get_text(" "))
-        if n.name != "div" and re.fullmatch(r"transcript[:.]?", txt, re.I):
-            start = i
+    marker = None
+    for p in soup.find_all(["p", "h2", "h3", "h4"]):
+        if re.fullmatch(r"transcript[:.]?", _clean(p.get_text(" ")), re.I):
+            marker = p
             break
-    if start is None:
-        # some pages mark it as a bold line inside a <p>
-        for i, n in enumerate(nodes):
-            if n.name == "p" and re.match(r"^\s*transcript\b", _clean(n.get_text(" ")), re.I) and len(_clean(n.get_text(" "))) < 40:
-                start = i
-                break
-    if start is None:
+    if marker is None:
         raise ValueError("no TRANSCRIPT marker found")
 
     paras: list[dict] = []
     speaker = ""
-    for n in nodes[start + 1:]:
-        if n.name in ("h2", "h3", "h4"):
+    buf: list[str] = []
+
+    def flush() -> None:
+        text = _clean(" ".join(buf))
+        buf.clear()
+        if text and not re.search(r"not a word-for-word transcript", text, re.I) and not re.match(r"^note:", text, re.I):
+            paras.append({"speaker": speaker, "text": text})
+
+    for node in marker.find_all_next(["p", "h2", "h3", "h4"]):
+        if node.name != "p":
             if paras:
                 break
             continue
-        if n.name == "div":
+        txt = _clean(node.get_text(" "))
+        if not txt:
             continue
-        lines = _para_lines(n)
-        if not lines:
-            continue
-        txt = " ".join(lines)
-        if re.match(r"^note:", txt, re.I) or re.search(r"not a word-for-word transcript", txt, re.I):
-            continue
-        if STOP_HEADINGS.match(txt) and len(txt) < 40 and paras:
+        if paras and (re.match(r"^what do you think of", txt, re.I) or re.match(r"^(find|try|practise|download)\b", txt, re.I)):
             break
-        first = n.find(["strong", "b"])
-        lead = _clean(first.get_text(" ")) if first else ""
-        if lead and SPEAKER_RE.match(lead) and lines and lines[0].startswith(lead):
-            speaker = lead
-            rest = lines[1:] if len(lines) > 1 else [lines[0][len(lead):].strip(" :")]
-            text = " ".join(x for x in rest if x)
-            if text:
-                paras.append({"speaker": speaker, "text": text})
-            continue
-        if len(lines) == 1 and SPEAKER_RE.match(lines[0]) and len(lines[0]) < 25:
-            speaker = lines[0]          # a name on its own line labels what follows
-            continue
-        paras.append({"speaker": speaker, "text": txt})
+        children = list(node.children)
+        for idx, child in enumerate(children):
+            if isinstance(child, NavigableString):
+                buf.append(str(child))
+            elif isinstance(child, Tag) and child.name == "br":
+                buf.append(" ")
+            elif isinstance(child, Tag) and child.name in ("strong", "b"):
+                label = _clean(child.get_text(" "))
+                nxt = next((c for c in children[idx + 1:] if not (isinstance(c, NavigableString) and not str(c).strip())), None)
+                on_own_line = nxt is None or (isinstance(nxt, Tag) and nxt.name == "br")
+                if label and SPEAKER_RE.match(label) and on_own_line and not re.fullmatch(r"transcript", label, re.I):
+                    flush()
+                    speaker = label
+                else:
+                    buf.append(" " + label + " ")
+            elif isinstance(child, Tag):
+                buf.append(child.get_text(" "))
+        flush()
     if len(paras) < 4:
         raise ValueError(f"transcript too short ({len(paras)} paragraphs)")
     return paras
@@ -137,3 +138,28 @@ def fetch_paragraphs(session, url: str, parser: str) -> list[dict]:
     words = sum(len(p["text"].split()) for p in paras)
     log.info("  web transcript: %d paragraphs, %d words (%s)", len(paras), words, parser)
     return paras
+
+
+def resolve_page_url(session, show: dict, ep) -> str:
+    """Where this episode's transcript page lives.
+
+    `page_url` in the show config is a template with {year}, {yymmdd}, {yyyymmdd} filled from the
+    episode's publication date (UTC); the day before/after is tried too since feeds and sites
+    disagree on timestamps. Falls back to the feed's <link>.
+    """
+    from datetime import timedelta
+    tpl = show.get("page_url")
+    if tpl:
+        for delta in (0, -1, 1):
+            d = ep.published_at + timedelta(days=delta)
+            url = tpl.format(year=d.strftime("%Y"), yymmdd=d.strftime("%y%m%d"), yyyymmdd=d.strftime("%Y%m%d"))
+            try:
+                r = session.head(url, timeout=20, allow_redirects=True)
+                if r.status_code == 200:
+                    return r.url
+            except Exception:  # noqa: BLE001
+                continue
+        log.warning("  transcript page not found from date template; falling back to feed link")
+    if not ep.link:
+        raise RuntimeError("no transcript page URL for this episode")
+    return ep.link

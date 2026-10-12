@@ -48,6 +48,8 @@ shows:
     # downloads the audio, recognises it with Whisper and aligns the text to get timestamps.
     transcript: web
     parser: bbc_le
+    # the feed links to bbc.co.uk/programmes (no transcript); the Learning English page is date-coded
+    page_url: "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_{year}/ep-{yymmdd}"
     speaker_labels: named
     max_minutes: 10
     backfill: 2

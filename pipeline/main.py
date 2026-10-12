@@ -115,9 +115,8 @@ def web_transcript_cues(session, show: dict, ep: Episode) -> tuple[list, dict, s
     from . import align as A, fingerprint as F, webtranscript as W
     from .sync import download
 
-    if not ep.link:
-        raise RuntimeError("episode has no <link> to a transcript page")
-    paras = _overrides.get("web_paragraphs") or W.fetch_paragraphs(session, ep.link, show.get("parser", "generic"))
+    page_url = ep.link if _overrides.get("web_paragraphs") else W.resolve_page_url(session, show, ep)
+    paras = _overrides.get("web_paragraphs") or W.fetch_paragraphs(session, page_url, show.get("parser", "generic"))
     if _overrides.get("web_words"):
         words, dur = _overrides["web_words"], _overrides.get("web_duration", 0.0)
     else:
@@ -133,7 +132,7 @@ def web_transcript_cues(session, show: dict, ep: Episode) -> tuple[list, dict, s
     meta = {"dai": "detected" if (info["preroll_runner"] > 3 or info["ad_gaps_runner"]) else "none",
             "content_duration": info["content_duration"], "ad_markers": info["markers"], "source": "asr-align",
             "alignment": {k: info[k] for k in ("coverage", "preroll_runner", "ad_gaps_runner", "runner_duration")}}
-    return cues, meta, ep.link
+    return cues, meta, page_url
 
 
 def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, translate: bool) -> dict:
