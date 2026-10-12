@@ -1,0 +1,66 @@
+{
+ "big-take-asia-2026-10-06-the-surprising-people-getting-very-rich-off-ai": {
+  "anchors": [
+   {
+    "c": 0,
+    "a": 108
+   },
+   {
+    "c": 574.273,
+    "a": 835.8282448977632
+   }
+  ],
+  "sync": "싱크 ✓",
+  "toast": "자동 싱크 완료 · 광고 2구간 (6.0분)",
+  "duration": 1234.834286,
+  "seconds": 5.5,
+  "report": "sync report {\"fileDur\":1234.86040816217,\"contentDur\":874.418,\"adTotal\":360.44240816216995,\"refs\":[{\"c\":0,\"ber\":0.045,\"second\":0.474,\"at\":3375,\"win\":[0,411.44240816216995],\"sr\":8000,\"a\":108,\"offset\":108,\"ok\":true},{\"c\":574.273,\"ber\":0.114,\"second\":0.481,\"at\":4878,\"win\":[679.773,985.71540816217],\"sr\":8000,\"a\":835.828,\"offset\":261.555,\"ok\":true}],\"ms\":2750}",
+  "errors": []
+ },
+ "think-fast-talk-smart-2026-09-28-327-the-human-reset-reclaiming-authenticity-in-the-age-of-ai": {
+  "anchors": [
+   {
+    "c": 0.622,
+    "a": 0.32
+   }
+  ],
+  "sync": "싱크 ✓",
+  "toast": "자동 싱크 완료 · 광고 1구간 (0.0분)",
+  "duration": 1543.68,
+  "seconds": 3.0,
+  "report": "sync report {\"fileDur\":1543.7322448963635,\"contentDur\":1544,\"adTotal\":0,\"refs\":[{\"c\":0.622,\"ber\":0.071,\"second\":0.484,\"at\":10,\"win\":[0,51.622],\"sr\":8000,\"a\":0.32,\"offset\":-0.302,\"ok\":true}],\"ms\":248}",
+  "errors": []
+ },
+ "think-fast-talk-smart-2026-10-01-328-ask-matt-anything-dont-let-your-communication-fizzle-at": {
+  "anchors": [
+   {
+    "c": 36.299,
+    "a": 118.134204081633
+   },
+   {
+    "c": 739.863,
+    "a": 949.963755101619
+   }
+  ],
+  "sync": "싱크 ✓",
+  "toast": "자동 싱크 완료 · 광고 2구간 (3.9분)",
+  "duration": 1364.753125,
+  "seconds": 4.2,
+  "report": "sync report {\"fileDur\":1364.7673469374697,\"contentDur\":1132,\"adTotal\":232.7673469374697,\"refs\":[{\"c\":36.299,\"ber\":0.117,\"second\":0.479,\"at\":2637,\"win\":[33.799,320.0663469374697],\"sr\":8000,\"a\":118.134,\"offset\":81.835,\"ok\":true},{\"c\":739.863,\"ber\":0.083,\"second\":0.47,\"at\":4088,\"win\":[819.1982040816331,1023.6303469374698],\"sr\":8000,\"a\":949.964,\"offset\":210.101,\"ok\":true}],\"ms\":1851}",
+  "errors": []
+ },
+ "think-fast-talk-smart-2026-10-05-329-your-brand-is-your-promise-the-4-cs-for-better": {
+  "anchors": [
+   {
+    "c": 0.257,
+    "a": 0
+   }
+  ],
+  "sync": "싱크 ✓",
+  "toast": "자동 싱크 완료 · 광고 1구간 (0.0분)",
+  "duration": 1441.493333,
+  "seconds": 2.5,
+  "report": "sync report {\"fileDur\":1441.5673469373453,\"contentDur\":1442,\"adTotal\":0,\"refs\":[{\"c\":0.257,\"ber\":0.048,\"second\":0.486,\"at\":0,\"win\":[0,51.257],\"sr\":8000,\"a\":0,\"offset\":-0.257,\"ok\":true}],\"ms\":250}",
+  "errors": []
+ }
+}
