@@ -213,6 +213,31 @@ def retime_episode(session, show: dict, path: Path, doc: dict) -> bool:
     return True
 
 
+def backfill_cue_translations(gen: StudyGenerator, max_n: int = 10) -> int:
+    """Older episodes only have paragraph translations; add sentence-level ones (a few per run)."""
+    if gen.mock:
+        return 0
+    n = 0
+    for p in sorted(build.EPISODES_DIR.glob("*.json"), reverse=True):
+        if n >= max_n:
+            break
+        doc = read_json(p, None)
+        if not doc or doc.get("demo"):
+            continue
+        study = doc.get("study") or {}
+        if study.get("mock") or study.get("translations_cues") is not None:
+            continue
+        cues = (doc.get("transcript") or {}).get("cues") or []
+        if not cues:
+            continue
+        log.info("▶ sentence translations for %s (%d lines)", doc["id"], len(cues))
+        study["translations_cues"] = gen.translate_cues(cues)
+        doc["study"] = study
+        write_json(p, doc, compact=True)
+        n += 1
+    return n
+
+
 def retime_stale(session, shows: list[dict], max_n: int = 4, only: str | None = None) -> int:
     """Web-transcript episodes aligned by an older algorithm version are re-timed (study pack kept)."""
     from .align import ALIGN_VERSION
@@ -298,7 +323,7 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
         study["mock"] = gen.mock
         study["model"] = gen.model
         if translate:
-            study["translations"] = gen.translate_segments(segments)
+            study["translations_cues"] = gen.translate_cues(cues)      # sentence by sentence
     study["generated_at"] = utcnow_iso()
 
     # Apply speaker names to segments for display.
@@ -498,6 +523,11 @@ def main(argv: list[str] | None = None) -> int:
             break
 
     refresh_missing_audio_meta(session)
+    if not stop_all and not args.no_translate:
+        try:
+            backfill_cue_translations(gen)
+        except Exception as e:  # noqa: BLE001
+            log.error("sentence-translation backfill failed: %s", e)
     if migrate_ids(seen):
         write_json(STATE_PATH, state)
     retimed = 0

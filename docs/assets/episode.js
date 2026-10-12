@@ -29,7 +29,8 @@
     let userScrolled = false;
     const segs = ep.transcript.segments;
     const study = ep.study || {};
-    const tr = study.translations || {};
+    const tr = study.translations || {};              // paragraph-level (older episodes)
+    const trc = study.translations_cues || null;      // sentence-level: cue index → Korean
     const audio = $('#audio');
     document.title = ep.title + ' · Podcast Study';
 
@@ -63,15 +64,18 @@
       const p = document.createElement('p');
       for (let i = seg.cue_from; i <= seg.cue_to; i++) {
         const c = cues[i]; const span = document.createElement('span'); span.className = 'cue'; span.dataset.i = i; span.textContent = c.t; cueEls[i] = span;
-        p.appendChild(span); if (i < seg.cue_to) p.appendChild(document.createTextNode(' '));
+        p.appendChild(span);
+        if (trc && trc[String(i)]) { const k = document.createElement('span'); k.className = 'ko-cue'; k.textContent = trc[String(i)]; p.appendChild(k); }
+        if (i < seg.cue_to) p.appendChild(document.createTextNode(' '));
       }
       art.appendChild(who); art.appendChild(p);
       if (shadowBy[seg.id]) { const why = document.createElement('div'); why.className = 'ko'; why.style.display = 'block'; why.style.color = 'var(--ink-3)'; why.textContent = shadowBy[seg.id]; art.appendChild(why); }
-      if (tr[seg.id]) { const ko = document.createElement('div'); ko.className = 'ko'; ko.textContent = tr[seg.id]; art.appendChild(ko); }
+      if (!trc && tr[seg.id]) { const ko = document.createElement('div'); ko.className = 'ko'; ko.textContent = tr[seg.id]; art.appendChild(ko); }
       tEl.appendChild(art); segEls[seg.id] = art;
       who.querySelector('.loop').addEventListener('click', (e) => { toggleLoop(seg, e.currentTarget); });
     });
-    if (!Object.keys(tr).length) $('#swKo').hidden = true;
+    if (!trc && !Object.keys(tr).length) $('#swKo').hidden = true;
+    if (trc) tEl.classList.add('by-sentence');
 
     // expression highlights (quote may cross cue boundaries)
     (study.expressions || []).forEach((ex, idx) => {
@@ -101,14 +105,10 @@
     const segById = Object.fromEntries(segs.map(s => [s.id, s]));
     $('#panel-summary').innerHTML = `
       <div class="card"><h3>핵심 요약</h3><ul>${(study.summary_ko || []).map(b => `<li>${esc(b)}</li>`).join('')}</ul></div>
-      ${study.summary_en ? `<div class="card"><h3>In my own words<small>소리 내어 다시 말해보기</small></h3><p class="en">${esc(study.summary_en)}</p></div>` : ''}
-      ${study.chapters?.length ? `<div class="card"><h3>챕터</h3><ul class="chapters">${study.chapters.map(c => { const s = segById[c.segment_id]; return `<li data-t="${s ? s.start : 0}"><span class="t">${fmt(s ? s.start : 0)}</span><span><span class="en">${esc(c.title_en)}</span><br><span class="ko">${esc(c.title_ko)}</span></span></li>`; }).join('')}</ul></div>` : ''}
-      ${study.vocab?.length ? `<div class="card"><h3>단어<small>${study.vocab.length}</small></h3><ul class="vocab">${study.vocab.map(v => `<li><span><b>${esc(v.word)}</b><i>${esc(v.pos)}</i></span><span>${esc(v.meaning_ko)}<br><span class="ex">${esc(v.example)}</span></span></li>`).join('')}</ul></div>` : ''}
-      ${study.difficulty?.note_ko ? `<div class="card"><h3>난이도 ${esc(study.difficulty.cefr || '')}</h3><p>${esc(study.difficulty.note_ko)}</p></div>` : ''}
       ${study.model ? `<p class="foot" style="margin:4px 2px">생성: ${esc(study.model)}${study.generated_at ? ' · ' + new Date(study.generated_at).toLocaleString('ko-KR') : ''}</p>` : ''}`;
-    $$('#panel-summary .chapters li').forEach(li => li.addEventListener('click', () => seekTo(toAudio(+li.dataset.t), true)));
 
-    $('#panel-expr').innerHTML = `<div class="card">` + (study.expressions || []).map((ex, i) => exprHTML(ex, i, true)).join('') + `</div>`;
+    $('#panel-expr').innerHTML = `<div class="card"><h3>표현<small>${(study.expressions || []).length}</small></h3>` + (study.expressions || []).map((ex, i) => exprHTML(ex, i, true)).join('') + `</div>` +
+      (study.vocab?.length ? `<div class="card"><h3>단어<small>${study.vocab.length}</small></h3><ul class="vocab">${study.vocab.map(v => `<li><span><b>${esc(v.word)}</b><i>${esc(v.pos)}</i></span><span>${esc(v.meaning_ko)}<br><span class="ex">${esc(v.example)}</span></span></li>`).join('')}</ul></div>` : '');
     $('#panel-expr').addEventListener('click', (e) => { const b = e.target.closest('.jump'); if (b) seekTo(toAudio(+b.dataset.t), true); });
 
     // (회화/discussion panel removed from the UI for now; study.discussion is still generated and stored)
@@ -158,7 +158,8 @@
     setView('transcript');
 
     // ---- switches ----------------------------------------------------------
-    const prefs = store.get('prefs', { hl: true, ko: false, auto: true, speed: 1 });
+    const prefs = store.get('prefs', { hl: true, ko: true, auto: true, speed: 1 });
+    if (prefs.v !== 2) { prefs.ko = true; prefs.v = 2; }   // Korean on by default (sentence-by-sentence view)
     const applyPrefs = () => {
       tEl.classList.toggle('no-hl', !prefs.hl); tEl.classList.toggle('show-ko', !!prefs.ko);
       $('#swHl').setAttribute('aria-pressed', String(!!prefs.hl)); $('#swKo').setAttribute('aria-pressed', String(!!prefs.ko)); $('#swAuto').setAttribute('aria-pressed', String(!!prefs.auto));

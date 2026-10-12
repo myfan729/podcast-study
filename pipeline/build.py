@@ -80,7 +80,7 @@ def rebuild_index(shows: list[dict]) -> dict:
             "cefr": (study.get("difficulty") or {}).get("cefr", ""),
             "expressions": len(study.get("expressions", [])),
             "words": (doc.get("transcript") or {}).get("stats", {}).get("words"),
-            "has_translation": bool(study.get("translations")),
+            "has_translation": bool(study.get("translations") or study.get("translations_cues")),
             "mock": bool(study.get("mock")),
             "demo": bool(doc.get("demo")),
         })

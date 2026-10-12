@@ -290,16 +290,17 @@ def schema_skeleton(schema: dict) -> str:
     return json.dumps(walk(schema), ensure_ascii=False, indent=1)
 
 
-SYSTEM_TRANSLATE = """You translate podcast transcript segments from English into natural Korean for an advanced learner.
-- Preserve meaning and tone; use 자연스러운 구어체 (대화체) rather than stiff 문어체. Keep sentence-level structure
-  so the learner can map Korean to English.
+SYSTEM_TRANSLATE = """You translate podcast transcript lines from English into natural Korean for an advanced learner.
+- Each line is one sentence (or a short group of sentences) in order; use the surrounding lines for context,
+  but translate each line on its own so the learner can read English and Korean sentence by sentence.
+- Preserve meaning and tone; use 자연스러운 구어체 (대화체) rather than stiff 문어체.
 - Keep names, companies and numbers as in the source. Do not add notes or brackets.
-- Return one translation per segment id, same ids, nothing else."""
+- Return one translation per line id, same ids, nothing else."""
 
 
-def build_translate_prompt(segments: list[Segment]) -> str:
-    lines = [f"{s.id}: {s.text}" for s in segments]
-    return "SEGMENTS\n" + "\n".join(lines) + "\n\nTranslate each segment into Korean."
+def build_translate_prompt(items: list[tuple[str, str]]) -> str:
+    lines = [f"{i}: {t}" for i, t in items]
+    return "LINES\n" + "\n".join(lines) + "\n\nTranslate each line into Korean."
 
 
 # ---------------------------------------------------------------------------
@@ -335,21 +336,29 @@ class StudyGenerator:
         data = self._call_json(self.model, SYSTEM_STUDY, prompt, STUDY_SCHEMA, max_tokens=18000, strict=False)
         return postprocess_study_pack(data, segments)
 
-    def translate_segments(self, segments: list[Segment], chunk: int = 45) -> dict[str, str]:
+    def translate_items(self, items: list[tuple[str, str]], chunk: int = 80) -> dict[str, str]:
+        """Korean for each (id, english) line — used for cues (sentences) and, formerly, segments."""
         if self.mock:
-            return {s.id: f"[번역 자리표시자] {s.text[:60]}…" for s in segments}
+            return {i: f"[번역 자리표시자] {t[:60]}…" for i, t in items}
         out: dict[str, str] = {}
-        for i in range(0, len(segments), chunk):
-            part = segments[i:i + chunk]
+        for k in range(0, len(items), chunk):
+            part = items[k:k + chunk]
             data = self._call_json(self.translate_model, SYSTEM_TRANSLATE, build_translate_prompt(part),
-                                   TRANSLATION_SCHEMA, max_tokens=12000)
+                                   TRANSLATION_SCHEMA, max_tokens=16000)
             for row in data.get("translations", []):
                 if row.get("id") and row.get("ko"):
-                    out[row["id"]] = row["ko"].strip()
-        missing = [s.id for s in segments if s.id not in out]
+                    out[str(row["id"])] = row["ko"].strip()
+        missing = [i for i, _ in items if i not in out]
         if missing:
-            log.warning("translation missing for %d segments (%s…)", len(missing), ", ".join(missing[:5]))
+            log.warning("translation missing for %d lines (%s…)", len(missing), ", ".join(missing[:5]))
         return out
+
+    def translate_segments(self, segments: list[Segment]) -> dict[str, str]:
+        return self.translate_items([(s.id, s.text) for s in segments])
+
+    def translate_cues(self, cues) -> dict[str, str]:
+        """{cue index as string: Korean} — sentence-by-sentence, for the interleaved transcript view."""
+        return self.translate_items([(str(c.i if hasattr(c, "i") else c["i"]), c.t if hasattr(c, "t") else c["t"]) for c in cues])
 
     # -- internals ------------------------------------------------------------
     _plain_schemas: set[int] = set()  # schemas the API refused to compile → plain JSON from then on

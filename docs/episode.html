@@ -15,7 +15,7 @@
 <body>
 <div class="wrap">
   <header class="topbar">
-    <a href="./" style="color:var(--ink-2)">← 목록</a>
+    <div class="brand">Podcast Study</div>
     <div class="tools">
       <a class="iconbtn" id="srcLink" href="#" target="_blank" rel="noopener" title="원본 에피소드 페이지" aria-label="원본 에피소드 페이지" hidden>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3h7v7M21 3l-9 9M10 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/></svg>
@@ -33,7 +33,7 @@
   <nav class="tabs mobile-tabs" role="tablist" aria-label="보기" id="mtabs">
     <button role="tab" data-view="transcript" aria-selected="true">스크립트</button>
     <button role="tab" data-view="summary">요약</button>
-    <button role="tab" data-view="expr">표현</button>
+    <button role="tab" data-view="expr">단어 및 표현</button>
   </nav>
 
   <div class="layout" id="layout">
@@ -54,7 +54,7 @@
     <aside class="rail" id="rail">
       <nav class="tabs" role="tablist" aria-label="학습 자료" id="rtabs">
         <button role="tab" data-view="summary" aria-selected="true">요약</button>
-        <button role="tab" data-view="expr">표현</button>
+        <button role="tab" data-view="expr">단어 및 표현</button>
       </nav>
       <section class="panel" id="panel-summary" role="tabpanel"></section>
       <section class="panel" id="panel-expr" role="tabpanel"></section>
