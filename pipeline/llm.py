@@ -261,8 +261,31 @@ def build_study_prompt(meta: dict, show: dict, segments: list[Segment], speaker_
         "-----\n"
         f"{render_transcript(segments)}\n"
         "-----\n\n"
-        "Produce the study pack JSON now. Aim for 12 expressions, 8 vocab, 4-7 chapters, 3 shadowing picks."
+        "Produce the study pack JSON now. Aim for 12 expressions, 8 vocab, 4-7 chapters, 3 shadowing picks.\n\n"
+        "Return ONE JSON object with exactly this shape (keys and types; strings in <> describe the content):\n"
+        f"{schema_skeleton(STUDY_SCHEMA)}\n"
+        "No markdown fences, no commentary before or after the JSON."
     )
+
+
+def schema_skeleton(schema: dict) -> str:
+    """Render a JSON-schema as a compact example document the model can mirror."""
+
+    def walk(node: dict):
+        t = node.get("type")
+        if t == "object":
+            return {k: walk(v) for k, v in node.get("properties", {}).items()}
+        if t == "array":
+            items = dict(node.get("items", {"type": "string"}))
+            if node.get("description") and not items.get("description") and items.get("type") != "object":
+                items["description"] = node["description"]
+            return [walk(items)]
+        if "enum" in node:
+            return "|".join(str(e) for e in node["enum"])
+        desc = node.get("description")
+        return f"<{desc}>" if desc else f"<{t or 'string'}>"
+
+    return json.dumps(walk(schema), ensure_ascii=False, indent=1)
 
 
 SYSTEM_TRANSLATE = """You translate podcast transcript segments from English into natural Korean for an advanced learner.
@@ -305,7 +328,9 @@ class StudyGenerator:
         if self.mock:
             return mock_study_pack(meta, segments, speaker_mode)
         prompt = build_study_prompt(meta, show, segments, speaker_mode)
-        data = self._call_json(self.model, SYSTEM_STUDY, prompt, STUDY_SCHEMA, max_tokens=18000)
+        # The study-pack schema is too large for the API's constrained-decoding grammar, so this call
+        # asks for plain JSON (shape given in the prompt) and validates/repairs the result itself.
+        data = self._call_json(self.model, SYSTEM_STUDY, prompt, STUDY_SCHEMA, max_tokens=18000, strict=False)
         return postprocess_study_pack(data, segments)
 
     def translate_segments(self, segments: list[Segment], chunk: int = 45) -> dict[str, str]:
@@ -325,38 +350,118 @@ class StudyGenerator:
         return out
 
     # -- internals ------------------------------------------------------------
-    def _call_json(self, model: str, system: str, user: str, schema: dict, max_tokens: int) -> dict:
+    _plain_schemas: set[int] = set()  # schemas the API refused to compile → plain JSON from then on
+
+    def _call_json(self, model: str, system: str, user: str, schema: dict, max_tokens: int, strict: bool = True) -> dict:
+        """One JSON-producing call. strict=True uses the API's JSON-schema output; if the API rejects the
+        schema (grammar too large) or strict=False, the model is asked for plain JSON which is parsed,
+        validated against `schema` and repaired once if needed."""
         import anthropic
 
+        use_strict = strict and id(schema) not in self._plain_schemas
+        messages = [{"role": "user", "content": user}]
         delay = 5.0
         last_err: Exception | None = None
-        for attempt in range(1, 5):
+        for attempt in range(1, 6):
             try:
-                resp = self._client.messages.create(
-                    model=model,
-                    max_tokens=max_tokens,
-                    system=system,
-                    messages=[{"role": "user", "content": user}],
-                    output_config={"format": {"type": "json_schema", "schema": schema}},
-                )
+                kwargs = dict(model=model, max_tokens=max_tokens, system=system, messages=messages)
+                if use_strict:
+                    kwargs["output_config"] = {"format": {"type": "json_schema", "schema": schema}}
+                resp = self._client.messages.create(**kwargs)
                 if resp.stop_reason == "max_tokens":
                     raise RuntimeError("response truncated (max_tokens); will retry next run")
                 if resp.stop_reason == "refusal":
                     raise RuntimeError("model refused the request")
-                text = next(b.text for b in resp.content if getattr(b, "type", "") == "text")
+                text = "".join(b.text for b in resp.content if getattr(b, "type", "") == "text")
                 usage = getattr(resp, "usage", None)
                 if usage:
-                    log.info("  %s: %s in / %s out tokens", model, usage.input_tokens, usage.output_tokens)
-                return json.loads(text)
+                    log.info("  %s: %s in / %s out tokens%s", model, usage.input_tokens, usage.output_tokens,
+                             "" if use_strict else " (plain JSON)")
+                data = extract_json(text)
+                problems = validate(schema, data)
+                if problems and not use_strict:
+                    if len(messages) >= 3:
+                        raise RuntimeError("JSON still invalid after repair: " + "; ".join(problems[:5]))
+                    log.warning("  JSON shape problems (%d) — asking the model to repair: %s", len(problems), problems[:3])
+                    messages = messages + [
+                        {"role": "assistant", "content": text},
+                        {"role": "user", "content": "Your JSON has these problems:\n- " + "\n- ".join(problems[:20])
+                         + "\nReturn the complete corrected JSON object only."},
+                    ]
+                    continue
+                return data
             except (anthropic.RateLimitError, anthropic.APIConnectionError, anthropic.InternalServerError) as e:
                 last_err = e
                 log.warning("  API transient error (attempt %d): %s — retrying in %.0fs", attempt, e, delay)
                 time.sleep(delay)
                 delay = min(delay * 2, 60)
             except anthropic.APIStatusError as e:
-                # 4xx other than rate limit: no point retrying
-                raise RuntimeError(f"API error {e.status_code}: {e.message}") from e
+                msg = str(e.message)
+                if use_strict and e.status_code == 400 and ("grammar" in msg.lower() or "schema" in msg.lower()):
+                    log.warning("  API rejected the JSON schema (%s) — switching this call to plain JSON", msg[:80])
+                    self._plain_schemas.add(id(schema))
+                    use_strict = False
+                    continue
+                raise RuntimeError(f"API error {e.status_code}: {msg}") from e
+            except ValueError as e:  # JSON could not be parsed at all
+                if use_strict or len(messages) >= 3:
+                    raise RuntimeError(f"unparseable JSON from model: {e}") from e
+                log.warning("  unparseable JSON — asking the model to resend valid JSON")
+                messages = messages + [{"role": "assistant", "content": text},
+                                       {"role": "user", "content": "That was not valid JSON. Return the complete JSON object only."}]
+                continue
         raise RuntimeError(f"API failed after retries: {last_err}")
+
+
+def extract_json(text: str) -> dict:
+    """Parse a JSON object from model text, tolerating code fences and stray prose around it."""
+    t = text.strip()
+    if t.startswith("```"):
+        t = re.sub(r"^```[a-zA-Z]*\s*", "", t)
+        t = re.sub(r"\s*```$", "", t)
+    try:
+        return json.loads(t)
+    except json.JSONDecodeError:
+        pass
+    start, end = t.find("{"), t.rfind("}")
+    if start < 0 or end <= start:
+        raise ValueError("no JSON object found")
+    try:
+        return json.loads(t[start:end + 1])
+    except json.JSONDecodeError as e:
+        raise ValueError(str(e)) from e
+
+
+def validate(schema: dict, data, path: str = "$") -> list[str]:
+    """Minimal JSON-schema check (types, required keys, enums). Returns a list of problems."""
+    problems: list[str] = []
+    t = schema.get("type")
+    if t == "object":
+        if not isinstance(data, dict):
+            return [f"{path}: expected object"]
+        for key in schema.get("required", []):
+            if key not in data:
+                problems.append(f"{path}.{key}: missing")
+        for key, sub in schema.get("properties", {}).items():
+            if key in data:
+                problems += validate(sub, data[key], f"{path}.{key}")
+    elif t == "array":
+        if not isinstance(data, list):
+            return [f"{path}: expected array"]
+        for i, item in enumerate(data[:200]):
+            problems += validate(schema.get("items", {}), item, f"{path}[{i}]")
+    elif t == "string":
+        if not isinstance(data, str):
+            problems.append(f"{path}: expected string")
+        elif "enum" in schema and data.lower() not in [str(e).lower() for e in schema["enum"]]:
+            problems.append(f"{path}: must be one of {schema['enum']}")
+    elif t in ("number", "integer"):
+        if not isinstance(data, (int, float)) or isinstance(data, bool):
+            problems.append(f"{path}: expected number")
+    elif t == "boolean":
+        if not isinstance(data, bool):
+            problems.append(f"{path}: expected boolean")
+    return problems
 
 
 # ---------------------------------------------------------------------------

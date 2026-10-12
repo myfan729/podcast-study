@@ -138,3 +138,14 @@ def test_find_exact_tolerates_quote_styles():
     assert find_exact("That’s the auction at the gate.", "that's the auction") == "That’s the auction"
     assert find_exact("nine  times out of ten", "Nine times out of ten") == "nine  times out of ten"
     assert find_exact("nothing here", "absent phrase") is None
+
+
+def test_plain_json_helpers():
+    from pipeline.llm import STUDY_SCHEMA, extract_json, schema_skeleton, validate
+    sk = json.loads(schema_skeleton(STUDY_SCHEMA))
+    assert set(sk) == set(STUDY_SCHEMA["properties"])
+    assert sk["summary_ko"] == ["<핵심 내용 4~6개 불릿(한국어, 각 1~2문장)>"]
+    assert extract_json('Here you go:\n```json\n{"x": [1, 2]}\n```\nDone.') == {"x": [1, 2]}
+    good = {"translations": [{"id": "s1", "ko": "안녕"}]}
+    assert validate({"type": "object", "required": ["translations"], "properties": {"translations": {"type": "array", "items": {"type": "object", "required": ["id", "ko"], "properties": {"id": {"type": "string"}, "ko": {"type": "string"}}}}}}, good) == []
+    assert "$.speakers: expected array" in validate(STUDY_SCHEMA, {"speakers": "nope"})

@@ -14,7 +14,7 @@ on:
         default: "3"
       max_new:
         description: "Max episodes to process in this run (all shows)"
-        default: "6"
+        default: "8"
       force:
         description: "Re-process an episode whose title/guid contains this text (optional)"
         default: ""
@@ -56,7 +56,7 @@ jobs:
           IN_FORCE: ${{ github.event.inputs.force }}
           IN_MOCK: ${{ github.event.inputs.mock }}
         run: |
-          args=(--max-new "${IN_MAX_NEW:-6}")
+          args=(--max-new "${IN_MAX_NEW:-8}")
           if [ -n "$IN_BACKFILL" ]; then args+=(--backfill "$IN_BACKFILL"); fi
           if [ -n "$IN_FORCE" ]; then args+=(--force "$IN_FORCE"); fi
           if [ "$IN_MOCK" = "true" ]; then args+=(--mock); fi
