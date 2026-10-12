@@ -3,7 +3,7 @@ name: Update podcast study
 on:
   schedule:
     # Every 3 hours. Big Take lands ~20:00–21:30 UTC on weekdays, Think Fast Talk Smart at 13:00 UTC Mon/Thu.
-    - cron: "17 */3 * * *"
+    - cron: "17 */2 * * *"       # every 2 h; GitHub skips some scheduled runs, so more chances
   push:
     branches: [main]
     paths-ignore: ["docs/data/**", "state/**"]   # code/config changes trigger a run; the bot's own data commits do not
@@ -76,6 +76,13 @@ jobs:
           if [ "$IN_MOCK" = "true" ]; then args+=(--mock); fi
           echo "python -m pipeline ${args[*]}"
           python -m pipeline "${args[@]}"
+
+      - name: Today's card (if the morning window is open and none exists yet)
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python -m pipeline.daily
 
       - name: Build sync references (ad-aware auto sync)
         id: sync

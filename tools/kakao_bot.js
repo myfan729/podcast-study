@@ -11,7 +11,7 @@
 var ROOM = "여기에_오픈채팅방_이름_정확히";        // 카톡 상단에 보이는 방 이름과 똑같이
 var SITE = "https://myfan729.github.io/podcast-study/";
 var POST_HOUR_KST = 7, POST_MIN_KST = 0;              // 게시 시각 (한국시간)
-var RETRY_UNTIL_HOUR_KST = 9;                          // 이 시각까지 10분 간격 재시도
+var RETRY_UNTIL_HOUR_KST = 12;                         // 이 시각까지 10분 간격 재시도 (서버 지연 대비)
 var ADMINS = [];                                        // "!오늘"을 허용할 닉네임 목록 (비우면 누구나)
 var STATE_FILE = "podcast_bot_state.json";
 
@@ -48,10 +48,8 @@ function postCard(force) {
 
 function dueNow() {
   var c = nowKst(); var h = c.get(java.util.Calendar.HOUR_OF_DAY), m = c.get(java.util.Calendar.MINUTE);
-  var st = loadState();
-  if (st.lastPostedDate === todayKst()) return false;                      // 오늘 분량 끝
   var afterStart = h > POST_HOUR_KST || (h === POST_HOUR_KST && m >= POST_MIN_KST);
-  return afterStart && h < RETRY_UNTIL_HOUR_KST;
+  return afterStart && h < RETRY_UNTIL_HOUR_KST;      // 중복은 postCard가 카드 ID로 막음
 }
 
 // ---- 스케줄러: 1분마다 깨어나 게시 시각이면 시도 ----
@@ -80,9 +78,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
     if (!postCard(true)) replier.reply("오늘의 카드를 가져오지 못했어요."); return;
   }
   // 07:00에 세션이 없어 못 보냈다면, 방에 첫 메시지가 올라온 지금 보냄
-  if (dueNow() || (loadState().lastPostedDate !== todayKst() && nowKst().get(java.util.Calendar.HOUR_OF_DAY) >= POST_HOUR_KST)) {
-    postCard(false);
-  }
+  if (dueNow()) postCard(false);
 }
 
 function onStartCompile() { running = false; }

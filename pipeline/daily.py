@@ -80,12 +80,24 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--force", help="post this episode (id/title substring) even if already posted")
     ap.add_argument("--max-age-days", type=int, default=3, help="only episodes published within this many days")
+    ap.add_argument("--any-time", action="store_true", help="ignore the 05:00–09:00 KST window")
     ap.add_argument("-v", "--verbose", action="store_true")
     args = ap.parse_args(argv)
     setup_logging(args.verbose)
     cfg = load_config(Path(CONFIG_PATH))
     site_url = os.environ.get("SITE_URL") or cfg.get("site_url") or "https://example.github.io/podcast-study/"
     posted = read_json(POSTED_PATH, {})
+    now_kst = datetime.now(KST)
+    today = now_kst.strftime("%Y-%m-%d")
+    if not args.force:
+        # one card per KST day, made in the morning window so the bot posts it at 07:00 (schedules are redundant)
+        latest = read_json(DAILY_DIR / "latest.json", None) or {}
+        if latest.get("date_kst") == today:
+            log.info("daily: today's card already exists (%s)", latest.get("id"))
+            return 0
+        if not args.any_time and not (5 <= now_kst.hour < 9):
+            log.info("daily: outside the 05:00–09:00 KST window (now %s); nothing to do", now_kst.strftime("%H:%M"))
+            return 0
     doc = pick(posted, args.max_age_days, args.force)
     if not doc:
         log.info("daily: nothing new to post")
