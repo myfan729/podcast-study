@@ -1,6 +1,1 @@
-{
- "status": "failed",
- "error": "ffmpeg not found",
- "attempts": 1,
- "built_at": "2026-10-12T06:09:01Z"
-}
+{"v":1,"sr":8000,"hop":0.064,"content_duration":1442.0,"runner_duration":1441.493,"ad_total_runner":0.0,"markers":null,"breaks":[{"c":0.257,"a":-0.047,"score":0.917}],"refs":[],"method":"asr","model":"base.en","built_at":"2026-10-12T06:13:32Z","status":"failed","attempts":2}
