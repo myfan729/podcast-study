@@ -35,6 +35,11 @@
     (ep.transcript.sentences || []).forEach(([a, b]) => { sentOf[a] = b; });
     const audio = $('#audio');
     document.title = ep.title + ' · Podcast Study';
+    // listener counts (GoatCounter; no-op until configured): page open, play, half, finished
+    const stats = window.PodStats || { pageview() {}, event() {} };
+    stats.pageview('/ep/' + ep.id, ep.title);
+    const milestones = { play: false, half: false, done: false };
+    const mark = (k, label) => { if (milestones[k]) return; milestones[k] = true; stats.event(k + '/' + ep.id, label + ' · ' + ep.title); };
 
     // ---- header ----------------------------------------------------------
     const d = new Date(ep.published_at);
@@ -261,6 +266,7 @@
 
     const setPlayIcon = () => { $('#icoPlay').classList.toggle('hide', !audio.paused); $('#icoPause').classList.toggle('hide', audio.paused); $('#play').setAttribute('aria-label', audio.paused ? '재생 (Space)' : '일시정지 (Space)'); };
     $('#play').addEventListener('click', () => { if (!audio.src) { wantPlay = !wantPlay; $('#nowLine').textContent = wantPlay ? '받는 대로 재생합니다…' : '음원 받는 중…'; return; } audio.paused ? audio.play() : audio.pause(); });
+    audio.addEventListener('play', () => mark('play', '재생 시작'));
     audio.addEventListener('play', setPlayIcon); audio.addEventListener('pause', () => { setPlayIcon(); saveProgress(); });
     $('#back').addEventListener('click', () => seekTo(audio.currentTime - 5));
     $('#fwd').addEventListener('click', () => seekTo(audio.currentTime + 5));
@@ -473,7 +479,14 @@
       const done = dur && audio.currentTime > dur * 0.9;
       store.set('prog:' + ep.id, { pos: Math.floor(audio.currentTime), done: done || (prog && prog.done) || false, at: Date.now() });
     }
-    audio.addEventListener('timeupdate', () => update(false));
+    audio.addEventListener('timeupdate', () => {
+      update(false);
+      const dur = audio.duration;
+      if (dur && isFinite(dur) && !audio.paused) {
+        if (audio.currentTime >= dur * 0.5) mark('half', '절반 들음');
+        if (audio.currentTime >= dur * 0.9) mark('done', '끝까지 들음');
+      }
+    });
     audio.addEventListener('ended', () => { saveProgress(); setPlayIcon(); });
     renderSyncState(); update(true);
 
