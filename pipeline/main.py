@@ -418,7 +418,7 @@ def main(argv: list[str] | None = None) -> int:
     setup_logging(args.verbose)
 
     cfg = load_config(Path(args.config))
-    shows = [s for s in cfg["shows"] if (s["slug"] in args.show) if args.show else s.get("enabled", True)]
+    shows = [s for s in cfg["shows"] if (s["slug"] in args.show if args.show else s.get("enabled", True))]
     daily_limit = int(cfg.get("daily_limit") or 0)
     kst = timezone(timedelta(hours=9))
     today_kst = datetime.now(kst).strftime("%Y-%m-%d")
