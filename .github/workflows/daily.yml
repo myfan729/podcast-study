@@ -3,6 +3,8 @@ name: Daily post card
 on:
   schedule:
     - cron: "0 22 * * *"      # 07:00 KST
+  push:
+    paths: [".github/workflows/daily.yml", "pipeline/daily.py"]   # also run right after the poster itself changes
   workflow_dispatch:
     inputs:
       force:
