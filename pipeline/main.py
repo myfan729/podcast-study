@@ -213,16 +213,19 @@ def retime_episode(session, show: dict, path: Path, doc: dict) -> bool:
     return True
 
 
-def backfill_cue_translations(gen: StudyGenerator, max_n: int = 10) -> int:
-    """Older episodes only have paragraph translations; add sentence-level ones (a few per run)."""
+def backfill_cue_translations(gen: StudyGenerator, max_n: int = 3, max_age_days: int = 7) -> int:
+    """Older episodes only have paragraph translations; add sentence-level ones for recent ones only."""
     if gen.mock:
         return 0
     n = 0
+    cutoff = datetime.now(timezone.utc) - timedelta(days=max_age_days)
     for p in sorted(build.EPISODES_DIR.glob("*.json"), reverse=True):
         if n >= max_n:
             break
         doc = read_json(p, None)
         if not doc or doc.get("demo"):
+            continue
+        if datetime.fromisoformat(doc["published_at"].replace("Z", "+00:00")) < cutoff:
             continue
         study = doc.get("study") or {}
         if study.get("mock") or study.get("translations_cues") is not None:
