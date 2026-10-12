@@ -118,17 +118,30 @@ window.PodSync = (function () {
   function b64ToU16(s) { const bin = atob(s); const out = new Uint16Array(bin.length >> 1); for (let i = 0; i < out.length; i++) out[i] = bin.charCodeAt(2 * i) | (bin.charCodeAt(2 * i + 1) << 8); return out; }
 
   // ---------------- decoding windows ----------------
-  async function decodeWindow(blob, index, startSec, endSec) {
-    const times = index.times, offsets = index.offsets;
-    let i0 = lowerBound(times, startSec), i1 = lowerBound(times, endSec);
-    i0 = Math.max(0, i0 - 2); i1 = Math.min(offsets.length - 1, i1 + 1);  // a couple of frames of lead-in for the bit reservoir
-    const bytes = await blob.slice(offsets[i0], offsets[i1]).arrayBuffer();
-    let ctx, buf;
+  async function decodeBytes(bytes) {
+    let buf = null;
     for (const sr of [8000, 16000]) {
-      try { ctx = new OfflineAudioContext(1, 1, sr); buf = await ctx.decodeAudioData(bytes.slice(0)); break; } catch (e) { ctx = null; }
+      try { buf = await new OfflineAudioContext(1, 1, sr).decodeAudioData(bytes.slice(0)); break; } catch (e) { /* try next rate */ }
     }
     if (!buf) throw new Error('decode failed');
-    return { pcm: buf.getChannelData(0), sr: buf.sampleRate, startSec: times[i0] };
+    return buf;
+  }
+  let wholeFile = null;   // {pcm, sr} — fallback when a browser refuses to decode a mid-stream slice
+  async function decodeWindow(blob, index, startSec, endSec) {
+    const times = index.times, offsets = index.offsets;
+    if (!wholeFile) {
+      try {
+        let i0 = lowerBound(times, startSec), i1 = lowerBound(times, endSec);
+        i0 = Math.max(0, i0 - 2); i1 = Math.min(offsets.length - 1, i1 + 1);  // frames of lead-in for the bit reservoir
+        const buf = await decodeBytes(await blob.slice(offsets[i0], offsets[i1]).arrayBuffer());
+        return { pcm: buf.getChannelData(0), sr: buf.sampleRate, startSec: times[i0] };
+      } catch (e) {
+        const buf = await decodeBytes(await blob.arrayBuffer());   // whole file at 8 kHz: ~40 MB for 20 min
+        wholeFile = { pcm: buf.getChannelData(0), sr: buf.sampleRate };
+      }
+    }
+    const a = Math.max(0, Math.floor(startSec * wholeFile.sr)), b = Math.min(wholeFile.pcm.length, Math.ceil(endSec * wholeFile.sr));
+    return { pcm: wholeFile.pcm.subarray(a, b), sr: wholeFile.sr, startSec: a / wholeFile.sr };
   }
   function lowerBound(arr, x) { let lo = 0, hi = arr.length; while (lo < hi) { const m = (lo + hi) >> 1; if (arr[m] < x) lo = m + 1; else hi = m; } return lo; }
 
@@ -140,7 +153,7 @@ window.PodSync = (function () {
    * @returns {anchors: [{c, a}], breaks: [...], report}
    */
   async function align(blob, syncData, onStatus) {
-    const t0 = performance.now();
+    const t0 = performance.now(); wholeFile = null;
     const index = indexMp3(await blob.slice(0, Math.min(blob.size, 64 * 1024 * 1024)).arrayBuffer());
     if (index.offsets.length < 100) throw new Error('not an MP3 stream (' + index.offsets.length + ' frames)');
     const fileDur = index.duration;
