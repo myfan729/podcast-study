@@ -172,6 +172,7 @@ def main(argv: list[str] | None = None) -> int:
     now = datetime.now(timezone.utc)
     processed = 0
     failures = 0
+    stop_all = False
 
     for show in shows:
         slug = show["slug"]
@@ -240,13 +241,26 @@ def main(argv: list[str] | None = None) -> int:
                 log.info("  ✓ wrote docs/data/episodes/%s.json", doc["id"])
             except Exception as e:  # noqa: BLE001
                 failures += 1
+                msg = str(e)
+                auth_problem = "API error 401" in msg or "ANTHROPIC_API_KEY is not set" in msg
                 rec.update({"status": "failed", "title": ep.title, "published_at": ep.published_iso,
-                            "error": str(e)[:300], "attempts": rec.get("attempts", 0) + 1, "seen_at": utcnow_iso()})
+                            "error": msg[:300], "seen_at": utcnow_iso(),
+                            # an invalid/missing API key is not the episode's fault: don't burn its retry budget
+                            "attempts": rec.get("attempts", 0) + (0 if auth_problem else 1)})
                 log.error("  ✗ failed: %s", e)
                 if args.verbose:
                     traceback.print_exc()
+                if auth_problem:
+                    seen[key] = rec
+                    write_json(STATE_PATH, state)
+                    log.error("API key problem — stopping this run. Fix the ANTHROPIC_API_KEY secret "
+                              "(Console key starting with sk-ant-, no spaces) and re-run; nothing was lost.")
+                    stop_all = True
+                    break
             seen[key] = rec
             write_json(STATE_PATH, state)  # checkpoint after every episode
+        if stop_all:
+            break
 
     write_json(STATE_PATH, state)
     index = build.rebuild_index(cfg["shows"])
