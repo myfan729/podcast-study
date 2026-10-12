@@ -1,62 +1,89 @@
 {
- "F_tfts_meta": {
-  "itunes_duration": "913",
-  "transcript": "https://share.transistor.fm/s/ab719a3a/transcript.vtt",
-  "title": "330. Quick Thinks: A CLEAR Way Through Conflict"
+ "hops": [
+  {
+   "url": "https://podtrac.com/pts/redirect.mp3/tracking.swap.fm/track/UVBrz8bN8aM2Xe47PEPu/traffic.omny.fm/d/clips/e73c9",
+   "status": 302,
+   "location": "https://tracking.swap.fm/track/UVBrz8bN8aM2Xe47PEPu/traffic.omny.fm/d/clips/e73c998e-6e60-432f-8610-ae210140c5",
+   "cors": {
+    "Access-Control-Allow-Origin": "*"
+   }
+  },
+  {
+   "url": "https://tracking.swap.fm/track/UVBrz8bN8aM2Xe47PEPu/traffic.omny.fm/d/clips/e73c998e-6e60-432f-8610-ae210140c5",
+   "status": 302,
+   "location": "https://traffic.omny.fm/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/947b",
+   "cors": {
+    "access-control-allow-origin": "*"
+   }
+  },
+  {
+   "url": "https://traffic.omny.fm/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/947b",
+   "status": 302,
+   "location": "https://iheartmedia.mc.tritondigital.com/OMNY_THEBIGTAKE_PODCAST_P/media/d/clips/e73c998e-6e60-432f-8610-ae210",
+   "cors": {
+    "access-control-allow-origin": "*",
+    "access-control-max-age": "86400"
+   }
+  },
+  {
+   "url": "https://iheartmedia.mc.tritondigital.com/OMNY_THEBIGTAKE_PODCAST_P/media/d/clips/e73c998e-6e60-432f-8610-ae210",
+   "status": 302,
+   "location": "https://28243.mc.tritondigital.com:443/OMNY_THEBIGTAKE_PODCAST_P/media-session/ad5de8bb-3914-4a11-931e-9082596",
+   "cors": {
+    "access-control-allow-headers": "*",
+    "access-control-expose-headers": "*",
+    "access-control-allow-methods": "GET, HEAD",
+    "access-control-allow-credentials": "true",
+    "access-control-allow-origin": "https://myfan729.github.io"
+   }
+  },
+  {
+   "url": "https://28243.mc.tritondigital.com:443/OMNY_THEBIGTAKE_PODCAST_P/media-session/ad5de8bb-3914-4a11-931e-9082596",
+   "status": 200,
+   "location": "",
+   "cors": {
+    "access-control-allow-methods": "GET, HEAD",
+    "access-control-allow-headers": "*",
+    "access-control-allow-origin": "https://myfan729.github.io",
+    "access-control-allow-credentials": "true"
+   }
+  }
+ ],
+ "final_url": "https://28243.mc.tritondigital.com:443/OMNY_THEBIGTAKE_PODCAST_P/media-session/ad5de8bb-3914-4a11-931e-90825963fb5f/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/947bb858-7725-41b9-a0bc-b4de014c6b52/audio/direct/t1791729122/Inside_Jane_Street_The_Enigmatic_Firm_That_Rules_Wall_Street.mp3?t=1791729122&starship-episode-id=f29ca8c7-a177-458e-9609-bbe04c8b1d5c&in_playlist=8b1dd624-a026-43e9-8b57-ae2b00130066&utm_source=Podcast",
+ "old_session_replay": {
+  "status": 500,
+  "final": "https://26833.mc.tritondigital.com:443/OMNY_THEBIGTAKE_PODCAST_P/media-session/47ee29cb-f2ab-442b-9d11-f376c5a2954a/d/cl",
+  "bytes": 151,
+  "duration": null,
+  "head": "3c68746d6c3e3c686561643e3c7469746c653e35303020496e7465726e616c20536572766572204572726f723c2f7469746c653e3c2f686561643e3c626f6479"
  },
- "A_feed_enclosure": {
-  "url": "https://podtrac.com/pts/redirect.mp3/tracking.swap.fm/track/UVBrz8bN8aM2Xe47PEPu/traffic.omny.fm/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/947bb858-7725-41b9-a0bc-b4de014c6b52/audio.mp3?utm_source=Podcast&in_playlist=8b1dd624-a026-43e9-8b57-ae2b00130066",
+ "fresh_session_1": {
   "status": 200,
-  "final_url": "https://27073.mc.tritondigital.com:443/OMNY_THEBIGTAKE_PODCAST_P/media-session/e04def26-bb30-4761-a606-e9c0d51a78ed/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/947bb858-7725-41b9-a0bc-b4de014c6b52/audio/direct/t1791729122/Inside_Jane_Street_The_Enigmatic_Firm_That_Rules_Wall_Street.mp3?t=1791729122&starship-episode-id=f29ca8c7-a177-458e-9609-bbe04c8b1d5c&in_playlist=8b1dd624-a026-43e9-8b57-ae2b00130066&utm_source=Podcast",
-  "content_type": "audio/mpeg",
-  "content_length": "20884132",
-  "hops": [
-   "https://podtrac.com/pts/redirect.mp3/tracking.swap.fm/track/UVBrz8bN8aM2Xe47PEPu/traffic.omny.fm/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/947bb858-7725-41b9-a0bc-b4de014c6b52/audio.mp3?utm_source=Podcast&in_playlist=8b1dd624-a026-43e9-8b57-ae2b00130066",
-   "https://tracking.swap.fm/track/UVBrz8bN8aM2Xe47PEPu/traffic.omny.fm/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/947bb858-7725-41b9-a0bc-b4de014c6b52/audio.mp3?utm_source=Podcast&in_playlist=8b1dd624-a026-43e9-8b57-ae2b00130066",
-   "https://traffic.omny.fm/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/947bb858-7725-41b9-a0bc-b4de014c6b52/audio.mp3?utm_source=Podcast&in_playlist=8b1dd624-a026-43e9-8b57-ae2b00130066",
-   "https://iheartmedia.mc.tritondigital.com/OMNY_THEBIGTAKE_PODCAST_P/media/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/947bb858-7725-41b9-a0bc-b4de014c6b52/audio/direct/t1791729122/Inside_Jane_Street_The_Enigmatic_Firm_That_Rules_Wall_Street.mp3?t=1791729122&starship-episode-id=f29ca8c7-a177-458e-9609-bbe04c8b1d5c&in_playlist=8b1dd624-a026-43e9-8b57-ae2b00130066&utm_source=Podcast"
-  ],
-  "cors": {
-   "access-control-allow-methods": "GET, HEAD",
-   "access-control-allow-headers": "*",
-   "access-control-allow-origin": "*"
-  },
-  "accept_ranges": "bytes",
-  "cors_with_origin": {
-   "access-control-allow-methods": "GET, HEAD",
-   "access-control-allow-headers": "*",
-   "access-control-allow-origin": "https://myfan729.github.io",
-   "access-control-allow-credentials": "true"
-  },
-  "range_status": 206,
-  "bytes_downloaded": 20884132,
-  "duration_sec": 1302.151836734694,
-  "seconds": 4.0
+  "final": "https://28243.mc.tritondigital.com:443/OMNY_THEBIGTAKE_PODCAST_P/media-session/ad5de8bb-3914-4a11-931e-90825963fb5f/d/cl",
+  "bytes": 21142013,
+  "duration": 1318.2693877551021,
+  "head": "49443304000000030101545353450000000e0000034c61766636302e31362e313030544954320000003e000003496e73696465204a616e65205374726565743a"
  },
- "F_tfts_enclosure": {
-  "url": "https://mgln.ai/e/p155759/op3.dev/e/pscrb.fm/rss/p/dts.podtrac.com/redirect.mp3/tracking.swap.fm/track/zA4xtlPBvf2K1K9zesjz/media.transistor.fm/ab719a3a/09a09a53.mp3",
+ "fresh_session_2": {
   "status": 200,
-  "final_url": "https://dai.transistor.fm/ab719a3a.mp3?s=f0af982db0246181bb0842eefc99067db9ffdb3f",
-  "content_type": "audio/mpeg",
-  "content_length": "18561515",
-  "hops": [
-   "https://mgln.ai/e/p155759/op3.dev/e/pscrb.fm/rss/p/dts.podtrac.com/redirect.mp3/tracking.swap.fm/track/zA4xtlPBvf2K1K9zesjz/media.transistor.fm/ab719a3a/09a09a53.mp3",
-   "https://op3.dev/e/pscrb.fm/rss/p/dts.podtrac.com/redirect.mp3/tracking.swap.fm/track/zA4xtlPBvf2K1K9zesjz/media.transistor.fm/ab719a3a/09a09a53.mp3",
-   "https://pscrb.fm/rss/p/dts.podtrac.com/redirect.mp3/tracking.swap.fm/track/zA4xtlPBvf2K1K9zesjz/media.transistor.fm/ab719a3a/09a09a53.mp3",
-   "https://dts.podtrac.com/redirect.mp3/tracking.swap.fm/track/zA4xtlPBvf2K1K9zesjz/media.transistor.fm/ab719a3a/09a09a53.mp3",
-   "https://tracking.swap.fm/track/zA4xtlPBvf2K1K9zesjz/media.transistor.fm/ab719a3a/09a09a53.mp3",
-   "https://media.transistor.fm/ab719a3a/09a09a53.mp3"
+  "final": "https://28243.mc.tritondigital.com:443/OMNY_THEBIGTAKE_PODCAST_P/media-session/ad5de8bb-3914-4a11-931e-90825963fb5f/d/cl",
+  "bytes": 21142013,
+  "duration": 1318.2693877551021,
+  "head": "49443304000000030101545353450000000e0000034c61766636302e31362e313030544954320000003e000003496e73696465204a616e65205374726565743a"
+ },
+ "waveform": {
+  "url": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/947bb858-7725-41b9-a0bc-b4de014c6b52/waveform?t=1791576632&token=gPsb7nOIRvMWSFqX6Ah1hfMPLKJLX5yV",
+  "status": 200,
+  "content_type": "application/json",
+  "bytes": 6609,
+  "json_keys": [
+   "SR",
+   "SPP",
+   "D"
   ],
-  "cors": {
-   "Access-Control-Allow-Origin": "*"
-  },
-  "accept_ranges": "bytes",
-  "cors_with_origin": {
-   "Access-Control-Allow-Origin": "*"
-  },
-  "range_status": 206,
-  "bytes_downloaded": 18561515,
-  "duration_sec": 1158.6758125,
-  "seconds": 2.8
+  "len_D": 1,
+  "sample_D": [
+   "ABMqHBQTDw4NCwoPCBAjHhQgHBIeFgcACRYVDggWESAHARANBwEAAAAYECANDBYRGQgDBwYFIyYYFAYGGCYbExEIFxIbIAIEAQEQFxQdBwMCBxQqGAADAQoJEQcDAQ0cCBUVMhYQGBEMDR0UHA4UKiQRAQofHxUoDhgZChMJBCcYCiMjHhwgCg4eDwUYFQMDDhAZExkWEAMDCx0KGBcWEBgLAgEKIgoGAwcFDg8KBgMBAAAAAAAAAAMaGg8NDgcGBg8XFAYTIRImEQ4QDREPGhwXBAEBDhweIg8RDxQKHBIXEg4YDRINHBADDx0GEQ0QEh8LDgIEDBUbFRoFARoYDRAFAxwKCQgMCwQEBQUEAwICAQEAAAAAAAAAEyISDBUQDgkNAAAhJBkIAAodFQMBAAAAGQ8aDQYTFgsAAhkUBRgUAhEWFQ0AAAsNExoGAAACJBcGBCEYDgcBAAAcGw8cGQwRDg0MGwwSERMQDA0HAAkRBAAWFxILCQgCChcUHBQSDwoWDhAUFAENLhMAEw8UBBgTBBAHFBwOFBENEAEBAhYRDwEAAAUcFgcRIwYBAQAAChsYDhMWEgsQDA4UHAwDAA0eCBYXGAkYDhYTGRMWFQsWHggCAAkRERMKHA0UCxUUBhkCEgwcEAsQIQEACRoGAAIfHB4FDBQTDSIFAQEAFBkcHA4SAwIAAA4hIxkTIR0aIRwGCwMJBAwKFxoVFg0AAAAQCAcMAAEBDBEcABkSCxwOAQAXEw4TAQ8bCgYHHyMWBAEOIQoVEQoJAR0VGhARIQ8PEBYKEAsVDQsiAwEPGQUGAQAcHxAdCRAGAwEGFgwXGSIZDwADGhYNGAMBDxcNGgAAAAAADRYPGRMCExgPAhsJEB0LAAABHRcOJgMfHhEhCBASExAVEgwSBgQCAx0XCBMZHAoBAAciCQ0MEQ4LDR4PFAsUBwwIDwsIABQPBxgSBhkUCwAQCQwBCw0SDw0VCAAIGRAKAQIABxkuFBoXGRQPGAgAAAMhHxUPDAUMFhQEABMQGRITERIGFSEIAQ8gDQUCCgwUKg4UEhYSDhkFGw4gCAAABAQTCCEfCxsEERogFBEHHxgTBxweFBQFAxEeHgwREhASExUWHRISDhEeGRUEAQwRHhkPCxURAwIZFCkeDQkSER4DCBcTEQUCAQ0jCCIREQsQEgABABIiEQoODgIMFRYQExYUExMPEh0gJQwMIRMbDQEVGxgUDxcGFhILFA4EAQIUJhMOGRYLFwwPEgEIAhsYFAEWFxQQDgICESogDBcZEgoIGyQaBgEBDSEGEhYKHQoXDhAVGBQQBw4XFh8QBQAVFwsQIxkVCRsGAQAbCgsVDRMCAhEjFgkSCQkAFBcNChAAGhQWGQMLEgwFGBATBAAMDAwQAQAACBodDxAMEgAAAAAHGAwWAxoyGRsdDBAIHBo/CgMPFREPHhcCAAAWKiYHAQQkIxcdEhELGyAUDQkMAgAwGw4YEBIYDwcOGwYAAgsKHBcAEBcUFwgTMEUzHwUFFyEkHRYYBwACFBAfCwkOCw0YDgoVEw0WEhEjHQEADAggGQIDKyURGAwUChgiDwgVFxgVCxQQFwAAAAAjGRsbGRQLEw4HDgwHBBIYGgYGEhEgBAMlCw4MGBYLAAwVFhUFAxsFGR8MBgMODR8RDBMLBg8OFhYSAQYYCg4SFBsKCSEWAgAAAxIXFhwLCBYPDAkACTIUFhcVExABAws3HhgMDBEOGhQIBwAAABkaAQYQQSAODxMPEg8YDwsIAgErEhgGAAADDhUTEBUFAxkHDxYTFxgYEgkVChwKBxUcExUXCA8RDRwJDxIiJSQICxgeDBMZAQEIIhsSDgkXHhULBxEJDQsLCwsLBAUBIiUIHiQQCxMaFhcYFhcVBQsVARQWDxIICxEbEyMXBx4GEwgiCBIRGxkCBxcKAAATCh0bDhgNDQgWHhsTDhoJGBkNFh4aBBEOGhMQEQUBKh8KAAYSGRIWEQwOIxcGIhcXExwWCxgIBQsaCxIHEQAJEBINEh8RDBcOCwwJCRckCAgFAwciKwgICAMBHDEXGBIcChoFDwEJCA8WDCEPABoZCyQBAAESHBsAAAAACw8iCQEAAAkRMhADAAEAEh4TCwAAAAAAExQeFxwbHQ4UDAwHHgIADQAFAAgUGiMoAgIBBCcWFA8iCQ0WCg4dDRcSFwIDEwMAAQklFBkKDAYBBh8XDRIFAAcJAgEcGxALFwYAFh0lExkODR0LHBESGAIZGBkUEA4UCRULBBUTGCYHGRAbGAsAABgOIwQEFQsdFw4JARkXHhAPCw0bFhsVAhwSBxEMChACAgAAAAAWDQwmDgEMFgoLFQ4GCwIFQhsWBwIAERoOFBULBgEjDwcPChQcEwsMFxIYGgQODQ0OEwEDAS0lGBcQDRAREyELFgkCGxoTEw0FGgkRCxIMCgEBKSgTEBAVCgENAgMAAAIYFw8NDwcFAhUVFSQcGQ8JGBUQExUdDgYDAggPDRMLAwMDERARGhwNBQMCAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAADDxETGBYEAwIBAAAAAAAAAAAFHCYjGxMGCxwNBg4MHRsYCxQSEgsAAAAMEw0IBhgcEQkNCwMBAQAAAgAEHwoRBwAEHAwQABMQDAQAAAAADhwXAAAYEh4RDQwdIxoPAQACGh0YERMCAQEAAhwdGBAAAAsWCg0AABAXDQAAAAMYHRUMBQAQFhAQDQAABx0TAgAQHBcUDAAABw4TDgMMFQ8HBRIdFiwQCxAOCwsMDAECAgAcFxMRGBUcBA0XBxgQBAAQDR0SCA8TFgoNGhgCAAAAAB4bFwYGGQEUBQAAFxsVBwMWDgELIx8SERcTAwEBAAAQJQcPDQUAFBYCAAAPHRgKEA0XEwsSExgRFhEVEgAPKQkOEQoJHBcSAA4ZGA0aEw8MFRAQDAgNFyACAgkcERoRCxgbDAUdDAAAFw0JFBEQEwcYJQgDAQYUExgcCBgODQ8HHhECGR0EBBQkCwwKGRkDEQcJAgAVHC0VExAMDg0UDx4SDBAVBQYTFREdHBEQDBEQDxQCCBQSEQYhFxcMCxsUFxoNABILECMOExITDQ0QDBILDg0ZCQwOExYEAA0SCQoJDwQAAAAFCg4IFwUDBQkICwkNBg4UDgcKDQoJDQoCAgUODxQdExASGhMMDwgJCgYBAAkPDwsRBQQLCQ4LEBMQEw0RAwEAAB8cBwAKGhINDgkoHgAAAAACHgkUEBEJCwwPDRAQEg0MBwAFCRkICwQPFxcXIBAPEAknHxILFRAEDRgBChwWExcTFhoeChgMAAUUDg4PCw0BAAAPEAgLAQARGgsAAAUVGxgNBw8NDRclCwcNBgAHDA4LCAUABAYKCSMdHRQbDxARDQ0UFRYbDhIaExARFQEDAwIAACAsFBUXFgwYAgAAAAwjDgwKJBwIChQLCDoTGwcCEiEQBRkDBCcZFx4CDhEeEA4TIRISFwwLBB8aBAwHCAgeIhwTER4LDAcCAwAuKRIBBigcAAEUDgMOEScsEA4KFB0UCAYNEgoACBgODgsGCAoGCBcXHBQGBAcmBgAeGhkODxYjGAcKDxULDxUMDQ8UBgsXEQkPBAIUNBAEByAYGgIICx0QEgENFRYFBhcZAQsUERkREgcEACECDw04FBAHEw8XFg8eCwICDxIrFBMZFxsTHA0RChsgDRAUCgUXEhUBCB0WGRAKDBsSHQ0REgYBBRwjEBQXBgAaFBQTDygMCgUIBAMSHBwZFSMDGBYYARwLIRUWFAYWAwwPECIVEwwXEAkDABcqBgUgLR0FFAkPHRAbFwoJESQfAgIKGRUQAgEfJBoPAxMQBQIIJQgPFSUTEwYJAQsZFiQKDhANGBgLCgUaLA4VAwAACRgrFxABEBIHGg8YCwIFHyQaBgEGEQcMFAgTGRgKIAwTFwEXDw8PDA0LDhcKGgkAAAAKEhUOFhMGABwYAQUgGhwFDg0HFxcRBCIGGQcGHg8aDA8OAxYYDQ4CAhUOHggBDBUYHwkAABkeFBoHFw8CESAWDRENCAQDHwsGIg4YDwoOEwoREgEhHgoEBQsnGBQXAxwaDRUPDQkAGBIWBgAADB4EFwIbCw0TDQkLFwYCExEKDgwSFRgHFwgCAiANKR0OIBMJAAAAGBoXFBERDg4QCSAXAQEAAAEdGAYPHBoHFg4VCBETJQoAEQ8hBQAAAAAOCA8RCxITDh4VCA4OFgsOGAQCABgVAxEQEhsOFQoWBxYIAQgNEg4LDAAAACEaEBoXIBYPDAoQBxECAgMdDxcdEQcOFggRDwwPFwIBHhkPFg8WFxAOFA8UDgcBAw8JAQABFx8PBQcYDhgPAgATHRgDFBEdGRgIDRMNGAsTAwEBCB0YDBAgERQLGQ0QAQAABA0ZEBQJGgsTAgIBFBccDQwWEhgMEQ8bChwSGwsTFgYCCRcZEAsKFxoLFAQAASIkGQQPGgYOEw4BFBcNAAsQERgPDQsMFgQNFgEBAwEeHBIDFxAgHBYGAAAAAAALFQ8bAAABCRoREA8XAQQaFw0OEgoTFxIXDQ8OFAcKFgUKEQEFEAQFDAcAAAoWEhIUEgMFJxwMFRgLAAAADREPCRALDwYGCRsaEwoSAAkIDAYAAAQXGxkQHRARDRMTIRoVAAQPGg4RABMfHBoACREREgsFFBkTHB8mEhgBAQgYDwkdBQcUHhUVBAsHChIZEA0UAQAAAAMbFh0KGBUUAwMBIyoMDR8MCwwEAgEfHhkHBhEWKyMLFREADgoXFxEXDBkjBRAGJBQZFh8EAgwOEhwbCyEgEREYAw8PDBMbEh8HFxkMFBgLIRMTEgUREQEBAAIRFDUUFBYUHBIMEQcYERUaEwwVDw4SHxQWDw0AAQIDAQAoHAoxDhsUBwgXDyERDwcLIBEhIQ4LExENAAAoHREADQ8MDBAJAAAAEDkQBQADEQ8QDAcBARcbIxECHAkHGxoPEBQRCRAYJRoQDg8HAgEpFCYaDBweDwAAAAAAABEXChkTFgMYCxIFGwcdDAYLDBERExwKAgIcCB0qHxgNFBgQDQkQGBAKBQAACRsXIyEKERUIDhYVGB4XAwoMFhoUEgQBLRovIysdDhkBGBscAisdIQ4dJSUkEhYSIxsNCwoTERAYLwkWHAYhDhIfEQMRKhwMJSUGBxceHxcTFh8WHxMfEgohGB8WBRMVChAeDBwcCwMDEi8XEQ4DAAcEIBoSDikPFQwaHwgNCxQMFBIWChANGQMBIBQYEQ0aDisMBxoJBhIuCQYVCRQPGhoDAgwoEA0TDA8YDgEnDQcACi8ZHhwJFhQXERYLFxkYFh0SDw4YAhghEyoXDB0JBBUcBSMZCxEWEgYCAR0JHx4DEBwaFAIACBYPBAAZFwkIAgUZFSMSCiIVBxkMEhMYFA4IFSEXAgABJBYXEQQTDQ8VBgoIEwMAAAACEwAFHh8SDBQQEgsJDQ4MDRANDxUICBYPDw4KCQoLEQoMAgwHBwYGDAYMBQIBCw4JAA0LEA4NCgQAAQghLQ4UDwsBAAYNDgoNCQcAAAAbDQwZCRAVDRsUFxoSFw0NBQAAAAAAEgkfCwkBEBEaGBsTCAsODQAFEAoUDRkNAQAHIA4bFRgFAg8XDgAAAAsOCxcFAgsLDAwPDw4TBAEdExsOFw8PDRIUFxYNAQATFQ0gGwoDDRcOEgYQGA0CFBsWFQ8QERUBARkLCgwSGg8aFwILFRMMCR0ZDAAACwwEAAIBFxwLBgwYIgUAAAAAAAAACx0TFBUPBxUQCA8ZEAgPHBANEBYPAgEUCg4KAAAWDgQAARoSDwwiCwoREgMBGg8aEwYLFAoRDA4ABRUOAQUIFiEQEA0AAQAWGxUHHx4OCw4GHRUTDQAEExIcEwEGGyAEAwEMFQwODhAHFAcAAAAaGwEOFBMVCBgOAgElFwsUDwwXFQQAAQAABRwbHBoNAgAAGwMAAQ0PGyAHAgADHAkVFhgAAAwXGBQMEBUOBwAZDgwJDCgMDRQUFw0XDAEAARgeCwIQEhERFQwUDxMUEwcCGA0TChAMExoJEwgOERgTEAMEDRMNAAkYEQ0FChICAwwZGQcMFR8GBxAXGAsCAAAADxwWEQ8TFA4TDgIEHAsWEx4FAQYZHwYNGQ8DCg0aGAYBFREQGA8dHhEeERAOGQkAAAsRERAHBAAAHRYCFx4EFRwQCg0PIQkTAgEOGyIHAAARGhkPDBAQCwsaIAMBABQVDwcRAwAREhEHCAcUAwIZEhwXAgEWEQwWDRATBQITEwoqIAQBERsSCBcREgwFAQAAABkeBgAPGg0QDxQNEQoBAgUaEgcVDB8hAwEDGwUAAA4UFQsAAAABGhoQDA8HBgYOFxUHBwcGBRwXHB0RHRsSChwPEgIIHBgLGxYJFxgVExkXCAIKFxgWGxoLDwYmBg8XGAcVHQgPDSITFBITChIPIQQCDRIcCwMcFhoLEwkoDA4YGgoOGRsHDRQLHAsEAhESKhsWFB0WFQIVDBcUGhkLIRYQBwQZGBoSFhQOAgQSGBIfEBMFDA8OCQQCBQYVIxYHCB4SEQ8NBQUGBQQDAwIBAQAAAAAAAAAAAAAAAAAA"
+  ]
  }
 }
