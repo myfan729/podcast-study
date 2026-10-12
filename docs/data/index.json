@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-12T08:53:44Z",
+ "generated_at": "2026-10-12T09:00:14Z",
  "shows": [
   {
    "slug": "big-take",
@@ -141,6 +141,29 @@
    "cefr": "C1",
    "expressions": 12,
    "words": 2281,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "bbc-6-minute-english-2026-10-08-are-people-drinking-less-alcohol",
+   "show": "bbc-6-minute-english",
+   "title": "Are people drinking less alcohol?",
+   "published_at": "2026-10-08T08:28:00Z",
+   "duration_sec": 369,
+   "image": "http://ichef.bbci.co.uk/images/ic/3000x3000/p0hxqkd0.jpg",
+   "one_liner_ko": "영국 젊은 세대를 중심으로 술을 끊거나 줄이는 사람이 늘고 있고, 한편에선 웰니스 강박에 대한 반발도 나온다는 이야기.",
+   "tags": [
+    "alcohol",
+    "sober curious",
+    "Gen Z",
+    "wellness culture",
+    "social pressure",
+    "UK culture"
+   ],
+   "cefr": "B2",
+   "expressions": 12,
+   "words": 1099,
    "has_translation": true,
    "mock": false,
    "demo": false
@@ -323,6 +346,28 @@
    "cefr": "C1",
    "expressions": 12,
    "words": 3491,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "bbc-6-minute-english-2026-10-01-why-does-heartbreak-hurt-so-much",
+   "show": "bbc-6-minute-english",
+   "title": "Why does heartbreak hurt so much?",
+   "published_at": "2026-10-01T09:47:00Z",
+   "duration_sec": 360,
+   "image": "http://ichef.bbci.co.uk/images/ic/3000x3000/p0hxqkd0.jpg",
+   "one_liner_ko": "실연의 고통은 상상이 아니라, 사랑에 빠진 뇌가 생존 시스템으로 작동하기 때문에 실제 신체적 통증처럼 느껴진다는 이야기.",
+   "tags": [
+    "heartbreak",
+    "neuroscience",
+    "relationships",
+    "loneliness and health",
+    "attachment theory"
+   ],
+   "cefr": "B2",
+   "expressions": 12,
+   "words": 985,
    "has_translation": true,
    "mock": false,
    "demo": false
