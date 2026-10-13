@@ -314,7 +314,12 @@
     // the first anchor's offset also covers the content before it (the pre-roll sits before everything)
     const offsetAt = (c) => { let off = anchors.length ? anchors[0].a - anchors[0].c : 0; for (const an of anchors) { if (an.c <= c + 0.05) off = an.a - an.c; else break; } return off; };
     const toAudio = (c) => c + offsetAt(c);
+    // auto-sync found only later breaks (no reference matched before the first mid-roll): the pre-roll and
+    // first mid-roll lengths are then unknown, so the start must not borrow the later offset
+    const firstMid = () => midMarkers.length ? midMarkers[0] : Infinity;
+    const startUnknown = () => hasRefs && !fixedSync && anchors.length > 0 && !anchors.some(an => an.c < firstMid() - 1);
     function toContent(a) {
+      if (startUnknown() && a < anchors[0].a) return { c: 0, inAd: false, unknown: true };
       let off = anchors.length ? anchors[0].a - anchors[0].c : 0;
       for (const an of anchors) { if (an.a <= a) off = an.a - an.c; else break; }
       const c = a - off;
@@ -325,7 +330,9 @@
     }
     let anchorRev = 0;
     function addAnchor(c, a) {
-      anchors = anchors.filter(an => an.c < c - 0.05);
+      // a new anchor replaces the ones after it in the same stretch; anchors beyond the next ad break stay
+      const nextMid = midMarkers.find(m => m > c + 0.5);
+      anchors = anchors.filter(an => an.c < c - 0.05 || (nextMid != null && an.c >= nextMid - 1));
       anchors.push({ c: Math.max(0, c), a: Math.max(0, a) }); anchors.sort((x, y) => x.c - y.c);
       anchorRev++; if (sync.phase !== 'auto' && sync.phase !== 'fixed') sync.phase = 'manual';
       store.set('sync:' + ep.id, anchors); dismissedPrompt = null; renderSyncState(); update(true);
@@ -335,7 +342,9 @@
     async function snapAnchor(c, aGuess) {
       if (!syncBlob || !syncIndex || !hasRefs) return;
       const refs = ep.sync.refs.slice().sort((x, y) => x.c - y.c);
-      const ref = refs.filter(r => r.c <= c + 0.05).pop() || refs[0];
+      // only a reference from the same stretch of content (no ad break between it and the tapped line)
+      const ref = refs.filter(r => r.c <= c + 0.05 && !midMarkers.some(m => m > r.c + 0.5 && m <= c + 0.5)).pop();
+      if (!ref) return;
       const rev = anchorRev;
       try {
         const r = await PodSync.alignLocal(syncBlob, syncIndex, ref, aGuess + (ref.c - c), 6);
@@ -401,6 +410,7 @@
       else if (act === 'info') { openSyncInfo(); }
       else if (act === 'close') { dismissedPrompt = b.dataset.key || 'x'; renderBanner(); }
       else if (act === 'cancel') { setSyncMode(false); }
+      else if (act === 'syncmode') { setSyncMode(true); }
     });
     // ad-break dividers in the transcript (where the host inserts mid-roll ads)
     midMarkers.forEach(m => {
@@ -415,6 +425,8 @@
       const daiLikely = adTotal > 15 || am.dai === 'yes' || am.dai === 'likely';
       if (syncMode) {
         key = 'sync'; html = `<span>지금 들리는 문장을 스크립트에서 탭하세요 — 그 문장부터 싱크가 맞춰집니다.</span><button data-act="cancel">취소</button>`;
+      } else if (info && info.unknown) {
+        key = 'unknown'; html = `<span>앞부분은 자동 싱크를 못 했어요. <b>맞추기</b>를 누르고 지금 들리는 문장을 스크립트에서 탭해 주세요.</span><button class="primary" data-act="syncmode">맞추기</button>`;
       } else if (info && info.inAd) {
         key = 'inad:' + Math.round(info.adEnd);
         html = `<span>광고 구간 (이미 맞춘 위치)</span><button data-act="skip" data-a="${info.adEnd}">광고 건너뛰기 →</button>`;
@@ -448,8 +460,8 @@
       if (!seeking) { seek.value = Math.round(t / (audio.duration || ep.duration_sec || 1) * 1000); $('#tCur').textContent = fmt(t); }
       const pos = toContent(t);
       if (loopSeg && pos.c >= loopSeg.end - 0.05) { audio.currentTime = toAudio(loopSeg.start); return; }
-      renderBanner({ inAd: pos.inAd, adEnd: pos.adEnd, prompt: pos.inAd ? null : promptFor(pos.c, t), fine: syncFineOpen });
-      const i = pos.inAd ? activeIdx : findCue(pos.c);
+      renderBanner({ inAd: pos.inAd, adEnd: pos.adEnd, unknown: pos.unknown, prompt: (pos.inAd || pos.unknown) ? null : promptFor(pos.c, t), fine: syncFineOpen });
+      const i = pos.unknown ? -1 : pos.inAd ? activeIdx : findCue(pos.c);
       if (i !== activeIdx || force) {
         if (activeIdx >= 0 && cueEls[activeIdx]) cueEls[activeIdx].classList.remove('active');
         activeIdx = i;
@@ -463,7 +475,8 @@
       // the "now playing" line: current sentence, or where we are relative to the script
       if (sync.phase !== 'downloading' && sync.phase !== 'aligning' && cues.length) {
         let now = '';
-        if (i >= 0) now = (i === cues.length - 1 && pos.c > cues[i].e + 1) ? '대본 끝 · 아웃트로' : cues[i].t;
+        if (pos.unknown) now = '앞부분 싱크 필요 — 맞추기를 눌러 주세요';
+        else if (i >= 0) now = (i === cues.length - 1 && pos.c > cues[i].e + 1) ? '대본 끝 · 아웃트로' : cues[i].t;
         else if (!pos.inAd && pos.c < cues[0].s) now = `인트로 · 대본은 ${fmt(cues[0].s)}부터 시작합니다`;
         if (now !== lastNow) { lastNow = now; $('#nowLine').textContent = now; }
       }

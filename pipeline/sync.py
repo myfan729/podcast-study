@@ -27,6 +27,8 @@ from .util import http_session, log, read_json, setup_logging, utcnow_iso, write
 
 SYNC_DIR = DATA / "sync"
 REF_LEN = 45.0            # seconds of content fingerprinted after each break
+BACKUP_AT = 60.0          # …and again this far into the same stretch, in case the first spot fails in a browser
+RETRY_AT = (0.0, 25.0, 60.0, 120.0)   # content seconds after a break where its text is looked for
 TARGET_TOKENS = 24        # transcript words used to locate a break in the ASR output
 MIN_SCORE = 0.55
 ASR_MODEL = "base.en"
@@ -152,16 +154,29 @@ def content_map(asr: Asr, cues: list[dict], pcm16: np.ndarray, dur: float, conte
     offset = 0.0
     out: list[dict] = []
     if markers is not None:
-        for c_k in [0.0] + sorted(markers):
+        points = [0.0] + sorted(markers)
+        for idx, c_k in enumerate(points):
+            seg_end = points[idx + 1] if idx + 1 < len(points) else content_dur
+            # the first words after a break can be hard to recognise (music bed, jingle, cold open with several
+            # voices), so if they are not found, look for text a little later in the same stretch of content
+            delays = [d for d in RETRY_AT if c_k + d + 20 <= seg_end] or [0.0]
             exp = c_k + offset
-            lo, hi = max(0.0, exp - 4), min(dur, exp + budget + 40)
+            lo, hi = max(0.0, exp - 4), min(dur, exp + budget + 40 + max(delays))
             words = asr.words(pcm16, lo, hi)
-            hit = locate(cue_tokens(cues, c_k), words, lo, hi)
+            hit, used = None, 0.0
+            for d in delays:
+                hit = locate(cue_tokens(cues, c_k + d), words, max(0.0, exp + d - 4), min(dur, exp + d + budget + 40))
+                if hit:
+                    used = d
+                    break
             if not hit:
                 out.append({"c": c_k, "a": None, "error": "not found"})
                 continue
             new_offset = hit["offset"]
-            out.append({"c": c_k, "a": round(c_k + new_offset, 3), "score": hit["score"]})
+            br = {"c": c_k, "a": round(c_k + new_offset, 3), "score": hit["score"]}
+            if used:
+                br["found_at"] = round(c_k + used, 1)
+            out.append(br)
             budget = max(0.0, budget - max(0.0, new_offset - offset))
             offset = new_offset
         return out, ad_total
@@ -265,14 +280,18 @@ def build(doc: dict, asr: Asr | None, session, do_selftest: bool = False) -> dic
              dur - content_dur, markers)
     breaks, ad_total = content_map(asr, cues, pcm16, dur, content_dur, markers)
     refs = []
-    for br in breaks:
+    for i, br in enumerate(breaks):
         if br.get("a") is None:
             continue
-        a0 = max(0, int(br["a"] * F.SR))
-        seg = pcm8[a0:a0 + int(REF_LEN * F.SR)]
-        if len(seg) < F.N_FFT * 4:
-            continue
-        refs.append({"c": br["c"], "len": round(len(seg) / F.SR, 3), "fp": F.encode(F.fingerprint(seg))})
+        seg_end = breaks[i + 1]["c"] if i + 1 < len(breaks) else content_dur
+        for d in (0.0, BACKUP_AT):
+            if d and br["c"] + d + REF_LEN > seg_end:
+                continue
+            a0 = max(0, int((br["a"] + d) * F.SR))
+            seg = pcm8[a0:a0 + int(REF_LEN * F.SR)]
+            if len(seg) < F.N_FFT * 4:
+                continue
+            refs.append({"c": round(br["c"] + d, 3), "len": round(len(seg) / F.SR, 3), "fp": F.encode(F.fingerprint(seg))})
     out = {
         "v": 1, "sr": F.SR, "hop": F.HOP_SEC, "content_duration": content_dur, "runner_duration": round(dur, 3),
         "ad_total_runner": round(ad_total, 3), "markers": markers, "breaks": breaks, "refs": refs,

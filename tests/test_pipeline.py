@@ -438,3 +438,20 @@ def test_needs_upgrade(tmp_path, monkeypatch):
     assert not M.needs_upgrade({"id": "old-format-old"}, now)
     assert not M.needs_upgrade({"id": "new-format"}, now)
     assert not M.needs_upgrade({"id": "web"}, now)
+
+
+def test_sync_finds_a_break_whose_first_words_are_unrecognisable():
+    """Cold opens over music: the ASR gets nothing right for the first stretch after the pre-roll.
+    The break must still be located (from text further in) and placed at content 0."""
+    from pipeline.sync import content_map
+    cues = parse_transcript((FIX / "omny_demo.vtt").read_text(), "vtt")
+    cues = [{"s": c.s, "e": c.e, "t": c.t} for c in cues]
+    pre, mids = 31.0, [(60.0, 92.0)]
+    fake = _FakeAsr(cues, pre, mids)
+    fake._w = [(("la" if pre <= w[1] < pre + 22 else w[0]), w[1], w[2]) for w in fake._w]   # first 22 s garbled
+    content_dur = cues[-1]["e"]
+    dur = content_dur + pre + 92.0 + 20.0
+    import numpy as np
+    breaks, _ = content_map(fake, cues, np.zeros(int(dur * 16000), dtype=np.float32), dur, content_dur, markers=[60.0])
+    assert breaks[0]["a"] is not None and abs(breaks[0]["a"] - 31.0) < 0.6 and breaks[0].get("found_at", 0) > 0
+    assert abs(breaks[1]["a"] - (60 + 31 + 92)) < 0.6
