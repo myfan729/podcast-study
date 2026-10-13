@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-13T15:56:56Z",
+ "generated_at": "2026-10-13T21:16:49Z",
  "shows": [
   {
    "slug": "big-take",
@@ -24,6 +24,29 @@
   }
  ],
  "episodes": [
+  {
+   "id": "big-take-2026-10-13-how-indias-day-traders-broke-the-worlds-biggest-options",
+   "show": "big-take",
+   "title": "How India’s Day Traders Broke the World’s Biggest Options Market",
+   "published_at": "2026-10-13T20:40:58Z",
+   "duration_sec": 1052,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/02064fda-9c48-4a2a-bf95-b4e2015376e8/image.jpg?t=1791923928&size=Large",
+   "one_liner_ko": "팬데믹 이후 인도 개인투자자들이 옵션 시장에 몰려 수십억 달러를 잃은 과정과, 규제 당국의 대응 및 투기 자금이 상품시장으로 옮겨간 현상을 다룬 에피소드.",
+   "tags": [
+    "India",
+    "options trading",
+    "retail investors",
+    "regulation",
+    "Jane Street",
+    "speculation"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 2712,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
   {
    "id": "big-take-2026-10-12-ais-giant-money-loop-is-feeling-very-2008",
    "show": "big-take",

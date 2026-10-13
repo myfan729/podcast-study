@@ -226,6 +226,21 @@
    "published_at": "2026-10-12T20:30:34Z",
    "done_at": "2026-10-12T22:59:06Z",
    "upgraded_at": "2026-10-13T01:26:58Z"
+  },
+  "big-take:e09b60c66d91": {
+   "first_seen": "2026-10-13T21:14:20Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "big-take-2026-10-13-how-indias-day-traders-broke-the-worlds-biggest-options",
+   "title": "How India’s Day Traders Broke the World’s Biggest Options Market",
+   "published_at": "2026-10-13T20:40:58Z",
+   "done_at": "2026-10-13T21:16:49Z"
+  },
+  "big-take-asia:e09b60c66d91": {
+   "status": "skipped_daily",
+   "title": "How India’s Day Traders Broke the World’s Biggest Options Market",
+   "published_at": "2026-10-13T20:40:58Z",
+   "seen_at": "2026-10-13T21:16:49Z"
   }
  }
 }
