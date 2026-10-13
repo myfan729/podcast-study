@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-13T01:12:55Z",
+ "generated_at": "2026-10-13T01:33:52Z",
  "shows": [
   {
    "slug": "big-take",
@@ -38,13 +38,13 @@
    "published_at": "2026-10-12T20:30:34Z",
    "duration_sec": 1108,
    "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/440d7216-9fb3-43dd-8269-b4e1014d0f71/image.jpg?t=1791836723&size=Large",
-   "one_liner_ko": "AI 인프라 붐이 아시아의 칩 수익과 미국 자산 사이에서 도는 거대한 자금 순환을 만들고 있고, 이것이 2008년 위기 직전의 글로벌 불균형을 떠올리게 한다는 에피소드.",
+   "one_liner_ko": "AI 칩 수요가 아시아에 쌓인 달러 저축을 다시 미국 AI 기업으로 되돌려 보내는 거대한 자금 순환이 2008년 위기 직전의 글로벌 불균형을 연상시킨다는 분석이다.",
    "tags": [
     "AI boom",
     "global imbalances",
-    "2008 financial crisis",
     "US Treasuries",
-    "bubble",
+    "bubble risk",
+    "circular financing",
     "macroeconomics"
    ],
    "cefr": "C1",
@@ -61,12 +61,12 @@
    "published_at": "2026-10-12T13:00:00Z",
    "duration_sec": 1465,
    "image": "https://img.transistorcdn.com/6gQ6nmxQv-KodcDzmoPvST3ColCmxK6VeYUAE8LR0ew/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS81MjNl/YTM4NmZjYWNjOTBm/NzUzN2UwODQwMzlm/NGE5My5wbmc.jpg",
-   "one_liner_ko": "매치메이커 레이철 그린왈드가 스몰토크를 '수비'에서 '공격'으로 바꾸는 법, 즉 나만의 브랜드로 이어지는 다리 놓기, 사전 준비, 스토리를 끌어내는 질문, 그리고 취약성을 드러내는 법을 알려준다.",
+   "one_liner_ko": "매치메이커 레이첼 그린왈드가 스몰토크를 '수비'에서 '공격'으로 바꾸는 법 — 브랜딩과 브릿징, 스토리 중심 질문, 분위기·재미·취약성이라는 세 가지 재료를 알려준다.",
    "tags": [
     "small talk",
-    "personal brand",
-    "conversation skills",
+    "personal branding",
     "storytelling",
+    "conversation skills",
     "networking",
     "vulnerability"
    ],
@@ -84,14 +84,14 @@
    "published_at": "2026-10-11T14:00:00Z",
    "duration_sec": 2281,
    "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/10e449f1-4055-421d-a814-b4e000ca2f50/image.jpg?t=1791723908&size=Large",
-   "one_liner_ko": "저널리스트 아자데 모아베니가 신간 『The East Wing』을 통해 미국 영부인과 그 참모들의 숨은 영향력을 짚고, 멜라니아 트럼프를 재평가하며 이란 전쟁과 중동 정세까지 이야기한다.",
+   "one_liner_ko": "저널리스트 아자데 모아베니가 신작 『The East Wing』을 중심으로 영부인과 그 참모들의 숨은 영향력, 멜라니아 트럼프의 재평가, 그리고 이란 전쟁 이후 중동 정세를 이야기한다.",
    "tags": [
     "first ladies",
     "Melania Trump",
     "Iran war",
-    "Gulf security",
-    "women's history",
-    "diaspora"
+    "Middle East",
+    "women in politics",
+    "soft power"
    ],
    "cefr": "C1",
    "expressions": 12,
