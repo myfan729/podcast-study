@@ -363,3 +363,32 @@ def test_tokens_normalise_spellings():
     from pipeline.sync import tokens
     assert tokens("Okay, erm, self-optimisation!") == tokens("OK um self optimization")
     assert tokens("Dr Smith realised") == tokens("doctor smith realized")
+
+
+def test_blog_title_matching():
+    from pipeline.blog_index import build_post_index, match_item, title_phrases
+    posts = [{"title": t, "url": f"u{i}"} for i, t in enumerate([
+        "gain ground, clout, runoff 뜻 예문",                       # u0
+        "live up to, live with, live on 뜻 예문 비교",              # u1
+        "made of / from / out of / with 뉘앙스 차이",              # u2
+        "another, other, the other, others 차이 쉽게 이해하기",     # u3
+        "shave off, tall order, off the top of one&#39;s head 뜻",  # u4
+        "토플 영어단어 spook / erratic / in ... terms 뜻 예문 정리",  # u5
+        "hold your own 뜻 - 밀리지 않고 버티다",                    # u6
+    ])]
+    import html
+    for p in posts:
+        p["title"] = html.unescape(p["title"])
+    idx = build_post_index(posts)
+    tn = [(title_phrases(p["title"]), p) for p in posts]
+    m = lambda e: (match_item(e, idx, tn) or {}).get("url")  # noqa: E731
+    assert m("clout") == "u0" and m("gaining ground") == "u0"
+    assert m("live up to its promise") == "u1"
+    assert m("spooked") == "u5"
+    assert m("hold one's own") == "u6"
+    assert m("a tall order / an uphill climb") == "u4"
+    # generic two-word phrases must not produce links
+    assert m("out of the goodness of one's heart") is None
+    assert m("on the other side of the ledger") is None
+    assert m("find a bridge out of / into") is None
+    assert m("up") is None

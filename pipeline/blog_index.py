@@ -11,6 +11,7 @@ Usage: python -m pipeline.blog_index [-v]
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import re
 import sys
@@ -24,7 +25,7 @@ from .main import CONFIG_PATH, load_config
 from .util import http_session, log, read_json, setup_logging, utcnow_iso, write_json
 
 LINKS_PATH = build.DATA / "blog_links.json"
-POSTS_CACHE = build.DATA / "blog_posts.json"
+POSTS_CACHE = build.ROOT / "state" / "blog_posts.json"
 MOBILE_UA = ("Mozilla/5.0 (Linux; Android 14; SM-A175F) AppleWebKit/537.36 (KHTML, like Gecko) "
              "Chrome/129.0 Mobile Safari/537.36")
 
@@ -34,7 +35,7 @@ MOBILE_UA = ("Mozilla/5.0 (Linux; Android 14; SM-A175F) AppleWebKit/537.36 (KHTM
 # ---------------------------------------------------------------------------
 
 def _post(blog_id: str, log_no, title: str, category=None, date=None) -> dict:
-    return {"blog": blog_id, "logNo": str(log_no), "title": title.strip(), "category": category,
+    return {"blog": blog_id, "logNo": str(log_no), "title": html.unescape(title).strip(), "category": category,
             "date": date, "url": f"https://blog.naver.com/{blog_id}/{log_no}"}
 
 
@@ -129,6 +130,7 @@ def norm_phrase(s: str) -> str:
     s = s.strip()
     if s.startswith("to "):                              # "to perk up" → "perk up"
         s = s[3:]
+    s = re.sub(r"^(?:a|an|the) ", "", s.strip())         # "a tall order" → "tall order"
     s = re.sub(r"\s+", " ", s).strip(" ~'")
     return s
 
@@ -156,9 +158,18 @@ def _variants(s: str) -> list[str]:
     return out
 
 
+STOP = {"a", "an", "the", "of", "in", "on", "at", "to", "for", "with", "from", "by", "out", "up", "down", "off",
+        "over", "into", "onto", "about", "as", "and", "or", "but", "is", "be", "it", "that", "this", "than",
+        "other", "others", "another", "so", "not", "no", "do", "get", "have", "make", "go", "i", "you", "we"}
+
+
+def _words(p: str) -> list[str]:
+    return [w for w in p.split(" ") if w and w not in ("POSS", "OBJ")]
+
+
 def _is_content(p: str) -> bool:
-    words = [w for w in p.split(" ") if w not in ("POSS", "OBJ")]
-    return bool(words) and p not in GENERIC and len(p) >= 2
+    w = _words(p)
+    return bool(w) and p not in GENERIC and len(p) >= 2 and any(x not in STOP for x in w)
 
 
 def title_phrases(title: str) -> list[str]:
@@ -190,22 +201,34 @@ def _contains(hay: str, needle: str) -> bool:
     return re.search(rf"(?<![A-Za-z']){re.escape(needle)}(?![A-Za-z'])", hay) is not None
 
 
-def match_item(text: str, idx: dict[str, dict], titles_norm: list[tuple[list[str], dict]]) -> dict | None:
-    e = norm_phrase(text)
+def _match_part(e: str, idx: dict[str, dict], titles_norm: list[tuple[list[str], dict]]) -> dict | None:
     if not _is_content(e):
         return None
-    for key in _variants(e):
+    vs = _variants(e)
+    for key in vs:
         if key in idx:
             return idx[key]
-    multi = [v for v in _variants(e) if len(v.split()) >= 2]
+    multi = [v for v in vs if len(_words(v)) >= 2]
     for phrases, p in titles_norm:
         for ph in phrases:
-            # the expression inside a longer title phrase ("perk up" in "perk up and smile"), or a multi-word
-            # title phrase inside the expression ("ripple out" in "ripple out through")
+            # the expression inside a longer title phrase ("perk up" in "perk up and smile")
             if any(_contains(ph, v) for v in multi):
                 return p
-            if len(ph.split()) >= 2 and any(_contains(v, ph) for v in _variants(e)):
+            # a multi-word title phrase that is most of the expression ("ripple out" in "ripple out through",
+            # "live up to" in "live up to its promise"); "out of", "the other" etc. never count
+            nw = len(_words(ph))
+            if nw >= 2 and _is_content(ph) and any(_contains(v, ph) and nw * 2 >= len(_words(v)) for v in vs):
                 return p
+    return None
+
+
+def match_item(text: str, idx: dict[str, dict], titles_norm: list[tuple[list[str], dict]]) -> dict | None:
+    """Alternatives ("a tall order / an uphill climb", "find a bridge out of / into") are tried one by one."""
+    parts = [text] + [x for x in re.split(r"\s*(?:/|,|;|\bor\b)\s*", text) if x.strip() and x.strip() != text]
+    for part in parts:
+        p = _match_part(norm_phrase(part), idx, titles_norm)
+        if p:
+            return p
     return None
 
 
