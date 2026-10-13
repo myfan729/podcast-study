@@ -1,0 +1,821 @@
+{
+ "Odd Lots": {
+  "query": "Odd Lots",
+  "title": "Odd Lots",
+  "artist": "Bloomberg",
+  "feed": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/8a94442e-5a74-4fa2-8b8d-ae27003a8d6b/982f5071-765c-403d-969d-ae27003a8d83/podcast.rss",
+  "items": 10,
+  "with_transcript": 10,
+  "types": {
+   "application/srt": 10,
+   "text/vtt": 10,
+   "text/plain": 10
+  },
+  "sample": "https://api.omny.fm/orgs/e73c998e-6e60-432f-8610-ae210140c5b1/clips/f6fd1a43-7c77-47c2-ae42-b4e0016e2d9b/transcript?format=SubRip&t=1791757369",
+  "median_min": 47.5,
+  "per_week": 3.0,
+  "hosts": {
+   "podtrac.com": 10
+  },
+  "latest": "2026-10-12"
+ },
+ "Money Stuff: The Podcast": {
+  "query": "Money Stuff: The Podcast",
+  "title": "Money Stuff: The Podcast",
+  "artist": "Bloomberg",
+  "feed": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/ee4336cb-155f-4488-90e0-b1400134e40e/77e6a3a7-290d-4a82-8164-b14001353ef2/podcast.rss",
+  "items": 10,
+  "with_transcript": 10,
+  "types": {
+   "application/srt": 10,
+   "text/vtt": 10,
+   "text/plain": 10
+  },
+  "sample": "https://api.omny.fm/orgs/e73c998e-6e60-432f-8610-ae210140c5b1/clips/d48864e5-24e3-4186-b8de-b4de00f38870/transcript?format=SubRip&t=1791557449",
+  "median_min": 39.5,
+  "per_week": 0.8,
+  "hosts": {
+   "podtrac.com": 10
+  },
+  "latest": "2026-10-09"
+ },
+ "Bloomberg Daybreak: US Edition": {
+  "query": "Bloomberg Daybreak: US Edition",
+  "title": "Bloomberg Daybreak: US Edition",
+  "artist": "Bloomberg",
+  "feed": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d15648c4-cee0-4e99-a5ca-af80014d921d/65ce2954-d8a8-4c66-9f42-af80014d923e/podcast.rss",
+  "items": 10,
+  "with_transcript": 10,
+  "types": {
+   "application/srt": 10,
+   "text/vtt": 10,
+   "text/plain": 10
+  },
+  "sample": "https://api.omny.fm/orgs/e73c998e-6e60-432f-8610-ae210140c5b1/clips/e2143275-77ea-41b1-bb79-b4e2009bd960/transcript?format=SubRip&t=1791885542",
+  "median_min": 15.5,
+  "per_week": 7.0,
+  "hosts": {
+   "podtrac.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "Everybody's Business Bloomberg": {
+  "query": "Everybody's Business Bloomberg",
+  "title": "Everybody's Business",
+  "artist": "Bloomberg and iHeartPodcasts",
+  "feed": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/f541f9b4-77cb-45aa-bf94-b1d300e5d357/1d448cb7-e0fc-45b8-b51f-b1d300e623a7/podcast.rss",
+  "items": 10,
+  "with_transcript": 10,
+  "types": {
+   "application/srt": 10,
+   "text/vtt": 10,
+   "text/plain": 10
+  },
+  "sample": "https://api.omny.fm/orgs/e73c998e-6e60-432f-8610-ae210140c5b1/clips/68fdeb1b-c95b-4417-98e5-b4dd016be1c3/transcript?format=SubRip&t=1791497344",
+  "median_min": 36.0,
+  "per_week": 1.1,
+  "hosts": {
+   "podtrac.com": 10
+  },
+  "latest": "2026-10-09"
+ },
+ "Big Take DC": {
+  "query": "Big Take DC",
+  "title": "Big Take",
+  "artist": "Bloomberg and iHeartPodcasts",
+  "feed": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/8b1dd624-a026-43e9-8b57-ae2b00130066/podcast.rss",
+  "items": 10,
+  "with_transcript": 10,
+  "types": {
+   "application/srt": 10,
+   "text/vtt": 10,
+   "text/plain": 10
+  },
+  "sample": "https://api.omny.fm/orgs/e73c998e-6e60-432f-8610-ae210140c5b1/clips/02064fda-9c48-4a2a-bf95-b4e2015376e8/transcript?format=SubRip&t=1791924030",
+  "median_min": 18.1,
+  "per_week": 5.7,
+  "hosts": {
+   "podtrac.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "Zero Akshat Rathi": {
+  "query": "Zero Akshat Rathi",
+  "title": "Zero: The Climate Race",
+  "artist": "Bloomberg",
+  "feed": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/37c6caa7-d377-4c08-b479-af9d012ed5ad/a7faefb0-28ec-4b1d-85f3-af9d012ed5c9/podcast.rss",
+  "items": 10,
+  "with_transcript": 10,
+  "types": {
+   "application/srt": 10,
+   "text/vtt": 10,
+   "text/plain": 10
+  },
+  "sample": "https://api.omny.fm/orgs/e73c998e-6e60-432f-8610-ae210140c5b1/clips/5baf2cf2-cd89-4d02-9964-b4dc00e837f0/transcript?format=SubRip&t=1791382548",
+  "median_min": 34.3,
+  "per_week": 1.3,
+  "hosts": {
+   "podtrac.com": 10
+  },
+  "latest": "2026-10-08"
+ },
+ "Elon, Inc.": {
+  "query": "Elon, Inc.",
+  "title": "Elon, Inc.",
+  "artist": "Bloomberg",
+  "feed": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/0bb17e05-3d21-4db5-aa7a-b0a700ff16a7/fd28ae17-29c3-48d0-9899-b0a700ff9555/podcast.rss",
+  "items": 10,
+  "with_transcript": 10,
+  "types": {
+   "application/srt": 10,
+   "text/vtt": 10,
+   "text/plain": 10
+  },
+  "sample": "https://api.omny.fm/orgs/e73c998e-6e60-432f-8610-ae210140c5b1/clips/48b9d29c-47e2-4f4f-9efb-b37900f7005a/transcript?format=SubRip&t=1760713923",
+  "median_min": 29.0,
+  "per_week": 0.9,
+  "hosts": {
+   "podtrac.com": 10
+  },
+  "latest": "2025-10-18"
+ },
+ "Trumponomics Bloomberg": {
+  "query": "Trumponomics Bloomberg",
+  "title": "Trumponomics",
+  "artist": "Bloomberg",
+  "feed": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/84f3c095-964f-4994-9d24-ae2b00130029/c9553948-bc39-4871-8989-ae2b00130032/podcast.rss",
+  "items": 10,
+  "with_transcript": 10,
+  "types": {
+   "application/srt": 10,
+   "text/vtt": 10,
+   "text/plain": 10
+  },
+  "sample": "https://api.omny.fm/orgs/e73c998e-6e60-432f-8610-ae210140c5b1/clips/b5527842-13cf-4aad-a477-b4dd0081b924/transcript?format=SubRip&t=1791446081",
+  "median_min": 28.7,
+  "per_week": 1.1,
+  "hosts": {
+   "podtrac.com": 10
+  },
+  "latest": "2026-10-08"
+ },
+ "Big Take": {
+  "query": "Big Take",
+  "title": "Big Take",
+  "artist": "Bloomberg and iHeartPodcasts",
+  "feed": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/8b1dd624-a026-43e9-8b57-ae2b00130066/podcast.rss",
+  "items": 10,
+  "with_transcript": 10,
+  "types": {
+   "application/srt": 10,
+   "text/vtt": 10,
+   "text/plain": 10
+  },
+  "sample": "https://api.omny.fm/orgs/e73c998e-6e60-432f-8610-ae210140c5b1/clips/02064fda-9c48-4a2a-bf95-b4e2015376e8/transcript?format=SubRip&t=1791924030",
+  "median_min": 18.1,
+  "per_week": 5.7,
+  "hosts": {
+   "podtrac.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "Big Take Asia": {
+  "query": "Big Take Asia",
+  "title": "Big Take Asia",
+  "artist": "Bloomberg",
+  "feed": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/55b5c41e-b796-493d-829e-b16201392082/ed303395-bd29-403a-98d9-b16201396959/podcast.rss",
+  "items": 10,
+  "with_transcript": 9,
+  "types": {
+   "application/srt": 9,
+   "text/vtt": 9,
+   "text/plain": 9
+  },
+  "sample": "https://api.omny.fm/orgs/e73c998e-6e60-432f-8610-ae210140c5b1/clips/02064fda-9c48-4a2a-bf95-b4e2015376e8/transcript?format=SubRip&t=1791924030",
+  "median_min": 16.8,
+  "per_week": 1.3,
+  "hosts": {
+   "podtrac.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "The Indicator from Planet Money": {
+  "query": "The Indicator from Planet Money",
+  "title": "The Indicator from Planet Money",
+  "artist": "NPR",
+  "feed": "https://feeds.npr.org/510325/podcast.xml",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 9.2,
+  "per_week": 4.8,
+  "hosts": {
+   "prfx.byspotify.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "Planet Money": {
+  "query": "Planet Money",
+  "title": "Planet Money",
+  "artist": "NPR",
+  "feed": "https://feeds.npr.org/510289/podcast.xml",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 29.4,
+  "per_week": 2.1,
+  "hosts": {
+   "tracking.swap.fm": 10
+  },
+  "latest": "2026-10-09"
+ },
+ "Up First": {
+  "query": "Up First",
+  "title": "Up First from NPR",
+  "artist": "NPR",
+  "feed": "https://feeds.npr.org/510318/podcast.xml",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 13.4,
+  "per_week": 6.9,
+  "hosts": {
+   "prfx.byspotify.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "Short Wave": {
+  "query": "Short Wave",
+  "title": "Short Wave",
+  "artist": "NPR",
+  "feed": "https://feeds.npr.org/510351/podcast.xml",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 13.6,
+  "per_week": 3.5,
+  "hosts": {
+   "prfx.byspotify.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "Marketplace Morning Report": {
+  "query": "Marketplace Morning Report",
+  "title": "Marketplace Morning Report",
+  "artist": "Marketplace",
+  "feed": "https://feeds.publicradio.org/public_feeds/marketplace-morning-report",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 6.5,
+  "per_week": 10.3,
+  "hosts": {
+   "pscrb.fm": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "Marketplace Tech": {
+  "query": "Marketplace Tech",
+  "title": "Marketplace Tech",
+  "artist": "Marketplace",
+  "feed": "https://feeds.publicradio.org/public_feeds/marketplace-tech",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 9.7,
+  "per_week": 4.8,
+  "hosts": {
+   "pscrb.fm": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "The Journal. WSJ": {
+  "query": "The Journal. WSJ",
+  "title": "WSJ's Take On the Week",
+  "artist": "The Wall Street Journal",
+  "feed": "https://video-api.shdsvc.dowjones.io/api/podcasts/feed/take%20on%20the%20week",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 35.1,
+  "per_week": 0.9,
+  "hosts": {
+   "dowjones.simplecastaudio.com": 10
+  },
+  "latest": "2026-10-11"
+ },
+ "WSJ What's News": {
+  "query": "WSJ What's News",
+  "title": "WSJ What’s News",
+  "artist": "The Wall Street Journal",
+  "feed": "https://video-api.shdsvc.dowjones.io/api/podcasts/feed/the%20wall%20street%20journal%20whats%20news",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 14.1,
+  "per_week": 11.6,
+  "hosts": {
+   "dowjones.simplecastaudio.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "FT News Briefing": {
+  "query": "FT News Briefing",
+  "title": "FT News Briefing",
+  "artist": "Financial Times",
+  "feed": "https://feeds.acast.com/public/shows/73fe3ede-5c5c-4850-96a8-30db8dbae8bf",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 12.9,
+  "per_week": 5.2,
+  "hosts": {
+   "sphinx.acast.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "The Economics Show Soumaya Keynes": {
+  "query": "The Economics Show Soumaya Keynes",
+  "title": "The Economics Show",
+  "artist": "Financial Times",
+  "feed": "https://feeds.acast.com/public/shows/664394a442f6710013618119",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 29.2,
+  "per_week": 1.0,
+  "hosts": {
+   "sphinx.acast.com": 10
+  },
+  "latest": "2026-10-09"
+ },
+ "Axios Today": {
+  "query": "Axios Today",
+  "title": "1 big thing",
+  "artist": "Axios",
+  "feed": "https://feeds.megaphone.fm/axiostoday",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 21.8,
+  "per_week": 1.0,
+  "hosts": {
+   "chtbl.com": 10
+  },
+  "latest": "2024-09-12"
+ },
+ "Morning Brew Daily": {
+  "query": "Morning Brew Daily",
+  "title": "Morning Brew Daily",
+  "artist": "Morning Brew",
+  "feed": "https://feeds.megaphone.fm/MOBI8777994188",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 32.1,
+  "per_week": 4.8,
+  "hosts": {
+   "www.podtrac.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "Squawk Pod": {
+  "query": "Squawk Pod",
+  "title": "Squawk Pod",
+  "artist": "CNBC",
+  "feed": "https://feeds.simplecast.com/VHAcgaw_",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 38.0,
+  "per_week": 4.9,
+  "hosts": {
+   "dts.podtrac.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "The Intelligence Economist": {
+  "query": "The Intelligence Economist",
+  "title": "The Intelligence from The Economist",
+  "artist": "The Economist",
+  "feed": "https://access.acast.com/rss/d556eb54-6160-4c85-95f4-47d9f5216c49",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 22.6,
+  "per_week": 4.8,
+  "hosts": {
+   "sphinx.acast.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "Global News Podcast BBC": {
+  "query": "Global News Podcast BBC",
+  "title": "Global News Podcast",
+  "artist": "BBC World Service",
+  "feed": "https://podcasts.files.bbci.co.uk/p02nq0gn.rss",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 28.6,
+  "per_week": 14.3,
+  "hosts": {
+   "open.live.bbc.co.uk": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "Today, Explained": {
+  "query": "Today, Explained",
+  "title": "Today, Explained",
+  "artist": "Vox",
+  "feed": "https://feeds.megaphone.fm/VMP5705694065",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 25.8,
+  "per_week": 6.8,
+  "hosts": {
+   "www.podtrac.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "CNN 5 Things": {
+  "query": "CNN 5 Things",
+  "title": "CNN 5 Things",
+  "artist": "CNN Podcasts",
+  "feed": "https://feeds.megaphone.fm/WMHY2007701094",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 11.2,
+  "per_week": 15.0,
+  "hosts": {
+   "www.podtrac.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "The Daily New York Times": {
+  "query": "The Daily New York Times",
+  "title": "The Daily",
+  "artist": "The New York Times",
+  "feed": "https://feeds.simplecast.com/Sl5CSM3S",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 35.4,
+  "per_week": 3.9,
+  "hosts": {
+   "dts.podtrac.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "Reuters World News": {
+  "query": "Reuters World News",
+  "title": "Reuters World News",
+  "artist": "Reuters",
+  "feed": "https://feeds.megaphone.fm/reutersworldnews",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 13.2,
+  "per_week": 7.1,
+  "hosts": {
+   "pdst.fm": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "HBR IdeaCast": {
+  "query": "HBR IdeaCast",
+  "title": "HBR IdeaCast",
+  "artist": "Harvard Business Review",
+  "feed": "http://feeds.harvardbusiness.org/harvardbusiness/ideacast",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 31.7,
+  "per_week": 1.8,
+  "hosts": {
+   "audio.hbr.org": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "Women at Work HBR": {
+  "query": "Women at Work HBR",
+  "title": "Harvard Business Review",
+  "artist": "HBR",
+  "feed": "https://feeds.megaphone.fm/VG7900701114",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 6.2,
+  "per_week": 348.9,
+  "hosts": {
+   "traffic.megaphone.fm": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "Coaching Real Leaders": {
+  "query": "Coaching Real Leaders",
+  "title": "Coaching Real Leaders",
+  "artist": "Muriel Wilkins",
+  "feed": "https://rss.art19.com/coaching-real-leaders",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 47.5,
+  "per_week": 0.6,
+  "hosts": {
+   "s.gum.fm": 10
+  },
+  "latest": "2026-10-12"
+ },
+ "The McKinsey Podcast": {
+  "query": "The McKinsey Podcast",
+  "title": "The McKinsey Podcast",
+  "artist": "McKinsey & Company",
+  "feed": "https://www.omnycontent.com/d/playlist/708664bd-6843-4623-8066-aede00ce0c8a/3f6f52af-fba1-496d-b11b-af040139456a/bfe0b44a-082f-495a-952a-af0401394590/podcast.rss",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 23.5,
+  "per_week": 1.0,
+  "hosts": {
+   "traffic.omny.fm": 10
+  },
+  "latest": "2026-10-08"
+ },
+ "WorkLife with Adam Grant": {
+  "query": "WorkLife with Adam Grant",
+  "title": "Worklife with Molly Graham",
+  "artist": "TED",
+  "feed": "https://feeds.acast.com/public/shows/67585d9cc705e441796ddaf6",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 47.6,
+  "per_week": 1.1,
+  "hosts": {
+   "sphinx.acast.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "ReThinking with Adam Grant": {
+  "query": "ReThinking with Adam Grant",
+  "title": "ReThinking",
+  "artist": "TED",
+  "feed": "https://feeds.acast.com/public/shows/675858676d1777b3683ec351",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 46.3,
+  "per_week": 1.1,
+  "hosts": {
+   "sphinx.acast.com": 10
+  },
+  "latest": "2026-10-06"
+ },
+ "TED Talks Daily": {
+  "query": "TED Talks Daily",
+  "title": "TED Talks Daily",
+  "artist": "TED",
+  "feed": "https://feeds.acast.com/public/shows/67587e77c705e441797aff96",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 18.2,
+  "per_week": 6.7,
+  "hosts": {
+   "sphinx.acast.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "TED Business": {
+  "query": "TED Business",
+  "title": "TED Business",
+  "artist": "TED",
+  "feed": "https://feeds.acast.com/public/shows/675727607205a5bc68e57057",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 15.6,
+  "per_week": 2.2,
+  "hosts": {
+   "sphinx.acast.com": 10
+  },
+  "latest": "2026-10-12"
+ },
+ "No Stupid Questions": {
+  "query": "No Stupid Questions",
+  "title": "No Stupid Questions",
+  "artist": "Freakonomics Radio + Stitcher",
+  "feed": "https://feeds.simplecast.com/dfh_verV",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 31.9,
+  "per_week": 1.1,
+  "hosts": {
+   "pdst.fm": 10
+  },
+  "latest": "2026-10-11"
+ },
+ "Freakonomics Radio": {
+  "query": "Freakonomics Radio",
+  "title": "Freakonomics Radio",
+  "artist": "Freakonomics Radio + Stitcher",
+  "feed": "https://feeds.simplecast.com/Y8lFbOT4",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 50.0,
+  "per_week": 1.5,
+  "hosts": {
+   "mgln.ai": 10
+  },
+  "latest": "2026-10-09"
+ },
+ "Hidden Brain": {
+  "query": "Hidden Brain",
+  "title": "Hidden Brain",
+  "artist": "Hidden Brain, Shankar Vedantam",
+  "feed": "https://feeds.simplecast.com/kwWc0lhf",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 68.2,
+  "per_week": 1.0,
+  "hosts": {
+   "mgln.ai": 10
+  },
+  "latest": "2026-10-12"
+ },
+ "Speaking of Psychology": {
+  "query": "Speaking of Psychology",
+  "title": "Speaking of Psychology",
+  "artist": "American Psychological Association",
+  "feed": "https://feeds.megaphone.fm/AMERICANPSYCHOLOGICALASSOCIATION9933181801",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 41.8,
+  "per_week": 1.0,
+  "hosts": {
+   "traffic.megaphone.fm": 10
+  },
+  "latest": "2026-10-07"
+ },
+ "The Science of Happiness": {
+  "query": "The Science of Happiness",
+  "title": "The Science of Happiness",
+  "artist": "PRX and Greater Good Science Center",
+  "feed": "https://rss.pdrl.fm/0f808e/feeds.feedburner.com/TheScienceOfHappiness",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 13.0,
+  "per_week": 1.0,
+  "hosts": {
+   "dts.podtrac.com": 10
+  },
+  "latest": "2026-10-08"
+ },
+ "Unexplainable": {
+  "query": "Unexplainable",
+  "title": "Unexplainable",
+  "artist": "Vox",
+  "feed": "https://feeds.megaphone.fm/VMP9331026707",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 28.1,
+  "per_week": 1.5,
+  "hosts": {
+   "www.podtrac.com": 10
+  },
+  "latest": "2026-10-12"
+ },
+ "Stuff You Should Know": {
+  "query": "Stuff You Should Know",
+  "title": "Stuff You Should Know",
+  "artist": "iHeartPodcasts",
+  "feed": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/a91018a4-ea4f-4130-bf55-ae270180c327/44710ecc-10bb-48d1-93c7-ae270180c33e/podcast.rss",
+  "items": 10,
+  "with_transcript": 10,
+  "types": {
+   "application/srt": 10,
+   "text/vtt": 10,
+   "text/plain": 10
+  },
+  "sample": "https://api.omny.fm/orgs/e73c998e-6e60-432f-8610-ae210140c5b1/clips/2fa6d973-0ab9-4879-984c-b4db013027cd/transcript?format=SubRip&t=1791893042",
+  "median_min": 45.8,
+  "per_week": 3.7,
+  "hosts": {
+   "podtrac.com": 10
+  },
+  "latest": "2026-10-13"
+ },
+ "Think Fast, Talk Smart": {
+  "query": "Think Fast, Talk Smart",
+  "title": "Think Fast Talk Smart: Communication Techniques",
+  "artist": "Matt Abrahams, Think Fast Talk Smart",
+  "feed": "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques",
+  "items": 10,
+  "with_transcript": 10,
+  "types": {
+   "text/vtt": 10
+  },
+  "sample": "https://share.transistor.fm/s/78f12f39/transcript.vtt",
+  "median_min": 23.5,
+  "per_week": 2.0,
+  "hosts": {
+   "mgln.ai": 10
+  },
+  "latest": "2026-10-12"
+ },
+ "Ten Percent Happier": {
+  "query": "Ten Percent Happier",
+  "title": "Ten Percent Happier with Dan Harris | 5 minute podcast summaries",
+  "artist": "5 minute podcast summaries",
+  "feed": "https://www.spreaker.com/show/4922682/episodes/feed",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 3.7,
+  "per_week": 2.0,
+  "hosts": {
+   "api.spreaker.com": 10
+  },
+  "latest": "2021-07-10"
+ },
+ "Short History Of": {
+  "query": "Short History Of",
+  "title": "Short History Of...",
+  "artist": "NOISER",
+  "feed": "https://feeds.megaphone.fm/NSR8236478683",
+  "items": 10,
+  "with_transcript": 0,
+  "types": {},
+  "sample": null,
+  "median_min": 53.7,
+  "per_week": 1.1,
+  "hosts": {
+   "pdst.fm": 10
+  },
+  "latest": "2026-10-11"
+ },
+ "Making Sense of Cents": {
+  "query": "Making Sense of Cents",
+  "title": "Making Sense of your Cents",
+  "artist": "First Century Bank",
+  "feed": "https://rss.buzzsprout.com/2541464.rss",
+  "items": 10,
+  "with_transcript": 10,
+  "types": {
+   "text/html": 10,
+   "application/json": 10,
+   "application/x-subrip": 10,
+   "text/vtt": 10
+  },
+  "sample": "https://www.buzzsprout.com/2541464/19911962/transcript",
+  "median_min": 19.4,
+  "per_week": 1.0,
+  "hosts": {
+   "www.buzzsprout.com": 10
+  },
+  "latest": "2026-10-13"
+ }
+}
