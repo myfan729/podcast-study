@@ -392,3 +392,49 @@ def test_blog_title_matching():
     assert m("on the other side of the ledger") is None
     assert m("find a bridge out of / into") is None
     assert m("up") is None
+
+
+def test_sentence_cues_recut_caption_lines():
+    from pipeline.transcript import Cue, sentence_cues
+    caps = [
+        ("you know, anytime anyone invokes kind of the run-up to the financial crisis", 0.0, 4.0, "Speaker 3"),
+        ("or the dot-com boom, you kind of perk up,", 4.0, 6.0, "Speaker 3"),
+        ("take notice. Are these grounds for someone to be worried", 6.0, 9.0, "Speaker 3"),
+        ("about what might be happening? Mr. Smith told U.S. officials so.", 9.0, 13.0, "Speaker 3"),
+        ("Right. I think that's fair.", 13.5, 15.0, "Speaker 1"),
+    ]
+    cues = [Cue(i=k, s=s, e=e, t=t, spk=spk) for k, (t, s, e, spk) in enumerate(caps)]
+    out = sentence_cues(cues)
+    texts = [c.t for c in out]
+    assert texts[0].endswith("you kind of perk up, take notice.")
+    assert texts[1] == "Are these grounds for someone to be worried about what might be happening?"
+    assert texts[2] == "Mr. Smith told U.S. officials so."              # no split at Mr. / U.S.
+    assert texts[3] == "Right. I think that's fair." and out[3].spk == "Speaker 1"   # interjection joined, speaker kept
+    # times are interpolated inside the caption line where the sentence starts
+    assert 6.0 < out[1].s < 7.5 and 9.0 < out[1].e < 11.5
+    assert all(b.s >= a.e - 1e-6 for a, b in zip(out, out[1:]))
+    assert [c.i for c in out] == list(range(len(out)))
+
+
+def test_sentence_cues_split_very_long_sentence_at_a_comma():
+    from pipeline.transcript import Cue, sentence_cues, MAX_SENTENCE_WORDS
+    words = " ".join(f"w{k}" for k in range(50)) + ", " + " ".join(f"v{k}" for k in range(50)) + "."
+    out = sentence_cues([Cue(i=0, s=0.0, e=40.0, t=words, spk=None)])
+    assert len(out) == 2 and out[0].t.endswith("w49,") and out[1].t.endswith("v49.")
+    assert all(len(c.t.split()) <= MAX_SENTENCE_WORDS for c in out)
+
+
+def test_needs_upgrade(tmp_path, monkeypatch):
+    import pipeline.main as M
+    from datetime import datetime, timedelta, timezone
+    monkeypatch.setattr(M.build, "EPISODES_DIR", tmp_path)
+    now = datetime(2026, 10, 13, tzinfo=timezone.utc)
+    def put(i, days_old, version, source="rss:text/vtt"):
+        doc = {"id": i, "published_at": (now - timedelta(days=days_old)).isoformat().replace("+00:00", "Z"),
+               "transcript": {"source": source, **({"version": version} if version else {})}}
+        (tmp_path / f"{i}.json").write_text(json.dumps(doc))
+    put("old-format-new", 1, None); put("old-format-old", 10, None); put("new-format", 1, 2); put("web", 1, None, "rss:web")
+    assert M.needs_upgrade({"id": "old-format-new"}, now)
+    assert not M.needs_upgrade({"id": "old-format-old"}, now)
+    assert not M.needs_upgrade({"id": "new-format"}, now)
+    assert not M.needs_upgrade({"id": "web"}, now)

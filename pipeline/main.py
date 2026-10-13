@@ -21,7 +21,8 @@ import yaml
 from . import build
 from .feeds import Episode, iter_eligible, parse_feed, strip_html
 from .llm import StudyGenerator
-from .transcript import cues_to_dicts, group_sentences, parse_transcript, segment_cues, segments_to_dicts, transcript_stats
+from .transcript import (TRANSCRIPT_VERSION, cues_to_dicts, group_sentences, parse_transcript, segment_cues,
+                         segments_to_dicts, sentence_cues, transcript_stats)
 from .util import http_get_text, http_session, log, read_json, resolve_final_url, setup_logging, slugify, utcnow_iso, write_json
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -44,6 +45,25 @@ def load_config(path: Path) -> dict:
 
 def episode_key(show_slug: str, ep: Episode) -> str:
     return f"{show_slug}:{hashlib.sha1(ep.guid.encode('utf-8')).hexdigest()[:12]}"
+
+
+UPGRADE_DAYS = 3        # recent episodes made with an older transcript format are rebuilt (study pack included)
+UPGRADE_MAX = 3         # …at most this many per run
+
+
+def needs_upgrade(rec: dict, now: datetime) -> bool:
+    """A finished RSS-transcript episode from the last few days whose cues are still caption lines."""
+    if not rec.get("id"):
+        return False
+    doc = read_json(build.episode_path(rec["id"]), None)
+    if not doc or doc.get("demo"):
+        return False
+    tr = doc.get("transcript") or {}
+    src = str(tr.get("source") or "")
+    if int(tr.get("version") or 1) >= TRANSCRIPT_VERSION or not src.startswith("rss:") or src == "rss:web":
+        return False
+    published = datetime.fromisoformat(doc["published_at"].replace("Z", "+00:00"))
+    return now - published <= timedelta(days=UPGRADE_DAYS)
 
 
 def episode_id(show_slug: str, ep: Episode) -> str:
@@ -288,7 +308,7 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
         assert tref is not None
         log.info("  transcript: %s (%s)", tref.kind, tref.url)
         raw = _overrides["transcript_text"] or http_get_text(session, tref.url)
-        cues = parse_transcript(raw, tref.kind)
+        cues = sentence_cues(parse_transcript(raw, tref.kind))      # caption lines → whole sentences
     if len(cues) < 10:
         raise RuntimeError(f"transcript parsed into only {len(cues)} cues — format not understood?")
     segments = segment_cues(cues)
@@ -367,6 +387,7 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
         "description_html": ep.description_html,
         "transcript": {
             "source": f"rss:{tref.type or tref.kind}",
+            "version": TRANSCRIPT_VERSION,
             "url": tref.url,
             "stats": stats,
             "cues": cues_to_dicts(cues),
@@ -413,6 +434,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--no-resolve", action="store_true", help="don't follow enclosure redirects (offline testing)")
     ap.add_argument("--retime", help="re-align the web-transcript episode whose id or title contains this text (study pack kept)")
     ap.add_argument("--no-retime", action="store_true", help="skip the automatic re-timing of episodes aligned by an older version")
+    ap.add_argument("--no-upgrade", action="store_true", help="skip rebuilding recent episodes made with an older transcript format")
     ap.add_argument("-v", "--verbose", action="store_true")
     args = ap.parse_args(argv)
     setup_logging(args.verbose)
@@ -440,6 +462,7 @@ def main(argv: list[str] | None = None) -> int:
         _overrides["resolve"] = False
 
     gen = StudyGenerator(mock=args.mock)
+    upgrades: set[str] = set()
     now = datetime.now(timezone.utc)
     processed = 0
     failures = 0
@@ -470,6 +493,12 @@ def main(argv: list[str] | None = None) -> int:
             if forced:
                 candidates.append(ep)
                 continue
+            if (rec and rec.get("status") == "done" and len(upgrades) < UPGRADE_MAX and not args.no_upgrade
+                    and needs_upgrade(rec, now)):
+                upgrades.add(key)
+                candidates.append(ep)
+                log.info("  upgrade to sentence transcript: %s", ep.title)
+                continue
             if rec and rec.get("status") in ("done", "skipped_long", "skipped_daily", "no_transcript", "gave_up"):
                 continue
             if rec and rec.get("status") == "failed" and rec.get("attempts", 0) >= 3:
@@ -491,7 +520,7 @@ def main(argv: list[str] | None = None) -> int:
 
         candidates.sort(key=lambda e: e.published_at, reverse=True)
         for ep in candidates:
-            if daily_limit and not args.force:
+            if daily_limit and not args.force and episode_key(slug, ep) not in upgrades:
                 done_today = sum(1 for v in seen.values() if v.get("status") == "done"
                                  and datetime.fromisoformat(v.get("done_at", "1970-01-01T00:00:00Z").replace("Z", "+00:00")).astimezone(kst).strftime("%Y-%m-%d") == today_kst)
                 if done_today >= daily_limit:
@@ -516,8 +545,11 @@ def main(argv: list[str] | None = None) -> int:
             try:
                 doc = process_episode(session, gen, show, ep, translate=not args.no_translate)
                 build.write_episode(doc)
-                rec.update({"status": "done", "id": doc["id"], "title": ep.title, "published_at": ep.published_iso,
-                            "done_at": utcnow_iso(), "attempts": rec.get("attempts", 0) + 1})
+                if key in upgrades:      # a rebuild: keep done_at so it does not count toward today's limit
+                    rec.update({"status": "done", "id": doc["id"], "upgraded_at": utcnow_iso()})
+                else:
+                    rec.update({"status": "done", "id": doc["id"], "title": ep.title, "published_at": ep.published_iso,
+                                "done_at": utcnow_iso(), "attempts": rec.get("attempts", 0) + 1})
                 processed += 1
                 log.info("  ✓ wrote docs/data/episodes/%s.json", doc["id"])
             except Exception as e:  # noqa: BLE001

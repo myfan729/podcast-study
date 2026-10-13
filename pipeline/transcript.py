@@ -296,3 +296,88 @@ def group_sentences(cues: list, segments: list | None = None, max_words: int = 4
             out.append([start, i])
             start = None
     return out
+
+
+# ---------------------------------------------------------------------------
+# Sentence cues: re-cut caption-sized cues into whole sentences
+# ---------------------------------------------------------------------------
+
+TRANSCRIPT_VERSION = 2            # 2 = cues are whole sentences (sentence_cues); 1 = publisher caption lines
+MAX_SENTENCE_WORDS = 70           # longer run-on sentences are split at the clause boundary nearest the middle
+_ABBREV = {"mr", "mrs", "ms", "dr", "prof", "sr", "jr", "st", "vs", "etc", "e.g", "i.e", "inc", "corp", "co",
+           "ltd", "jan", "feb", "mar", "apr", "jun", "jul", "aug", "sep", "sept", "oct", "nov", "dec", "no",
+           "fig", "approx", "dept", "gov", "gen", "sen", "rep", "rev", "mt", "ft", "u.s", "u.k", "u.n", "e.u",
+           "a.m", "p.m", "d.c"}
+_END_RE = re.compile(r"(?:[.!?]|…|\.\.\.)[\"'”’)\]]*$")
+_CLOSERS = "\"'”’)]"
+
+
+def _ends_sentence(tok: str, nxt: str | None) -> bool:
+    if not _END_RE.search(tok):
+        return False
+    bare = tok.rstrip(_CLOSERS)
+    if bare.endswith(".") and not bare.endswith(".."):
+        core = bare[:-1].lower().lstrip("\"'“‘(")
+        if core in _ABBREV or re.fullmatch(r"[a-z]", core) or re.fullmatch(r"(?:[a-z]\.)+[a-z]", core):
+            return False                      # Mr. / J. / U.S. — not an ending
+    if nxt is None:
+        return True
+    first = nxt.lstrip("\"'“‘(")
+    return bool(first) and (first[0].isupper() or first[0].isdigit())
+
+
+def _split_long(words: list[tuple]) -> list[list[tuple]]:
+    if len(words) <= MAX_SENTENCE_WORDS:
+        return [words]
+    mid = len(words) // 2
+    cuts = [k for k in range(8, len(words) - 8) if words[k][0].rstrip(_CLOSERS)[-1:] in ",;:—–"]
+    k = min(cuts, key=lambda c: abs(c - mid)) if cuts else mid
+    return _split_long(words[:k + 1]) + _split_long(words[k + 1:])
+
+
+def sentence_cues(cues: list[Cue], merge_short: int = 2) -> list[Cue]:
+    """Re-cut publisher cues (caption lines that start and stop mid-sentence) into one cue per sentence.
+
+    Word times inside a cue are interpolated by character length, so a sentence that starts halfway
+    through a caption line starts halfway through its time span. Sentences also break at speaker changes;
+    1–2 word sentences ("Right." "Yeah.") are joined to the next sentence by the same speaker.
+    """
+    words: list[tuple[str, float, float, str | None]] = []
+    for c in cues:
+        toks = c.t.split()
+        if not toks:
+            continue
+        dur = max(0.05, c.e - c.s)
+        weights = [len(t) + 1 for t in toks]
+        total, acc = float(sum(weights)), 0.0
+        for t, w in zip(toks, weights):
+            ws = c.s + dur * acc / total
+            acc += w
+            words.append((t, ws, c.s + dur * acc / total, c.spk))
+    sents: list[list[tuple]] = []
+    cur: list[tuple] = []
+    for k, w in enumerate(words):
+        cur.append(w)
+        nxt = words[k + 1] if k + 1 < len(words) else None
+        if nxt is None or (nxt[3] or None) != (w[3] or None) or _ends_sentence(w[0], nxt[0]):
+            sents.append(cur)
+            cur = []
+    # join interjections to the following sentence of the same speaker
+    merged: list[list[tuple]] = []
+    carry: list[tuple] = []
+    for k, s in enumerate(sents):
+        s = carry + s
+        carry = []
+        nxt = sents[k + 1] if k + 1 < len(sents) else None
+        if len(s) <= merge_short and nxt and (nxt[0][3] or None) == (s[0][3] or None):
+            carry = s
+            continue
+        merged.append(s)
+    if carry:
+        merged.append(carry)
+    out: list[Cue] = []
+    for s in merged:
+        for part in _split_long(s):
+            out.append(Cue(i=len(out), s=round(part[0][1], 3), e=round(part[-1][2], 3),
+                           t=" ".join(w[0] for w in part), spk=part[0][3]))
+    return out
