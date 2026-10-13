@@ -1,86 +1,34 @@
 {
- "bbc-6-minute-english-2026-10-01-why-does-heartbreak-hurt-so-much": {
-  "phase": "fixed",
-  "error": null,
-  "anchors": [],
-  "refs": [
-   {
-    "c": 4.29,
-    "ok": true,
-    "a": 4.288,
-    "offset": -0.002,
-    "ber": 0.025,
-    "second": 0.483,
-    "error": null
-   }
-  ],
-  "decode": [
-   "ctx8000→8000"
-  ],
-  "adTotal": 0.08,
-  "ms": 393,
-  "sync_btn": "싱크 ✓",
-  "adbar_hidden": true,
-  "first_line_ok": true,
-  "seconds": 2.0,
-  "errors": []
- },
- "bbc-6-minute-english-2026-10-08-are-people-drinking-less-alcohol": {
-  "phase": "fixed",
-  "error": null,
-  "anchors": [],
-  "refs": [
-   {
-    "c": 18.88,
-    "ok": true,
-    "a": 18.88,
-    "offset": 0,
-    "ber": 0.009,
-    "second": 0.483,
-    "error": null
-   }
-  ],
-  "decode": [
-   "ctx8000→8000"
-  ],
-  "adTotal": 0.08,
-  "ms": 423,
-  "sync_btn": "싱크 ✓",
-  "adbar_hidden": true,
-  "first_line_ok": true,
-  "seconds": 1.6,
-  "errors": []
- },
- "big-take-2026-09-28-could-bond-yields-break-the-stock-market": {
+ "big-take-2026-10-12-ais-giant-money-loop-is-feeling-very-2008": {
   "phase": "auto",
   "error": null,
   "anchors": [
    {
     "c": 0,
-    "a": 109.056
+    "a": 106.784
    },
    {
-    "c": 629.264,
-    "a": 911.9830204078764
+    "c": 600.56,
+    "a": 839.1457959181307
    }
   ],
   "refs": [
    {
     "c": 0,
     "ok": true,
-    "a": 109.056,
-    "offset": 109.056,
-    "ber": 0.133,
-    "second": 0.482,
+    "a": 106.784,
+    "offset": 106.784,
+    "ber": 0.119,
+    "second": 0.48,
     "error": null
    },
    {
-    "c": 629.264,
+    "c": 600.56,
     "ok": true,
-    "a": 911.983,
-    "offset": 282.719,
-    "ber": 0.02,
-    "second": 0.479,
+    "a": 839.146,
+    "offset": 238.586,
+    "ber": 0.139,
+    "second": 0.481,
     "error": null
    }
   ],
@@ -88,102 +36,77 @@
    "ctx8000→8000",
    "ctx8000→8000"
   ],
-  "adTotal": 390.41,
-  "ms": 3005,
+  "adTotal": 329.6,
+  "ms": 2652,
   "sync_btn": "싱크 ✓",
   "adbar_hidden": true,
   "first_line_ok": true,
-  "seconds": 6.2,
+  "seconds": 5.8,
   "errors": []
  },
- "big-take-2026-09-29-chinas-new-message-to-its-billionaires-pay-up": {
+ "big-take-2026-10-13-how-indias-day-traders-broke-the-worlds-biggest-options": {
   "phase": "auto",
   "error": null,
   "anchors": [
    {
     "c": 0,
-    "a": 109.056
+    "a": 106.752
    },
    {
-    "c": 432.226,
-    "a": 714.8133877551344
+    "c": 603.905,
+    "a": 842.617469387513
    }
   ],
   "refs": [
    {
     "c": 0,
     "ok": true,
-    "a": 109.056,
-    "offset": 109.056,
-    "ber": 0.112,
+    "a": 106.752,
+    "offset": 106.752,
+    "ber": 0.06,
+    "second": 0.479,
+    "error": null
+   },
+   {
+    "c": 60,
+    "ok": true,
+    "a": 166.798,
+    "offset": 106.798,
+    "ber": 0.121,
     "second": 0.48,
     "error": null
    },
    {
-    "c": 432.226,
+    "c": 603.905,
     "ok": true,
-    "a": 714.813,
-    "offset": 282.587,
-    "ber": 0.096,
+    "a": 842.617,
+    "offset": 238.712,
+    "ber": 0.075,
+    "second": 0.475,
+    "error": null
+   },
+   {
+    "c": 663.905,
+    "ok": true,
+    "a": 902.603,
+    "offset": 238.698,
+    "ber": 0.082,
     "second": 0.478,
     "error": null
    }
   ],
   "decode": [
    "ctx8000→8000",
-   "ctx8000→8000"
-  ],
-  "adTotal": 387.05,
-  "ms": 2967,
-  "sync_btn": "싱크 ✓",
-  "adbar_hidden": true,
-  "first_line_ok": true,
-  "seconds": 6.1,
-  "errors": []
- },
- "big-take-2026-09-30-can-700-million-buy-republicans-the-us-senate": {
-  "phase": "auto",
-  "error": null,
-  "anchors": [
-   {
-    "c": 0,
-    "a": 109.152
-   },
-   {
-    "c": 566.74,
-    "a": 849.0703673467531
-   }
-  ],
-  "refs": [
-   {
-    "c": 0,
-    "ok": true,
-    "a": 109.152,
-    "offset": 109.152,
-    "ber": 0.072,
-    "second": 0.479,
-    "error": null
-   },
-   {
-    "c": 566.74,
-    "ok": true,
-    "a": 849.07,
-    "offset": 282.33,
-    "ber": 0.018,
-    "second": 0.479,
-    "error": null
-   }
-  ],
-  "decode": [
+   "ctx8000→8000",
    "ctx8000→8000",
    "ctx8000→8000"
   ],
-  "adTotal": 387.04,
-  "ms": 2933,
+  "adTotal": 330.03,
+  "ms": 4141,
   "sync_btn": "싱크 ✓",
   "adbar_hidden": true,
   "first_line_ok": true,
-  "seconds": 6.0,
+  "seconds": 6.6,
   "errors": []
  }
 }
