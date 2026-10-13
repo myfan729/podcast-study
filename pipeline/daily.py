@@ -59,6 +59,10 @@ def compose(doc: dict, site_url: str) -> dict:
     if exprs:
         lines += ["", "🔑 오늘의 표현: " + " · ".join(exprs)]
     lines += ["", f"▶ 스크립트·요약·표현 보기: {link}"]
+    blog = ((read_json(build.DATA / "blog_links.json", None) or {}).get("episodes") or {}).get(doc["id"]) or {}
+    if blog:
+        word, info = next(iter(blog.items()))
+        lines += [f"📝 블로그 단어 정리 ({word}): {info['url']}"]
     text = "\n".join(l for l in lines if l is not None)
     return {"id": doc["id"], "date_kst": datetime.now(KST).strftime("%Y-%m-%d"), "title": doc["title"], "show": doc["show"],
             "link": link, "one_liner_ko": study.get("one_liner_ko", ""), "expressions": exprs, "cefr": cefr,

@@ -52,7 +52,7 @@ def fetch_mobile_api(session, blog_id: str, max_pages: int = 60) -> list[dict]:
             title = it.get("titleWithInspectMessage") or it.get("title") or ""
             out.append(_post(blog_id, it.get("logNo"), title, it.get("categoryName") or it.get("categoryNo"), it.get("addDate")))
         total = int(res.get("totalCount") or 0)
-        if not items or len(out) >= total:
+        if not items or len(items) < 30 or (total and len(out) >= total):
             break
         time.sleep(0.3)
     return out
@@ -72,7 +72,7 @@ def fetch_title_list(session, blog_id: str, max_pages: int = 60) -> list[dict]:
         for it in items:
             out.append(_post(blog_id, it.get("logNo"), unquote_plus(it.get("title") or ""), it.get("categoryNo"), it.get("addDate")))
         total = int(data.get("totalCount") or 0)
-        if not items or len(out) >= total:
+        if not items or len(items) < 30 or (total and len(out) >= total):
             break
         time.sleep(0.3)
     return out
@@ -93,16 +93,21 @@ def fetch_rss(session, blog_id: str) -> list[dict]:
 
 
 def fetch_posts(session, blog_id: str) -> tuple[list[dict], str]:
+    """Full post list: the title-list endpoint pages through every post; the others are fallbacks."""
     errors = []
-    for name, fn in (("mobile-api", fetch_mobile_api), ("title-list", fetch_title_list), ("rss", fetch_rss)):
+    best: tuple[list[dict], str] = ([], "")
+    for name, fn in (("title-list", fetch_title_list), ("mobile-api", fetch_mobile_api), ("rss", fetch_rss)):
         try:
             posts = fn(session, blog_id)
-            if posts:
-                return posts, name
-            errors.append(f"{name}: empty")
+            if len(posts) > len(best[0]):
+                best = (posts, name)
+            if len(posts) >= 100:
+                break
         except Exception as e:  # noqa: BLE001
             errors.append(f"{name}: {e}")
-    raise RuntimeError(f"could not list posts of {blog_id}: " + "; ".join(errors))
+    if not best[0]:
+        raise RuntimeError(f"could not list posts of {blog_id}: " + "; ".join(errors))
+    return best
 
 
 # ---------------------------------------------------------------------------

@@ -77,6 +77,10 @@ jobs:
           echo "python -m pipeline ${args[*]}"
           python -m pipeline "${args[@]}"
 
+      - name: Blog links (words/expressions that already have a post on the owner's blog)
+        continue-on-error: true
+        run: python -m pipeline.blog_index
+
       - name: Today's card (if the morning window is open and none exists yet)
         continue-on-error: true
         env:

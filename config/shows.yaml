@@ -4,6 +4,11 @@
 # public address of the site (used in daily post links)
 site_url: https://myfan729.github.io/podcast-study/
 
+# the owner's blogs: words/expressions that already have a post get a "블로그에서 자세히 보기" link
+blogs:
+  - id: oorange0123
+    name: 지구별여행자
+
 # at most this many new episodes are produced per day (KST); the newest wins, the rest are skipped
 daily_limit: 1
 

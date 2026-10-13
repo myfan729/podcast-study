@@ -21,7 +21,8 @@
   Promise.all([
     fetch('data/episodes/' + encodeURIComponent(id) + '.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }),
     fetch('data/sync/' + encodeURIComponent(id) + '.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null),
-  ]).then(([ep, sync]) => { ep.sync = sync; return init(ep); })
+    fetch('data/blog_links.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null),
+  ]).then(([ep, sync, blog]) => { ep.sync = sync; ep.blogLinks = (blog && blog.episodes && blog.episodes[ep.id]) || {}; return init(ep); })
     .catch(err => { $('#head').innerHTML = `<div class="err">에피소드를 불러오지 못했습니다 (${esc(err.message)}). <a href="./">목록으로</a></div>`; });
 
   function init(ep) {
@@ -118,11 +119,15 @@
 
     // ---- rail panels -----------------------------------------------------
     const segById = Object.fromEntries(segs.map(s => [s.id, s]));
+    // words/expressions that already have a post on the owner's blog → link to it
+    const blogLinks = ep.blogLinks || {};
+    const blogPill = (text) => { const b = blogLinks[text]; if (!b) return '';
+      return `<a class="blogpill" href="${esc(b.url)}" target="_blank" rel="noopener" title="${esc(b.title)}">블로그에서 자세히 보기 ↗</a>`; };
     $('#panel-summary').innerHTML = `
       <div class="card"><h3>핵심 요약</h3><ul>${(study.summary_ko || []).map(b => `<li>${esc(b)}</li>`).join('')}</ul></div>
       ${study.model ? `<p class="foot" style="margin:4px 2px">생성: ${esc(study.model)}${study.generated_at ? ' · ' + new Date(study.generated_at).toLocaleString('ko-KR') : ''}</p>` : ''}`;
 
-    $('#panel-expr').innerHTML = (study.vocab?.length ? `<div class="card"><h3>단어<small>${study.vocab.length}</small></h3><ul class="vocab">${study.vocab.map(v => `<li><span><b>${esc(v.word)}</b><i>${esc(v.pos)}</i></span><span>${esc(v.meaning_ko)}<br><span class="ex">${esc(v.example)}</span></span></li>`).join('')}</ul></div>` : '') +
+    $('#panel-expr').innerHTML = (study.vocab?.length ? `<div class="card"><h3>단어<small>${study.vocab.length}</small></h3><ul class="vocab">${study.vocab.map(v => `<li><span><b>${esc(v.word)}</b><i>${esc(v.pos)}</i></span><span>${esc(v.meaning_ko)}<br><span class="ex">${esc(v.example)}</span>${blogPill(v.word)}</span></li>`).join('')}</ul></div>` : '') +
       `<div class="card"><h3>표현<small>${(study.expressions || []).length}</small></h3>` + (study.expressions || []).map((ex, i) => exprHTML(ex, i, true)).join('') + `</div>`;
     $('#panel-expr').addEventListener('click', (e) => { const b = e.target.closest('.jump'); if (b) seekTo(toAudio(+b.dataset.t), true); });
 
@@ -131,7 +136,7 @@
     function exprHTML(ex, i, withJump) {
       const seg = segById[ex.segment_id]; const t = seg ? seg.start : 0;
       const quoteHTML = ex.quote && seg ? esc(seg.text).replace(new RegExp(esc(ex.quote).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), m => `<mark>${m}</mark>`) : '';
-      return `<div class="ex" id="ex-${i}"><div class="head"><span class="expr">${esc(ex.expression)}</span><span class="type">${esc(TYPE_KO[ex.type] || ex.type)}</span>${withJump ? `<button class="jump" type="button" data-t="${t}" title="이 부분 듣기">▶ ${fmt(t)}</button>` : ''}</div>
+      return `<div class="ex" id="ex-${i}"><div class="head"><span class="expr">${esc(ex.expression)}</span><span class="type">${esc(TYPE_KO[ex.type] || ex.type)}</span>${withJump ? `<button class="jump" type="button" data-t="${t}" title="이 부분 듣기">▶ ${fmt(t)}</button>` : ''}</div>${blogPill(ex.expression)}
         <p class="meaning">${esc(ex.meaning_ko)}</p><p class="nuance">${esc(ex.nuance_ko)}</p>
         ${quoteHTML ? `<p class="quote">“${quoteHTML}”</p>` : ''}
         <details><summary>예문 ${ex.examples?.length || 0} · 비슷한 표현 ${ex.similar?.length || 0}</summary>

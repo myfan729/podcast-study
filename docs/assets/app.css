@@ -308,3 +308,9 @@ mark.hl:hover { outline: 2px solid var(--marker); }
 .transcript.show-ko.by-sentence .sent { display: block; margin-top: 2px; }
 .transcript.show-ko.by-sentence .ko-cue { display: block; font-family: var(--sans); font-size: 14px; line-height: 1.55; color: var(--ink-3); margin: 2px 0 10px; padding-left: 2px; }
 .transcript.show-ko.by-sentence .sent:has(.cue.active) .ko-cue { color: var(--ink-2); }
+
+/* link to the owner's blog post about a word/expression */
+.blogpill { display: inline-block; margin-top: 6px; font-size: 12.5px; font-weight: 600; color: #03a94d; border: 1px solid rgba(3,169,77,.35); background: rgba(3,169,77,.07); border-radius: 999px; padding: 3px 10px; text-decoration: none; }
+.blogpill:hover { background: rgba(3,169,77,.14); text-decoration: none; }
+.ex .blogpill { margin: 4px 0 2px; }
+.vocab .blogpill { display: table; }
