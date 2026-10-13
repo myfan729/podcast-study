@@ -314,3 +314,9 @@ mark.hl:hover { outline: 2px solid var(--marker); }
 .blogpill:hover { background: rgba(3,169,77,.14); text-decoration: none; }
 .ex .blogpill { margin: 4px 0 2px; }
 .vocab .blogpill { display: table; }
+
+/* owner's listener counts on the list page */
+.statsbar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin: 14px 0 4px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--sheet); font-size: 15px; }
+.statsbar span { color: var(--ink-2); }
+.statsbar small { color: var(--ink-3); font-size: 12px; flex-basis: 100%; }
+.row .stats { grid-column: 1 / -1; font-size: 12.5px; color: var(--signal, var(--ink-2)); font-variant-numeric: tabular-nums; }

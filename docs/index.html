@@ -23,6 +23,7 @@
     </div>
   </header>
 
+  <div class="statsbar" id="statsbar" hidden></div>
   <section class="lead" id="lead" hidden></section>
 
   <div class="filters" id="filters" role="group" aria-label="프로그램 필터"></div>
@@ -40,9 +41,44 @@
   <footer class="foot" id="foot"></footer>
 </div>
 
+<script src="assets/analytics.js"></script>
 <script>
 (function () {
   const $ = (s, el = document) => el.querySelector(s);
+  // ---- listener counts (owner's view). Opening this page marks this browser as "me" → not counted. ----
+  const S = window.PodStats || null;
+  if (S) S.markMe();
+  const statCache = {}, pending = {}, queue = [];
+  let pumping = false;
+  function getStat(key) {
+    if (key in statCache) return Promise.resolve(statCache[key]);
+    if (pending[key]) return pending[key];
+    return (pending[key] = new Promise(res => { queue.push([key, res]); pump(); }));
+  }
+  function pump() {                       // ≤ ~3 requests/second: the counter service allows 30 per 10 s
+    if (pumping) return; pumping = true;
+    (function next() {
+      const job = queue.shift(); if (!job) { pumping = false; return; }
+      S.get(job[0]).then(v => { statCache[job[0]] = v; delete pending[job[0]]; job[1](v); });
+      setTimeout(next, 360);
+    })();
+  }
+  const n = (v) => v == null ? '?' : v;
+  function fillStats(eps) {
+    if (!S) return;
+    const bar = $('#statsbar'); bar.hidden = false; bar.textContent = '방문자 집계 불러오는 중…';
+    Promise.all([getStat('d-' + S.day(0)), getStat('d-' + S.day(1))]).then(([t, y]) => {
+      bar.innerHTML = `<b>오늘 방문자 ${n(t)}명</b><span>어제 ${n(y)}명</span><small>한국시간 기준 · 같은 브라우저는 하루 1명 · 내 접속 제외</small>`;
+    });
+    eps.filter(e => !e.demo).slice(0, 10).forEach(e => {
+      const el = document.querySelector(`.stats[data-ep="${CSS.escape(e.id)}"]`); if (!el) return;
+      const k = S.hash(e.id);
+      el.textContent = '집계 불러오는 중…';
+      Promise.all(['v-' + k, 'vd-' + k + '-' + S.day(0), 'p-' + k, 'f-' + k].map(getStat)).then(([v, vd, p, f]) => {
+        el.textContent = `열람 ${n(v)}명 (오늘 ${n(vd)}) · 재생 ${n(p)}명 · 끝까지 ${n(f)}명`;
+      });
+    });
+  }
   const fmt = (sec) => { sec = Math.round(sec || 0); const m = Math.floor(sec / 60), s = sec % 60; return m + ':' + String(s).padStart(2, '0'); };
   const dateKo = (iso) => { const d = new Date(iso); return d.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'short' }); };
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -104,9 +140,11 @@
         <h2><a href="episode.html?id=${encodeURIComponent(e.id)}">${esc(e.title)}</a></h2>
         <span style="color:var(--ink-3);font-size:13px;white-space:nowrap">표현 ${e.expressions}</span>
         <p class="one">${esc(e.one_liner_ko)}</p>
+        ${e.demo ? '' : `<div class="stats" data-ep="${esc(e.id)}"></div>`}
         ${e.tags?.length ? `<div class="tags">${e.tags.slice(0, 6).map(t => `<span>${esc(t)}</span>`).join('')}</div>` : ''}`;
       list.appendChild(li);
     });
+    fillStats(eps);
     $('#foot').textContent = data.generated_at ? `마지막 갱신 ${new Date(data.generated_at).toLocaleString('ko-KR')} · 자막·음원은 각 팟캐스트 발행사의 공개 RSS에서 가져옵니다.` : '';
   }
 
