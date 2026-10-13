@@ -94,6 +94,7 @@
 
   function render() {
     const shows = Object.fromEntries(data.shows.map(s => [s.slug, s]));
+    if (activeShow !== 'all' && !data.episodes.some(e => e.show === activeShow)) activeShow = 'all';
     const eps = data.episodes.filter(e => activeShow === 'all' || e.show === activeShow);
     $('#count').textContent = data.episodes.length ? `${data.episodes.length}편` : '';
 
@@ -106,8 +107,12 @@
       b.addEventListener('click', () => { activeShow = slug; try { localStorage.setItem('filter', slug); } catch (e) {} render(); });
       f.appendChild(b);
     };
+    // chips only for shows that have episodes; no chip row at all when there is just one show
+    const present = data.shows.filter(s => data.episodes.some(e => e.show === s.slug));
+    if (!present.some(s => s.slug === activeShow)) activeShow = 'all';
+    f.hidden = present.length <= 1;
     mk('all', '전체');
-    data.shows.forEach(s => mk(s.slug, s.name, s.color));
+    present.forEach(s => mk(s.slug, s.name, s.color));
 
     // lead: the newest unfinished episode
     const lead = $('#lead');

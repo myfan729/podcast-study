@@ -90,7 +90,7 @@ def rebuild_index(shows: list[dict]) -> dict:
         "shows": [
             {"slug": s["slug"], "name": s["name"], "publisher": s.get("publisher", ""),
              "color": s.get("color", "#555"), "homepage": s.get("homepage", "")}
-            for s in shows
+            for s in shows if s.get("enabled", True)
         ],
         "episodes": items,
     }

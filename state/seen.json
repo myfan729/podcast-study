@@ -15,7 +15,8 @@
    "title": "Weekend Listen: In Defense of Melania",
    "published_at": "2026-10-11T14:00:00Z",
    "done_at": "2026-10-12T05:03:16Z",
-   "upgraded_at": "2026-10-13T01:30:47Z"
+   "upgraded_at": "2026-10-13T01:30:47Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "big-take:0cc580daa0fb": {
    "first_seen": "2026-10-12T05:03:16Z",
@@ -24,7 +25,8 @@
    "id": "big-take-2026-10-09-inside-jane-street-the-enigmatic-firm-that-rules-wall-street",
    "title": "Inside Jane Street: The Enigmatic Firm That Rules Wall Street",
    "published_at": "2026-10-09T20:14:51Z",
-   "done_at": "2026-10-12T05:05:29Z"
+   "done_at": "2026-10-12T05:05:29Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "big-take:d4684c65ab99": {
    "first_seen": "2026-10-12T05:05:29Z",
@@ -33,7 +35,8 @@
    "id": "big-take-2026-10-08-what-happens-when-the-billionaires-brexit",
    "title": "What Happens When the Billionaires Brexit",
    "published_at": "2026-10-08T20:00:29Z",
-   "done_at": "2026-10-12T05:07:59Z"
+   "done_at": "2026-10-12T05:07:59Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "big-take-asia:24abe2b34f96": {
    "first_seen": "2026-10-12T05:07:59Z",
@@ -42,7 +45,8 @@
    "id": "big-take-asia-2026-10-06-the-surprising-people-getting-very-rich-off-ai",
    "title": "The Surprising People Getting Very Rich Off AI",
    "published_at": "2026-10-06T21:24:18Z",
-   "done_at": "2026-10-12T05:09:47Z"
+   "done_at": "2026-10-12T05:09:47Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "big-take-asia:849cda2d616e": {
    "first_seen": "2026-10-12T05:09:47Z",
@@ -53,7 +57,8 @@
    "error": "cannot access local variable 'meta' where it is not associated with a value",
    "seen_at": "2026-10-12T06:10:16Z",
    "id": "big-take-asia-2026-09-29-chinas-new-message-to-its-billionaires-pay-up",
-   "done_at": "2026-10-12T06:19:42Z"
+   "done_at": "2026-10-12T06:19:42Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "think-fast-talk-smart:b6a6565ee868": {
    "first_seen": "2026-10-12T05:10:18Z",
@@ -64,7 +69,8 @@
    "error": "API error 400: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfwmSqJXSJa83ZMVzNBLS'}",
    "seen_at": "2026-10-12T05:10:21Z",
    "id": "think-fast-talk-smart-2026-10-08-330-quick-thinks-a-clear-way-through-conflict",
-   "done_at": "2026-10-12T05:51:12Z"
+   "done_at": "2026-10-12T05:51:12Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "think-fast-talk-smart:e3632433ea59": {
    "first_seen": "2026-10-12T05:10:21Z",
@@ -75,7 +81,8 @@
    "error": "API error 400: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfwmSufwwm9sTYGT7ebuU'}",
    "seen_at": "2026-10-12T05:10:22Z",
    "id": "think-fast-talk-smart-2026-10-05-329-your-brand-is-your-promise-the-4-cs-for-better",
-   "done_at": "2026-10-12T05:54:05Z"
+   "done_at": "2026-10-12T05:54:05Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "think-fast-talk-smart:9c61f8a47cb4": {
    "first_seen": "2026-10-12T05:10:22Z",
@@ -86,7 +93,8 @@
    "error": "API error 400: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfwmSz3dpeRPBPgyUKTxp'}",
    "seen_at": "2026-10-12T05:10:23Z",
    "id": "think-fast-talk-smart-2026-10-01-328-ask-matt-anything-dont-let-your-communication-fizzle-at",
-   "done_at": "2026-10-12T05:56:23Z"
+   "done_at": "2026-10-12T05:56:23Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "big-take:45bc0efd44e7": {
    "first_seen": "2026-10-12T05:12:15Z",
@@ -95,7 +103,8 @@
    "id": "big-take-2026-10-07-could-democrats-actually-flip-texas-this-time",
    "title": "Could Democrats Actually Flip Texas This Time?",
    "published_at": "2026-10-07T20:41:05Z",
-   "done_at": "2026-10-12T05:14:40Z"
+   "done_at": "2026-10-12T05:14:40Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "big-take:24abe2b34f96": {
    "first_seen": "2026-10-12T05:14:40Z",
@@ -104,7 +113,8 @@
    "id": "big-take-2026-10-06-the-surprising-people-getting-very-rich-off-ai",
    "title": "The Surprising People Getting Very Rich Off AI",
    "published_at": "2026-10-06T21:24:18Z",
-   "done_at": "2026-10-12T05:16:40Z"
+   "done_at": "2026-10-12T05:16:40Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "big-take:c8416e43a83f": {
    "first_seen": "2026-10-12T05:16:40Z",
@@ -113,7 +123,8 @@
    "id": "big-take-2026-10-05-europes-debt-problem-is-back",
    "title": "Europe’s Debt Problem Is Back",
    "published_at": "2026-10-05T20:44:00Z",
-   "done_at": "2026-10-12T05:19:11Z"
+   "done_at": "2026-10-12T05:19:11Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "big-take:60a1e8b3efab": {
    "first_seen": "2026-10-12T05:19:11Z",
@@ -122,7 +133,8 @@
    "id": "big-take-2026-10-02-the-steamy-billion-dollar-world-of-romantasy",
    "title": "The Steamy, Billion-Dollar World of Romantasy",
    "published_at": "2026-10-02T21:03:36Z",
-   "done_at": "2026-10-12T05:21:39Z"
+   "done_at": "2026-10-12T05:21:39Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "big-take:0209b616dfe3": {
    "first_seen": "2026-10-12T05:21:39Z",
@@ -131,7 +143,8 @@
    "id": "big-take-2026-10-01-the-man-city-scandal-rocking-the-premier-league",
    "title": "The Man City Scandal Rocking the Premier League",
    "published_at": "2026-10-01T20:28:17Z",
-   "done_at": "2026-10-12T05:23:58Z"
+   "done_at": "2026-10-12T05:23:58Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "big-take:eab9c20194ea": {
    "first_seen": "2026-10-12T05:23:58Z",
@@ -140,7 +153,8 @@
    "id": "big-take-2026-09-30-can-700-million-buy-republicans-the-us-senate",
    "title": "Can $700 Million Buy Republicans the US Senate?",
    "published_at": "2026-09-30T19:44:27Z",
-   "done_at": "2026-10-12T05:26:05Z"
+   "done_at": "2026-10-12T05:26:05Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "big-take:849cda2d616e": {
    "first_seen": "2026-10-12T05:26:05Z",
@@ -149,7 +163,8 @@
    "id": "big-take-2026-09-29-chinas-new-message-to-its-billionaires-pay-up",
    "title": "China’s New Message to Its Billionaires: Pay Up",
    "published_at": "2026-09-29T22:18:48Z",
-   "done_at": "2026-10-12T05:27:56Z"
+   "done_at": "2026-10-12T05:27:56Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "big-take:3008ae7eb79a": {
    "first_seen": "2026-10-12T05:27:56Z",
@@ -158,7 +173,8 @@
    "id": "big-take-2026-09-28-could-bond-yields-break-the-stock-market",
    "title": "Could Bond Yields Break the Stock Market?",
    "published_at": "2026-09-28T21:00:09Z",
-   "done_at": "2026-10-12T05:30:14Z"
+   "done_at": "2026-10-12T05:30:14Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "think-fast-talk-smart:419d000e00da": {
    "first_seen": "2026-10-12T06:04:44Z",
@@ -167,7 +183,8 @@
    "id": "think-fast-talk-smart-2026-09-28-327-the-human-reset-reclaiming-authenticity-in-the-age-of-ai",
    "title": "327. The Human Reset: Reclaiming Authenticity in the Age of AI",
    "published_at": "2026-09-28T13:00:00Z",
-   "done_at": "2026-10-12T06:08:46Z"
+   "done_at": "2026-10-12T06:08:46Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "bbc-6-minute-english:7282d908fa38": {
    "first_seen": "2026-10-12T09:14:57Z",
@@ -176,7 +193,8 @@
    "id": "bbc-6-minute-english-2026-10-08-are-people-drinking-less-alcohol",
    "title": "Are people drinking less alcohol?",
    "published_at": "2026-10-08T08:28:00Z",
-   "done_at": "2026-10-12T09:16:54Z"
+   "done_at": "2026-10-12T09:16:54Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "bbc-6-minute-english:b21325e495be": {
    "first_seen": "2026-10-12T09:16:54Z",
@@ -185,7 +203,8 @@
    "id": "bbc-6-minute-english-2026-10-01-why-does-heartbreak-hurt-so-much",
    "title": "Why does heartbreak hurt so much?",
    "published_at": "2026-10-01T09:47:00Z",
-   "done_at": "2026-10-12T09:18:46Z"
+   "done_at": "2026-10-12T09:18:46Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "think-fast-talk-smart:ac8b163c11a0": {
    "first_seen": "2026-10-12T13:25:49Z",
@@ -195,7 +214,8 @@
    "title": "331. Matchmaker Mindset: How to Make Yourself Memorable in Any Conversation",
    "published_at": "2026-10-12T13:00:00Z",
    "done_at": "2026-10-12T13:28:45Z",
-   "upgraded_at": "2026-10-13T01:33:52Z"
+   "upgraded_at": "2026-10-13T01:33:52Z",
+   "removed_at": "2026-10-13T04:18:24Z"
   },
   "big-take:de8a6974015c": {
    "first_seen": "2026-10-12T22:56:52Z",
