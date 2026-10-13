@@ -1,4 +1,4 @@
-# verify run 4: fixed (ad-free) BBC episodes + ad-inserted shows, with the persisted sync report
+# verify run 5: today's Big Take after the sync rebuild (backup refs)
 """End-to-end check of automatic sync in a real browser (run on GitHub Actions, where the CDNs are reachable).
 Serves docs/ locally, opens episode pages that have sync references, waits for the sync report the page
 persists (localStorage syncrep:<id>), records phase / anchors / per-reference match quality."""
