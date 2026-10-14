@@ -12,6 +12,16 @@
    ],
    "checked_at": "2026-10-14T11:28:06Z"
   },
+  "2026-10-15-evening": {
+   "post_at": "2026-10-15T21:00:00+09:00",
+   "has": [],
+   "adding": [
+    "think-fast-talk-smart (catalog): 326. Rethinks: The Secrets to Getting the Information You Need from AI"
+   ],
+   "waiting_for": [],
+   "expected": [],
+   "checked_at": "2026-10-14T15:56:55Z"
+  },
   "2026-10-15-morning": {
    "post_at": "2026-10-15T07:00:00+09:00",
    "has": [
@@ -29,5 +39,5 @@
    "checked_at": "2026-10-14T11:28:06Z"
   }
  },
- "updated_at": "2026-10-14T11:28:06Z"
+ "updated_at": "2026-10-14T15:56:55Z"
 }

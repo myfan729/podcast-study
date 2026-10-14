@@ -267,6 +267,19 @@
    "title": "Short Stuff: Currency Symbols",
    "published_at": "2026-10-14T09:00:00Z",
    "done_at": "2026-10-14T11:23:42Z"
+  },
+  "think-fast-talk-smart:bf97cfa3f65a": {
+   "first_seen": "2026-10-14T15:56:55Z",
+   "attempts": 1,
+   "occasion": "2026-10-15-evening",
+   "slot": "evening",
+   "pick": "catalog",
+   "assigned_at": "2026-10-14T15:56:55Z",
+   "status": "done",
+   "id": "think-fast-talk-smart-2026-09-24-326-rethinks-the-secrets-to-getting-the-information-you",
+   "title": "326. Rethinks: The Secrets to Getting the Information You Need from AI",
+   "published_at": "2026-09-24T13:00:00Z",
+   "done_at": "2026-10-14T16:00:02Z"
   }
  }
 }
