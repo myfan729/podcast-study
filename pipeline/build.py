@@ -9,11 +9,12 @@ from __future__ import annotations
 import base64
 import hashlib
 import hmac
+import json
 import os
 import secrets
 from pathlib import Path
 
-from .util import read_json, utcnow_iso, write_json
+from .util import read_json, utcnow_iso, write_json, write_json_if_changed
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
@@ -96,11 +97,17 @@ def rebuild_index(shows: list[dict]) -> dict:
     }
     pw = site_password()
     if pw:
-        write_json(INDEX_ENC_PATH, encrypt_json(index, pw), compact=True)
+        # the ciphertext differs on every run (fresh salt/IV): rewrite only when the content changed
+        # (keyed by the password too, so changing the password re-encrypts)
+        src = hmac.new(pw.encode("utf-8"), json.dumps({k: v for k, v in index.items() if k != "generated_at"},
+                       ensure_ascii=False, sort_keys=True).encode("utf-8"), hashlib.sha256).hexdigest()[:16]
+        old = read_json(INDEX_ENC_PATH, None) if INDEX_ENC_PATH.exists() else None
+        if not old or old.get("src") != src:
+            write_json(INDEX_ENC_PATH, dict(encrypt_json(index, pw), src=src), compact=True)
         if INDEX_PATH.exists():
             INDEX_PATH.unlink()
     else:
-        write_json(INDEX_PATH, index)
+        write_json_if_changed(INDEX_PATH, index)
         if INDEX_ENC_PATH.exists():
             INDEX_ENC_PATH.unlink()
     return index

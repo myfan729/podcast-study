@@ -5,10 +5,12 @@ on:
     # The schedule in config/shows.yaml decides what is made; runs only need to be frequent enough.
     # Big Take lands ~20:00–21:30 UTC (05:00–06:30 KST) for the 07:00 KST post, Daybreak ~09:40 UTC,
     # Short Stuff 09:00 UTC on Wednesdays (for 21:00 KST). GitHub skips some scheduled runs: extra chances.
-    - cron: "17 */2 * * *"       # every 2 h (odd hours KST)
-    - cron: "47 20 * * *"        # 05:47 KST
-    - cron: "37 21 * * *"        # 06:37 KST
-    - cron: "47 10 * * *"        # 19:47 KST
+    # GitHub drops many scheduled runs (this repo saw ~1 in 3 run), so the windows before the posting times get
+    # a trigger every 10 minutes; a run with nothing to do takes ~1 min and commits nothing.
+    - cron: "17 */2 * * *"                    # every 2 h (odd hours KST)
+    - cron: "3,13,23,33,43,53 20,21 * * *"    # 05:03–06:53 KST (Big Take for the 07:00 post)
+    - cron: "3,23 22 * * *"                   # 07:03, 07:23 KST (late arrivals)
+    - cron: "3,13,23,33,43,53 9,10,11 * * *"  # 18:03–20:53 KST (Short Stuff / Daybreak; the 21:00 post)
   push:
     branches: [main]
     paths-ignore: ["docs/data/**", "state/**"]   # code/config changes trigger a run; the bot's own data commits do not

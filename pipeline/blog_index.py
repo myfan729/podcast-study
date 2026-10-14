@@ -22,7 +22,7 @@ from urllib.parse import unquote_plus
 
 from . import build
 from .main import CONFIG_PATH, load_config
-from .util import http_session, log, read_json, setup_logging, utcnow_iso, write_json
+from .util import http_session, log, read_json, setup_logging, utcnow_iso, write_json, write_json_if_changed
 
 LINKS_PATH = build.DATA / "blog_links.json"
 POSTS_CACHE = build.ROOT / "state" / "blog_posts.json"
@@ -281,9 +281,9 @@ def main(argv: list[str] | None = None) -> int:
         posts = prev.get("posts", [])
         log.warning("using cached post list (%d posts)", len(posts))
     else:
-        write_json(POSTS_CACHE, {"updated_at": utcnow_iso(), "posts": posts}, compact=True)
+        write_json_if_changed(POSTS_CACHE, {"updated_at": utcnow_iso(), "posts": posts}, compact=True)
     links = link_episodes(posts)
-    write_json(LINKS_PATH, {"updated_at": utcnow_iso(), "posts": len(posts), "episodes": links}, compact=True)
+    write_json_if_changed(LINKS_PATH, {"updated_at": utcnow_iso(), "posts": len(posts), "episodes": links}, compact=True)
     log.info("blog links: %d episodes with links (%d items)", len(links), sum(len(v) for v in links.values()))
     return 0
 

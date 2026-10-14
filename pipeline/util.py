@@ -92,6 +92,17 @@ def write_json(path: Path, data: Any, compact: bool = False) -> None:
     os.replace(tmp, path)
 
 
+def write_json_if_changed(path: Path, data: Any, compact: bool = False, ignore: tuple = ("generated_at", "updated_at")) -> bool:
+    """Write only when something other than the timestamps changed (idle runs then have nothing to commit)."""
+    def strip(d):
+        return {k: v for k, v in d.items() if k not in ignore} if isinstance(d, dict) else d
+    old = read_json(path, None) if path.exists() else None
+    if old is not None and strip(old) == strip(json.loads(json.dumps(data, ensure_ascii=False))):
+        return False
+    write_json(path, data, compact=compact)
+    return True
+
+
 def setup_logging(verbose: bool = False) -> None:
     logging.basicConfig(
         level=logging.DEBUG if verbose else logging.INFO,
