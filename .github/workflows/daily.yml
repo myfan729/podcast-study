@@ -1,14 +1,16 @@
-name: Daily post card
+name: Chat posts
 
 on:
   schedule:
-    - cron: "7,37 20-23 * * *"   # 05:07–08:37 KST every 30 min: makes the day's card once (GitHub skips some scheduled runs)
+    # queue.json is normally written right after each pipeline run; these are a safety net around the posting times
+    - cron: "7,37 20-23 * * *"   # 05:07–08:37 KST every 30 min
+    - cron: "7,37 10-13 * * *"   # 19:07–22:37 KST every 30 min
   push:
     paths: [".github/workflows/daily.yml", "pipeline/daily.py"]   # also run right after the poster itself changes
   workflow_dispatch:
     inputs:
       force:
-        description: "Post this episode (id/title substring) even if already posted"
+        description: "Post this episode (id/title substring) right now, even if it was posted before"
         default: ""
 
 permissions:
@@ -27,7 +29,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12", cache: pip }
       - run: pip install -r requirements.txt
-      - name: Compose today's card
+      - name: Queue the posts that are ready
         env:
           SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

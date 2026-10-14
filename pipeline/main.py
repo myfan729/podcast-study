@@ -19,6 +19,7 @@ from pathlib import Path
 import yaml
 
 from . import build
+from . import schedule as S
 from .feeds import Episode, iter_eligible, parse_feed, strip_html
 from .llm import StudyGenerator
 from .transcript import (TRANSCRIPT_VERSION, cues_to_dicts, group_sentences, parse_transcript, segment_cues,
@@ -27,6 +28,7 @@ from .util import http_get_text, http_session, log, read_json, resolve_final_url
 
 ROOT = Path(__file__).resolve().parent.parent
 STATE_PATH = ROOT / "state" / "seen.json"
+POSTED_PATH = ROOT / "state" / "posted.json"      # episodes already queued for the chat (pipeline.daily)
 CONFIG_PATH = ROOT / "config" / "shows.yaml"
 
 # Testing hooks: when set, used instead of downloading the transcript / calling the API.
@@ -45,6 +47,25 @@ def load_config(path: Path) -> dict:
 
 def episode_key(show_slug: str, ep: Episode) -> str:
     return f"{show_slug}:{hashlib.sha1(ep.guid.encode('utf-8')).hexdigest()[:12]}"
+
+
+def show_filter(show: dict):
+    """Which feed items of a show are candidates at all: title_include / title_exclude (regex), min/max length."""
+    inc, exc = show.get("title_include"), show.get("title_exclude")
+    lo, hi = show.get("min_minutes"), show.get("max_minutes")
+
+    def ok(ep: Episode) -> bool:
+        if inc and not re.search(inc, ep.title, re.I):
+            return False
+        if exc and re.search(exc, ep.title, re.I):
+            return False
+        if ep.duration_sec:
+            if hi and ep.duration_sec > hi * 60:
+                return False
+            if lo and ep.duration_sec < lo * 60:
+                return False
+        return True
+    return ok
 
 
 UPGRADE_DAYS = 3        # recent episodes made with an older transcript format are rebuilt (study pack included)
@@ -416,6 +437,161 @@ def refresh_missing_audio_meta(session) -> None:
         log.info("  audio_meta added: %s (%s, %d markers)", doc["id"], am.get("dai"), len(am.get("ad_markers", [])))
 
 
+def produce(session, gen: StudyGenerator, show: dict, ep: Episode, key: str, rec: dict, seen: dict, state: dict,
+            translate: bool = True, upgrade: bool = False, verbose: bool = False) -> tuple[bool, bool]:
+    """Build one episode and record the outcome in `rec`. Returns (ok, stop_all)."""
+    log.info("▶ %s (%s, %s)", ep.title, ep.published_iso[:10], f"{(ep.duration_sec or 0) // 60} min")
+    ok = stop = False
+    try:
+        doc = process_episode(session, gen, show, ep, translate=translate)
+        build.write_episode(doc)
+        if upgrade:      # a rebuild: keep done_at so it does not count toward today's limit
+            rec.update({"status": "done", "id": doc["id"], "upgraded_at": utcnow_iso()})
+        else:
+            rec.update({"status": "done", "id": doc["id"], "title": ep.title, "published_at": ep.published_iso,
+                        "done_at": utcnow_iso(), "attempts": rec.get("attempts", 0) + 1})
+            rec.pop("error", None)
+        ok = True
+        log.info("  ✓ wrote docs/data/episodes/%s.json", doc["id"])
+    except Exception as e:  # noqa: BLE001
+        msg = str(e)
+        auth_problem = ("API error 401" in msg or "ANTHROPIC_API_KEY is not set" in msg
+                        or "credit balance" in msg.lower())
+        rec.update({"status": "failed", "title": ep.title, "published_at": ep.published_iso,
+                    "error": msg[:300], "seen_at": utcnow_iso(),
+                    # an invalid/missing API key is not the episode's fault: don't burn its retry budget
+                    "attempts": rec.get("attempts", 0) + (0 if auth_problem else 1)})
+        if rec["attempts"] >= 3 and not auth_problem:
+            rec["status"] = "gave_up"
+        log.error("  ✗ failed: %s", e)
+        if verbose:
+            traceback.print_exc()
+        if auth_problem:
+            log.error("API key/billing problem — stopping this run. Fix the ANTHROPIC_API_KEY secret "
+                      "or top up credits in the Claude Console, then re-run; nothing was lost.")
+            stop = True
+    seen[key] = rec
+    write_json(STATE_PATH, state)  # checkpoint after every episode
+    return ok, stop
+
+
+BLOCKED = ("skipped_long", "no_transcript", "gave_up")
+
+
+def _occasion_stale(slots_by_name: dict, okey: str, now: datetime) -> bool:
+    """An occasion whose late window is over (its unposted episodes may join a later one)."""
+    sl = slots_by_name.get(okey[11:])
+    if not sl:
+        return True
+    try:
+        return S.occasion_from_key(sl, okey) + S.GRACE <= now
+    except ValueError:
+        return True
+
+
+def run_schedule(cfg: dict, slots: list, seen: dict, state: dict, session, gen: StudyGenerator, args, now: datetime,
+                 feed_files: dict) -> tuple[int, int, bool]:
+    """Make exactly the episodes the next posting occasions need (config `schedule`). Returns (processed, failures, stop)."""
+    by_slug = {s["slug"]: s for s in cfg["shows"]}
+    slots_by_name = {sl.name: sl for sl in slots}
+    posted = read_json(POSTED_PATH, {})
+    processed = failures = 0
+
+    episodes: dict[str, list[Episode]] = {}
+    for sl in slots:
+        for slug in sl.all_shows():
+            if slug in episodes:
+                continue
+            show = by_slug.get(slug)
+            if not show or not show.get("enabled", True):
+                log.warning("schedule: show %r is not configured/enabled — ignored", slug)
+                episodes[slug] = []
+                continue
+            try:
+                xml_text = Path(feed_files[slug]).read_text(encoding="utf-8") if slug in feed_files else http_get_text(session, show["feed"])
+                _, eps = parse_feed(xml_text)
+            except Exception as e:  # noqa: BLE001
+                log.error("feed failed for %s: %s", slug, e)
+                failures += 1
+                episodes[slug] = []
+                continue
+            ok = show_filter(show)
+            episodes[slug] = [e for e in eps if ok(e) and e.published_at <= now]   # (scheduled-ahead items wait)
+            log.info("== %s: %d candidate items", show["name"], len(episodes[slug]))
+
+    # titles shared recently (cross-posted episodes appear in two feeds)
+    recent_titles = [r.get("title", "") for r in seen.values() if r.get("id") in posted]
+
+    for sl in slots:
+        o = S.occasion(sl, now)
+        okey = S.occasion_key(sl, o)
+        assigned_recs = [(k, r) for k, r in seen.items() if r.get("occasion") == okey and r.get("status") != "gave_up"]
+        by_key = {episode_key(slug, ep): (slug, ep) for slug in sl.all_shows() for ep in episodes.get(slug, [])}
+
+        # retry this occasion's episodes that failed earlier
+        for k, r in assigned_recs:
+            if r.get("status") == "done" or k not in by_key or args.max_new <= processed:
+                continue
+            slug, ep = by_key[k]
+            log.info("[%s] retry %s", okey, ep.title)
+            ok, stop = produce(session, gen, by_slug[slug], ep, k, r, seen, state, translate=not args.no_translate, verbose=args.verbose)
+            processed += ok
+            failures += not ok
+            if stop:
+                return processed, failures, True
+        assigned_recs = [(k, r) for k, r in seen.items() if r.get("occasion") == okey and r.get("status") != "gave_up"]
+        assigned = [S.Cand(show=k.split(":")[0], key=k, title=r.get("title", ""),
+                           published=datetime.fromisoformat(str(r.get("published_at", "1970-01-01T00:00:00Z")).replace("Z", "+00:00")),
+                           done=r.get("status") == "done") for k, r in assigned_recs]
+
+        pools: dict[str, list[S.Cand]] = {}
+        expected: dict[str, bool] = {}
+        for slug in sl.all_shows():
+            show = by_slug.get(slug) or {}
+            pool = []
+            for ep in episodes.get(slug, []):
+                k = episode_key(slug, ep)
+                r = seen.get(k) or {}
+                if r.get("status") in BLOCKED or r.get("removed_at") or r.get("id") in posted:
+                    continue
+                if r.get("occasion") and not _occasion_stale(slots_by_name, r["occasion"], now):
+                    continue                  # belongs to this (→ `assigned`) or another live occasion
+                if any(S.same_story(ep.title, t) for t in recent_titles):
+                    continue
+                done = r.get("status") == "done" and bool(r.get("id")) and build.episode_path(r["id"]).exists()
+                if r.get("status") == "done" and not done:
+                    continue                  # built once, then removed from the site
+                ready = done or ep.best_transcript is not None or show.get("transcript") == "web"
+                pool.append(S.Cand(show=slug, key=k, title=ep.title, published=ep.published_at, ready=ready, done=done, ep=ep))
+            pools[slug] = pool
+            expected[slug] = S.expected([e.published_at for e in episodes.get(slug, [])], o)
+
+        p = S.plan(sl, o, now, assigned, pools, expected)
+        log.info("[%s] has %d/%d%s%s", okey, len(assigned), sl.count,
+                 f"; adding {', '.join(f'{c.show} ({why})' for c, why in p.picks)}" if p.picks else "",
+                 f"; waiting for {', '.join(p.waiting)}" if p.waiting else "")
+        for c, why in p.picks:
+            r = seen.get(c.key) or {"first_seen": utcnow_iso(), "attempts": 0}
+            r.update({"occasion": okey, "slot": sl.name, "pick": why, "assigned_at": utcnow_iso()})
+            if c.done:
+                seen[c.key] = r
+                write_json(STATE_PATH, state)
+                log.info("  reuse already built %s", r.get("id"))
+                continue
+            if processed >= args.max_new:
+                r.pop("occasion", None)
+                log.info("  reached --max-new=%d; the rest waits for the next run", args.max_new)
+                break
+            r.setdefault("attempts", 0)
+            ok, stop = produce(session, gen, by_slug[c.show], c.ep, c.key, r, seen, state,
+                               translate=not args.no_translate, verbose=args.verbose)
+            processed += ok
+            failures += not ok
+            if stop:
+                return processed, failures, True
+    return processed, failures, False
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--config", default=str(CONFIG_PATH))
@@ -463,10 +639,15 @@ def main(argv: list[str] | None = None) -> int:
 
     gen = StudyGenerator(mock=args.mock)
     upgrades: set[str] = set()
-    now = datetime.now(timezone.utc)
+    now = _overrides.get("now") or datetime.now(timezone.utc)
     processed = 0
     failures = 0
     stop_all = False
+
+    slots = S.load_slots(cfg)
+    if slots and not args.show and not args.force:
+        processed, failures, stop_all = run_schedule(cfg, slots, seen, state, session, gen, args, now, feed_files)
+        shows = []                     # the schedule decides; the per-show loop below is for manual runs
 
     for show in shows:
         slug = show["slug"]
@@ -486,12 +667,15 @@ def main(argv: list[str] | None = None) -> int:
         max_age = timedelta(days=int(show.get("max_age_days", 14)))
 
         candidates: list[Episode] = []
+        wanted = show_filter(dict(show, max_minutes=None))     # title filters (length is handled below)
         for ep in episodes:
             key = episode_key(slug, ep)
             rec = seen.get(key)
             forced = bool(args.force) and (args.force in ep.guid or args.force.lower() in ep.title.lower())
             if forced:
                 candidates.append(ep)
+                continue
+            if not wanted(ep):
                 continue
             if (rec and rec.get("status") == "done" and len(upgrades) < UPGRADE_MAX and not args.no_upgrade
                     and needs_upgrade(rec, now)):
@@ -541,38 +725,13 @@ def main(argv: list[str] | None = None) -> int:
                 seen[key] = rec
                 log.info("  %s: %s", status, ep.title)
                 continue
-            log.info("▶ %s (%s, %s)", ep.title, ep.published_iso[:10], f"{(ep.duration_sec or 0) // 60} min")
-            try:
-                doc = process_episode(session, gen, show, ep, translate=not args.no_translate)
-                build.write_episode(doc)
-                if key in upgrades:      # a rebuild: keep done_at so it does not count toward today's limit
-                    rec.update({"status": "done", "id": doc["id"], "upgraded_at": utcnow_iso()})
-                else:
-                    rec.update({"status": "done", "id": doc["id"], "title": ep.title, "published_at": ep.published_iso,
-                                "done_at": utcnow_iso(), "attempts": rec.get("attempts", 0) + 1})
-                processed += 1
-                log.info("  ✓ wrote docs/data/episodes/%s.json", doc["id"])
-            except Exception as e:  # noqa: BLE001
-                failures += 1
-                msg = str(e)
-                auth_problem = ("API error 401" in msg or "ANTHROPIC_API_KEY is not set" in msg
-                                or "credit balance" in msg.lower())
-                rec.update({"status": "failed", "title": ep.title, "published_at": ep.published_iso,
-                            "error": msg[:300], "seen_at": utcnow_iso(),
-                            # an invalid/missing API key is not the episode's fault: don't burn its retry budget
-                            "attempts": rec.get("attempts", 0) + (0 if auth_problem else 1)})
-                log.error("  ✗ failed: %s", e)
-                if args.verbose:
-                    traceback.print_exc()
-                if auth_problem:
-                    seen[key] = rec
-                    write_json(STATE_PATH, state)
-                    log.error("API key/billing problem — stopping this run. Fix the ANTHROPIC_API_KEY secret "
-                              "or top up credits in the Claude Console, then re-run; nothing was lost.")
-                    stop_all = True
-                    break
-            seen[key] = rec
-            write_json(STATE_PATH, state)  # checkpoint after every episode
+            ok, stop = produce(session, gen, show, ep, key, rec, seen, state, translate=not args.no_translate,
+                               upgrade=key in upgrades, verbose=args.verbose)
+            processed += ok
+            failures += not ok
+            if stop:
+                stop_all = True
+                break
         if stop_all:
             break
 

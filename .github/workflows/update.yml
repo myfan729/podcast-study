@@ -2,8 +2,13 @@ name: Update podcast study
 
 on:
   schedule:
-    # Every 3 hours. Big Take lands ~20:00–21:30 UTC on weekdays, Think Fast Talk Smart at 13:00 UTC Mon/Thu.
-    - cron: "17 */2 * * *"       # every 2 h; GitHub skips some scheduled runs, so more chances
+    # The schedule in config/shows.yaml decides what is made; runs only need to be frequent enough.
+    # Big Take lands ~20:00–21:30 UTC (05:00–06:30 KST) for the 07:00 KST post, Daybreak ~09:40 UTC,
+    # Short Stuff 09:00 UTC on Wednesdays (for 21:00 KST). GitHub skips some scheduled runs: extra chances.
+    - cron: "17 */2 * * *"       # every 2 h (odd hours KST)
+    - cron: "47 20 * * *"        # 05:47 KST
+    - cron: "37 21 * * *"        # 06:37 KST
+    - cron: "47 10 * * *"        # 19:47 KST
   push:
     branches: [main]
     paths-ignore: ["docs/data/**", "state/**"]   # code/config changes trigger a run; the bot's own data commits do not
@@ -81,7 +86,7 @@ jobs:
         continue-on-error: true
         run: python -m pipeline.blog_index
 
-      - name: Today's card (if the morning window is open and none exists yet)
+      - name: Chat posts (queue the episodes made for the next morning/evening post)
         continue-on-error: true
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

@@ -1,12 +1,14 @@
-"""Daily post: pick the newest episode not yet shared and write a chat-ready card (text + link).
+"""Chat posts: turn the episodes made for each posting occasion (config `schedule`) into ready-to-send messages.
 
-Runs at 07:00 KST (.github/workflows/daily.yml). Output:
-  docs/data/daily/latest.json, docs/data/daily/<date>.json   → docs/post.html shows the card with 복사/공유 buttons
-  state/posted.json                                            → which episodes were already shared
-Optional delivery (set as repository secrets): TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID → the card is sent to you on
-Telegram so one tap forwards it into the KakaoTalk room.
+Runs after every pipeline run (.github/workflows/update.yml) and around the posting times (daily.yml). Output:
+  docs/data/daily/queue.json        → the KakaoTalk bot (tools/kakao_bot.js) posts every message at its time
+  docs/data/daily/<occasion>.json   → archive, e.g. 2026-10-15-morning.json
+  docs/data/daily/latest.json       → the latest morning card in the old one-card format (older bot, post.html)
+  state/posted.json                 → episodes already queued (never queued twice)
+Optional delivery (repository secrets): TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID → each message is also sent to you
+on Telegram.
 
-Usage: python -m pipeline.daily [--dry-run] [--force <id-substring>] [--max-age-days 3]
+Usage: python -m pipeline.daily [--dry-run] [--force <id-substring>]
 """
 from __future__ import annotations
 
@@ -17,12 +19,15 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from . import build
-from .main import CONFIG_PATH, ROOT, load_config
+from . import schedule as S
+from . import main as M
 from .util import log, read_json, setup_logging, utcnow_iso, write_json
 
-POSTED_PATH = ROOT / "state" / "posted.json"
 DAILY_DIR = build.DATA / "daily"
-KST = timezone(timedelta(hours=9))
+QUEUE_KEEP = timedelta(days=3)
+KST = S.KST
+DEFAULT_LABELS = {"morning": "🌅 아침 팟캐스트", "evening": "🌙 하루 마무리 팟캐스트"}
+_now_override: dict = {"now": None}
 
 
 def fmt_dur(sec: int | None) -> str:
@@ -30,43 +35,42 @@ def fmt_dur(sec: int | None) -> str:
     return f"{sec // 60}분" if sec < 3600 else f"{sec // 3600}시간 {sec % 3600 // 60}분"
 
 
-def pick(posted: dict, max_age_days: int, force: str | None) -> dict | None:
-    docs = [read_json(p, None) for p in build.EPISODES_DIR.glob("*.json")]
-    docs = [d for d in docs if d and not d.get("demo") and not (d.get("study") or {}).get("mock")]
-    if force:
-        cands = [d for d in docs if force in d["id"] or force.lower() in d["title"].lower()]
-    else:
-        cutoff = datetime.now(timezone.utc) - timedelta(days=max_age_days)
-        cands = [d for d in docs if d["id"] not in posted
-                 and datetime.fromisoformat(d["published_at"].replace("Z", "+00:00")) >= cutoff]
-    cands.sort(key=lambda d: d["published_at"], reverse=True)
-    return cands[0] if cands else None
+def _blog_line(doc_id: str) -> str | None:
+    blog = ((read_json(build.DATA / "blog_links.json", None) or {}).get("episodes") or {}).get(doc_id) or {}
+    if not blog:
+        return None
+    word, info = next(iter(blog.items()))
+    return f"📝 블로그 단어 정리 ({word}): {info['url']}"
 
 
-def compose(doc: dict, site_url: str) -> dict:
+def compose_text(doc: dict, site_url: str, header: str) -> tuple[str, str, list[str], str]:
     study = doc.get("study") or {}
     link = f"{site_url.rstrip('/')}/episode.html?id={doc['id']}"
     exprs = [e["expression"] for e in (study.get("expressions") or [])[:3]]
     cefr = (study.get("difficulty") or {}).get("cefr", "")
-    d = datetime.fromisoformat(doc["published_at"].replace("Z", "+00:00")).astimezone(KST)
-    lines = [
-        f"🎧 오늘의 팟캐스트 · {doc['show']['name']} ({d.strftime('%-m/%-d')})",
-        f"{doc['title']}",
-        f"⏱ {fmt_dur(doc.get('duration_sec'))}" + (f" · {cefr}" if cefr else ""),
-        "",
-        study.get("one_liner_ko", ""),
-    ]
+    lines = [header, doc["title"], f"⏱ {fmt_dur(doc.get('duration_sec'))}" + (f" · {cefr}" if cefr else ""), "",
+             study.get("one_liner_ko", "")]
     if exprs:
         lines += ["", "🔑 오늘의 표현: " + " · ".join(exprs)]
     lines += ["", f"▶ 스크립트·요약·표현 보기: {link}"]
-    blog = ((read_json(build.DATA / "blog_links.json", None) or {}).get("episodes") or {}).get(doc["id"]) or {}
+    blog = _blog_line(doc["id"])
     if blog:
-        word, info = next(iter(blog.items()))
-        lines += [f"📝 블로그 단어 정리 ({word}): {info['url']}"]
-    text = "\n".join(l for l in lines if l is not None)
-    return {"id": doc["id"], "date_kst": datetime.now(KST).strftime("%Y-%m-%d"), "title": doc["title"], "show": doc["show"],
-            "link": link, "one_liner_ko": study.get("one_liner_ko", ""), "expressions": exprs, "cefr": cefr,
-            "duration_sec": doc.get("duration_sec"), "image": doc.get("image_url"), "text": text, "generated_at": utcnow_iso()}
+        lines.append(blog)
+    return "\n".join(lines), link, exprs, cefr
+
+
+def compose_post(doc: dict, slot: S.Slot, o: datetime, site_url: str, pick: str = "new") -> dict:
+    pub = datetime.fromisoformat(doc["published_at"].replace("Z", "+00:00")).astimezone(KST)
+    label = slot.label or DEFAULT_LABELS.get(slot.name, "🎧 오늘의 팟캐스트")
+    when = f"지난 회차 · {pub.strftime('%Y/%-m/%-d')}" if pick == "catalog" else pub.strftime("%-m/%-d")
+    text, link, exprs, cefr = compose_text(doc, site_url, f"{label} · {doc['show']['name']} ({when})")
+    u = S.until(slot, o)
+    return {"id": doc["id"], "occasion": S.occasion_key(slot, o), "slot": slot.name, "order": slot.order_of(doc["show"]["slug"]),
+            "post_at": o.isoformat(), "post_at_ms": int(o.timestamp() * 1000),
+            "until": u.isoformat(), "until_ms": int(u.timestamp() * 1000),
+            "title": doc["title"], "show": doc["show"], "link": link, "pick": pick,
+            "one_liner_ko": (doc.get("study") or {}).get("one_liner_ko", ""), "expressions": exprs, "cefr": cefr,
+            "duration_sec": doc.get("duration_sec"), "image": doc.get("image_url"), "text": text, "queued_at": utcnow_iso()}
 
 
 def send_telegram(text: str) -> bool:
@@ -79,47 +83,98 @@ def send_telegram(text: str) -> bool:
     return True
 
 
+def _docs() -> list[dict]:
+    docs = [read_json(p, None) for p in build.EPISODES_DIR.glob("*.json")]
+    return [d for d in docs if d and not d.get("demo") and not (d.get("study") or {}).get("mock")]
+
+
+def write_outputs(queue: dict, new_posts: list[dict], slots: list[S.Slot], now: datetime) -> None:
+    now_ms = int(now.timestamp() * 1000)
+    keep = [p for p in queue.get("posts", []) if p.get("until_ms", 0) > now_ms - QUEUE_KEEP.total_seconds() * 1000
+            and p["id"] not in {n["id"] for n in new_posts}]
+    queue["posts"] = sorted(keep + new_posts, key=lambda p: (p.get("post_at_ms", 0), p.get("order", 9)))
+    queue["generated_at"] = utcnow_iso()
+    DAILY_DIR.mkdir(parents=True, exist_ok=True)
+    write_json(DAILY_DIR / "queue.json", queue)
+    for okey in sorted({p["occasion"] for p in new_posts if p.get("occasion")}):
+        posts = [p for p in queue["posts"] if p.get("occasion") == okey]
+        write_json(DAILY_DIR / f"{okey}.json", {"occasion": okey, "posts": posts})
+    # the old one-card format: the latest morning occasion (older bot versions post it once between 07:00 and 12:00)
+    morning = [p for p in queue["posts"] if p.get("slot") == "morning"]
+    if morning:
+        okey = morning[-1]["occasion"]
+        posts = [p for p in morning if p["occasion"] == okey]
+        first = posts[0]
+        write_json(DAILY_DIR / "latest.json", dict(first, id=okey, date_kst=okey[:10],
+                                                  text="\n\n━━━━━━━━━━\n\n".join(p["text"] for p in posts),
+                                                  generated_at=utcnow_iso()))
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--force", help="post this episode (id/title substring) even if already posted")
-    ap.add_argument("--max-age-days", type=int, default=3, help="only episodes published within this many days")
-    ap.add_argument("--any-time", action="store_true", help="ignore the 05:00–09:00 KST window")
+    ap.add_argument("--force", help="post this episode (id/title substring) right now, even if it was posted before")
+    ap.add_argument("--config", default=None)
     ap.add_argument("-v", "--verbose", action="store_true")
     args = ap.parse_args(argv)
     setup_logging(args.verbose)
-    cfg = load_config(Path(CONFIG_PATH))
+    cfg = M.load_config(Path(args.config or M.CONFIG_PATH))
     site_url = os.environ.get("SITE_URL") or cfg.get("site_url") or "https://example.github.io/podcast-study/"
-    posted = read_json(POSTED_PATH, {})
-    now_kst = datetime.now(KST)
-    today = now_kst.strftime("%Y-%m-%d")
-    if not args.force:
-        # one card per KST day, made in the morning window so the bot posts it at 07:00 (schedules are redundant)
-        latest = read_json(DAILY_DIR / "latest.json", None) or {}
-        if latest.get("date_kst") == today:
-            log.info("daily: today's card already exists (%s)", latest.get("id"))
-            return 0
-        if not args.any_time and not (5 <= now_kst.hour < 9):
-            log.info("daily: outside the 05:00–09:00 KST window (now %s); nothing to do", now_kst.strftime("%H:%M"))
-            return 0
-    doc = pick(posted, args.max_age_days, args.force)
-    if not doc:
-        log.info("daily: nothing new to post")
+    slots = S.load_slots(cfg)
+    if not slots and not args.force:
+        log.info("daily: no `schedule` in config/shows.yaml — nothing to post")
         return 0
-    card = compose(doc, site_url)
-    print(card["text"])
+    now = _now_override["now"] or datetime.now(timezone.utc)
+    posted = read_json(M.POSTED_PATH, {})
+    seen = read_json(M.STATE_PATH, {"episodes": {}}).get("episodes", {})
+    queue = read_json(DAILY_DIR / "queue.json", {"posts": []})
+    new_posts: list[dict] = []
+
+    if args.force:
+        cands = sorted((d for d in _docs() if args.force in d["id"] or args.force.lower() in d["title"].lower()),
+                       key=lambda d: d["published_at"], reverse=True)
+        if not cands:
+            log.info("daily: no episode matches %r", args.force)
+            return 1
+        now_k = now.astimezone(KST)
+        extra = S.Slot(name="extra", at=now_k.strftime("%H:%M"), until=(now_k + timedelta(hours=3)).strftime("%H:%M"),
+                       label="🎧 오늘의 팟캐스트")
+        post = compose_post(cands[0], extra, now_k.replace(second=0, microsecond=0), site_url)
+        post["id"] = f"{post['id']}~{now_k.strftime('%m%d%H%M')}"         # a new id: the bot posts it even if posted before
+        new_posts.append(post)
+    else:
+        for sl in slots:
+            o = S.occasion(sl, now)
+            okey = S.occasion_key(sl, o)
+            if now >= S.until(sl, o):
+                continue
+            recs = [(k.split(":")[0], r) for k, r in seen.items() if r.get("occasion") == okey and r.get("status") == "done"
+                    and r.get("id") and r["id"] not in posted]
+            recs.sort(key=lambda sr: (sl.order_of(sr[0]), sr[1].get("published_at", "")))
+            for _slug, r in recs:
+                doc = read_json(build.episode_path(r["id"]), None)
+                if not doc:
+                    continue
+                new_posts.append(compose_post(doc, sl, o, site_url, r.get("pick", "new")))
+    if not new_posts:
+        log.info("daily: nothing new to queue")
+        return 0
+    for p in new_posts:
+        print(f"--- {p['occasion']} @ {p['post_at']}\n{p['text']}\n")
     if args.dry_run:
         return 0
-    DAILY_DIR.mkdir(parents=True, exist_ok=True)
-    write_json(DAILY_DIR / "latest.json", card)
-    write_json(DAILY_DIR / f"{card['date_kst']}.json", card)
-    posted[doc["id"]] = {"posted_at": utcnow_iso(), "date_kst": card["date_kst"]}
-    write_json(POSTED_PATH, posted)
-    try:
-        if send_telegram(card["text"]):
-            log.info("daily: sent to Telegram")
-    except Exception as e:  # noqa: BLE001
-        log.error("daily: telegram failed: %s", e)
+    for p in new_posts:
+        if not args.force:
+            posted[p["id"]] = {"queued_at": utcnow_iso(), "occasion": p["occasion"], "date_kst": p["occasion"][:10], "post_at": p["post_at"]}
+    write_outputs(queue, new_posts, slots, now)
+    write_json(M.POSTED_PATH, posted)
+    for p in new_posts:
+        try:
+            if send_telegram(p["text"]):
+                log.info("daily: sent to Telegram")
+        except Exception as e:  # noqa: BLE001
+            log.error("daily: telegram failed: %s", e)
+    log.info("daily: queued %d post(s): %s", len(new_posts), ", ".join(f"{p['occasion']}:{p['show']['slug']}" for p in new_posts))
     return 0
 
 

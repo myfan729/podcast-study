@@ -9,14 +9,33 @@ blogs:
   - id: oorange0123
     name: 지구별여행자
 
-# at most this many new episodes are produced per day (KST); the newest wins, the rest are skipped
-daily_limit: 1
+# What goes out to the chat, and when (KST). For every posting occasion the pipeline makes exactly `count`
+# episodes in the hours before: the newest new episode of each show in `shows` (in that order), then — for places
+# those leave empty — `fallback` shows, then an older episode from the `catalog` archive. A show that usually
+# publishes shortly before the posting time (learned from its feed, per weekday) keeps its place until 15 minutes
+# after it. The KakaoTalk bot posts each message at `at` and gives up after `until`.
+schedule:
+  morning:
+    at: "07:00"
+    until: "12:00"
+    count: 2
+    label: "🌅 아침 팟캐스트"
+    shows: [daybreak-us, big-take]                       # news briefing + one-story deep dive
+    fallback: [trumponomics, everybodys-business, zero]  # weekends: weekly Bloomberg shows
+  evening:
+    at: "21:00"
+    until: "23:30"
+    count: 1
+    label: "🌙 하루 마무리 팟캐스트"
+    shows: [think-fast-talk-smart, stuff-you-should-know] # new TFTS (Mon/Thu night) → Tue/Fri, Short Stuff (Wed)
+    catalog: [think-fast-talk-smart]                     # other evenings: an earlier TFTS episode
 
 defaults:
   max_minutes: 40          # skip episodes longer than this (e.g. Big Take "Weekend Listen")
   backfill: 3              # on first run, process the newest N eligible episodes per show
   transcript_retry_days: 4 # keep retrying episodes whose transcript tag appears later
   max_age_days: 14         # ignore archive items older than this (first run still backfills the newest N)
+  min_minutes: 6           # trailers / promos
   language: en
 
 shows:
@@ -32,6 +51,7 @@ shows:
 
   - slug: big-take-asia
     name: Big Take Asia
+    enabled: false            # every episode is also published in the Big Take feed
     publisher: Bloomberg
     color: "#0f8a7a"
     feed: https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/55b5c41e-b796-493d-829e-b16201392082/ed303395-bd29-403a-98d9-b16201396959/podcast.rss
@@ -45,9 +65,53 @@ shows:
     color: "#a8322d"
     feed: https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques
     homepage: https://www.fastersmarter.io/
-    # Transistor VTT has no speaker tags; the study pack assigns speakers per segment.
-    speaker_labels: none
+    # Recent Transistor VTT has no speaker tags (the study pack assigns speakers per segment); episodes from
+    # 2024–2025 (the evening archive) prefix lines with "Matt Abrahams: …" — auto handles both.
+    speaker_labels: auto
     style: "Communication-skills interview show hosted by Matt Abrahams (Stanford GSB); ~15-25 min; Mon & Thu. Contains a ~1 min sponsor read."
+
+  - slug: daybreak-us
+    name: Bloomberg Daybreak
+    publisher: Bloomberg
+    color: "#5b3fd1"
+    feed: https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d15648c4-cee0-4e99-a5ca-af80014d921d/65ce2954-d8a8-4c66-9f42-af80014d923e/podcast.rss
+    speaker_labels: generic
+    title_exclude: "^bonus"     # narrative bonus series episodes (part N of a story) — not a news briefing
+    style: "Bloomberg's morning news briefing (US edition): an anchor runs through the day's top business, markets and world headlines with short reporter and guest segments; ~15 min on weekdays, a longer 'Daybreak Weekend' week-ahead edition on Saturdays."
+
+  - slug: stuff-you-should-know
+    name: Stuff You Should Know
+    publisher: iHeartPodcasts
+    color: "#e0752d"
+    feed: https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/a91018a4-ea4f-4130-bf55-ae270180c327/44710ecc-10bb-48d1-93c7-ae270180c33e/podcast.rss
+    speaker_labels: generic
+    title_include: "^short stuff"   # the ~12 min weekly episodes; the full ones run 45–60 min
+    max_minutes: 25
+    style: "'Short Stuff' episodes of Stuff You Should Know: the two longtime hosts chat casually and with lots of jokes about one quirky topic; ~12 min; weekly (Wed)."
+
+  - slug: trumponomics
+    name: Trumponomics
+    publisher: Bloomberg
+    color: "#b5452f"
+    feed: https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/84f3c095-964f-4994-9d24-ae2b00130029/c9553948-bc39-4871-8989-ae2b00130032/podcast.rss
+    speaker_labels: generic
+    style: "Weekly Bloomberg conversation about the economics of US policy under President Trump, a host with Bloomberg journalists and outside experts; ~30 min."
+
+  - slug: everybodys-business
+    name: Everybody's Business
+    publisher: Bloomberg
+    color: "#2f7d4f"
+    feed: https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/f541f9b4-77cb-45aa-bf94-b1d300e5d357/1d448cb7-e0fc-45b8-b51f-b1d300e623a7/podcast.rss
+    speaker_labels: generic
+    style: "Weekly Bloomberg business-culture chat show: two hosts banter about the week's business stories and talk with a guest; ~35 min."
+
+  - slug: zero
+    name: "Zero: The Climate Race"
+    publisher: Bloomberg
+    color: "#1e7f8c"
+    feed: https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/37c6caa7-d377-4c08-b479-af9d012ed5ad/a7faefb0-28ec-4b1d-85f3-af9d012ed5c9/podcast.rss
+    speaker_labels: generic
+    style: "Weekly Bloomberg climate & clean-energy interview show: the host talks with one or two guests about the business and politics of decarbonisation; ~35 min."
 
   - slug: bbc-6-minute-english
     name: 6 Minute English
