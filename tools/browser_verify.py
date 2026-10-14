@@ -1,4 +1,4 @@
-# verify run 5: today's Big Take after the sync rebuild (backup refs)
+# verify run 6: NPR Up First (web transcript + detected ad gaps) and SYSK Short Stuff
 """End-to-end check of automatic sync in a real browser (run on GitHub Actions, where the CDNs are reachable).
 Serves docs/ locally, opens episode pages that have sync references, waits for the sync report the page
 persists (localStorage syncrep:<id>), records phase / anchors / per-reference match quality."""
@@ -14,7 +14,7 @@ async def main():
     ids = [p.stem for p in sorted((DOCS / "data" / "sync").glob("*.json"))
            if json.loads(p.read_text()).get("refs") and "airlines" not in p.stem]
     # all BBC (fixed) episodes + up to three ad-inserted ones
-    ids = [i for i in ids if i.startswith("bbc-")] + [i for i in ids if not i.startswith("bbc-")][:3]
+    ids = [i for i in ids if i.startswith(("up-first", "the-indicator", "stuff-you"))][:3]
     server = subprocess.Popen([sys.executable, "-m", "RangeHTTPServer", "8766"], cwd=DOCS)
     time.sleep(1.5)
     out = {}
