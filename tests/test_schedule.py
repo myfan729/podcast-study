@@ -196,7 +196,9 @@ def test_schedule_end_to_end_evening(tmp_path, monkeypatch):
     assert len(posts) == 1 and posts[0]["post_at"].startswith("2026-10-13T21:00") and posts[0]["slot"] == "evening"
     assert posts[0]["text"].startswith("🌙 하루 마무리 팟캐스트 · Think Fast, Talk Smart (10/12)\n331. Monday talk 0")
     assert posts[0]["until_ms"] - posts[0]["post_at_ms"] == 150 * 60 * 1000
-    assert "▶ 스크립트·요약·표현 보기: https://example.github.io/ps/episode.html?id=" in posts[0]["text"]
+    lines = posts[0]["text"].splitlines()
+    assert lines[2] == "⏱ 24분" and lines[-1].startswith("▶ 스크립트·단어·표현 보기: https://example.github.io/ps/episode.html?id=")
+    assert "🔑" not in posts[0]["text"] and "📝" not in posts[0]["text"]
     # later runs the same evening add nothing
     _run(M, D, tmp_path, k(2026, 10, 13, 19, 17), monkeypatch)
     assert len(json.loads(q.read_text())["posts"]) == 1

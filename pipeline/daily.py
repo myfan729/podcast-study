@@ -35,41 +35,25 @@ def fmt_dur(sec: int | None) -> str:
     return f"{sec // 60}분" if sec < 3600 else f"{sec // 3600}시간 {sec % 3600 // 60}분"
 
 
-def _blog_line(doc_id: str) -> str | None:
-    blog = ((read_json(build.DATA / "blog_links.json", None) or {}).get("episodes") or {}).get(doc_id) or {}
-    if not blog:
-        return None
-    word, info = next(iter(blog.items()))
-    return f"📝 블로그 단어 정리 ({word}): {info['url']}"
-
-
-def compose_text(doc: dict, site_url: str, header: str) -> tuple[str, str, list[str], str]:
+def compose_text(doc: dict, site_url: str, header: str) -> tuple[str, str]:
     study = doc.get("study") or {}
     link = f"{site_url.rstrip('/')}/episode.html?id={doc['id']}"
-    exprs = [e["expression"] for e in (study.get("expressions") or [])[:3]]
-    cefr = (study.get("difficulty") or {}).get("cefr", "")
-    lines = [header, doc["title"], f"⏱ {fmt_dur(doc.get('duration_sec'))}" + (f" · {cefr}" if cefr else ""), "",
-             study.get("one_liner_ko", "")]
-    if exprs:
-        lines += ["", "🔑 오늘의 표현: " + " · ".join(exprs)]
-    lines += ["", f"▶ 스크립트·요약·표현 보기: {link}"]
-    blog = _blog_line(doc["id"])
-    if blog:
-        lines.append(blog)
-    return "\n".join(lines), link, exprs, cefr
+    lines = [header, doc["title"], f"⏱ {fmt_dur(doc.get('duration_sec'))}", "", study.get("one_liner_ko", ""),
+             "", f"▶ 스크립트·단어·표현 보기: {link}"]
+    return "\n".join(lines), link
 
 
 def compose_post(doc: dict, slot: S.Slot, o: datetime, site_url: str, pick: str = "new") -> dict:
     pub = datetime.fromisoformat(doc["published_at"].replace("Z", "+00:00")).astimezone(KST)
     label = slot.label or DEFAULT_LABELS.get(slot.name, "🎧 오늘의 팟캐스트")
     when = f"지난 회차 · {pub.strftime('%Y/%-m/%-d')}" if pick == "catalog" else pub.strftime("%-m/%-d")
-    text, link, exprs, cefr = compose_text(doc, site_url, f"{label} · {doc['show']['name']} ({when})")
+    text, link = compose_text(doc, site_url, f"{label} · {doc['show']['name']} ({when})")
     u = S.until(slot, o)
     return {"id": doc["id"], "occasion": S.occasion_key(slot, o), "slot": slot.name, "order": slot.order_of(doc["show"]["slug"]),
             "post_at": o.isoformat(), "post_at_ms": int(o.timestamp() * 1000),
             "until": u.isoformat(), "until_ms": int(u.timestamp() * 1000),
             "title": doc["title"], "show": doc["show"], "link": link, "pick": pick,
-            "one_liner_ko": (doc.get("study") or {}).get("one_liner_ko", ""), "expressions": exprs, "cefr": cefr,
+            "one_liner_ko": (doc.get("study") or {}).get("one_liner_ko", ""),
             "duration_sec": doc.get("duration_sec"), "image": doc.get("image_url"), "text": text, "queued_at": utcnow_iso()}
 
 

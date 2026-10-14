@@ -48,7 +48,6 @@
       <div class="meta"><span class="chip"><span class="dot" style="--show:${esc(ep.show.color)}"></span>${esc(ep.show.name)}</span>
         <span>${esc(d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' }))}</span>
         <span>${fmt(ep.duration_sec)}</span>
-        ${study.difficulty?.cefr ? `<span class="badge" title="${esc(study.difficulty.note_ko || '')}">${esc(study.difficulty.cefr)}</span>` : ''}
         ${ep.demo ? '<span class="badge demo">DEMO</span>' : ''}${study.mock ? '<span class="badge mock">mock</span>' : ''}</div>
       <h1>${esc(ep.title)}</h1>
       ${study.one_liner_ko ? `<p class="one">${esc(study.one_liner_ko)}</p>` : ''}`;
@@ -122,10 +121,8 @@
     // words/expressions that already have a post on the owner's blog → link to it
     const blogLinks = ep.blogLinks || {};
     const blogPill = (text) => { const b = blogLinks[text]; if (!b) return '';
-      return `<a class="blogpill" href="${esc(b.url)}" target="_blank" rel="noopener" title="${esc(b.title)}">블로그에서 자세히 보기 ↗</a>`; };
-    $('#panel-summary').innerHTML = `
-      <div class="card"><h3>핵심 요약</h3><ul>${(study.summary_ko || []).map(b => `<li>${esc(b)}</li>`).join('')}</ul></div>
-      ${study.model ? `<p class="foot" style="margin:4px 2px">생성: ${esc(study.model)}${study.generated_at ? ' · ' + new Date(study.generated_at).toLocaleString('ko-KR') : ''}</p>` : ''}`;
+      return `<a class="blogpill" href="${esc(b.url)}" target="_blank" rel="noopener" title="${esc(b.title)}">자세히 보기 ↗</a>`; };
+    // (요약 tab removed: the one-line summary under the title is enough; study.summary_ko is still generated)
 
     $('#panel-expr').innerHTML = (study.vocab?.length ? `<div class="card"><h3>단어<small>${study.vocab.length}</small></h3><ul class="vocab">${study.vocab.map(v => `<li><span><b>${esc(v.word)}</b><i>${esc(v.pos)}</i></span><span>${esc(v.meaning_ko)}<br><span class="ex">${esc(v.example)}</span>${blogPill(v.word)}</span></li>`).join('')}</ul></div>` : '') +
       `<div class="card"><h3>표현<small>${(study.expressions || []).length}</small></h3>` + (study.expressions || []).map((ex, i) => exprHTML(ex, i, true)).join('') + `</div>`;
@@ -158,7 +155,7 @@
     $('#bsClose').addEventListener('click', closeSheet); $('#scrim').addEventListener('click', closeSheet);
 
     // ---- views (tabs) ------------------------------------------------------
-    let view = 'transcript', railView = 'summary';
+    let view = 'transcript', railView = 'expr';
     const isMobile = () => matchMedia('(max-width: 979px)').matches;
     function setView(v) {
       const mobile = isMobile();
@@ -166,7 +163,7 @@
       view = mobile ? v : 'transcript';   // on desktop the transcript is always on screen
       $('#main').hidden = mobile && view !== 'transcript';
       $('#rail').hidden = mobile && view === 'transcript';
-      ['summary', 'expr'].forEach(k => { const on = (mobile ? view : railView) === k; $('#panel-' + k).classList.toggle('on', on); $('#panel-' + k).classList.toggle('on-mobile', on); });
+      ['expr'].forEach(k => { const on = (mobile ? view : railView) === k; $('#panel-' + k).classList.toggle('on', on); $('#panel-' + k).classList.toggle('on-mobile', on); });
       $$('#mtabs [role=tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.view === view)));
       $$('#rtabs [role=tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.view === railView)));
       if (view !== 'transcript') { userScrolled = false; $('#repill').classList.remove('on'); }
