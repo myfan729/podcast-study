@@ -1,0 +1,32 @@
+{
+ "occasions": {
+  "2026-10-14-evening": {
+   "checked_at": "2026-10-14T04:42:32Z",
+   "post_at": "2026-10-14T21:00:00+09:00",
+   "has": [],
+   "adding": [],
+   "waiting_for": [
+    "stuff-you-should-know"
+   ],
+   "expected": [
+    "stuff-you-should-know"
+   ]
+  },
+  "2026-10-15-morning": {
+   "checked_at": "2026-10-14T04:42:32Z",
+   "post_at": "2026-10-15T07:00:00+09:00",
+   "has": [],
+   "adding": [],
+   "waiting_for": [
+    "daybreak-us",
+    "big-take"
+   ],
+   "expected": [
+    "big-take",
+    "daybreak-us",
+    "trumponomics"
+   ]
+  }
+ },
+ "updated_at": "2026-10-14T04:42:32Z"
+}
