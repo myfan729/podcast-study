@@ -1,0 +1,1731 @@
+{
+ "daybreak-us": {
+  "total": 1817,
+  "latest": [
+   {
+    "pub": "2026-10-13T09:38:33+00:00",
+    "wd": "Tue",
+    "min": 14.0,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Trump Dismisses Iran Aid Concerns; Houthis Continue Saudi Attacks",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-12T09:42:11+00:00",
+    "wd": "Mon",
+    "min": 15.0,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Deadly Houthi Strike Raises War Risks; Judge Halts Trump TV Ads",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-11T11:00:00+00:00",
+    "wd": "Sun",
+    "min": 32.9,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "BONUS SERIES: Levittown Episode 3  |  The Hunter",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-09T21:00:00+00:00",
+    "wd": "Fri",
+    "min": 39.5,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Daybreak Weekend: US Bank Earnings, Brussels Summit, Japan Sports Day",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-09T09:58:50+00:00",
+    "wd": "Fri",
+    "min": 15.1,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Trump Promises No Iran Attack Before Midterms; Hurricane Isaias Approaches US",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-08T09:43:16+00:00",
+    "wd": "Thu",
+    "min": 18.6,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Trump Weighs Iran Strikes Before Midterms; Hurricane Isaias Forms in the Gulf",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-07T09:46:48+00:00",
+    "wd": "Wed",
+    "min": 15.0,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Iran Ramps Up Tanker Attacks; SpaceX in Talks to Buy Nvidia Chips",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-06T09:44:14+00:00",
+    "wd": "Tue",
+    "min": 15.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Saudi-Led Forces Advance Against Houthis; Dalio Warns of Debt Crisis",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-05T09:39:19+00:00",
+    "wd": "Mon",
+    "min": 15.6,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Yemen Attacks Houthis; Anthropic Researcher to Testify",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-04T11:00:00+00:00",
+    "wd": "Sun",
+    "min": 30.7,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "BONUS SERIES: Levittown Episode 2  |  ‘I’m Also on the Website’",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-02T21:00:00+00:00",
+    "wd": "Fri",
+    "min": 39.0,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Daybreak Weekend: US Mortgages, Nobel Prize, China Golden Week",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-02T09:55:29+00:00",
+    "wd": "Fri",
+    "min": 15.7,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Pentagon Deploys More Troops to Middle East; September Jobs Report",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-01T09:58:38+00:00",
+    "wd": "Thu",
+    "min": 15.6,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "FlyDubai Rescue Latest; Trump Calls on Powell to Resign from Fed Board",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-30T09:49:23+00:00",
+    "wd": "Wed",
+    "min": 18.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Trump's AI Safety Switch, OpenAI Targets $1.4 Trillion Value",
+    "type": "full"
+   }
+  ],
+  "transcripts_by_year": {
+   "2022": "495/495",
+   "2023": "319/319",
+   "2024": "389/391",
+   "2025": "347/347",
+   "2026": "265/265"
+  }
+ },
+ "big-take": {
+  "total": 1025,
+  "latest": [
+   {
+    "pub": "2026-10-13T20:40:58+00:00",
+    "wd": "Tue",
+    "min": 17.5,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "How India’s Day Traders Broke the World’s Biggest Options Market",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-12T20:30:34+00:00",
+    "wd": "Mon",
+    "min": 18.5,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "AI’s Giant Money Loop Is Feeling Very 2008",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-11T14:00:00+00:00",
+    "wd": "Sun",
+    "min": 38.0,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Weekend Listen: In Defense of Melania",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-09T20:14:51+00:00",
+    "wd": "Fri",
+    "min": 16.5,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Inside Jane Street: The Enigmatic Firm That Rules Wall Street",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-08T20:00:29+00:00",
+    "wd": "Thu",
+    "min": 17.9,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "What Happens When the Billionaires Brexit",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-07T20:41:05+00:00",
+    "wd": "Wed",
+    "min": 16.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Could Democrats Actually Flip Texas This Time?",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-06T21:24:18+00:00",
+    "wd": "Tue",
+    "min": 14.6,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "The Surprising People Getting Very Rich Off AI",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-05T20:44:00+00:00",
+    "wd": "Mon",
+    "min": 20.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Europe’s Debt Problem Is Back",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-04T18:06:43+00:00",
+    "wd": "Sun",
+    "min": 41.5,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Weekend Listen: Google’s James Manyika on AI Risk",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-02T21:03:36+00:00",
+    "wd": "Fri",
+    "min": 18.3,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "The Steamy, Billion-Dollar World of Romantasy",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-01T20:28:17+00:00",
+    "wd": "Thu",
+    "min": 16.2,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "The Man City Scandal Rocking the Premier League",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-30T19:44:27+00:00",
+    "wd": "Wed",
+    "min": 16.5,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Can $700 Million Buy Republicans the US Senate?",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-29T22:18:48+00:00",
+    "wd": "Tue",
+    "min": 13.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "China’s New Message to Its Billionaires: Pay Up",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-28T21:00:09+00:00",
+    "wd": "Mon",
+    "min": 17.9,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Could Bond Yields Break the Stock Market?",
+    "type": "full"
+   }
+  ],
+  "transcripts_by_year": {
+   "2022": "41/41",
+   "2023": "267/267",
+   "2024": "228/228",
+   "2025": "254/254",
+   "2026": "234/235"
+  }
+ },
+ "sysk": {
+  "total": 2907,
+  "latest": [
+   {
+    "pub": "2026-10-13T09:00:00+00:00",
+    "wd": "Tue",
+    "min": 41.6,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Asteroooooid De-FENSE!",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-10T09:00:00+00:00",
+    "wd": "Sat",
+    "min": 47.8,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Selects: What's the deal with swing states?",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-08T09:00:00+00:00",
+    "wd": "Thu",
+    "min": 48.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Stand-Up Pt II",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-07T09:00:00+00:00",
+    "wd": "Wed",
+    "min": 13.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Short Stuff: The Style Cycle",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-06T09:00:00+00:00",
+    "wd": "Tue",
+    "min": 45.3,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Stand-Up Comedy Pt I",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-03T09:00:00+00:00",
+    "wd": "Sat",
+    "min": 53.1,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Selects: How Bras Work",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-01T09:00:00+00:00",
+    "wd": "Thu",
+    "min": 43.8,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Let's Thank Universal Pictures for Monster Movies!",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-30T09:00:00+00:00",
+    "wd": "Wed",
+    "min": 12.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Short Stuff: The Retirement Curse",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-29T09:00:00+00:00",
+    "wd": "Tue",
+    "min": 50.2,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "A Good Walk Ruined: The History of Golf",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-26T09:00:00+00:00",
+    "wd": "Sat",
+    "min": 46.3,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Selects: Wetlands! Wetlands! Wetlands!",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-26T02:05:27+00:00",
+    "wd": "Sat",
+    "min": 2.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Introducing 3 Putt Bogey",
+    "type": "trailer"
+   },
+   {
+    "pub": "2026-09-24T09:00:00+00:00",
+    "wd": "Thu",
+    "min": 41.6,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Emily Post: Ettiquette Queen",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-23T09:00:00+00:00",
+    "wd": "Wed",
+    "min": 11.8,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Short Stuff: Mabon",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-22T09:00:00+00:00",
+    "wd": "Tue",
+    "min": 49.0,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Our Big Fat Dream Episode",
+    "type": "full"
+   }
+  ],
+  "transcripts_by_year": {
+   "2008": "71/71",
+   "2009": "105/105",
+   "2010": "101/101",
+   "2011": "98/98",
+   "2012": "95/95",
+   "2013": "99/99",
+   "2014": "103/103",
+   "2015": "106/106",
+   "2016": "105/105",
+   "2017": "146/146",
+   "2018": "169/169",
+   "2019": "209/209",
+   "2020": "223/223",
+   "2021": "208/208",
+   "2022": "210/210",
+   "2023": "209/209",
+   "2024": "201/209",
+   "2025": "244/244",
+   "2026": "197/197"
+  },
+  "short_stuff": {
+   "count": 419,
+   "with_transcript": 417,
+   "median_min": 12.5,
+   "latest": [
+    {
+     "pub": "2026-10-07T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 13.4,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: The Style Cycle"
+    },
+    {
+     "pub": "2026-09-30T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 12.4,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: The Retirement Curse"
+    },
+    {
+     "pub": "2026-09-23T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 11.8,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: Mabon"
+    },
+    {
+     "pub": "2026-09-16T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 11.2,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: Leisure Suits"
+    },
+    {
+     "pub": "2026-09-09T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 11.4,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: Flappers"
+    },
+    {
+     "pub": "2026-09-02T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 12.2,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: Hisashi Ouchi"
+    },
+    {
+     "pub": "2026-08-26T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 13.9,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: Cyclospora"
+    },
+    {
+     "pub": "2026-08-19T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 11.8,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: Did a shipwreck double the size of the United States?"
+    },
+    {
+     "pub": "2026-08-12T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 12.2,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: Nero and His Fiddle"
+    },
+    {
+     "pub": "2026-08-05T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 15.0,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: Phone Books"
+    },
+    {
+     "pub": "2026-07-29T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 16.1,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: Shark Arm Murders"
+    },
+    {
+     "pub": "2026-07-22T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 12.1,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: Sardines!"
+    },
+    {
+     "pub": "2026-07-15T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 14.7,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: The Voice of God"
+    },
+    {
+     "pub": "2026-07-08T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 12.6,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: Great Britain"
+    },
+    {
+     "pub": "2026-07-01T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 12.4,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: Toronto Clown Riot"
+    },
+    {
+     "pub": "2026-06-24T09:00:00+00:00",
+     "wd": "Wed",
+     "min": 12.3,
+     "tr": [
+      "application/srt",
+      "text/plain",
+      "text/vtt"
+     ],
+     "title": "Short Stuff: Why does it feel good to be scared?"
+    }
+   ]
+  },
+  "under_40_latest60": [
+   {
+    "pub": "2026-10-07T09:00:00+00:00",
+    "wd": "Wed",
+    "min": 13.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Short Stuff: The Style Cycle"
+   },
+   {
+    "pub": "2026-09-30T09:00:00+00:00",
+    "wd": "Wed",
+    "min": 12.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Short Stuff: The Retirement Curse"
+   },
+   {
+    "pub": "2026-09-26T02:05:27+00:00",
+    "wd": "Sat",
+    "min": 2.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Introducing 3 Putt Bogey"
+   },
+   {
+    "pub": "2026-09-23T09:00:00+00:00",
+    "wd": "Wed",
+    "min": 11.8,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Short Stuff: Mabon"
+   },
+   {
+    "pub": "2026-09-16T09:00:00+00:00",
+    "wd": "Wed",
+    "min": 11.2,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Short Stuff: Leisure Suits"
+   },
+   {
+    "pub": "2026-09-09T09:00:00+00:00",
+    "wd": "Wed",
+    "min": 11.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Short Stuff: Flappers"
+   },
+   {
+    "pub": "2026-09-02T09:00:00+00:00",
+    "wd": "Wed",
+    "min": 12.2,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Short Stuff: Hisashi Ouchi"
+   },
+   {
+    "pub": "2026-08-26T09:00:00+00:00",
+    "wd": "Wed",
+    "min": 13.9,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Short Stuff: Cyclospora"
+   },
+   {
+    "pub": "2026-08-19T09:00:00+00:00",
+    "wd": "Wed",
+    "min": 11.8,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Short Stuff: Did a shipwreck double the size of the United States?"
+   },
+   {
+    "pub": "2026-08-12T09:00:00+00:00",
+    "wd": "Wed",
+    "min": 12.2,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Short Stuff: Nero and His Fiddle"
+   },
+   {
+    "pub": "2026-08-05T09:00:00+00:00",
+    "wd": "Wed",
+    "min": 15.0,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Short Stuff: Phone Books"
+   },
+   {
+    "pub": "2026-07-29T09:00:00+00:00",
+    "wd": "Wed",
+    "min": 16.1,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Short Stuff: Shark Arm Murders"
+   }
+  ],
+  "title_kinds": [
+   [
+    "(plain)",
+    48
+   ],
+   [
+    "Selects",
+    25
+   ],
+   [
+    "Short Stuff",
+    24
+   ],
+   [
+    "SYSK Gets Weird Playlist",
+    11
+   ],
+   [
+    "A Good Walk Ruined",
+    1
+   ],
+   [
+    "Emily Post",
+    1
+   ],
+   [
+    "Nickelodeon",
+    1
+   ],
+   [
+    "Social Identity Theory",
+    1
+   ],
+   [
+    "Terry Fox",
+    1
+   ],
+   [
+    "SYSK Tribute",
+    1
+   ],
+   [
+    "Reggae",
+    1
+   ],
+   [
+    "The Tobacco Master Settl",
+    1
+   ]
+  ]
+ },
+ "tfts": {
+  "total": 337,
+  "latest": [
+   {
+    "pub": "2026-10-12T06:00:00-07:00",
+    "wd": "Mon",
+    "min": 24.4,
+    "tr": [
+     "text/vtt"
+    ],
+    "title": "331. Matchmaker Mindset: How to Make Yourself Memorable in Any Conversation",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-08T06:00:00-07:00",
+    "wd": "Thu",
+    "min": 15.2,
+    "tr": [
+     "text/vtt"
+    ],
+    "title": "330. Quick Thinks: A CLEAR Way Through Conflict",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-05T06:00:00-07:00",
+    "wd": "Mon",
+    "min": 24.0,
+    "tr": [
+     "text/vtt"
+    ],
+    "title": "329. Your Brand is Your Promise: The 4 C’s for Better Communication",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-01T06:00:00-07:00",
+    "wd": "Thu",
+    "min": 18.9,
+    "tr": [
+     "text/vtt"
+    ],
+    "title": "328. Ask Matt Anything: Don’t Let Your Communication Fizzle at the Finish",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-28T06:00:00-07:00",
+    "wd": "Mon",
+    "min": 25.7,
+    "tr": [
+     "text/vtt"
+    ],
+    "title": "327. The Human Reset: Reclaiming Authenticity in the Age of AI",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-24T06:00:00-07:00",
+    "wd": "Thu",
+    "min": 25.5,
+    "tr": [
+     "text/vtt"
+    ],
+    "title": "326. Rethinks: The Secrets to Getting the Information You Need from AI",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-21T06:00:00-07:00",
+    "wd": "Mon",
+    "min": 19.9,
+    "tr": [
+     "text/vtt"
+    ],
+    "title": "325. Message Market Fit: Turning Great Ideas Into Communication That Lands",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-17T06:00:00-07:00",
+    "wd": "Thu",
+    "min": 23.1,
+    "tr": [
+     "text/vtt"
+    ],
+    "title": "324. Rethinks: Defining Where We Want AI To Take Us",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-14T06:00:00-07:00",
+    "wd": "Mon",
+    "min": 24.7,
+    "tr": [
+     "text/vtt"
+    ],
+    "title": "323. Turn Up the Heat: Make Conflict More Constructive",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-10T06:00:00-07:00",
+    "wd": "Thu",
+    "min": 21.1,
+    "tr": [
+     "text/vtt"
+    ],
+    "title": "322. Talk Back: Why Arguing With Yourself Can Help You Flourish",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-07T06:00:00-07:00",
+    "wd": "Mon",
+    "min": 20.1,
+    "tr": [
+     "text/vtt"
+    ],
+    "title": "321. The Respect Effect: What Stereotype Threat Teaches Us About Communication",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-03T06:00:00-07:00",
+    "wd": "Thu",
+    "min": 17.4,
+    "tr": [
+     "text/vtt"
+    ],
+    "title": "320. Quick Thinks: How to Prepare, Stand Out, and Ace Your Interview",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-31T06:00:00-07:00",
+    "wd": "Mon",
+    "min": 24.5,
+    "tr": [
+     "text/vtt"
+    ],
+    "title": "319. Open the Portal: The Simple Science Behind Impactful Storytelling",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-27T06:00:00-07:00",
+    "wd": "Thu",
+    "min": 14.1,
+    "tr": [
+     "text/vtt"
+    ],
+    "title": "318. Quick Thinks: Network Smarter and Make Better Connections",
+    "type": "full"
+   }
+  ],
+  "transcripts_by_year": {
+   "2020": "0/26",
+   "2021": "0/22",
+   "2022": "0/27",
+   "2023": "0/47",
+   "2024": "24/60",
+   "2025": "76/76",
+   "2026": "79/79"
+  },
+  "median_min_all": 21.5,
+  "oldest_with_transcript": {
+   "pub": "2024-07-16T06:00:00-07:00",
+   "title": "151. Get Hired: How the Right Communication Can Advance Your Career",
+   "min": 27.2
+  },
+  "old_transcript_checks": [
+   {
+    "title": "242. Tech Tools: The Power of Showing, Not Telling",
+    "pub": "2025-11-13",
+    "status": 200,
+    "bytes": 20230,
+    "head": "WEBVTT\r\n\r\n00:00:03.130 --> 00:00:06.000\r\nMatt Abrahams: This Tech Tools miniseries\r\nis brought to you by Prezi, the\r\n\r\n0"
+   },
+   {
+    "title": "213. Rethinks: Building Trusting Relationships Through Commu",
+    "pub": "2025-07-01",
+    "status": 200,
+    "bytes": 43226,
+    "head": "WEBVTT\r\n\r\n00:00:02.970 --> 00:00:05.400\r\nMatt Abrahams: Without trust,\r\nour relationship struggle.\r\n\r\n00:00:05.670 --> 0"
+   },
+   {
+    "title": "184. Fit or Quit? Find the Job That is Right For You—Catalyz",
+    "pub": "2025-02-06",
+    "status": 200,
+    "bytes": 29210,
+    "head": "WEBVTT\r\n\r\n00:00:03.909 --> 00:00:10.290\r\nMatt Abrahams: Career growth and fulfillment comes from work that is meaningful"
+   },
+   {
+    "title": "159. Earn Your Audience: You Can’t Lead If No One’s Listenin",
+    "pub": "2024-09-10",
+    "status": 200,
+    "bytes": 30527,
+    "head": "WEBVTT\r\n\r\n\r\n00:00:00.000 --> 00:00:07.660\r\nMatt Abrahams: In a world where things are changing all the time,\r\nconflict c"
+   },
+   {
+    "title": "158. Hope for Cynics: Building Trusting Relationships throug",
+    "pub": "2024-09-03",
+    "status": 200,
+    "bytes": 36989,
+    "head": "00:00:00.400 --> 00:00:03.990\r\nMatt Abrahams: It doesn't take much to see how cynical we are in the world today..\r\n\r\n00:"
+   },
+   {
+    "title": "151. Get Hired: How the Right Communication Can Advance Your",
+    "pub": "2024-07-16",
+    "status": 200,
+    "bytes": 41720,
+    "head": "WEBVTT\r\n\r\n00:00:00.300 --> 00:00:04.930\r\nMatt Abrahams: When it comes to our careers, we need to be very strategic and t"
+   }
+  ],
+  "sample_titles_by_year": {
+   "2020": [
+    "25. Quick Thinks: All Effective Communication Must Start With This",
+    "24. Feelings First: How Emotion Shapes Our Communication, Decisions, a",
+    "23. Look Within: How to Lead with Self Awareness and Vulnerability",
+    "22. Under Pressure: How to Communicate Clearly and Timely During a Cri",
+    "21. Words Matter: How to Make Your Communication Inclusive"
+   ],
+   "2021": [
+    "47. Quick Thinks: How to Use Storytelling to Be a Better Founder",
+    "46. Stay Creative: How to Keep Your Ideas Fresh and Practical",
+    "45. Recipes From the “Communication Kitchen”: How to Handle Three Comm",
+    "44. Act Like a Leader: How Lessons From The Theater Can Help You Step ",
+    "43. Get Psyched: How Time and Situations Shape Our Communication"
+   ],
+   "2022": [
+    "74. Rethinks: How Emotion Shapes Our Communication, Decisions, and Exp",
+    "73. Listen Up: Why It’s Better to Be Interested Than Interesting",
+    "72. Quick Thinks: Talk It Out – How to Successfully Negotiate and Reso",
+    "71. Strategy Success: How to Communicate Your Gameplan",
+    "70. Ideas Fuel Innovation: Why Your First Ideas Aren’t Always the Best"
+   ],
+   "2023": [
+    "121. Building Trust and Connection: How to Lead with Vulnerability",
+    "120. A Few of Matt’s Favorite Things: 10 Communication Takeaways from ",
+    "119. Rethinks: How to Embrace the Benefits of Stress",
+    "118. Maximizing your Personal Brand: Communicating Who You Are to Help",
+    "117. Say It, See It: How to Connect Through Conversation"
+   ],
+   "2024": [
+    "176. From Stereotypes to Synergy: Communicating Across Generations",
+    "Ask Matt Anything (AMA) 1: Trust, Paraphrasing, and Nonverbal Cues",
+    "175. Mastering Toasts and Tributes: Making Your Words Count",
+    "174. Fix Meetings: Transform Gatherings Into Meaningful Moments",
+    "173. Rethinks: Surviving the Holidays"
+   ],
+   "2025": [
+    "253. Top 10: The Best Communication Tips from 2025",
+    "252. Rethinks: How to Make Complex Ideas Accessible",
+    "251. How to Stop Performing and Start Communicating with Presence",
+    "250. How to Navigate Conflict: Tools For Productive Communication",
+    "249. Quick Thinks: Rituals That Make Teamwork Work"
+   ],
+   "2026": [
+    "331. Matchmaker Mindset: How to Make Yourself Memorable in Any Convers",
+    "330. Quick Thinks: A CLEAR Way Through Conflict",
+    "329. Your Brand is Your Promise: The 4 C’s for Better Communication",
+    "328. Ask Matt Anything: Don’t Let Your Communication Fizzle at the Fin",
+    "327. The Human Reset: Reclaiming Authenticity in the Age of AI"
+   ]
+  },
+  "minutes_by_year": {
+   "2020": 17.6,
+   "2021": 20.45,
+   "2022": 19.5,
+   "2023": 22.2,
+   "2024": 21.2,
+   "2025": 21.6,
+   "2026": 22.1
+  }
+ },
+ "everybodys-business": {
+  "total": 84,
+  "latest": [
+   {
+    "pub": "2026-10-09T09:00:00+00:00",
+    "wd": "Fri",
+    "min": 35.7,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "The NFL Enters Its Flag Era",
+    "type": "full"
+   },
+   {
+    "pub": "2026-10-03T09:00:00+00:00",
+    "wd": "Sat",
+    "min": 35.5,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Are You Feeling the Streaming Fatigue?",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-25T09:00:00+00:00",
+    "wd": "Fri",
+    "min": 37.5,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Why Are Employers Dropping GLP-1 Coverage?",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-18T09:00:00+00:00",
+    "wd": "Fri",
+    "min": 38.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Are You in a Cognitive Deficit?",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-11T09:00:00+00:00",
+    "wd": "Fri",
+    "min": 32.9,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Crime Is Just One Prompt Away",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-04T12:55:00+00:00",
+    "wd": "Fri",
+    "min": 37.8,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Is Wearable Tech a Red Flag?",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-28T09:00:00+00:00",
+    "wd": "Fri",
+    "min": 36.3,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Economist Ken Rogoff on the “Bar Fight” between the US and Canada",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-21T09:00:00+00:00",
+    "wd": "Fri",
+    "min": 30.8,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "An Economic Dumpster Fire",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-14T09:00:00+00:00",
+    "wd": "Fri",
+    "min": 36.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "The Robots Have Stolen Your Summer",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-11T09:00:00+00:00",
+    "wd": "Tue",
+    "min": 15.9,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "One Weird Trick to Get Your Credit Card Charge Reversed? Fraud.",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-07T09:00:00+00:00",
+    "wd": "Fri",
+    "min": 32.0,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "A Gut Check on Political Spending",
+    "type": "full"
+   },
+   {
+    "pub": "2026-07-31T09:00:00+00:00",
+    "wd": "Fri",
+    "min": 38.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Wall Street's Big Gamble",
+    "type": "full"
+   },
+   {
+    "pub": "2026-07-24T09:00:00+00:00",
+    "wd": "Fri",
+    "min": 31.6,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "The Economic Odyssey",
+    "type": "full"
+   },
+   {
+    "pub": "2026-07-17T09:00:00+00:00",
+    "wd": "Fri",
+    "min": 33.6,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "How to Profit off a Presidency",
+    "type": "full"
+   }
+  ],
+  "transcripts_by_year": {
+   "2025": "36/36",
+   "2026": "48/48"
+  }
+ },
+ "zero": {
+  "total": 257,
+  "latest": [
+   {
+    "pub": "2026-10-08T04:00:00+00:00",
+    "wd": "Thu",
+    "min": 18.2,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Tasmania’s electric shipping bet: Bloomberg Australia",
+    "type": "bonus"
+   },
+   {
+    "pub": "2026-10-01T04:00:00+00:00",
+    "wd": "Thu",
+    "min": 34.7,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Inside the little-known world of China's clean tech startups",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-28T04:00:00+00:00",
+    "wd": "Mon",
+    "min": 20.7,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "UK energy secretary on net zero and cheaper power: live from New York",
+    "type": "bonus"
+   },
+   {
+    "pub": "2026-09-24T04:00:00+00:00",
+    "wd": "Thu",
+    "min": 39.5,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "How to build an electrostate",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-17T04:00:00+00:00",
+    "wd": "Thu",
+    "min": 37.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Inside China’s $7 trillion green finance market",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-10T04:00:00+00:00",
+    "wd": "Thu",
+    "min": 33.9,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Free Solo climber Alex Honnold's next mission: solar for everyone",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-07T04:00:00+00:00",
+    "wd": "Mon",
+    "min": 17.5,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Do-it-yourself energy traders are gaming the grid: Big Take",
+    "type": "bonus"
+   },
+   {
+    "pub": "2026-08-31T15:15:00+00:00",
+    "wd": "Mon",
+    "min": 28.7,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Nepal disaster shows how mountains are becoming less stable",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-27T04:00:00+00:00",
+    "wd": "Thu",
+    "min": 40.7,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "How to fix our vulnerable food system",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-20T04:00:00+00:00",
+    "wd": "Thu",
+    "min": 42.9,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "More than AI, this century’s growth story is climate action",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-13T04:00:00+00:00",
+    "wd": "Thu",
+    "min": 36.7,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "When climate change threatens national security",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-06T04:00:00+00:00",
+    "wd": "Thu",
+    "min": 43.1,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "The Iran war revealed that China has a new energy weapon",
+    "type": "full"
+   },
+   {
+    "pub": "2026-07-30T04:00:00+00:00",
+    "wd": "Thu",
+    "min": 35.5,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "When AI and climate anxieties collide to make beautiful stories: Imagine Series",
+    "type": "full"
+   },
+   {
+    "pub": "2026-07-23T04:00:00+00:00",
+    "wd": "Thu",
+    "min": 15.1,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Bloomberg Australia: Lessons from the world's cleanest air",
+    "type": "full"
+   }
+  ],
+  "transcripts_by_year": {
+   "2022": "21/21",
+   "2023": "67/67",
+   "2024": "56/56",
+   "2025": "66/66",
+   "2026": "47/47"
+  }
+ },
+ "trumponomics": {
+  "total": 509,
+  "latest": [
+   {
+    "pub": "2026-10-08T09:00:00+00:00",
+    "wd": "Thu",
+    "min": 28.7,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Is Trump About to Lose America’s Farmers?",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-30T22:22:16+00:00",
+    "wd": "Wed",
+    "min": 32.4,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Why Governments Can’t Unplug From Elon Musk",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-23T21:54:26+00:00",
+    "wd": "Wed",
+    "min": 27.8,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "The Tough AI Questions Looming Over the Xi-Trump Summit",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-16T21:45:15+00:00",
+    "wd": "Wed",
+    "min": 25.9,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Why 5% Treasury Yields May Be Just the Beginning",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-09T21:01:12+00:00",
+    "wd": "Wed",
+    "min": 36.0,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Cory Doctorow Says Be Skeptical of the AI Sales Pitch",
+    "type": "full"
+   },
+   {
+    "pub": "2026-09-02T16:00:00+00:00",
+    "wd": "Wed",
+    "min": 31.9,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "\"The Economics Show\": Breaking China’s rare earths chokehold",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-26T21:03:06+00:00",
+    "wd": "Wed",
+    "min": 30.1,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "As Canada Turns From the US, Is China the Alternative?",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-19T22:01:09+00:00",
+    "wd": "Wed",
+    "min": 27.9,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Why Inflation Could Be Good News for Japan",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-16T07:00:00+00:00",
+    "wd": "Sun",
+    "min": 1.9,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Introducing: Our Town",
+    "type": "trailer"
+   },
+   {
+    "pub": "2026-08-12T21:08:46+00:00",
+    "wd": "Wed",
+    "min": 28.7,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "What Is Fed Chair Kevin Warsh Trying to Say?",
+    "type": "full"
+   },
+   {
+    "pub": "2026-08-05T17:05:58+00:00",
+    "wd": "Wed",
+    "min": 28.9,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Why AI Isn't Actually Boosting Productivity",
+    "type": "full"
+   },
+   {
+    "pub": "2026-07-29T21:51:48+00:00",
+    "wd": "Wed",
+    "min": 26.3,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "The Tariff Trade-Off",
+    "type": "full"
+   },
+   {
+    "pub": "2026-07-23T19:08:40+00:00",
+    "wd": "Thu",
+    "min": 23.6,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Can the US Actually Tax Billionaires?",
+    "type": "full"
+   },
+   {
+    "pub": "2026-07-15T20:29:10+00:00",
+    "wd": "Wed",
+    "min": 24.2,
+    "tr": [
+     "application/srt",
+     "text/plain",
+     "text/vtt"
+    ],
+    "title": "Are We Being Priced Out of Happiness?",
+    "type": "full"
+   }
+  ],
+  "transcripts_by_year": {
+   "2015": "19/19",
+   "2016": "54/54",
+   "2017": "52/52",
+   "2018": "59/59",
+   "2019": "41/41",
+   "2020": "44/44",
+   "2021": "39/39",
+   "2022": "36/36",
+   "2023": "20/20",
+   "2024": "44/44",
+   "2025": "58/58",
+   "2026": "43/43"
+  }
+ }
+}
