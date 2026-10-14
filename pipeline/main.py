@@ -590,7 +590,8 @@ def run_schedule(cfg: dict, slots: list, seen: dict, state: dict, session, gen: 
                     ready = web_transcript_ready(session, show, ep)
                 pool.append(S.Cand(show=slug, key=k, title=ep.title, published=ep.published_at, ready=ready, done=done, ep=ep))
             pools[slug] = pool
-            expected[slug] = S.expected([e.published_at for e in episodes.get(slug, [])], o)
+            # hold: false → never keep a place for a not-yet-ready episode; take the newest ready one now
+            expected[slug] = show.get("hold", True) is not False and S.expected([e.published_at for e in episodes.get(slug, [])], o)
 
         p = S.plan(sl, o, now, assigned, pools, expected)
         log.info("[%s] has %d/%d%s%s", okey, len(assigned), sl.count,

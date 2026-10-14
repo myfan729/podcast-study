@@ -92,6 +92,7 @@ shows:
     parser: npr
     speaker_labels: named
     max_minutes: 20
+    hold: false              # its transcript often comes late: use the newest episode whose transcript is up
     style: "The Indicator from Planet Money: two hosts explain one economics or business idea in plain, lively conversation, often with a guest; ~9 min; weekdays."
 
   - slug: daybreak-us
