@@ -16,7 +16,7 @@ for name in ["The Indicator from Planet Money", "Up First NPR"]:
     feed = hit["feedUrl"]
     r = s.get(feed, headers=UA, timeout=60); root = ET.fromstring(r.content)
     items = []
-    for i, it in enumerate(root.find("channel").findall("item")[:10]):
+    for i, it in enumerate(root.find("channel").findall("item")[:6]):
         d = parsedate_to_datetime(it.findtext("pubDate"))
         link = it.findtext("link") or ""
         enc = it.find("enclosure")
@@ -24,8 +24,8 @@ for name in ["The Indicator from Planet Money", "Up First NPR"]:
                "dur": it.findtext("{http://www.itunes.com/dtds/podcast-1.0.dtd}duration"), "link": link,
                "guid": it.findtext("guid"), "enclosure": enc.get("url")[:160] if enc is not None else None,
                "tags": sorted({c.tag.split('}')[-1] for c in it})}
-        m = re.search(r"/(\d{4}/\d{2}/\d{2}/)?(\d{9,})", link) or re.search(r"(\d{9,})", it.findtext("guid") or "")
-        sid = m.group(m.lastindex) if m else None
+        m = re.search(r"/\d{4}/\d{2}/\d{2}/([a-z0-9-]+?)/", link)
+        sid = m.group(1) if m else None
         rec["story_id"] = sid
         if sid:
             tu = f"https://www.npr.org/transcripts/{sid}"
@@ -38,7 +38,7 @@ for name in ["The Indicator from Planet Money", "Up First NPR"]:
                 rec["transcript_first"] = [re.sub(r"<[^>]+>", "", p)[:160] for p in paras[:6]]
                 rec["has_transcript_div"] = 'class="transcript' in txt
                 if i < 2:
-                    Path(f"tools/npr_samples/{name.split()[0+1 if name.startswith('The') else 0].lower()}_{i}.html").write_text(txt)
+                    Path(f"tools/npr_samples/{'indicator' if 'Indicator' in name else 'upfirst'}_{i}.html").write_text(txt)
             except Exception as e:
                 rec["transcript_error"] = str(e)[:200]
         items.append(rec); time.sleep(1)
