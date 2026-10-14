@@ -1,4 +1,4 @@
-replay 2026-10-05 12:00 → 2026-10-14 13:37 KST (runs at :17 every 2 h + 05:47, 06:37, 19:47)
+replay 2026-10-05 12:00 → 2026-10-14 13:41 KST (runs at :17 every 2 h + 05:47, 06:37, 19:47)
 
 2026-10-05-evening (Mon 21:00 KST)
    [catalog ] think-fast-talk-smart  pub Thu 10-01 22:00  19m  328. Ask Matt Anything: Don’t Let Your Communication Fizzle   ← ready Mon 13:17
