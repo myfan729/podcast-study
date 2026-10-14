@@ -14,30 +14,32 @@
   },
   "2026-10-15-evening": {
    "post_at": "2026-10-15T21:00:00+09:00",
-   "has": [],
-   "adding": [
-    "think-fast-talk-smart (catalog): 326. Rethinks: The Secrets to Getting the Information You Need from AI"
+   "has": [
+    "think-fast-talk-smart: 326. Rethinks: The Secrets to Getting the Information You Need from AI"
    ],
+   "adding": [],
    "waiting_for": [],
    "expected": [],
-   "checked_at": "2026-10-14T15:56:55Z"
+   "checked_at": "2026-10-14T16:13:10Z"
   },
   "2026-10-15-morning": {
    "post_at": "2026-10-15T07:00:00+09:00",
-   "has": [
-    "daybreak-us: Midterm Debates Heat Up; Russia-Ukraine Energy Ceasefire in Limbo"
+   "has": [],
+   "adding": [
+    "up-first (new): Ukraine's President Sits With NPR, Pope Leo Cancer, Ambassador Guilfoyle Forced Out"
    ],
-   "adding": [],
    "waiting_for": [
+    "the-indicator",
     "big-take"
    ],
    "expected": [
     "big-take",
-    "daybreak-us",
-    "trumponomics"
+    "the-indicator",
+    "trumponomics",
+    "up-first"
    ],
-   "checked_at": "2026-10-14T11:28:06Z"
+   "checked_at": "2026-10-14T16:09:50Z"
   }
  },
- "updated_at": "2026-10-14T15:56:55Z"
+ "updated_at": "2026-10-14T16:13:10Z"
 }
