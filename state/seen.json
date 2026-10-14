@@ -293,6 +293,19 @@
    "title": "Ukraine's President Sits With NPR, Pope Leo Cancer, Ambassador Guilfoyle Forced Out",
    "published_at": "2026-10-14T09:52:27Z",
    "done_at": "2026-10-14T16:13:10Z"
+  },
+  "the-indicator:cca7e5573356": {
+   "first_seen": "2026-10-14T16:20:15Z",
+   "attempts": 1,
+   "occasion": "2026-10-15-morning",
+   "slot": "morning",
+   "pick": "new",
+   "assigned_at": "2026-10-14T16:20:15Z",
+   "status": "done",
+   "id": "the-indicator-2026-10-13-how-did-we-get-a-nobel-prize-in-economics",
+   "title": "How did we get a Nobel Prize in economics?",
+   "published_at": "2026-10-13T07:00:00Z",
+   "done_at": "2026-10-14T16:22:19Z"
   }
  }
 }
