@@ -1,97 +1,165 @@
 {
- "big-take-2026-10-12-ais-giant-money-loop-is-feeling-very-2008": {
+ "stuff-you-should-know-2026-10-14-short-stuff-currency-symbols": {
   "phase": "auto",
   "error": null,
   "anchors": [
    {
     "c": 0,
-    "a": 106.784
+    "a": 71.712
    },
    {
-    "c": 600.56,
-    "a": 839.1457959181307
+    "c": 435.38,
+    "a": 706.2132244898676
    }
   ],
   "refs": [
    {
     "c": 0,
     "ok": true,
-    "a": 106.784,
-    "offset": 106.784,
-    "ber": 0.119,
+    "a": 71.712,
+    "offset": 71.712,
+    "ber": 0.102,
+    "second": 0.477,
+    "error": null
+   },
+   {
+    "c": 60,
+    "ok": true,
+    "a": 131.736,
+    "offset": 71.736,
+    "ber": 0.088,
+    "second": 0.478,
+    "error": null
+   },
+   {
+    "c": 435.38,
+    "ok": true,
+    "a": 706.213,
+    "offset": 270.833,
+    "ber": 0.045,
     "second": 0.48,
     "error": null
    },
    {
-    "c": 600.56,
+    "c": 495.38,
     "ok": true,
-    "a": 839.146,
-    "offset": 238.586,
-    "ber": 0.139,
+    "a": 766.224,
+    "offset": 270.844,
+    "ber": 0.05,
     "second": 0.481,
     "error": null
    }
   ],
   "decode": [
    "ctx8000→8000",
+   "ctx8000→8000",
+   "ctx8000→8000",
    "ctx8000→8000"
   ],
-  "adTotal": 329.6,
-  "ms": 2652,
+  "adTotal": 271.78,
+  "ms": 1998,
   "sync_btn": "싱크 ✓",
   "adbar_hidden": true,
   "first_line_ok": true,
-  "seconds": 5.8,
+  "seconds": 4.4,
   "errors": []
  },
- "big-take-2026-10-13-how-indias-day-traders-broke-the-worlds-biggest-options": {
+ "up-first-2026-10-14-ukraine-s-president-sits-with-npr-pope-leo-cancer": {
   "phase": "auto",
   "error": null,
   "anchors": [
    {
     "c": 0,
-    "a": 106.752
+    "a": 2.24
    },
    {
-    "c": 603.905,
-    "a": 842.617469387513
+    "c": 47.71,
+    "a": 54.836244897959695
+   },
+   {
+    "c": 261.14,
+    "a": 275.7015510203469
+   },
+   {
+    "c": 468.43,
+    "a": 490.68408163271124
+   },
+   {
+    "c": 709.23,
+    "a": 739.2509387752344
    }
   ],
   "refs": [
    {
     "c": 0,
     "ok": true,
-    "a": 106.752,
-    "offset": 106.752,
-    "ber": 0.06,
-    "second": 0.479,
+    "a": 2.24,
+    "offset": 2.24,
+    "ber": 0.096,
+    "second": 0.478,
     "error": null
    },
    {
-    "c": 60,
+    "c": 47.71,
     "ok": true,
-    "a": 166.798,
-    "offset": 106.798,
-    "ber": 0.121,
+    "a": 54.836,
+    "offset": 7.126,
+    "ber": 0.031,
+    "second": 0.478,
+    "error": null
+   },
+   {
+    "c": 107.71,
+    "ok": true,
+    "a": 114.828,
+    "offset": 7.118,
+    "ber": 0.035,
+    "second": 0.482,
+    "error": null
+   },
+   {
+    "c": 261.14,
+    "ok": true,
+    "a": 275.702,
+    "offset": 14.562,
+    "ber": 0.113,
+    "second": 0.484,
+    "error": null
+   },
+   {
+    "c": 321.14,
+    "ok": true,
+    "a": 335.694,
+    "offset": 14.554,
+    "ber": 0.06,
     "second": 0.48,
     "error": null
    },
    {
-    "c": 603.905,
+    "c": 468.43,
     "ok": true,
-    "a": 842.617,
-    "offset": 238.712,
-    "ber": 0.075,
-    "second": 0.475,
+    "a": 490.684,
+    "offset": 22.254,
+    "ber": 0.01,
+    "second": 0.482,
     "error": null
    },
    {
-    "c": 663.905,
+    "c": 528.43,
     "ok": true,
-    "a": 902.603,
-    "offset": 238.698,
-    "ber": 0.082,
-    "second": 0.478,
+    "a": 550.681,
+    "offset": 22.251,
+    "ber": 0.019,
+    "second": 0.476,
+    "error": null
+   },
+   {
+    "c": 709.23,
+    "ok": true,
+    "a": 739.251,
+    "offset": 30.021,
+    "ber": 0.063,
+    "second": 0.479,
     "error": null
    }
   ],
@@ -99,14 +167,16 @@
    "ctx8000→8000",
    "ctx8000→8000",
    "ctx8000→8000",
+   "ctx8000→8000",
+   "ctx8000→8000",
    "ctx8000→8000"
   ],
-  "adTotal": 330.03,
-  "ms": 4141,
+  "adTotal": 50.84,
+  "ms": 1784,
   "sync_btn": "싱크 ✓",
   "adbar_hidden": true,
   "first_line_ok": true,
-  "seconds": 6.6,
+  "seconds": 3.1,
   "errors": []
  }
 }
