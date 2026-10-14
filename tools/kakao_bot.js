@@ -1,35 +1,41 @@
 /*
- * Podcast Study — 카카오톡 오픈채팅 자동 게시 봇 (메신저봇R 용)
+ * Podcast Study — 카카오톡 오픈채팅 자동 게시 봇 (메신저봇R 용)  v3
  *
- * 설치 후 게시할 방에서 "!여기" 한 번 → 그 방이 게시 방으로 등록됩니다(방 이름을 직접 입력할 필요 없음).
- * 매일 07:00~12:00 KST 사이, 사이트에 오늘 카드(data/daily/latest.json)가 생기면 그 방에 한 번 올립니다.
+ * 사이트의 게시 대기열(data/daily/queue.json)을 5분마다 확인해서, 글마다 정해진 시각(아침 07:00 두 편,
+ * 저녁 21:00 한 편 — 시각과 편수는 사이트 설정이 정함)이 되면 등록된 방에 한 편씩 올립니다.
+ * 같은 글은 두 번 올리지 않고, 폰이 꺼져 있었으면 다시 켜진 뒤 그 글의 마감 시각 전까지 올립니다.
+ *
+ * 처음 한 번: 게시할 방에서 "!여기" → 그 방이 게시 방으로 등록됩니다 (이전 버전에서 이미 했다면 그대로 유지).
  *
  * 명령 (어느 방에서나)
- *   !여기    이 방을 게시 방으로 등록 (오늘 카드가 아직 안 올라갔으면 바로 올림)
- *   !방이름  봇이 인식하는 이 방의 이름/단톡 여부를 보여줌 (진단용)
- *   !핑      봇 생존 확인
- *   !오늘    오늘 카드를 지금 이 방에 올림
+ *   !여기    이 방을 게시 방으로 등록
+ *   !핑      봇 상태: 게시 방, 다음 게시, 마지막 확인
+ *   !다음    올라갈 예정인 글 목록
+ *   !오늘    오늘 이미 게시 시각이 지난 글을 지금 이 방에 다시 올림
+ *   !방이름  봇이 인식하는 이 방의 이름/단톡 여부 (진단용)
  *
  * 메신저봇R은 카카오톡 "알림에 답장" 방식으로 보냅니다. 폰 재부팅 뒤에는 그 방에 메시지가 한 번 올라와야
- * 보낼 수 있어서, 07:00에 실패하면 12:00까지 10분 간격으로 재시도하고 방에 메시지가 올라오는 즉시 올립니다.
+ * 보낼 수 있어서, 실패하면 1분마다 다시 시도하고 그 방에 메시지가 올라오는 즉시 올립니다.
  */
 var ROOM = "";                       // 비워 두세요. 게시할 방에서 "!여기"로 등록합니다.
 var SITE = "https://myfan729.github.io/podcast-study/";
-var POST_HOUR_KST = 7, POST_MIN_KST = 0;
-var RETRY_UNTIL_HOUR_KST = 12;
 var ADMINS = [];                     // "!여기", "!오늘"을 쓸 수 있는 닉네임 (비우면 누구나)
+var POLL_MINUTES = 5;                // 대기열 확인 간격
+var GAP_MS = 4000;                   // 한 번에 여러 편이면 사이 간격
 var STATE_KEY = "podcast_bot_state";
 var STATE_PATH = "/sdcard/msgbot/podcast_bot_state.json";
 
 var KST = java.util.TimeZone.getTimeZone("Asia/Seoul");
-
-function nowKst() { return java.util.Calendar.getInstance(KST); }
 function pad(n) { return (n < 10 ? "0" : "") + n; }
-function todayKst() {
-  var c = nowKst();
-  return c.get(java.util.Calendar.YEAR) + "-" + pad(c.get(java.util.Calendar.MONTH) + 1) + "-" + pad(c.get(java.util.Calendar.DAY_OF_MONTH));
+function kstParts(ms) {
+  var c = java.util.Calendar.getInstance(KST);
+  if (ms != null) c.setTimeInMillis(ms);
+  return { y: c.get(java.util.Calendar.YEAR), mo: c.get(java.util.Calendar.MONTH) + 1, d: c.get(java.util.Calendar.DAY_OF_MONTH),
+           h: c.get(java.util.Calendar.HOUR_OF_DAY), mi: c.get(java.util.Calendar.MINUTE) };
 }
-function hhmmKst() { var c = nowKst(); return pad(c.get(java.util.Calendar.HOUR_OF_DAY)) + ":" + pad(c.get(java.util.Calendar.MINUTE)); }
+function dateKst(ms) { var p = kstParts(ms); return p.y + "-" + pad(p.mo) + "-" + pad(p.d); }
+function hhmm(ms) { var p = kstParts(ms); return pad(p.h) + ":" + pad(p.mi); }
+function whenLabel(ms) { return (dateKst(ms) === dateKst(Date.now()) ? "오늘 " : (kstParts(ms).mo + "/" + kstParts(ms).d + " ")) + hhmm(ms); }
 
 /** 방 이름 비교용: 유니코드 정규화(NFC) + 공백 정리 */
 function norm(s) {
@@ -39,7 +45,7 @@ function norm(s) {
 }
 function isAdmin(sender) { return !ADMINS.length || ADMINS.indexOf(String(sender)) >= 0; }
 
-// ---- 상태 저장: 메모리 + (가능하면) 파일. 저장이 실패해도 메모리 상태로 중복 게시를 막음 ----
+// ---- 상태: 메모리 + (가능하면) DataBase/파일. 저장이 실패해도 메모리 상태로 중복 게시를 막음 ----
 var STATE = null;
 function loadState() {
   if (STATE) return STATE;
@@ -47,58 +53,89 @@ function loadState() {
   try { raw = DataBase.getDataBase(STATE_KEY); } catch (e) {}
   if (!raw) { try { raw = FileStream.read(STATE_PATH); } catch (e) {} }
   try { STATE = JSON.parse(String(raw || "{}")) || {}; } catch (e) { STATE = {}; }
+  if (!STATE.posted) STATE.posted = {};
+  if (STATE.lastPostedId && !STATE.posted[STATE.lastPostedId]) STATE.posted[STATE.lastPostedId] = Date.now();  // v2 → v3
   return STATE;
 }
-function saveState(s) {
-  STATE = s;
+function saveState() {
+  var s = loadState(), cutoff = Date.now() - 10 * 24 * 3600 * 1000;
+  for (var id in s.posted) { if (s.posted[id] < cutoff) delete s.posted[id]; }
   var txt = JSON.stringify(s);
   try { DataBase.setDataBase(STATE_KEY, txt); return; } catch (e) {}
   try { FileStream.write(STATE_PATH, txt); } catch (e) { Log.e("state save failed (memory only): " + e); }
 }
-function targetRoom() { var st = loadState(); return st.room || ROOM; }
+function targetRoom() { return loadState().room || ROOM; }
 
-function fetchCard() {
-  var body = org.jsoup.Jsoup.connect(SITE + "data/daily/latest.json?t=" + Date.now())
-    .ignoreContentType(true).header("Cache-Control", "no-cache").timeout(20000).execute().body();
-  return JSON.parse(String(body));
+// ---- 대기열 ----
+var QUEUE = null, lastFetch = 0, lastFetchError = "";
+function fetchQueue(force) {
+  if (!force && QUEUE && Date.now() - lastFetch < POLL_MINUTES * 60 * 1000) return QUEUE;
+  try {
+    var body = org.jsoup.Jsoup.connect(SITE + "data/daily/queue.json?t=" + Date.now())
+      .ignoreContentType(true).header("Cache-Control", "no-cache").timeout(20000).execute().body();
+    var q = JSON.parse(String(body));
+    QUEUE = (q && q.posts) ? q.posts : [];
+    lastFetch = Date.now(); lastFetchError = "";
+  } catch (e) {
+    lastFetchError = String(e); lastFetch = Date.now() - (POLL_MINUTES - 1) * 60 * 1000;   // 1분 뒤 재시도
+    Log.e("queue fetch failed: " + e);
+  }
+  return QUEUE || [];
+}
+function byTime(a, b) { return (a.post_at_ms - b.post_at_ms) || ((a.order || 0) - (b.order || 0)); }
+function duePosts() {
+  var now = Date.now(), st = loadState(), out = [];
+  var q = fetchQueue(false);
+  for (var i = 0; i < q.length; i++) {
+    var p = q[i];
+    if (!p || !p.id || st.posted[p.id]) continue;
+    if (p.post_at_ms <= now && now < (p.until_ms || p.post_at_ms + 4 * 3600 * 1000)) out.push(p);
+  }
+  return out.sort(byTime);
+}
+function upcoming() {
+  var now = Date.now(), st = loadState(), out = [];
+  var q = fetchQueue(false);
+  for (var i = 0; i < q.length; i++) { var p = q[i]; if (p && !st.posted[p.id] && p.post_at_ms > now) out.push(p); }
+  return out.sort(byTime);
 }
 
+// ---- 보내기 ----
 var lastTargetReplier = null;        // 게시 방에서 마지막으로 받은 알림의 답장 경로 (replyRoom 실패 시 대안)
-
-/** 오늘 카드를 게시 방에 올림. 성공/이미 올림 → true */
-function postCard() {
-  var tgt = targetRoom();
-  if (!tgt) { Log.i("no target room yet — type !여기 in the room"); return false; }
-  var st = loadState();
-  var card;
-  try { card = fetchCard(); } catch (e) { Log.e("card fetch failed: " + e); return false; }
-  if (card.date_kst !== todayKst()) { Log.i("card is for " + card.date_kst + ", not today (" + todayKst() + "); wait"); return false; }
-  if (st.lastPostedId === card.id) return true;
+function send(room, text) {
   var ok = false;
-  try { ok = Api.replyRoom(tgt, card.text); } catch (e) { Log.e("replyRoom error: " + e); }
-  if (!ok && lastTargetReplier) { try { lastTargetReplier.reply(card.text); ok = true; } catch (e) { Log.e("replier fallback failed: " + e); } }
-  if (ok) { st.lastPostedId = card.id; st.lastPostedDate = todayKst(); saveState(st); Log.i("posted " + card.id + " to [" + tgt + "]"); }
-  else { Log.e("could not post to [" + tgt + "] yet (no notification from that room since the bot started?)"); }
+  try { ok = Api.replyRoom(room, text); } catch (e) { Log.e("replyRoom error: " + e); }
+  if (!ok && lastTargetReplier && norm(room) === norm(targetRoom())) {
+    try { lastTargetReplier.reply(text); ok = true; } catch (e) { Log.e("replier fallback failed: " + e); }
+  }
   return ok;
 }
 
-function dueNow() {
-  var c = nowKst(); var h = c.get(java.util.Calendar.HOUR_OF_DAY), m = c.get(java.util.Calendar.MINUTE);
-  var afterStart = h > POST_HOUR_KST || (h === POST_HOUR_KST && m >= POST_MIN_KST);
-  return afterStart && h < RETRY_UNTIL_HOUR_KST;
+var LOCK = new java.util.concurrent.locks.ReentrantLock();
+/** 게시 시각이 된 글을 게시 방에 올림. 올린 개수를 돌려줌 */
+function postDue() {
+  var tgt = targetRoom();
+  if (!tgt) return 0;
+  if (!LOCK.tryLock()) return 0;
+  var n = 0;
+  try {
+    var due = duePosts(), st = loadState();
+    for (var i = 0; i < due.length; i++) {
+      if (i > 0) { try { java.lang.Thread.sleep(GAP_MS); } catch (e) {} }
+      if (!send(tgt, due[i].text)) { Log.e("could not post to [" + tgt + "] yet (no notification from that room since the bot started?)"); break; }
+      st.posted[due[i].id] = Date.now(); saveState(); n++;
+      Log.i("posted " + due[i].id + " to [" + tgt + "]");
+    }
+  } finally { LOCK.unlock(); }
+  return n;
 }
 
-// ---- 스케줄러: 1분마다 깨어나 게시 시간대면 10분 간격으로 시도 ----
+// ---- 스케줄러: 1분마다 확인 (대기열은 5분마다 새로 받음) ----
 var running = true;
 var worker = new java.lang.Thread(new java.lang.Runnable({
   run: function () {
-    var lastTry = 0;
     while (running) {
-      try {
-        if (dueNow() && loadState().lastPostedDate !== todayKst() && Date.now() - lastTry > 10 * 60 * 1000) {
-          lastTry = Date.now(); postCard();
-        }
-      } catch (e) { Log.e("scheduler: " + e); }
+      try { postDue(); } catch (e) { Log.e("scheduler: " + e); }
       try { java.lang.Thread.sleep(60 * 1000); } catch (e) { break; }
     }
   }
@@ -109,31 +146,51 @@ worker.start();
 // ---- 메시지 수신 ----
 function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {
   var r = String(room), text = String(msg).trim();
-  Log.i("msg room=[" + r + "] group=" + isGroupChat + " sender=" + sender);
 
   if (text === "!방이름") { replier.reply("봇이 보는 이 방: [" + r + "] · 단톡=" + isGroupChat + " · 게시 방: [" + (targetRoom() || "미등록") + "]"); return; }
-  if (text === "!핑") { replier.reply("살아 있어요 · " + todayKst() + " " + hhmmKst() + " KST · 게시 방: [" + (targetRoom() || "미등록") + "]"); return; }
+  if (text === "!핑") {
+    var nx = upcoming()[0];
+    replier.reply("살아 있어요 (v3) · " + dateKst() + " " + hhmm() + " KST\n게시 방: [" + (targetRoom() || "미등록 — 게시할 방에서 !여기") + "]"
+      + "\n다음 게시: " + (nx ? whenLabel(nx.post_at_ms) + " · " + nx.show.name : "대기 중인 글 없음")
+      + "\n대기열 확인: " + (lastFetch ? hhmm(lastFetch) : "아직") + (lastFetchError ? " (오류: " + lastFetchError.slice(0, 80) + ")" : ""));
+    return;
+  }
+  if (text === "!다음") {
+    var up = upcoming();
+    if (!up.length) { replier.reply("올라갈 예정인 글이 아직 없어요. (에피소드가 준비되면 대기열에 들어와요)"); return; }
+    var lines = [];
+    for (var i = 0; i < up.length && i < 6; i++) lines.push(whenLabel(up[i].post_at_ms) + " · " + up[i].show.name + " — " + up[i].title);
+    replier.reply("예정된 글\n" + lines.join("\n"));
+    return;
+  }
   if (text === "!여기") {
     if (!isAdmin(sender)) return;
-    var st = loadState(); st.room = r; saveState(st);
+    var st = loadState(); st.room = r; saveState();
     lastTargetReplier = replier;
-    replier.reply("이 방을 매일 아침 게시 방으로 등록했어요: [" + r + "]");
-    if (dueNow()) postCard();
+    replier.reply("이 방을 게시 방으로 등록했어요: [" + r + "]\n아침 7시·저녁 9시에 새 글이 자동으로 올라와요.");
+    postDue();
     return;
   }
   if (text === "!오늘") {
     if (!isAdmin(sender)) return;
-    var card = null;
-    try { card = fetchCard(); } catch (e) { replier.reply("오늘의 카드를 가져오지 못했어요."); return; }
-    replier.reply(card.text);
-    if (norm(r) === norm(targetRoom()) && card.date_kst === todayKst()) { var s2 = loadState(); s2.lastPostedId = card.id; s2.lastPostedDate = todayKst(); saveState(s2); }
+    var q = fetchQueue(true), now = Date.now(), today = dateKst(now), mine = [];
+    for (var j = 0; j < q.length; j++) if (q[j].post_at_ms <= now && dateKst(q[j].post_at_ms) === today) mine.push(q[j]);
+    mine.sort(byTime);
+    if (!mine.length) { var nx2 = upcoming()[0]; replier.reply("오늘 게시 시각이 지난 글이 아직 없어요." + (nx2 ? " 다음: " + whenLabel(nx2.post_at_ms) : "")); return; }
+    var s2 = loadState();
+    for (var m = 0; m < mine.length; m++) {
+      if (m > 0) { try { java.lang.Thread.sleep(GAP_MS); } catch (e) {} }
+      replier.reply(mine[m].text);
+      if (norm(r) === norm(targetRoom())) s2.posted[mine[m].id] = Date.now();
+    }
+    saveState();
     return;
   }
 
-  // 게시 방의 아무 메시지: 답장 경로를 기억하고, 오늘 카드가 아직이면 지금 올림 (재부팅 뒤 복구)
+  // 게시 방의 아무 메시지: 답장 경로를 기억하고, 밀린 글이 있으면 지금 올림 (재부팅 뒤 복구)
   if (targetRoom() && norm(r) === norm(targetRoom())) {
     lastTargetReplier = replier;
-    if (dueNow() && loadState().lastPostedDate !== todayKst()) postCard();
+    postDue();
   }
 }
 

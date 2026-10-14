@@ -51,7 +51,7 @@ def main():
                 p = tmp / f"{slug}.xml"
                 p.write_text(M.http_get_text(session, by_slug[slug]["feed"]), encoding="utf-8")
                 feed_files[slug] = str(p)
-    M.STATE_PATH, M.POSTED_PATH = tmp / "seen.json", tmp / "posted.json"
+    M.STATE_PATH, M.POSTED_PATH, M.SCHEDULE_STATUS_PATH = tmp / "seen.json", tmp / "posted.json", tmp / "schedule.json"
     build.DATA, build.EPISODES_DIR, build.INDEX_PATH = tmp / "data", tmp / "data" / "episodes", tmp / "data" / "index.json"
     D.DAILY_DIR = tmp / "data" / "daily"
     built_at: dict[str, datetime] = {}

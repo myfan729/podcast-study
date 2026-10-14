@@ -140,6 +140,7 @@ def _setup(tmp_path, monkeypatch):
     from pipeline import build
     monkeypatch.setattr(M, "STATE_PATH", tmp_path / "state" / "seen.json")
     monkeypatch.setattr(M, "POSTED_PATH", tmp_path / "state" / "posted.json")
+    monkeypatch.setattr(M, "SCHEDULE_STATUS_PATH", tmp_path / "state" / "schedule.json")
     monkeypatch.setattr(build, "DATA", tmp_path / "data")
     monkeypatch.setattr(build, "EPISODES_DIR", tmp_path / "data" / "episodes")
     monkeypatch.setattr(build, "INDEX_PATH", tmp_path / "data" / "index.json")
@@ -202,6 +203,8 @@ def test_schedule_end_to_end_evening(tmp_path, monkeypatch):
     # Wednesday 13:17: Short Stuff is due at 18:00 → wait; 19:17: it is there
     seen = _run(M, D, tmp_path, k(2026, 10, 14, 13, 17), monkeypatch)
     assert not [r for r in seen.values() if r.get("occasion") == "2026-10-14-evening"]
+    st = json.loads((tmp_path / "state" / "schedule.json").read_text())["occasions"]["2026-10-14-evening"]
+    assert st["waiting_for"] == ["sysk"] and st["adding"] == [] and "sysk" in st["expected"]
     seen = _run(M, D, tmp_path, k(2026, 10, 14, 19, 17), monkeypatch)
     wed = [r for r in seen.values() if r.get("occasion") == "2026-10-14-evening"]
     assert [r["title"] for r in wed] == ["Short Stuff: Today"]

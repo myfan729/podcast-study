@@ -29,6 +29,7 @@ from .util import http_get_text, http_session, log, read_json, resolve_final_url
 ROOT = Path(__file__).resolve().parent.parent
 STATE_PATH = ROOT / "state" / "seen.json"
 POSTED_PATH = ROOT / "state" / "posted.json"      # episodes already queued for the chat (pipeline.daily)
+SCHEDULE_STATUS_PATH = ROOT / "state" / "schedule.json"   # the last decision per posting occasion (for checking)
 CONFIG_PATH = ROOT / "config" / "shows.yaml"
 
 # Testing hooks: when set, used instead of downloading the transcript / calling the API.
@@ -570,6 +571,15 @@ def run_schedule(cfg: dict, slots: list, seen: dict, state: dict, session, gen: 
         log.info("[%s] has %d/%d%s%s", okey, len(assigned), sl.count,
                  f"; adding {', '.join(f'{c.show} ({why})' for c, why in p.picks)}" if p.picks else "",
                  f"; waiting for {', '.join(p.waiting)}" if p.waiting else "")
+        # what the run decided, for checking from outside (state/schedule.json is committed with the run)
+        status = read_json(SCHEDULE_STATUS_PATH, {})
+        occ = status.setdefault("occasions", {})
+        occ[okey] = {"checked_at": utcnow_iso(), "post_at": o.isoformat(), "has": [f"{c.show}: {c.title}" for c in assigned],
+                     "adding": [f"{c.show} ({why}): {c.title}" for c, why in p.picks], "waiting_for": p.waiting,
+                     "expected": sorted(s for s, v in expected.items() if v)}
+        status["occasions"] = dict(sorted(occ.items())[-8:])
+        status["updated_at"] = utcnow_iso()
+        write_json(SCHEDULE_STATUS_PATH, status)
         for c, why in p.picks:
             r = seen.get(c.key) or {"first_seen": utcnow_iso(), "attempts": 0}
             r.update({"occasion": okey, "slot": sl.name, "pick": why, "assigned_at": utcnow_iso()})
