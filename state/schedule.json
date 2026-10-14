@@ -25,11 +25,10 @@
   "2026-10-15-morning": {
    "post_at": "2026-10-15T07:00:00+09:00",
    "has": [
-    "up-first: Ukraine's President Sits With NPR, Pope Leo Cancer, Ambassador Guilfoyle Forced Out"
+    "up-first: Ukraine's President Sits With NPR, Pope Leo Cancer, Ambassador Guilfoyle Forced Out",
+    "the-indicator: How did we get a Nobel Prize in economics?"
    ],
-   "adding": [
-    "the-indicator (new): How did we get a Nobel Prize in economics?"
-   ],
+   "adding": [],
    "waiting_for": [
     "big-take"
    ],
@@ -38,8 +37,8 @@
     "trumponomics",
     "up-first"
    ],
-   "checked_at": "2026-10-14T16:20:15Z"
+   "checked_at": "2026-10-14T18:38:14Z"
   }
  },
- "updated_at": "2026-10-14T16:20:15Z"
+ "updated_at": "2026-10-14T18:38:14Z"
 }
