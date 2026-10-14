@@ -1,0 +1,47 @@
+replay 2026-10-05 12:00 → 2026-10-14 13:37 KST (runs at :17 every 2 h + 05:47, 06:37, 19:47)
+
+2026-10-05-evening (Mon 21:00 KST)
+   [catalog ] think-fast-talk-smart  pub Thu 10-01 22:00  19m  328. Ask Matt Anything: Don’t Let Your Communication Fizzle   ← ready Mon 13:17
+2026-10-06-evening (Tue 21:00 KST)
+   [new     ] think-fast-talk-smart  pub Mon 10-05 22:00  24m  329. Your Brand is Your Promise: The 4 C’s for Better Commun  ← ready Tue 01:17
+2026-10-06-morning (Tue 07:00 KST)
+   [new     ] daybreak-us            pub Mon 10-05 18:39  16m  Yemen Attacks Houthis; Anthropic Researcher to Testify  ← ready Mon 19:17
+   [new     ] big-take               pub Tue 10-06 05:44  20m  Europe’s Debt Problem Is Back  ← ready Tue 05:47
+2026-10-07-evening (Wed 21:00 KST)
+   [new     ] stuff-you-should-know  pub Wed 10-07 18:00  13m  Short Stuff: The Style Cycle  ← ready Wed 19:17
+2026-10-07-morning (Wed 07:00 KST)
+   [new     ] daybreak-us            pub Tue 10-06 18:44  15m  Saudi-Led Forces Advance Against Houthis; Dalio Warns of Deb  ← ready Tue 19:17
+   [new     ] big-take               pub Wed 10-07 06:24  15m  The Surprising People Getting Very Rich Off AI  ← ready Wed 06:37
+2026-10-08-evening (Thu 21:00 KST)
+   [catalog ] think-fast-talk-smart  pub Mon 09-28 22:00  26m  327. The Human Reset: Reclaiming Authenticity in the Age of   ← ready Thu 01:17
+2026-10-08-morning (Thu 07:00 KST)
+   [new     ] daybreak-us            pub Wed 10-07 18:46  15m  Iran Ramps Up Tanker Attacks; SpaceX in Talks to Buy Nvidia   ← ready Wed 19:17
+   [new     ] big-take               pub Thu 10-08 05:41  16m  Could Democrats Actually Flip Texas This Time?  ← ready Thu 05:47
+2026-10-09-evening (Fri 21:00 KST)
+   [new     ] think-fast-talk-smart  pub Thu 10-08 22:00  15m  330. Quick Thinks: A CLEAR Way Through Conflict  ← ready Fri 01:17
+2026-10-09-morning (Fri 07:00 KST)
+   [new     ] daybreak-us            pub Thu 10-08 18:43  19m  Trump Weighs Iran Strikes Before Midterms; Hurricane Isaias   ← ready Thu 19:17
+   [new     ] big-take               pub Fri 10-09 05:00  18m  What Happens When the Billionaires Brexit  ← ready Fri 05:17
+2026-10-10-evening (Sat 21:00 KST)
+   [catalog ] think-fast-talk-smart  pub Thu 09-24 22:00  25m  326. Rethinks: The Secrets to Getting the Information You Ne  ← ready Sat 01:17
+2026-10-10-morning (Sat 07:00 KST)
+   [new     ] daybreak-us            pub Fri 10-09 18:58  15m  Trump Promises No Iran Attack Before Midterms; Hurricane Isa  ← ready Fri 19:17
+   [new     ] big-take               pub Sat 10-10 05:14  16m  Inside Jane Street: The Enigmatic Firm That Rules Wall Stree  ← ready Sat 05:17
+2026-10-11-evening (Sun 21:00 KST)
+   [catalog ] think-fast-talk-smart  pub Mon 09-21 22:00  20m  325. Message Market Fit: Turning Great Ideas Into Communicat  ← ready Sun 01:17
+2026-10-11-morning (Sun 07:00 KST)
+   [new     ] daybreak-us            pub Sat 10-10 06:00  40m  Daybreak Weekend: US Bank Earnings, Brussels Summit, Japan S  ← ready Sat 11:17
+   [fallback] trumponomics           pub Thu 10-08 18:00  29m  Is Trump About to Lose America’s Farmers?  ← ready Sat 11:17
+2026-10-12-evening (Mon 21:00 KST)
+   [catalog ] think-fast-talk-smart  pub Thu 09-17 22:00  23m  324. Rethinks: Defining Where We Want AI To Take Us  ← ready Mon 01:17
+2026-10-12-morning (Mon 07:00 KST)
+   [new     ] big-take               pub Sun 10-11 23:00  38m  Weekend Listen: In Defense of Melania  ← ready Sun 23:17
+   [fallback] everybodys-business    pub Fri 10-09 18:00  36m  The NFL Enters Its Flag Era  ← ready Sun 11:17
+2026-10-13-evening (Tue 21:00 KST)
+   [new     ] think-fast-talk-smart  pub Mon 10-12 22:00  24m  331. Matchmaker Mindset: How to Make Yourself Memorable in A  ← ready Tue 01:17
+2026-10-13-morning (Tue 07:00 KST)
+   [new     ] daybreak-us            pub Mon 10-12 18:42  15m  Deadly Houthi Strike Raises War Risks; Judge Halts Trump TV   ← ready Mon 19:17
+   [new     ] big-take               pub Tue 10-13 05:30  18m  AI’s Giant Money Loop Is Feeling Very 2008  ← ready Tue 05:47
+2026-10-14-morning (Wed 07:00 KST)
+   [new     ] daybreak-us            pub Tue 10-13 18:38  14m  Trump Dismisses Iran Aid Concerns; Houthis Continue Saudi At  ← ready Tue 19:17
+   [new     ] big-take               pub Wed 10-14 05:40  18m  How India’s Day Traders Broke the World’s Biggest Options Ma  ← ready Wed 05:47
