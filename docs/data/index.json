@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-14T04:22:41Z",
+ "generated_at": "2026-10-14T04:38:44Z",
  "shows": [
   {
    "slug": "big-take",
@@ -9,18 +9,46 @@
    "homepage": "https://www.bloomberg.com/podcasts/series/big-take"
   },
   {
-   "slug": "big-take-asia",
-   "name": "Big Take Asia",
-   "publisher": "Bloomberg",
-   "color": "#0f8a7a",
-   "homepage": "https://www.bloomberg.com/podcasts/series/big-take-asia"
-  },
-  {
    "slug": "think-fast-talk-smart",
    "name": "Think Fast, Talk Smart",
    "publisher": "Stanford GSB",
    "color": "#a8322d",
    "homepage": "https://www.fastersmarter.io/"
+  },
+  {
+   "slug": "daybreak-us",
+   "name": "Bloomberg Daybreak",
+   "publisher": "Bloomberg",
+   "color": "#5b3fd1",
+   "homepage": ""
+  },
+  {
+   "slug": "stuff-you-should-know",
+   "name": "Stuff You Should Know",
+   "publisher": "iHeartPodcasts",
+   "color": "#e0752d",
+   "homepage": ""
+  },
+  {
+   "slug": "trumponomics",
+   "name": "Trumponomics",
+   "publisher": "Bloomberg",
+   "color": "#b5452f",
+   "homepage": ""
+  },
+  {
+   "slug": "everybodys-business",
+   "name": "Everybody's Business",
+   "publisher": "Bloomberg",
+   "color": "#2f7d4f",
+   "homepage": ""
+  },
+  {
+   "slug": "zero",
+   "name": "Zero: The Climate Race",
+   "publisher": "Bloomberg",
+   "color": "#1e7f8c",
+   "homepage": ""
   }
  ],
  "episodes": [
