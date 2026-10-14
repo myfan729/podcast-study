@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-14T16:00:02Z",
+ "generated_at": "2026-10-14T16:03:46Z",
  "shows": [
   {
    "slug": "big-take",
@@ -16,10 +16,17 @@
    "homepage": "https://www.fastersmarter.io/"
   },
   {
-   "slug": "daybreak-us",
-   "name": "Bloomberg Daybreak",
-   "publisher": "Bloomberg",
-   "color": "#5b3fd1",
+   "slug": "up-first",
+   "name": "Up First",
+   "publisher": "NPR",
+   "color": "#d6352b",
+   "homepage": ""
+  },
+  {
+   "slug": "the-indicator",
+   "name": "The Indicator",
+   "publisher": "NPR (Planet Money)",
+   "color": "#2b7bd6",
    "homepage": ""
   },
   {
@@ -52,29 +59,6 @@
   }
  ],
  "episodes": [
-  {
-   "id": "daybreak-us-2026-10-14-midterm-debates-heat-up-russia-ukraine-energy-ceasefire-in",
-   "show": "daybreak-us",
-   "title": "Midterm Debates Heat Up; Russia-Ukraine Energy Ceasefire in Limbo",
-   "published_at": "2026-10-14T09:53:57Z",
-   "duration_sec": 1006,
-   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d15648c4-cee0-4e99-a5ca-af80014d921d/65ce2954-d8a8-4c66-9f42-af80014d923e/image.jpg?t=1673278228&size=Large",
-   "one_liner_ko": "중간선거를 3주 앞두고 열린 주요 토론회 소식과, 러시아의 우크라이나 전력망 대규모 공습으로 흔들리는 트럼프의 에너지 휴전을 짚은 아침 브리핑.",
-   "tags": [
-    "midterm elections",
-    "Russia-Ukraine",
-    "energy markets",
-    "news briefing",
-    "political debate",
-    "AI security"
-   ],
-   "cefr": "C1",
-   "expressions": 12,
-   "words": 2862,
-   "has_translation": true,
-   "mock": false,
-   "demo": false
-  },
   {
    "id": "stuff-you-should-know-2026-10-14-short-stuff-currency-symbols",
    "show": "stuff-you-should-know",
