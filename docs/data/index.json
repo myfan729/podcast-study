@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-14T16:22:19Z",
+ "generated_at": "2026-10-14T21:34:01Z",
  "shows": [
   {
    "slug": "big-take",
@@ -59,6 +59,29 @@
   }
  ],
  "episodes": [
+  {
+   "id": "big-take-2026-10-14-the-diesel-midterms",
+   "show": "big-take",
+   "title": "The Diesel Midterms",
+   "published_at": "2026-10-14T20:38:01Z",
+   "duration_sec": 1093,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/7e3a8235-b060-434c-8a46-b4e301524469/image.jpg?t=1792010003&size=Large",
+   "one_liner_ko": "유가와 디젤 가격이 치솟으면서 트럼프가 중간선거 전에 가격을 잡을 수단을 거의 다 써버렸고, 공화당이 상원까지 위협받고 있다는 분석이다.",
+   "tags": [
+    "energy prices",
+    "diesel",
+    "US midterms",
+    "inflation",
+    "geopolitics",
+    "Russia sanctions"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 3481,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
   {
    "id": "up-first-2026-10-14-ukraine-s-president-sits-with-npr-pope-leo-cancer",
    "show": "up-first",

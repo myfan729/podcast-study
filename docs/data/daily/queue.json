@@ -76,6 +76,31 @@
    "queued_at": "2026-10-14T16:22:43Z"
   },
   {
+   "id": "big-take-2026-10-14-the-diesel-midterms",
+   "occasion": "2026-10-15-morning",
+   "slot": "morning",
+   "order": 2,
+   "post_at": "2026-10-15T07:00:00+09:00",
+   "post_at_ms": 1792015200000,
+   "until": "2026-10-15T12:00:00+09:00",
+   "until_ms": 1792033200000,
+   "title": "The Diesel Midterms",
+   "show": {
+    "slug": "big-take",
+    "name": "Big Take",
+    "publisher": "Bloomberg",
+    "color": "#1f5fbf",
+    "homepage": "https://www.bloomberg.com/podcasts/series/big-take"
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=big-take-2026-10-14-the-diesel-midterms",
+   "pick": "new",
+   "one_liner_ko": "유가와 디젤 가격이 치솟으면서 트럼프가 중간선거 전에 가격을 잡을 수단을 거의 다 써버렸고, 공화당이 상원까지 위협받고 있다는 분석이다.",
+   "duration_sec": 1093,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/7e3a8235-b060-434c-8a46-b4e301524469/image.jpg?t=1792010003&size=Large",
+   "text": "🌅 아침 팟캐스트 · Big Take (10/15)\nThe Diesel Midterms\n⏱ 18분\n\n유가와 디젤 가격이 치솟으면서 트럼프가 중간선거 전에 가격을 잡을 수단을 거의 다 써버렸고, 공화당이 상원까지 위협받고 있다는 분석이다.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=big-take-2026-10-14-the-diesel-midterms",
+   "queued_at": "2026-10-14T21:34:24Z"
+  },
+  {
    "id": "think-fast-talk-smart-2026-09-24-326-rethinks-the-secrets-to-getting-the-information-you",
    "occasion": "2026-10-15-evening",
    "slot": "evening",
@@ -101,5 +126,5 @@
    "queued_at": "2026-10-14T16:00:25Z"
   }
  ],
- "generated_at": "2026-10-14T16:22:43Z"
+ "generated_at": "2026-10-14T21:34:24Z"
 }

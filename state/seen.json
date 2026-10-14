@@ -306,6 +306,19 @@
    "title": "How did we get a Nobel Prize in economics?",
    "published_at": "2026-10-13T07:00:00Z",
    "done_at": "2026-10-14T16:22:19Z"
+  },
+  "big-take:66fe6611bb4d": {
+   "first_seen": "2026-10-14T21:31:21Z",
+   "attempts": 1,
+   "occasion": "2026-10-15-morning",
+   "slot": "morning",
+   "pick": "new",
+   "assigned_at": "2026-10-14T21:31:21Z",
+   "status": "done",
+   "id": "big-take-2026-10-14-the-diesel-midterms",
+   "title": "The Diesel Midterms",
+   "published_at": "2026-10-14T20:38:01Z",
+   "done_at": "2026-10-14T21:34:01Z"
   }
  }
 }
