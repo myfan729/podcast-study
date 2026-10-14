@@ -24,7 +24,14 @@
      "thumbnail",
      "title"
     ],
-    "story_id": null
+    "story_id": "nx-s1-6001396",
+    "transcript_status": 200,
+    "transcript_url": "https://www.npr.org/transcripts/nx-s1-6001396",
+    "transcript_p_count": 1,
+    "transcript_first": [
+     "Your support helps make our show possible and unlocks access to our sponsor-free feed."
+    ],
+    "has_transcript_div": true
    },
    {
     "title": "How did we get a Nobel Prize in economics? ",
@@ -48,7 +55,15 @@
      "thumbnail",
      "title"
     ],
-    "story_id": null
+    "story_id": "nx-s1-5999497",
+    "transcript_status": 200,
+    "transcript_url": "https://www.npr.org/transcripts/nx-s1-5999497",
+    "transcript_p_count": 2,
+    "transcript_first": [
+     "Your support helps make our show possible and unlocks access to our sponsor-free feed.",
+     "[SOUND MONTAGE]SPEAKER 1: NPR.GREG ROSALSKY: This year's Nobel Prize in Economics went to two economists, Robert Hall, at Stanford University, and Michael Woodf"
+    ],
+    "has_transcript_div": true
    },
    {
     "title": "The echo of the bison (Encore)",
@@ -72,7 +87,15 @@
      "thumbnail",
      "title"
     ],
-    "story_id": null
+    "story_id": "nx-s1-5996621",
+    "transcript_status": 200,
+    "transcript_url": "https://www.npr.org/transcripts/nx-s1-5996621",
+    "transcript_p_count": 2,
+    "transcript_first": [
+     "Your support helps make our show possible and unlocks access to our sponsor-free feed.",
+     "WAILIN WONG: Hello, Indicator listeners. We'll be back tomorrow to tell you about the winner of the Nobel Prize in economics. Today is Indigenous Peoples' Day, "
+    ],
+    "has_transcript_div": true
    },
    {
     "title": "SNAP strains, youth baseball's class divide, and Meta's bug bounty",
@@ -96,7 +119,15 @@
      "thumbnail",
      "title"
     ],
-    "story_id": null
+    "story_id": "nx-s1-5995635",
+    "transcript_status": 200,
+    "transcript_url": "https://www.npr.org/transcripts/nx-s1-5995635",
+    "transcript_p_count": 2,
+    "transcript_first": [
+     "Your support helps make our show possible and unlocks access to our sponsor-free feed.",
+     "ANNOUNCER: NPR.[COIN SPINNING]WAILIN WONG: This is The Indicator from Planet Money. I'm Wailin Wong.RICKY MULVEY: I'm Ricky Mulvey.ADRIAN MA: I'm Adrian Ma. And"
+    ],
+    "has_transcript_div": true
    },
    {
     "title": "The chilling effect of ICE in hospitals",
@@ -120,7 +151,15 @@
      "thumbnail",
      "title"
     ],
-    "story_id": null
+    "story_id": "nx-s1-5993893",
+    "transcript_status": 200,
+    "transcript_url": "https://www.npr.org/transcripts/nx-s1-5993893",
+    "transcript_p_count": 2,
+    "transcript_first": [
+     "Your support helps make our show possible and unlocks access to our sponsor-free feed.",
+     "ANNOUNCER: NPR.[COIN SPINNING][MUSIC PLAYING]ADRIAN MA: This is The Indicator from Planet Money. I'm Adrian Ma.WAILIN WONG: And I'm Wailin Wong. Adrian, do you "
+    ],
+    "has_transcript_div": true
    },
    {
     "title": "One economist's answer to data center anxiety",
@@ -144,103 +183,15 @@
      "thumbnail",
      "title"
     ],
-    "story_id": null
-   },
-   {
-    "title": "Inside Norway's sovereign wealth fund dilemma to divest from Israel",
-    "pub_kst": "Tue 10-06 16:00",
-    "dur": "484",
-    "link": "https://www.npr.org/2026/10/06/nx-s1-5991846/inside-norways-sovereign-wealth-fund-dilemma-to-divest-from-israel",
-    "guid": "59993232-655e-4bf4-b03c-71448adf8c91",
-    "enclosure": "https://prfx.byspotify.com/e/play.podtrac.com/npr-510325/npr.simplecastaudio.com/0a4e8d3b-fe23-4948-9e39-20fcf16f9331/episodes/e7f57783-e9c7-4385-b10b-274446f66",
-    "tags": [
-     "block",
-     "description",
-     "duration",
-     "enclosure",
-     "encoded",
-     "episodeType",
-     "explicit",
-     "guid",
-     "image",
-     "link",
-     "pubDate",
-     "thumbnail",
-     "title"
+    "story_id": "nx-s1-5992976",
+    "transcript_status": 200,
+    "transcript_url": "https://www.npr.org/transcripts/nx-s1-5992976",
+    "transcript_p_count": 2,
+    "transcript_first": [
+     "Your support helps make our show possible and unlocks access to our sponsor-free feed.",
+     "SPEAKER: NPR.[COIN SPINNING][MUSIC PLAYING]RICKY MULVEY: This is The Indicator from Planet Money. I'm Ricky Mulvey.ADRIAN MA: And I'm Adrian Ma. It can feel rar"
     ],
-    "story_id": null
-   },
-   {
-    "title": "The proper etiquette of the Venmo nudge",
-    "pub_kst": "Mon 10-05 16:00",
-    "dur": "554",
-    "link": "https://www.npr.org/2026/10/05/nx-s1-5989639/the-proper-etiquette-of-the-venmo-nudge",
-    "guid": "1e7a9fcb-bf8e-4415-881a-86071fd9d019",
-    "enclosure": "https://prfx.byspotify.com/e/play.podtrac.com/npr-510325/npr.simplecastaudio.com/0a4e8d3b-fe23-4948-9e39-20fcf16f9331/episodes/315bbd2e-d3b1-4a09-8b93-fcab0635b",
-    "tags": [
-     "block",
-     "description",
-     "duration",
-     "enclosure",
-     "encoded",
-     "episodeType",
-     "explicit",
-     "guid",
-     "image",
-     "link",
-     "pubDate",
-     "thumbnail",
-     "title"
-    ],
-    "story_id": null
-   },
-   {
-    "title": "Can we make Social Security better for blue-collar workers?",
-    "pub_kst": "Fri 10-02 23:13",
-    "dur": "549",
-    "link": "https://www.npr.org/2026/10/02/nx-s1-5988860/can-we-make-social-security-better-for-blue-collar-workers",
-    "guid": "d8b34e9b-2745-4180-801a-2ba04d37c14e",
-    "enclosure": "https://prfx.byspotify.com/e/play.podtrac.com/npr-510325/npr.simplecastaudio.com/0a4e8d3b-fe23-4948-9e39-20fcf16f9331/episodes/2c2c6fa4-e4ea-474c-8cc6-2b4e0cb88",
-    "tags": [
-     "block",
-     "description",
-     "duration",
-     "enclosure",
-     "encoded",
-     "episodeType",
-     "explicit",
-     "guid",
-     "image",
-     "link",
-     "pubDate",
-     "thumbnail",
-     "title"
-    ],
-    "story_id": null
-   },
-   {
-    "title": "New college degrees designed to job-proof graduates",
-    "pub_kst": "Thu 10-01 16:00",
-    "dur": "502",
-    "link": "https://www.npr.org/2026/10/01/nx-s1-5985907/new-college-degrees-designed-to-job-proof-graduates",
-    "guid": "32c53998-e898-4398-817f-9ed106b00257",
-    "enclosure": "https://prfx.byspotify.com/e/play.podtrac.com/npr-510325/npr.simplecastaudio.com/0a4e8d3b-fe23-4948-9e39-20fcf16f9331/episodes/595c0a27-2388-4fce-afb9-97176478d",
-    "tags": [
-     "block",
-     "description",
-     "duration",
-     "enclosure",
-     "encoded",
-     "episodeType",
-     "explicit",
-     "guid",
-     "image",
-     "link",
-     "pubDate",
-     "thumbnail",
-     "title"
-    ],
-    "story_id": null
+    "has_transcript_div": true
    }
   ]
  },
@@ -267,7 +218,15 @@
      "pubDate",
      "title"
     ],
-    "story_id": null
+    "story_id": "nx-s1-6001409",
+    "transcript_status": 200,
+    "transcript_url": "https://www.npr.org/transcripts/nx-s1-6001409",
+    "transcript_p_count": 2,
+    "transcript_first": [
+     "Your support helps make our show possible and unlocks access to our sponsor-free feed.",
+     "(SOUNDBITE OF MUSIC)STEVE INSKEEP, HOST:  Ukraine's president tells NPR about a threat from the White House.MICHEL MARTIN, HOST:  Stop attacking Russian oil ref"
+    ],
+    "has_transcript_div": true
    },
    {
     "title": "Trump Midterm Campaigning, Rep. Omar Home Searched, Europe Pushes Back on Russia Deal",
@@ -289,7 +248,15 @@
      "pubDate",
      "title"
     ],
-    "story_id": null
+    "story_id": "nx-s1-5999968",
+    "transcript_status": 200,
+    "transcript_url": "https://www.npr.org/transcripts/nx-s1-5999968",
+    "transcript_p_count": 2,
+    "transcript_first": [
+     "Your support helps make our show possible and unlocks access to our sponsor-free feed.",
+     "(SOUNDBITE OF MUSIC)A MARTÍNEZ, HOST:  President Trump's rallies for other candidates sound a lot like rallies for Trump himself.STEVE INSKEEP, HOST:  Other Rep"
+    ],
+    "has_transcript_div": true
    },
    {
     "title": "Trump Pressures Ukraine, Trump's Midterm Priorities, Saudi Arabia Airport Attacks",
@@ -311,7 +278,15 @@
      "pubDate",
      "title"
     ],
-    "story_id": null
+    "story_id": "nx-s1-5998617",
+    "transcript_status": 200,
+    "transcript_url": "https://www.npr.org/transcripts/nx-s1-5998617",
+    "transcript_p_count": 2,
+    "transcript_first": [
+     "Your support helps make our show possible and unlocks access to our sponsor-free feed.",
+     "(SOUNDBITE OF MUSIC)STEVE INSKEEP, HOST:  President Trump disapproves of Ukraine's attacks against Russian oil refineries.MICHEL MARTIN, HOST:  He wants Preside"
+    ],
+    "has_transcript_div": true
    },
    {
     "title": "The women who fought back when their jailers assaulted them",
@@ -335,7 +310,14 @@
      "thumbnail",
      "title"
     ],
-    "story_id": null
+    "story_id": "nx-s1-5996599",
+    "transcript_status": 200,
+    "transcript_url": "https://www.npr.org/transcripts/nx-s1-5996599",
+    "transcript_p_count": 1,
+    "transcript_first": [
+     "Your support helps make our show possible and unlocks access to our sponsor-free feed."
+    ],
+    "has_transcript_div": true
    },
    {
     "title": "Hurricane Isaias Floods the Panhandle, A Russian Oil Deal, ICE Shooting in New York",
@@ -357,7 +339,15 @@
      "pubDate",
      "title"
     ],
-    "story_id": null
+    "story_id": "nx-s1-5996581",
+    "transcript_status": 200,
+    "transcript_url": "https://www.npr.org/transcripts/nx-s1-5996581",
+    "transcript_p_count": 2,
+    "transcript_first": [
+     "Your support helps make our show possible and unlocks access to our sponsor-free feed.",
+     "(SOUNDBITE OF MUSIC)AYESHA RASCOE, HOST:  Hurricane Isaias came ashore last night and flooded the Florida Panhandle.SCOTT SIMON, HOST:  Hundreds of thousands of"
+    ],
+    "has_transcript_div": true
    },
    {
     "title": "Bracing For Hurricane Isaias, Ukraine Pushes Russia Back, Iran War Impact On Midterms",
@@ -379,95 +369,15 @@
      "pubDate",
      "title"
     ],
-    "story_id": null
-   },
-   {
-    "title": "Hurricane Isaias Prep, Competitive Midterm Races, Trump's Media Ban In Court",
-    "pub_kst": "Thu 10-08 18:41",
-    "dur": "812",
-    "link": "https://www.npr.org/2026/10/08/nx-s1-5994869/hurricane-isaias-prep-competitive-midterm-races-trumps-media-ban-in-court",
-    "guid": "b6f59ea7-7798-47af-b12a-374ece183fb8",
-    "enclosure": "https://prfx.byspotify.com/e/play.podtrac.com/npr-510318/npr.simplecastaudio.com/d52bee4a-b10a-40f8-9417-45064e6b8632/episodes/18318ca0-5907-4a19-b552-e13815ace",
-    "tags": [
-     "block",
-     "description",
-     "duration",
-     "enclosure",
-     "encoded",
-     "episodeType",
-     "explicit",
-     "guid",
-     "link",
-     "pubDate",
-     "title"
+    "story_id": "nx-s1-5996414",
+    "transcript_status": 200,
+    "transcript_url": "https://www.npr.org/transcripts/nx-s1-5996414",
+    "transcript_p_count": 2,
+    "transcript_first": [
+     "Your support helps make our show possible and unlocks access to our sponsor-free feed.",
+     "(SOUNDBITE OF MUSIC)MICHEL MARTIN, HOST:  Mandatory evacuations are underway in parts of the Florida Panhandle. Much of the Gulf Coast is preparing for Hurrican"
     ],
-    "story_id": null
-   },
-   {
-    "title": "Threats On US Bases Overseas, France Student Protest, German Spy Arrest",
-    "pub_kst": "Wed 10-07 18:50",
-    "dur": "761",
-    "link": "https://www.npr.org/2026/10/07/nx-s1-5993467/threats-on-us-bases-overseas-france-student-protest-german-spy-arrest",
-    "guid": "f81c825e-f99e-44c9-95ee-c90dbfab7a93",
-    "enclosure": "https://prfx.byspotify.com/e/play.podtrac.com/npr-510318/npr.simplecastaudio.com/d52bee4a-b10a-40f8-9417-45064e6b8632/episodes/9275d151-4176-4825-a27e-29679451e",
-    "tags": [
-     "block",
-     "description",
-     "duration",
-     "enclosure",
-     "encoded",
-     "episodeType",
-     "explicit",
-     "guid",
-     "link",
-     "pubDate",
-     "title"
-    ],
-    "story_id": null
-   },
-   {
-    "title": "Democrats Lead In Midterm Polls, Yemen War Front, Paramount-Warner Bros. Merger",
-    "pub_kst": "Tue 10-06 18:55",
-    "dur": "843",
-    "link": "https://www.npr.org/2026/10/06/nx-s1-5992520/democrats-lead-in-midterm-polls-yemen-war-front-paramount-warner-bros-merger",
-    "guid": "dcc9c6c6-79d1-4ea5-a258-dc6b1832b0ed",
-    "enclosure": "https://prfx.byspotify.com/e/play.podtrac.com/npr-510318/npr.simplecastaudio.com/d52bee4a-b10a-40f8-9417-45064e6b8632/episodes/d8808ee5-0009-458e-a878-6f97da240",
-    "tags": [
-     "block",
-     "description",
-     "duration",
-     "enclosure",
-     "encoded",
-     "episodeType",
-     "explicit",
-     "guid",
-     "link",
-     "pubDate",
-     "title"
-    ],
-    "story_id": null
-   },
-   {
-    "title": "FlyDubai Pilot Investigation, SCOTUS Climate Change Case, Brazil Runoff Election",
-    "pub_kst": "Mon 10-05 19:05",
-    "dur": "766",
-    "link": "https://www.npr.org/2026/10/05/nx-s1-5991357/flydubai-pilot-investigation-scotus-climate-change-case-brazil-runoff-election",
-    "guid": "809e020b-4bd2-4295-8f22-f6d8fa3b9d67",
-    "enclosure": "https://prfx.byspotify.com/e/play.podtrac.com/npr-510318/npr.simplecastaudio.com/d52bee4a-b10a-40f8-9417-45064e6b8632/episodes/edf88459-97a6-4d23-8f96-57b37f365",
-    "tags": [
-     "block",
-     "description",
-     "duration",
-     "enclosure",
-     "encoded",
-     "episodeType",
-     "explicit",
-     "guid",
-     "link",
-     "pubDate",
-     "title"
-    ],
-    "story_id": null
+    "has_transcript_div": true
    }
   ]
  }
