@@ -1,24 +1,25 @@
 {
  "occasions": {
   "2026-10-14-evening": {
-   "checked_at": "2026-10-14T07:36:56Z",
+   "checked_at": "2026-10-14T11:21:27Z",
    "post_at": "2026-10-14T21:00:00+09:00",
    "has": [],
-   "adding": [],
-   "waiting_for": [
-    "stuff-you-should-know"
+   "adding": [
+    "stuff-you-should-know (new): Short Stuff: Currency Symbols"
    ],
+   "waiting_for": [],
    "expected": [
     "stuff-you-should-know"
    ]
   },
   "2026-10-15-morning": {
-   "checked_at": "2026-10-14T07:36:56Z",
+   "checked_at": "2026-10-14T11:18:56Z",
    "post_at": "2026-10-15T07:00:00+09:00",
    "has": [],
-   "adding": [],
+   "adding": [
+    "daybreak-us (new): Midterm Debates Heat Up; Russia-Ukraine Energy Ceasefire in Limbo"
+   ],
    "waiting_for": [
-    "daybreak-us",
     "big-take"
    ],
    "expected": [
@@ -28,5 +29,5 @@
    ]
   }
  },
- "updated_at": "2026-10-14T07:36:56Z"
+ "updated_at": "2026-10-14T11:21:27Z"
 }

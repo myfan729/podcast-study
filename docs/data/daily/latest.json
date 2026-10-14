@@ -1,24 +1,27 @@
 {
- "id": "big-take-2026-10-13-how-indias-day-traders-broke-the-worlds-biggest-options",
- "date_kst": "2026-10-14",
- "title": "How India’s Day Traders Broke the World’s Biggest Options Market",
+ "id": "2026-10-15-morning",
+ "occasion": "2026-10-15-morning",
+ "slot": "morning",
+ "order": 0,
+ "post_at": "2026-10-15T07:00:00+09:00",
+ "post_at_ms": 1792015200000,
+ "until": "2026-10-15T12:00:00+09:00",
+ "until_ms": 1792033200000,
+ "title": "Midterm Debates Heat Up; Russia-Ukraine Energy Ceasefire in Limbo",
  "show": {
-  "slug": "big-take",
-  "name": "Big Take",
+  "slug": "daybreak-us",
+  "name": "Bloomberg Daybreak",
   "publisher": "Bloomberg",
-  "color": "#1f5fbf",
-  "homepage": "https://www.bloomberg.com/podcasts/series/big-take"
+  "color": "#5b3fd1",
+  "homepage": ""
  },
- "link": "https://myfan729.github.io/podcast-study/episode.html?id=big-take-2026-10-13-how-indias-day-traders-broke-the-worlds-biggest-options",
- "one_liner_ko": "팬데믹 이후 인도 개인투자자들이 옵션 시장에 몰려 수십억 달러를 잃은 과정과, 규제 당국의 대응 및 투기 자금이 상품시장으로 옮겨간 현상을 다룬 에피소드.",
- "expressions": [
-  "left, right and centre",
-  "fit the bill",
-  "a piece of the pie"
- ],
- "cefr": "C1",
- "duration_sec": 1052,
- "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/02064fda-9c48-4a2a-bf95-b4e2015376e8/image.jpg?t=1791923928&size=Large",
- "text": "🎧 오늘의 팟캐스트 · Big Take (10/14)\nHow India’s Day Traders Broke the World’s Biggest Options Market\n⏱ 17분 · C1\n\n팬데믹 이후 인도 개인투자자들이 옵션 시장에 몰려 수십억 달러를 잃은 과정과, 규제 당국의 대응 및 투기 자금이 상품시장으로 옮겨간 현상을 다룬 에피소드.\n\n🔑 오늘의 표현: left, right and centre · fit the bill · a piece of the pie\n\n▶ 스크립트·요약·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=big-take-2026-10-13-how-indias-day-traders-broke-the-worlds-biggest-options\n📝 블로그 단어 정리 (underscore): https://blog.naver.com/oorange0123/224431879979",
- "generated_at": "2026-10-13T21:17:07Z"
+ "link": "https://myfan729.github.io/podcast-study/episode.html?id=daybreak-us-2026-10-14-midterm-debates-heat-up-russia-ukraine-energy-ceasefire-in",
+ "pick": "new",
+ "one_liner_ko": "중간선거를 3주 앞두고 열린 주요 토론회 소식과, 러시아의 우크라이나 전력망 대규모 공습으로 흔들리는 트럼프의 에너지 휴전을 짚은 아침 브리핑.",
+ "duration_sec": 1006,
+ "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d15648c4-cee0-4e99-a5ca-af80014d921d/65ce2954-d8a8-4c66-9f42-af80014d923e/image.jpg?t=1673278228&size=Large",
+ "text": "🌅 아침 팟캐스트 · Bloomberg Daybreak (10/14)\nMidterm Debates Heat Up; Russia-Ukraine Energy Ceasefire in Limbo\n⏱ 16분\n\n중간선거를 3주 앞두고 열린 주요 토론회 소식과, 러시아의 우크라이나 전력망 대규모 공습으로 흔들리는 트럼프의 에너지 휴전을 짚은 아침 브리핑.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=daybreak-us-2026-10-14-midterm-debates-heat-up-russia-ukraine-energy-ceasefire-in",
+ "queued_at": "2026-10-14T11:24:00Z",
+ "date_kst": "2026-10-15",
+ "generated_at": "2026-10-14T11:24:00Z"
 }

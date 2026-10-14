@@ -1,0 +1,30 @@
+{
+ "occasion": "2026-10-14-evening",
+ "posts": [
+  {
+   "id": "stuff-you-should-know-2026-10-14-short-stuff-currency-symbols",
+   "occasion": "2026-10-14-evening",
+   "slot": "evening",
+   "order": 1,
+   "post_at": "2026-10-14T21:00:00+09:00",
+   "post_at_ms": 1791979200000,
+   "until": "2026-10-14T23:30:00+09:00",
+   "until_ms": 1791988200000,
+   "title": "Short Stuff: Currency Symbols",
+   "show": {
+    "slug": "stuff-you-should-know",
+    "name": "Stuff You Should Know",
+    "publisher": "iHeartPodcasts",
+    "color": "#e0752d",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=stuff-you-should-know-2026-10-14-short-stuff-currency-symbols",
+   "pick": "new",
+   "one_liner_ko": "달러, 유로, 파운드, 엔, 루피 기호가 어디서 왔는지를 농담을 섞어 훑어보는 가벼운 화폐 기호 이야기.",
+   "duration_sec": 785,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/a91018a4-ea4f-4130-bf55-ae270180c327/65aec1de-d4db-465a-851d-b4e20124b771/image.jpg?t=1791913614&size=Large",
+   "text": "🌙 하루 마무리 팟캐스트 · Stuff You Should Know (10/14)\nShort Stuff: Currency Symbols\n⏱ 13분\n\n달러, 유로, 파운드, 엔, 루피 기호가 어디서 왔는지를 농담을 섞어 훑어보는 가벼운 화폐 기호 이야기.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=stuff-you-should-know-2026-10-14-short-stuff-currency-symbols",
+   "queued_at": "2026-10-14T11:24:00Z"
+  }
+ ]
+}
