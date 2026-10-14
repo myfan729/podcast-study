@@ -1,5 +1,5 @@
 /*
- * Podcast Study — 카카오톡 오픈채팅 자동 게시 봇 (메신저봇R 용)  v4
+ * Podcast Study — 카카오톡 오픈채팅 자동 게시 봇 (메신저봇R 용)  v5
  *
  * 사이트의 게시 대기열(data/daily/queue.json)을 5분마다 확인해서, 글마다 정해진 시각(아침 07:00 두 편,
  * 저녁 21:00 한 편 — 시각과 편수는 사이트 설정이 정함)이 되면 등록된 방에 한 편씩 올립니다.
@@ -184,29 +184,50 @@ function postDue() {
 }
 
 // ---- 스케줄러: 1분마다 확인 (대기열은 5분마다 새로 받음) ----
-var running = true;
-var worker = new java.lang.Thread(new java.lang.Runnable({
-  run: function () {
-    while (running) {
-      try { maybeKick(); } catch (e) { Log.e("kick: " + e); }
-      try { postDue(); } catch (e) { Log.e("scheduler: " + e); }
-      try { java.lang.Thread.sleep(60 * 1000); } catch (e) { break; }
+// 화면이 꺼진 폰에서 안드로이드가 CPU를 재우면 sleep이 멈춰서 제시간에 못 올림 → 부분 wake lock으로 CPU만 깨워 둠
+// (화면은 꺼진 채). 스레드가 어떤 이유로 멈췄으면 메시지가 들어올 때/다음 점검 때 다시 띄움.
+var running = true, worker = null, lastTick = 0, wakeLock = null;
+function holdWakeLock() {
+  try {
+    if (wakeLock && wakeLock.isHeld()) return;
+    var pm = Api.getContext().getSystemService(android.content.Context.POWER_SERVICE);
+    wakeLock = pm.newWakeLock(android.os.PowerManager.PARTIAL_WAKE_LOCK, "podcastbot:scheduler");
+    wakeLock.setReferenceCounted(false);
+    wakeLock.acquire();
+  } catch (e) { Log.e("wake lock: " + e); }
+}
+function startWorker() {
+  if (worker && worker.isAlive() && Date.now() - lastTick < 3 * 60 * 1000) return;
+  if (worker) { try { worker.interrupt(); } catch (e) {} }
+  holdWakeLock();
+  worker = new java.lang.Thread(new java.lang.Runnable({
+    run: function () {
+      var me = java.lang.Thread.currentThread();
+      while (running && worker === me) {
+        lastTick = Date.now();
+        try { maybeKick(); } catch (e) { Log.e("kick: " + e); }
+        try { postDue(); } catch (e) { Log.e("scheduler: " + e); }
+        try { java.lang.Thread.sleep(60 * 1000); } catch (e) { if (!running) break; }   // 끼어들기로 죽지 않음
+      }
     }
-  }
-}));
-worker.setDaemon(true);
-worker.start();
+  }));
+  worker.setDaemon(true);
+  worker.start();
+}
+startWorker();
 
 // ---- 메시지 수신 ----
 function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {
   var r = String(room), text = String(msg).trim();
+  try { startWorker(); } catch (e) { Log.e("watchdog: " + e); }
 
   if (text === "!방이름") { replier.reply("봇이 보는 이 방: [" + r + "] · 단톡=" + isGroupChat + " · 게시 방: [" + (targetRoom() || "미등록") + "]"); return; }
   if (text === "!핑") {
     var nx = upcoming()[0];
-    replier.reply("살아 있어요 (v4) · " + dateKst() + " " + hhmm() + " KST\n게시 방: [" + (targetRoom() || "미등록 — 게시할 방에서 !여기") + "]"
+    replier.reply("살아 있어요 (v5) · " + dateKst() + " " + hhmm() + " KST\n게시 방: [" + (targetRoom() || "미등록 — 게시할 방에서 !여기") + "]"
       + "\n다음 게시: " + (nx ? whenLabel(nx.post_at_ms) + " · " + nx.show.name : "대기 중인 글 없음")
       + "\n대기열 확인: " + (lastFetch ? hhmm(lastFetch) : "아직") + (lastFetchError ? " (오류: " + lastFetchError.slice(0, 80) + ")" : "")
+      + "\n자동 점검: " + (lastTick ? hhmm(lastTick) + (Date.now() - lastTick < 3 * 60 * 1000 ? " (정상)" : " (멈춰 있었음 → 다시 시작)") : "아직")
       + "\n업데이트 깨우기: " + (ghToken() ? "켜짐" + (lastKick.at ? " · 마지막 " + hhmm(lastKick.at) + " " + lastKick.result : "") : "꺼짐 (GH_TOKEN 없음)"));
     return;
   }
@@ -254,7 +275,11 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
   }
 }
 
-function onStartCompile() { running = false; try { worker.interrupt(); } catch (e) {} }
+function onStartCompile() {
+  running = false;
+  try { if (worker) worker.interrupt(); } catch (e) {}
+  try { if (wakeLock && wakeLock.isHeld()) wakeLock.release(); } catch (e) {}
+}
 
 // 메신저봇R 선택 이벤트(없으면 "There is no function ..." 경고가 로그에 남음)
 function onPause() {}
