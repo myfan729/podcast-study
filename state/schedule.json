@@ -24,10 +24,10 @@
   },
   "2026-10-15-morning": {
    "post_at": "2026-10-15T07:00:00+09:00",
-   "has": [],
-   "adding": [
-    "up-first (new): Ukraine's President Sits With NPR, Pope Leo Cancer, Ambassador Guilfoyle Forced Out"
+   "has": [
+    "up-first: Ukraine's President Sits With NPR, Pope Leo Cancer, Ambassador Guilfoyle Forced Out"
    ],
+   "adding": [],
    "waiting_for": [
     "the-indicator",
     "big-take"
@@ -38,8 +38,8 @@
     "trumponomics",
     "up-first"
    ],
-   "checked_at": "2026-10-14T16:09:50Z"
+   "checked_at": "2026-10-14T16:16:56Z"
   }
  },
- "updated_at": "2026-10-14T16:13:10Z"
+ "updated_at": "2026-10-14T16:16:56Z"
 }
