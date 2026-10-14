@@ -4,3 +4,4 @@ __pycache__/
 .venv/
 .env
 docs/data/episodes/*.json.tmp
+tools/npr_samples/

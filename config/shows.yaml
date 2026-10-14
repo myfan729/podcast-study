@@ -18,9 +18,9 @@ schedule:
   morning:
     at: "07:00"
     until: "12:00"
-    count: 2
+    count: 3
     label: "🌅 아침 팟캐스트"
-    shows: [daybreak-us, big-take]                       # news briefing + one-story deep dive
+    shows: [up-first, the-indicator, big-take]           # NPR news briefing, NPR economics short, Bloomberg deep dive
     fallback: [trumponomics, everybodys-business, zero]  # weekends: weekly Bloomberg shows
   evening:
     at: "21:00"
@@ -70,8 +70,33 @@ shows:
     speaker_labels: auto
     style: "Communication-skills interview show hosted by Matt Abrahams (Stanford GSB); ~15-25 min; Mon & Thu. Contains a ~1 min sponsor read."
 
+  - slug: up-first
+    name: Up First
+    publisher: NPR
+    color: "#d6352b"
+    feed: https://feeds.npr.org/510318/podcast.xml
+    # no transcript tag in the feed; npr.org/transcripts/<story id> has it a few hours after the audio.
+    # The pipeline downloads the audio, recognises it with Whisper and aligns the text (ads are found as gaps).
+    transcript: web
+    parser: npr
+    speaker_labels: named
+    max_minutes: 20          # the Sunday long-form story (~28 min) is skipped
+    style: "NPR's morning news briefing: two hosts introduce the day's three biggest US and world stories, each with an NPR correspondent; ~13 min; Mon-Sat."
+
+  - slug: the-indicator
+    name: The Indicator
+    publisher: NPR (Planet Money)
+    color: "#2b7bd6"
+    feed: https://feeds.npr.org/510325/podcast.xml
+    transcript: web
+    parser: npr
+    speaker_labels: named
+    max_minutes: 20
+    style: "The Indicator from Planet Money: two hosts explain one economics or business idea in plain, lively conversation, often with a guest; ~9 min; weekdays."
+
   - slug: daybreak-us
     name: Bloomberg Daybreak
+    enabled: false            # dropped from the morning (too US-domestic); kept for reference
     publisher: Bloomberg
     color: "#5b3fd1"
     feed: https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d15648c4-cee0-4e99-a5ca-af80014d921d/65ce2954-d8a8-4c66-9f42-af80014d923e/podcast.rss

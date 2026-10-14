@@ -455,3 +455,14 @@ def test_sync_finds_a_break_whose_first_words_are_unrecognisable():
     breaks, _ = content_map(fake, cues, np.zeros(int(dur * 16000), dtype=np.float32), dur, content_dur, markers=[60.0])
     assert breaks[0]["a"] is not None and abs(breaks[0]["a"] - 31.0) < 0.6 and breaks[0].get("found_at", 0) > 0
     assert abs(breaks[1]["a"] - (60 + 31 + 92)) < 0.6
+
+
+def test_npr_transcript_parser():
+    from pipeline.webtranscript import TranscriptNotReady, parse_npr
+    paras = parse_npr((FIX / "npr_transcript.html").read_text())
+    assert len(paras) > 40 and sum(len(p["text"].split()) for p in paras) > 2000
+    assert paras[0]["speaker"] == "A Martínez" and paras[0]["text"].startswith("President Trump's rallies")
+    assert not any(p["text"].startswith(("(SOUNDBITE", "Copyright")) for p in paras)
+    assert {p["speaker"] for p in paras} >= {"Steve Inskeep", "A Martínez"}          # surnames mapped to full names
+    with pytest.raises(TranscriptNotReady):
+        parse_npr("<html><body><div class='storytext'><p>Your support helps</p></div></body></html>")

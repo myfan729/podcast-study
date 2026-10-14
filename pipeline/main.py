@@ -20,6 +20,7 @@ import yaml
 
 from . import build
 from . import schedule as S
+from . import webtranscript as W
 from .feeds import Episode, iter_eligible, parse_feed, strip_html
 from .llm import StudyGenerator
 from .transcript import (TRANSCRIPT_VERSION, cues_to_dicts, group_sentences, parse_transcript, segment_cues,
@@ -454,6 +455,10 @@ def produce(session, gen: StudyGenerator, show: dict, ep: Episode, key: str, rec
             rec.pop("error", None)
         ok = True
         log.info("  ✓ wrote docs/data/episodes/%s.json", doc["id"])
+    except W.TranscriptNotReady as e:
+        rec.update({"status": "pending_transcript", "title": ep.title, "published_at": ep.published_iso, "seen_at": utcnow_iso()})
+        rec.pop("occasion", None)
+        log.info("  transcript not published yet (%s) — later", e)
     except Exception as e:  # noqa: BLE001
         msg = str(e)
         auth_problem = ("API error 401" in msg or "ANTHROPIC_API_KEY is not set" in msg
@@ -477,6 +482,24 @@ def produce(session, gen: StudyGenerator, show: dict, ep: Episode, key: str, rec
 
 
 BLOCKED = ("skipped_long", "no_transcript", "gave_up")
+_web_ready_cache: dict = {}
+
+
+def web_transcript_ready(session, show: dict, ep: Episode) -> bool:
+    """Is the episode's web transcript published yet? (NPR posts it hours after the audio.)"""
+    if _overrides.get("web_paragraphs"):
+        return True
+    key = (show["slug"], ep.guid)
+    if key not in _web_ready_cache:
+        try:
+            W.parse_paragraphs(W.fetch_page(session, W.resolve_page_url(session, show, ep)), show.get("parser", "generic"))
+            _web_ready_cache[key] = True
+        except W.TranscriptNotReady:
+            _web_ready_cache[key] = False
+        except Exception as e:  # noqa: BLE001
+            log.warning("  web transcript check failed for %s: %s", ep.title, e)
+            _web_ready_cache[key] = False
+    return _web_ready_cache[key]
 
 
 def _occasion_stale(slots_by_name: dict, okey: str, now: datetime) -> bool:
@@ -562,7 +585,9 @@ def run_schedule(cfg: dict, slots: list, seen: dict, state: dict, session, gen: 
                 done = r.get("status") == "done" and bool(r.get("id")) and build.episode_path(r["id"]).exists()
                 if r.get("status") == "done" and not done:
                     continue                  # built once, then removed from the site
-                ready = done or ep.best_transcript is not None or show.get("transcript") == "web"
+                ready = done or ep.best_transcript is not None
+                if not ready and show.get("transcript") == "web" and now - ep.published_at <= S.FRESH:
+                    ready = web_transcript_ready(session, show, ep)
                 pool.append(S.Cand(show=slug, key=k, title=ep.title, published=ep.published_at, ready=ready, done=done, ep=ep))
             pools[slug] = pool
             expected[slug] = S.expected([e.published_at for e in episodes.get(slug, [])], o)

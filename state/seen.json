@@ -245,7 +245,6 @@
   "daybreak-us:a7998768de59": {
    "first_seen": "2026-10-14T11:18:56Z",
    "attempts": 1,
-   "occasion": "2026-10-15-morning",
    "slot": "morning",
    "pick": "new",
    "assigned_at": "2026-10-14T11:18:56Z",
@@ -253,7 +252,8 @@
    "id": "daybreak-us-2026-10-14-midterm-debates-heat-up-russia-ukraine-energy-ceasefire-in",
    "title": "Midterm Debates Heat Up; Russia-Ukraine Energy Ceasefire in Limbo",
    "published_at": "2026-10-14T09:53:57Z",
-   "done_at": "2026-10-14T11:21:27Z"
+   "done_at": "2026-10-14T11:21:27Z",
+   "removed_at": "2026-10-14T15:59:58Z"
   },
   "stuff-you-should-know:f58664c42d91": {
    "first_seen": "2026-10-14T11:21:27Z",

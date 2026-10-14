@@ -127,7 +127,58 @@ def parse_generic(html: str) -> list[dict]:
     return paras
 
 
-PARSERS = {"bbc_le": parse_bbc_le, "voa_le": parse_voa_le, "generic": parse_generic}
+class TranscriptNotReady(RuntimeError):
+    """The page exists but the transcript is not published yet (try again later; not the episode's fault)."""
+
+
+NPR_SPEAKER_RE = re.compile(r"^((?:[A-ZÀ-Ý][A-ZÀ-Ý.'\-]*|\d+)(?: (?:[A-ZÀ-Ý][A-ZÀ-Ý.'\-]*|\d+)){0,3})(?:, [A-ZÀ-Ý][A-ZÀ-Ý ,.'\-]*?)?:(?:\s+|$)")
+NPR_STAGE_RE = re.compile(r"[\[(](?:SOUNDBITE|SOUND|MUSIC|COIN|LAUGHTER|CROSSTALK|APPLAUSE|BEGIN|END|SPEAKING|NON-ENGLISH|FOREIGN|PH\)|INAUDIBLE)[^\])]*[\])]", re.I)
+
+
+def _own_text(p: Tag) -> str:
+    """Text of a <p> without the <p>s nested inside it (NPR leaves its <p> tags unclosed)."""
+    out = []
+    for node in p.children:
+        if isinstance(node, NavigableString):
+            out.append(str(node))
+        elif isinstance(node, Tag) and node.name != "p":
+            out.append(node.get_text(" "))
+    return _clean(" ".join(out))
+
+
+def parse_npr(html: str) -> list[dict]:
+    """npr.org/transcripts/<story id>: paragraphs like "STEVE INSKEEP, HOST: …" / "ROSALSKY: …"."""
+    soup = BeautifulSoup(html, "html.parser")
+    box = soup.select_one("div.transcript")
+    if box is None:
+        raise TranscriptNotReady("no transcript on the page yet")
+    paras: list[dict] = []
+    speaker = ""
+    for p in box.find_all("p"):
+        txt = _own_text(p)
+        if not txt or re.match(r"^(copyright ©|accuracy and availability of npr transcripts)", txt, re.I):
+            continue
+        txt = _clean(NPR_STAGE_RE.sub(" ", txt))
+        m = NPR_SPEAKER_RE.match(txt)
+        if m:
+            speaker = m.group(1).title()
+            txt = txt[m.end():]
+        txt = _clean(txt)
+        if txt:
+            paras.append({"speaker": speaker, "text": txt})
+    if sum(len(x["text"].split()) for x in paras) < 150:
+        raise TranscriptNotReady("transcript not published yet")
+    # later turns use the surname only ("INSKEEP:"): give them the full name used earlier
+    full = {x["speaker"] for x in paras if " " in x["speaker"]}
+    for x in paras:
+        if x["speaker"] and " " not in x["speaker"]:
+            m = [f for f in full if f.endswith(" " + x["speaker"])]
+            if len(m) == 1:
+                x["speaker"] = m[0]
+    return paras
+
+
+PARSERS = {"bbc_le": parse_bbc_le, "voa_le": parse_voa_le, "npr": parse_npr, "generic": parse_generic}
 
 
 def fetch_page(session, url: str) -> str:
@@ -167,6 +218,11 @@ def resolve_page_url(session, show: dict, ep) -> str:
     disagree on timestamps. Falls back to the feed's <link>.
     """
     from datetime import timedelta
+    if show.get("parser") == "npr":
+        m = re.search(r"npr\.org/\d{4}/\d{2}/\d{2}/([A-Za-z0-9-]+?)/", ep.link or "")
+        if not m:
+            raise RuntimeError(f"no NPR story id in {ep.link!r}")
+        return f"https://www.npr.org/transcripts/{m.group(1)}"
     tpl = show.get("page_url")
     if tpl:
         for delta in (0, -1, 1):
