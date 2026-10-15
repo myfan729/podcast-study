@@ -40,10 +40,10 @@
   },
   "2026-10-16-morning": {
    "post_at": "2026-10-16T07:00:00+09:00",
-   "has": [],
-   "adding": [
-    "the-indicator (new): A rebate runaround, a car rental rip-off and … roaches?!"
+   "has": [
+    "the-indicator: A rebate runaround, a car rental rip-off and … roaches?!"
    ],
+   "adding": [],
    "waiting_for": [
     "up-first",
     "big-take"
@@ -54,8 +54,8 @@
     "up-first",
     "zero"
    ],
-   "checked_at": "2026-10-15T04:35:55Z"
+   "checked_at": "2026-10-15T05:05:29Z"
   }
  },
- "updated_at": "2026-10-15T04:35:55Z"
+ "updated_at": "2026-10-15T05:05:29Z"
 }
