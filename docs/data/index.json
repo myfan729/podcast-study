@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-15T08:53:20Z",
+ "generated_at": "2026-10-15T08:57:18Z",
  "shows": [
   {
    "slug": "big-take",
@@ -78,6 +78,29 @@
    "cefr": "C1",
    "expressions": 12,
    "words": 3481,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "everybodys-business-2026-10-14-the-steamy-billion-dollar-world-of-romantasy",
+   "show": "everybodys-business",
+   "title": "The Steamy, Billion-Dollar World of Romantasy",
+   "published_at": "2026-10-14T17:57:44Z",
+   "duration_sec": 1128,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/f541f9b4-77cb-45aa-bf94-b1d300e5d357/ae8d6e22-2585-455e-8364-b4e3012692a0/image.jpg?t=1792000469&size=Large",
+   "one_liner_ko": "로맨스와 판타지를 합친 '로맨터시'가 미국에서만 10억 달러에 가까운 산업으로 커지며 출판·굿즈·팬덤·할리우드의 힘의 균형까지 바꾸고 있다는 Bloomberg Big Take 에피소드.",
+   "tags": [
+    "Romantasy",
+    "publishing",
+    "BookTok",
+    "fan economy",
+    "creator economy",
+    "Hollywood adaptations"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 3212,
    "has_translation": true,
    "mock": false,
    "demo": false

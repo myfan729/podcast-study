@@ -14,13 +14,16 @@
   },
   "2026-10-15-evening": {
    "post_at": "2026-10-15T18:00:00+09:00",
-   "has": [
-    "think-fast-talk-smart: 326. Rethinks: The Secrets to Getting the Information You Need from AI"
+   "has": [],
+   "adding": [
+    "everybodys-business (fallback): The Steamy, Billion-Dollar World of Romantasy"
    ],
-   "adding": [],
    "waiting_for": [],
-   "expected": [],
-   "checked_at": "2026-10-15T05:38:32Z"
+   "expected": [
+    "trumponomics",
+    "zero"
+   ],
+   "checked_at": "2026-10-15T08:54:07Z"
   },
   "2026-10-15-morning": {
    "post_at": "2026-10-15T07:00:00+09:00",
@@ -57,5 +60,5 @@
    "checked_at": "2026-10-15T05:05:29Z"
   }
  },
- "updated_at": "2026-10-15T05:38:32Z"
+ "updated_at": "2026-10-15T08:54:07Z"
 }

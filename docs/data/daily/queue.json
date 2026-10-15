@@ -101,6 +101,31 @@
    "queued_at": "2026-10-14T21:34:24Z"
   },
   {
+   "id": "everybodys-business-2026-10-14-the-steamy-billion-dollar-world-of-romantasy",
+   "occasion": "2026-10-15-evening",
+   "slot": "evening",
+   "order": 3,
+   "post_at": "2026-10-15T18:00:00+09:00",
+   "post_at_ms": 1792054800000,
+   "until": "2026-10-15T21:30:00+09:00",
+   "until_ms": 1792067400000,
+   "title": "The Steamy, Billion-Dollar World of Romantasy",
+   "show": {
+    "slug": "everybodys-business",
+    "name": "Everybody's Business",
+    "publisher": "Bloomberg",
+    "color": "#2f7d4f",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=everybodys-business-2026-10-14-the-steamy-billion-dollar-world-of-romantasy",
+   "pick": "fallback",
+   "one_liner_ko": "로맨스와 판타지를 합친 '로맨터시'가 미국에서만 10억 달러에 가까운 산업으로 커지며 출판·굿즈·팬덤·할리우드의 힘의 균형까지 바꾸고 있다는 Bloomberg Big Take 에피소드.",
+   "duration_sec": 1128,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/f541f9b4-77cb-45aa-bf94-b1d300e5d357/ae8d6e22-2585-455e-8364-b4e3012692a0/image.jpg?t=1792000469&size=Large",
+   "text": "🌙 하루 마무리 팟캐스트 · Everybody's Business (10/15)\nThe Steamy, Billion-Dollar World of Romantasy\n⏱ 18분\n\n로맨스와 판타지를 합친 '로맨터시'가 미국에서만 10억 달러에 가까운 산업으로 커지며 출판·굿즈·팬덤·할리우드의 힘의 균형까지 바꾸고 있다는 Bloomberg Big Take 에피소드.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=everybodys-business-2026-10-14-the-steamy-billion-dollar-world-of-romantasy",
+   "queued_at": "2026-10-15T08:57:38Z"
+  },
+  {
    "id": "the-indicator-2026-10-14-a-rebate-runaround-a-car-rental-rip-off-and-roaches",
    "occasion": "2026-10-16-morning",
    "slot": "morning",
@@ -126,7 +151,7 @@
    "queued_at": "2026-10-15T04:38:46Z"
   }
  ],
- "generated_at": "2026-10-15T04:38:46Z",
+ "generated_at": "2026-10-15T08:57:38Z",
  "kick_kst": [
   "05:25",
   "05:55",
