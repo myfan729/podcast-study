@@ -50,6 +50,31 @@
    "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F45%2F48%2Fce41d9f7456fb846fb384150f425%2F24af91e0-aeeb-450d-9d62-7d35958b5bf9.png",
    "text": "🌅 아침 팟캐스트 · The Indicator (10/14)\nA rebate runaround, a car rental rip-off and … roaches?!\n⏱ 9분\n\n리베이트 절차의 미로, 쪼그라든 시리얼 박스, 근거 불분명한 렌터카 수리비, 바퀴벌레가 든 모뎀까지, 청취자의 '소비자 분노' 사연 네 편을 경제 개념과 함께 풀어낸 에피소드.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=the-indicator-2026-10-14-a-rebate-runaround-a-car-rental-rip-off-and-roaches",
    "queued_at": "2026-10-15T04:38:46Z"
+  },
+  {
+   "id": "big-take-2026-10-15-what-is-the-us-economy-trying-to-tell-us",
+   "occasion": "2026-10-16-morning",
+   "slot": "morning",
+   "order": 2,
+   "post_at": "2026-10-16T07:00:00+09:00",
+   "post_at_ms": 1792101600000,
+   "until": "2026-10-16T12:00:00+09:00",
+   "until_ms": 1792119600000,
+   "title": "What Is the US Economy Trying to Tell Us?",
+   "show": {
+    "slug": "big-take",
+    "name": "Big Take",
+    "publisher": "Bloomberg",
+    "color": "#1f5fbf",
+    "homepage": "https://www.bloomberg.com/podcasts/series/big-take"
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=big-take-2026-10-15-what-is-the-us-economy-trying-to-tell-us",
+   "pick": "new",
+   "one_liner_ko": "AI 투자 붐과 주식·집값 상승 덕에 미국 경제 성장은 강한데, 고물가·고금리 속에 일자리와 집이 없는 중산층은 소외되어 소비심리는 바닥인 'K자형' 경제를 짚는 에피소드.",
+   "duration_sec": 1087,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/824128a1-857d-4637-bcc8-b4e401514b1b/image.jpg?t=1792096150&size=Large",
+   "text": "🌅 아침 팟캐스트 · Big Take (10/16)\nWhat Is the US Economy Trying to Tell Us?\n⏱ 18분\n\nAI 투자 붐과 주식·집값 상승 덕에 미국 경제 성장은 강한데, 고물가·고금리 속에 일자리와 집이 없는 중산층은 소외되어 소비심리는 바닥인 'K자형' 경제를 짚는 에피소드.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=big-take-2026-10-15-what-is-the-us-economy-trying-to-tell-us",
+   "queued_at": "2026-10-15T21:24:31Z"
   }
  ]
 }
