@@ -41,6 +41,18 @@
    ],
    "checked_at": "2026-10-14T22:57:25Z"
   },
+  "2026-10-16-evening": {
+   "post_at": "2026-10-16T18:00:00+09:00",
+   "has": [],
+   "adding": [],
+   "waiting_for": [
+    "think-fast-talk-smart"
+   ],
+   "expected": [
+    "think-fast-talk-smart"
+   ],
+   "checked_at": "2026-10-15T12:34:43Z"
+  },
   "2026-10-16-morning": {
    "post_at": "2026-10-16T07:00:00+09:00",
    "has": [
@@ -60,5 +72,5 @@
    "checked_at": "2026-10-15T05:05:29Z"
   }
  },
- "updated_at": "2026-10-15T11:26:22Z"
+ "updated_at": "2026-10-15T12:34:43Z"
 }
