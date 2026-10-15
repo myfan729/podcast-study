@@ -57,11 +57,10 @@
    "post_at": "2026-10-16T07:00:00+09:00",
    "has": [
     "the-indicator: A rebate runaround, a car rental rip-off and … roaches?!",
-    "up-first: Trump's Midterm Travel, Ukraine Starshield Restrictions, Houthis Attack Aramco"
+    "up-first: Trump's Midterm Travel, Ukraine Starshield Restrictions, Houthis Attack Aramco",
+    "big-take: What Is the US Economy Trying to Tell Us?"
    ],
-   "adding": [
-    "big-take (new): What Is the US Economy Trying to Tell Us?"
-   ],
+   "adding": [],
    "waiting_for": [],
    "expected": [
     "big-take",
@@ -69,8 +68,8 @@
     "up-first",
     "zero"
    ],
-   "checked_at": "2026-10-15T21:21:32Z"
+   "checked_at": "2026-10-15T22:50:13Z"
   }
  },
- "updated_at": "2026-10-15T21:21:32Z"
+ "updated_at": "2026-10-15T22:50:13Z"
 }
