@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-15T04:38:23Z",
+ "generated_at": "2026-10-15T08:53:20Z",
  "shows": [
   {
    "slug": "big-take",
@@ -214,29 +214,6 @@
    "cefr": "C1",
    "expressions": 12,
    "words": 2929,
-   "has_translation": true,
-   "mock": false,
-   "demo": false
-  },
-  {
-   "id": "think-fast-talk-smart-2026-09-24-326-rethinks-the-secrets-to-getting-the-information-you",
-   "show": "think-fast-talk-smart",
-   "title": "326. Rethinks: The Secrets to Getting the Information You Need from AI",
-   "published_at": "2026-09-24T13:00:00Z",
-   "duration_sec": 1528,
-   "image": "https://img.transistorcdn.com/UnV82EVNokDc0RZTdqMZDcg40sTjbhEOeKOG4QF9WiQ/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS84YWIw/YzYxZjU3MDYyZTUx/NTliNTg1MTk3MDAz/NDIzOC5wbmc.jpg",
-   "one_liner_ko": "AI를 정답을 주는 '오라클'이 아니라 대화 상대로 대할 때 팀의 아이디어 품질이 올라간다는 연구 결과와, 이를 위한 FIXIT 방법론 및 실전 팁을 다룬 에피소드.",
-   "tags": [
-    "AI collaboration",
-    "creativity",
-    "communication skills",
-    "prompting",
-    "team innovation",
-    "Stanford GSB"
-   ],
-   "cefr": "C1",
-   "expressions": 13,
-   "words": 4412,
    "has_translation": true,
    "mock": false,
    "demo": false

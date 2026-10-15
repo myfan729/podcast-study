@@ -28,7 +28,7 @@ schedule:
     count: 1
     label: "🌙 하루 마무리 팟캐스트"
     shows: [think-fast-talk-smart, stuff-you-should-know] # new TFTS (Mon/Thu night) → Tue/Fri, Short Stuff (Wed 18:00) → Thu
-    catalog: [think-fast-talk-smart]                     # other evenings: an earlier TFTS episode
+    fallback: [zero, everybodys-business, trumponomics]  # other evenings: a new episode (≤7 days) of a weekly show — never an old archive one
 
 defaults:
   max_minutes: 40          # skip episodes longer than this (e.g. Big Take "Weekend Listen")
