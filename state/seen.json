@@ -319,6 +319,19 @@
    "title": "The Diesel Midterms",
    "published_at": "2026-10-14T20:38:01Z",
    "done_at": "2026-10-14T21:34:01Z"
+  },
+  "the-indicator:6117ca9cbde2": {
+   "first_seen": "2026-10-15T04:35:55Z",
+   "attempts": 1,
+   "occasion": "2026-10-16-morning",
+   "slot": "morning",
+   "pick": "new",
+   "assigned_at": "2026-10-15T04:35:55Z",
+   "status": "done",
+   "id": "the-indicator-2026-10-14-a-rebate-runaround-a-car-rental-rip-off-and-roaches",
+   "title": "A rebate runaround, a car rental rip-off and … roaches?!",
+   "published_at": "2026-10-14T07:00:00Z",
+   "done_at": "2026-10-15T04:38:23Z"
   }
  }
 }
