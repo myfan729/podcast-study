@@ -185,7 +185,8 @@ mark.hl:hover { outline: 2px solid var(--marker); }
 .player .inner { max-width: 1120px; margin: 0 auto; display: grid; gap: 8px; }
 .player .bar { display: flex; align-items: center; gap: 10px; font-variant-numeric: tabular-nums; font-size: 13px; color: var(--ink-2); }
 .player input[type=range] { flex: 1; accent-color: var(--signal); height: 28px; margin: 0; }
-.player .ctrls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.player .ctrls { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+@media (max-width: 420px) { .player .ctrls { gap: 5px; } .player .ctrls .pbtn { padding: 0 9px; } }
 .pbtn { border: 1px solid var(--line); background: var(--sheet); border-radius: 999px; height: 38px; min-width: 38px; padding: 0 11px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 13.5px; color: var(--ink); }
 .pbtn.play { background: var(--signal); color: var(--signal-ink); border-color: var(--signal); width: 48px; height: 48px; }
 .pbtn svg { width: 18px; height: 18px; }
@@ -193,7 +194,13 @@ mark.hl:hover { outline: 2px solid var(--marker); }
 .pbtn[aria-pressed="true"] { border-color: var(--signal); color: var(--signal); background: var(--signal-soft); }
 .player .spacer { flex: 1; }
 .player .now-line { font-family: var(--serif); font-size: 14px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: none; }
-@media (min-width: 600px) { .player .now-line { display: block; } }
+@media (min-width: 600px) {
+  /* the current sentence must never push the buttons onto a second row: the bar would jump under the finger */
+  .player .ctrls .spacer { display: none; }
+  .player .now-line { display: block; flex: 1 1 0; min-width: 0; text-align: right; }
+}
+.player #syncBtn { min-width: 6.2em; }   /* "싱크" ↔ "싱크 +0:02" without changing width */
+.player .bar span { min-width: 3.2em; text-align: center; }
 
 /* rail panels */
 .card { background: var(--sheet); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 12px; }
