@@ -2,7 +2,7 @@
  * Podcast Study — 카카오톡 오픈채팅 자동 게시 봇 (메신저봇R 용)  v5
  *
  * 사이트의 게시 대기열(data/daily/queue.json)을 5분마다 확인해서, 글마다 정해진 시각(아침 07:00 두 편,
- * 저녁 21:00 한 편 — 시각과 편수는 사이트 설정이 정함)이 되면 등록된 방에 한 편씩 올립니다.
+ * 저녁 18:00 한 편 — 시각과 편수는 사이트 설정이 정함)이 되면 등록된 방에 한 편씩 올립니다.
  * 같은 글은 두 번 올리지 않고, 폰이 꺼져 있었으면 다시 켜진 뒤 그 글의 마감 시각 전까지 올립니다.
  *
  * 처음 한 번: 게시할 방에서 "!여기" → 그 방이 게시 방으로 등록됩니다 (이전 버전에서 이미 했다면 그대로 유지).
@@ -15,7 +15,7 @@
  *   !방이름  봇이 인식하는 이 방의 이름/단톡 여부 (진단용)
  *   !업데이트 사이트 업데이트를 지금 깨움 (GH_TOKEN을 넣었을 때)
  *
- * (선택, 권장) GH_TOKEN: GitHub의 예약 실행은 자주 빠지거나 늦어서, 아침 7시·저녁 9시 직전에 새 에피소드가
+ * (선택, 권장) GH_TOKEN: GitHub의 예약 실행은 자주 빠지거나 늦어서, 아침 7시·저녁 6시 직전에 새 에피소드가
  * 제때 준비되지 않을 수 있습니다. 아래 GH_TOKEN에 토큰을 넣으면 봇이 게시 전 정해진 시각마다 사이트 업데이트를
  * 직접 깨웁니다. 토큰 만들기: GitHub → Settings → Developer settings → Personal access tokens →
  * Fine-grained tokens → Generate new token → Repository access: Only select repositories → podcast-study →
@@ -30,7 +30,7 @@ var SITE = "https://myfan729.github.io/podcast-study/";
 var ADMINS = [];                     // "!여기", "!오늘"을 쓸 수 있는 닉네임 (비우면 누구나)
 var GH_TOKEN = "";                   // (선택) 위 설명의 GitHub 토큰 — 이 파일을 GitHub에 올릴 때는 절대 넣지 마세요
 var GH_REPO = "myfan729/podcast-study";
-var KICK_KST = ["05:25", "05:55", "06:25", "06:45", "07:10", "18:25", "19:05", "19:35", "20:05", "20:35", "20:50"];
+var KICK_KST = ["05:25", "05:55", "06:25", "06:45", "07:10", "16:25", "16:55", "17:25", "17:45", "18:10"];   // (사이트가 정한 시각이 있으면 그걸 씀)
 var POLL_MINUTES = 5;                // 대기열 확인 간격
 var GAP_MS = 4000;                   // 한 번에 여러 편이면 사이 간격
 var STATE_KEY = "podcast_bot_state";
@@ -248,7 +248,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
     if (!isAdmin(sender)) return;
     var st = loadState(); st.room = r; saveState();
     lastTargetReplier = replier;
-    replier.reply("이 방을 게시 방으로 등록했어요: [" + r + "]\n아침 7시·저녁 9시에 새 글이 자동으로 올라와요.");
+    replier.reply("이 방을 게시 방으로 등록했어요: [" + r + "]\n아침 7시·저녁 6시에 새 글이 자동으로 올라와요.");
     postDue();
     return;
   }

@@ -10,7 +10,7 @@ config/shows.yaml →
         shows: [daybreak-us, big-take]                      # newest new episode of each, in this order
         fallback: [trumponomics, everybodys-business, zero] # fill the places the shows above leave empty
       evening:
-        at: "21:00"
+        at: "18:00"
         count: 1
         shows: [think-fast-talk-smart, stuff-you-should-know]
         catalog: [think-fast-talk-smart]                    # still empty → an older episode from the archive
@@ -117,7 +117,7 @@ def expected(published: list[datetime], o: datetime) -> bool:
     for w in range(1, EXPECT_WEEKS + 1):
         end = o - timedelta(days=7 * w)
         start = end - timedelta(hours=24)
-        if any(start < p <= end for p in published):
+        if any(start < p < end for p in published):       # (published at the posting minute = too late for it)
             hits += 1
     return hits >= EXPECT_MIN_HITS
 

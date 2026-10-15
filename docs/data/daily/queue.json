@@ -105,10 +105,10 @@
    "occasion": "2026-10-15-evening",
    "slot": "evening",
    "order": 0,
-   "post_at": "2026-10-15T21:00:00+09:00",
-   "post_at_ms": 1792065600000,
-   "until": "2026-10-15T23:30:00+09:00",
-   "until_ms": 1792074600000,
+   "post_at": "2026-10-15T18:00:00+09:00",
+   "post_at_ms": 1792054800000,
+   "until": "2026-10-15T21:30:00+09:00",
+   "until_ms": 1792067400000,
    "title": "326. Rethinks: The Secrets to Getting the Information You Need from AI",
    "show": {
     "slug": "think-fast-talk-smart",
@@ -151,5 +151,17 @@
    "queued_at": "2026-10-15T04:38:46Z"
   }
  ],
- "generated_at": "2026-10-15T04:38:46Z"
+ "generated_at": "2026-10-15T04:38:46Z",
+ "kick_kst": [
+  "05:25",
+  "05:55",
+  "06:25",
+  "06:45",
+  "07:10",
+  "16:25",
+  "16:55",
+  "17:25",
+  "17:45",
+  "18:10"
+ ]
 }

@@ -10,7 +10,8 @@ on:
     - cron: "17 */2 * * *"                    # every 2 h (odd hours KST)
     - cron: "3,13,23,33,43,53 20,21 * * *"    # 05:03–06:53 KST (Big Take for the 07:00 post)
     - cron: "3,23 22 * * *"                   # 07:03, 07:23 KST (late arrivals)
-    - cron: "3,13,23,33,43,53 9,10,11 * * *"  # 18:03–20:53 KST (Short Stuff / Daybreak; the 21:00 post)
+    - cron: "3,13,23,33,43,53 7,8 * * *"      # 16:03–17:53 KST (the 18:00 post)
+    - cron: "3,23 9 * * *"                    # 18:03, 18:23 KST (late arrivals)
   push:
     branches: [main]
     paths-ignore: ["docs/data/**", "state/**"]   # code/config changes trigger a run; the bot's own data commits do not

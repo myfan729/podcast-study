@@ -4,7 +4,7 @@ on:
   schedule:
     # queue.json is normally written right after each pipeline run; these are a safety net around the posting times
     - cron: "7,37 20-23 * * *"   # 05:07–08:37 KST every 30 min
-    - cron: "7,37 10-13 * * *"   # 19:07–22:37 KST every 30 min
+    - cron: "7,37 7-9 * * *"     # 16:07–18:37 KST every 30 min
   push:
     paths: [".github/workflows/daily.yml", "pipeline/daily.py"]   # also run right after the poster itself changes
   workflow_dispatch:

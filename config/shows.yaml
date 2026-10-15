@@ -23,11 +23,11 @@ schedule:
     shows: [up-first, the-indicator, big-take]           # NPR news briefing, NPR economics short, Bloomberg deep dive
     fallback: [trumponomics, everybodys-business, zero]  # weekends: weekly Bloomberg shows
   evening:
-    at: "21:00"
-    until: "23:30"
+    at: "18:00"
+    until: "21:30"
     count: 1
     label: "🌙 하루 마무리 팟캐스트"
-    shows: [think-fast-talk-smart, stuff-you-should-know] # new TFTS (Mon/Thu night) → Tue/Fri, Short Stuff (Wed)
+    shows: [think-fast-talk-smart, stuff-you-should-know] # new TFTS (Mon/Thu night) → Tue/Fri, Short Stuff (Wed 18:00) → Thu
     catalog: [think-fast-talk-smart]                     # other evenings: an earlier TFTS episode
 
 defaults:

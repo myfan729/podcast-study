@@ -78,6 +78,14 @@ def write_outputs(queue: dict, new_posts: list[dict], slots: list[S.Slot], now: 
             and p["id"] not in {n["id"] for n in new_posts}]
     queue["posts"] = sorted(keep + new_posts, key=lambda p: (p.get("post_at_ms", 0), p.get("order", 9)))
     queue["generated_at"] = utcnow_iso()
+    # when the chat bot should wake the site update (GitHub's own schedule skips many runs): before each posting time
+    kicks = set()
+    for sl in slots:
+        h, m = sl.hm
+        for d in (-95, -65, -35, -15, 10):
+            t = (h * 60 + m + d) % 1440
+            kicks.add(f"{t // 60:02d}:{t % 60:02d}")
+    queue["kick_kst"] = sorted(kicks)
     DAILY_DIR.mkdir(parents=True, exist_ok=True)
     write_json(DAILY_DIR / "queue.json", queue)
     for okey in sorted({p["occasion"] for p in new_posts if p.get("occasion")}):
