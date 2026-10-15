@@ -1,5 +1,5 @@
 /*
- * Podcast Study — 카카오톡 오픈채팅 자동 게시 봇 (메신저봇R 용)  v5
+ * Podcast Study — 카카오톡 오픈채팅 자동 게시 봇 (메신저봇R 용)  v6
  *
  * 사이트의 게시 대기열(data/daily/queue.json)을 5분마다 확인해서, 글마다 정해진 시각(아침 07:00 두 편,
  * 저녁 18:00 한 편 — 시각과 편수는 사이트 설정이 정함)이 되면 등록된 방에 한 편씩 올립니다.
@@ -87,6 +87,7 @@ function fetchQueue(force) {
     var q = JSON.parse(String(body));
     QUEUE = (q && q.posts) ? q.posts : [];
     QUEUE_META = q || null;
+    try { if (typeof scheduleNextAlarm === "function") scheduleNextAlarm(); } catch (e) {}
     lastFetch = Date.now(); lastFetchError = "";
   } catch (e) {
     lastFetchError = String(e); lastFetch = Date.now() - (POLL_MINUTES - 1) * 60 * 1000;   // 1분 뒤 재시도
@@ -216,6 +217,66 @@ function startWorker() {
 }
 startWorker();
 
+// ---- 알람으로 폰 깨우기 (v6) ----
+// 화면이 꺼진 폰은 안드로이드 절전(Doze)에서 타이머가 멈춤. 시스템 알람(AlarmManager)은 그 상태에서도 폰을 깨우므로
+// 게시 시각·업데이트 깨울 시각마다 알람을 걸고, 울리면 몇 분 동안 깨어 있으면서 올림.
+var ALARM_ACTION = "podcaststudy.bot.WAKE", alarmReceiver = null, alarmPI = null, nextAlarmAt = 0, lastAlarmAt = 0;
+function alarmTimes() {
+  var out = [], now = Date.now(), q = QUEUE || [];
+  for (var i = 0; i < q.length; i++) if (q[i] && q[i].post_at_ms > now) out.push(q[i].post_at_ms, q[i].post_at_ms + 2 * 60 * 1000);
+  var DAY = 24 * 3600 * 1000, H9 = 9 * 3600 * 1000;
+  var midnight = Math.floor((now + H9) / DAY) * DAY - H9;            // 오늘 00:00 KST
+  var times = kickTimes().concat(["07:00", "18:00", "07:02", "18:02"]);
+  for (var d = 0; d < 2; d++) {
+    for (var j = 0; j < times.length; j++) {
+      var hm = String(times[j]).split(":");
+      out.push(midnight + d * DAY + (parseInt(hm[0], 10) * 60 + parseInt(hm[1], 10)) * 60000 + 5000);
+    }
+  }
+  return out.filter(function (t) { return t > now + 20 * 1000; }).sort(function (a, b) { return a - b; });
+}
+function scheduleNextAlarm() {
+  try {
+    var ctx = Api.getContext(), t = alarmTimes()[0];
+    if (!t) return;
+    var am = ctx.getSystemService(android.content.Context.ALARM_SERVICE);
+    var it = new android.content.Intent(ALARM_ACTION); it.setPackage(ctx.getPackageName());
+    alarmPI = android.app.PendingIntent.getBroadcast(ctx, 7001, it, 134217728 | 67108864);   // UPDATE_CURRENT | IMMUTABLE
+    try { am.setExactAndAllowWhileIdle(0, t, alarmPI); }                                   // 0 = RTC_WAKEUP
+    catch (e) { am.setAndAllowWhileIdle(0, t, alarmPI); }
+    nextAlarmAt = t;
+  } catch (e) { Log.e("alarm schedule: " + e); }
+}
+function onAlarm() {
+  lastAlarmAt = Date.now();
+  try {   // 3분 동안 CPU를 깨워 둠 (네트워크가 붙을 시간)
+    var pm = Api.getContext().getSystemService(android.content.Context.POWER_SERVICE);
+    pm.newWakeLock(android.os.PowerManager.PARTIAL_WAKE_LOCK, "podcastbot:alarm").acquire(3 * 60 * 1000);
+  } catch (e) {}
+  new java.lang.Thread(new java.lang.Runnable({ run: function () {   // (네트워크는 메인 스레드에서 못 씀)
+    for (var i = 0; i < 6; i++) {
+      try { maybeKick(); } catch (e) {}
+      try { fetchQueue(true); if (postDue() > 0 || !duePosts().length) break; } catch (e) { Log.e("alarm post: " + e); }
+      try { java.lang.Thread.sleep(20 * 1000); } catch (e) {}
+    }
+    try { startWorker(); } catch (e) {}
+    scheduleNextAlarm();
+  } })).start();
+}
+function setupAlarms() {
+  try {
+    var ctx = Api.getContext();
+    if (!alarmReceiver) {
+      alarmReceiver = new JavaAdapter(android.content.BroadcastReceiver, { onReceive: function (c, intent) { try { onAlarm(); } catch (e) { Log.e("alarm: " + e); } } });
+      var f = new android.content.IntentFilter(ALARM_ACTION);
+      if (android.os.Build.VERSION.SDK_INT >= 33) ctx.registerReceiver(alarmReceiver, f, 4);   // RECEIVER_NOT_EXPORTED
+      else ctx.registerReceiver(alarmReceiver, f);
+    }
+    scheduleNextAlarm();
+  } catch (e) { Log.e("alarm setup: " + e); }
+}
+setupAlarms();
+
 // ---- 메시지 수신 ----
 function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {
   var r = String(room), text = String(msg).trim();
@@ -224,10 +285,11 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
   if (text === "!방이름") { replier.reply("봇이 보는 이 방: [" + r + "] · 단톡=" + isGroupChat + " · 게시 방: [" + (targetRoom() || "미등록") + "]"); return; }
   if (text === "!핑") {
     var nx = upcoming()[0];
-    replier.reply("살아 있어요 (v5) · " + dateKst() + " " + hhmm() + " KST\n게시 방: [" + (targetRoom() || "미등록 — 게시할 방에서 !여기") + "]"
+    replier.reply("살아 있어요 (v6) · " + dateKst() + " " + hhmm() + " KST\n게시 방: [" + (targetRoom() || "미등록 — 게시할 방에서 !여기") + "]"
       + "\n다음 게시: " + (nx ? whenLabel(nx.post_at_ms) + " · " + nx.show.name : "대기 중인 글 없음")
       + "\n대기열 확인: " + (lastFetch ? hhmm(lastFetch) : "아직") + (lastFetchError ? " (오류: " + lastFetchError.slice(0, 80) + ")" : "")
       + "\n자동 점검: " + (lastTick ? hhmm(lastTick) + (Date.now() - lastTick < 3 * 60 * 1000 ? " (정상)" : " (멈춰 있었음 → 다시 시작)") : "아직")
+      + "\n다음 알람: " + (nextAlarmAt ? whenLabel(nextAlarmAt) : "없음") + (lastAlarmAt ? " · 마지막 알람 " + whenLabel(lastAlarmAt) : "")
       + "\n업데이트 깨우기: " + (ghToken() ? "켜짐" + (lastKick.at ? " · 마지막 " + hhmm(lastKick.at) + " " + lastKick.result : "") : "꺼짐 (GH_TOKEN 없음)"));
     return;
   }
@@ -277,6 +339,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 
 function onStartCompile() {
   running = false;
+  try { var ctx = Api.getContext(); if (alarmPI) ctx.getSystemService(android.content.Context.ALARM_SERVICE).cancel(alarmPI); if (alarmReceiver) ctx.unregisterReceiver(alarmReceiver); } catch (e) {}
   try { if (worker) worker.interrupt(); } catch (e) {}
   try { if (wakeLock && wakeLock.isHeld()) wakeLock.release(); } catch (e) {}
 }
