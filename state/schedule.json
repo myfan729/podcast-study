@@ -14,16 +14,16 @@
   },
   "2026-10-15-evening": {
    "post_at": "2026-10-15T18:00:00+09:00",
-   "has": [],
-   "adding": [
-    "everybodys-business (fallback): The Steamy, Billion-Dollar World of Romantasy"
+   "has": [
+    "everybodys-business: The Steamy, Billion-Dollar World of Romantasy"
    ],
+   "adding": [],
    "waiting_for": [],
    "expected": [
     "trumponomics",
     "zero"
    ],
-   "checked_at": "2026-10-15T08:54:07Z"
+   "checked_at": "2026-10-15T11:26:22Z"
   },
   "2026-10-15-morning": {
    "post_at": "2026-10-15T07:00:00+09:00",
@@ -60,5 +60,5 @@
    "checked_at": "2026-10-15T05:05:29Z"
   }
  },
- "updated_at": "2026-10-15T08:54:07Z"
+ "updated_at": "2026-10-15T11:26:22Z"
 }
