@@ -2,6 +2,31 @@
  "occasion": "2026-10-16-morning",
  "posts": [
   {
+   "id": "up-first-2026-10-15-trump-s-midterm-travel-ukraine-starshield-restrictions",
+   "occasion": "2026-10-16-morning",
+   "slot": "morning",
+   "order": 0,
+   "post_at": "2026-10-16T07:00:00+09:00",
+   "post_at_ms": 1792101600000,
+   "until": "2026-10-16T12:00:00+09:00",
+   "until_ms": 1792119600000,
+   "title": "Trump's Midterm Travel, Ukraine Starshield Restrictions, Houthis Attack Aramco",
+   "show": {
+    "slug": "up-first",
+    "name": "Up First",
+    "publisher": "NPR",
+    "color": "#d6352b",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-15-trump-s-midterm-travel-ukraine-starshield-restrictions",
+   "pick": "new",
+   "one_liner_ko": "트럼프가 공화당 텃밭 위주로 중간선거 유세를 다니는 이유, 미국이 스타실드 위성 통신을 제한해 우크라이나 드론이 먹통이 된 사건, 후티의 아람코 본사 공격으로 격화되는 사우디-예멘 충돌을 다룬 에피소드.",
+   "duration_sec": 773,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/1400/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe0%2F7a%2Ffe9d16a44fbf9dd2d9932ffe799b%2F510318.png",
+   "text": "🌅 아침 팟캐스트 · Up First (10/15)\nTrump's Midterm Travel, Ukraine Starshield Restrictions, Houthis Attack Aramco\n⏱ 12분\n\n트럼프가 공화당 텃밭 위주로 중간선거 유세를 다니는 이유, 미국이 스타실드 위성 통신을 제한해 우크라이나 드론이 먹통이 된 사건, 후티의 아람코 본사 공격으로 격화되는 사우디-예멘 충돌을 다룬 에피소드.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-15-trump-s-midterm-travel-ukraine-starshield-restrictions",
+   "queued_at": "2026-10-15T14:12:12Z"
+  },
+  {
    "id": "the-indicator-2026-10-14-a-rebate-runaround-a-car-rental-rip-off-and-roaches",
    "occasion": "2026-10-16-morning",
    "slot": "morning",

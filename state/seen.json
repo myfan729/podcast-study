@@ -345,6 +345,32 @@
    "title": "The Steamy, Billion-Dollar World of Romantasy",
    "published_at": "2026-10-14T17:57:44Z",
    "done_at": "2026-10-15T08:57:18Z"
+  },
+  "up-first:28e4d1c02fd1": {
+   "first_seen": "2026-10-15T14:04:54Z",
+   "attempts": 1,
+   "occasion": "2026-10-16-morning",
+   "slot": "morning",
+   "pick": "new",
+   "assigned_at": "2026-10-15T14:04:54Z",
+   "status": "done",
+   "id": "up-first-2026-10-15-trump-s-midterm-travel-ukraine-starshield-restrictions",
+   "title": "Trump's Midterm Travel, Ukraine Starshield Restrictions, Houthis Attack Aramco",
+   "published_at": "2026-10-15T09:55:02Z",
+   "done_at": "2026-10-15T14:07:44Z"
+  },
+  "think-fast-talk-smart:2c98305a710a": {
+   "first_seen": "2026-10-15T14:07:44Z",
+   "attempts": 1,
+   "occasion": "2026-10-16-evening",
+   "slot": "evening",
+   "pick": "new",
+   "assigned_at": "2026-10-15T14:07:44Z",
+   "status": "done",
+   "id": "think-fast-talk-smart-2026-10-15-332-rethinks-learn-faster-and-fail-smarter",
+   "title": "332. Rethinks: Learn Faster and Fail Smarter",
+   "published_at": "2026-10-15T13:00:00Z",
+   "done_at": "2026-10-15T14:11:51Z"
   }
  }
 }

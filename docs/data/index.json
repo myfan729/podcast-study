@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-15T08:57:18Z",
+ "generated_at": "2026-10-15T14:11:51Z",
  "shows": [
   {
    "slug": "big-take",
@@ -59,6 +59,52 @@
   }
  ],
  "episodes": [
+  {
+   "id": "think-fast-talk-smart-2026-10-15-332-rethinks-learn-faster-and-fail-smarter",
+   "show": "think-fast-talk-smart",
+   "title": "332. Rethinks: Learn Faster and Fail Smarter",
+   "published_at": "2026-10-15T13:00:00Z",
+   "duration_sec": 2089,
+   "image": "https://img.transistorcdn.com/oRPyWpRZgYLqsLwhVhEBkdhApLite-iaAA59OSP3j8w/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS83N2Q2/MWMyYmIzM2E2ODI0/MGQwYjhiZjJkZTQz/YmRmNi5wbmc.jpg",
+   "one_liner_ko": "구글 X의 '문샷 캡틴' 아스트로 텔러가 틀리는 순간에 배운다는 관점에서, 결과가 아닌 습관을 보상하고 실패의 낙인을 없애는 혁신 방식과 스토리텔링·장난기의 힘을 설명한다.",
+   "tags": [
+    "failure and learning",
+    "innovation",
+    "leadership",
+    "storytelling",
+    "creativity",
+    "performance management"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 6243,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "up-first-2026-10-15-trump-s-midterm-travel-ukraine-starshield-restrictions",
+   "show": "up-first",
+   "title": "Trump's Midterm Travel, Ukraine Starshield Restrictions, Houthis Attack Aramco",
+   "published_at": "2026-10-15T09:55:02Z",
+   "duration_sec": 773,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/1400/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe0%2F7a%2Ffe9d16a44fbf9dd2d9932ffe799b%2F510318.png",
+   "one_liner_ko": "트럼프가 공화당 텃밭 위주로 중간선거 유세를 다니는 이유, 미국이 스타실드 위성 통신을 제한해 우크라이나 드론이 먹통이 된 사건, 후티의 아람코 본사 공격으로 격화되는 사우디-예멘 충돌을 다룬 에피소드.",
+   "tags": [
+    "US midterms",
+    "Ukraine war",
+    "Starshield",
+    "Houthis",
+    "Saudi Arabia",
+    "news briefing"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 2225,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
   {
    "id": "big-take-2026-10-14-the-diesel-midterms",
    "show": "big-take",

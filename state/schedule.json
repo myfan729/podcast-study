@@ -44,23 +44,24 @@
   "2026-10-16-evening": {
    "post_at": "2026-10-16T18:00:00+09:00",
    "has": [],
-   "adding": [],
-   "waiting_for": [
-    "think-fast-talk-smart"
+   "adding": [
+    "think-fast-talk-smart (new): 332. Rethinks: Learn Faster and Fail Smarter"
    ],
+   "waiting_for": [],
    "expected": [
     "think-fast-talk-smart"
    ],
-   "checked_at": "2026-10-15T12:34:43Z"
+   "checked_at": "2026-10-15T14:07:44Z"
   },
   "2026-10-16-morning": {
    "post_at": "2026-10-16T07:00:00+09:00",
    "has": [
     "the-indicator: A rebate runaround, a car rental rip-off and … roaches?!"
    ],
-   "adding": [],
+   "adding": [
+    "up-first (new): Trump's Midterm Travel, Ukraine Starshield Restrictions, Houthis Attack Aramco"
+   ],
    "waiting_for": [
-    "up-first",
     "big-take"
    ],
    "expected": [
@@ -69,8 +70,8 @@
     "up-first",
     "zero"
    ],
-   "checked_at": "2026-10-15T05:05:29Z"
+   "checked_at": "2026-10-15T14:04:54Z"
   }
  },
- "updated_at": "2026-10-15T12:34:43Z"
+ "updated_at": "2026-10-15T14:07:44Z"
 }
