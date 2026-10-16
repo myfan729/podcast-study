@@ -69,7 +69,23 @@
     "zero"
    ],
    "checked_at": "2026-10-15T22:50:13Z"
+  },
+  "2026-10-17-morning": {
+   "post_at": "2026-10-17T07:00:00+09:00",
+   "has": [],
+   "adding": [],
+   "waiting_for": [
+    "up-first",
+    "the-indicator",
+    "big-take"
+   ],
+   "expected": [
+    "big-take",
+    "everybodys-business",
+    "up-first"
+   ],
+   "checked_at": "2026-10-16T07:08:35Z"
   }
  },
- "updated_at": "2026-10-15T22:50:13Z"
+ "updated_at": "2026-10-16T07:08:35Z"
 }
