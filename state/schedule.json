@@ -84,19 +84,18 @@
    "post_at": "2026-10-17T07:00:00+09:00",
    "has": [
     "the-indicator: How did political campaigns get so expensive?",
-    "up-first: Oregon School Shooting, Russia's View On US-Ukraine Split, DOJ Sues California"
+    "up-first: Oregon School Shooting, Russia's View On US-Ukraine Split, DOJ Sues California",
+    "big-take: The Diamond Industry’s Battle for Your Ring Finger"
    ],
-   "adding": [
-    "big-take (new): The Diamond Industry’s Battle for Your Ring Finger"
-   ],
+   "adding": [],
    "waiting_for": [],
    "expected": [
     "big-take",
     "everybodys-business",
     "up-first"
    ],
-   "checked_at": "2026-10-16T21:06:04Z"
+   "checked_at": "2026-10-16T22:28:09Z"
   }
  },
- "updated_at": "2026-10-16T21:06:04Z"
+ "updated_at": "2026-10-16T22:28:09Z"
 }
