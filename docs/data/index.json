@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-16T18:05:45Z",
+ "generated_at": "2026-10-16T21:08:12Z",
  "shows": [
   {
    "slug": "big-take",
@@ -59,6 +59,29 @@
   }
  ],
  "episodes": [
+  {
+   "id": "big-take-2026-10-16-the-diamond-industrys-battle-for-your-ring-finger",
+   "show": "big-take",
+   "title": "The Diamond Industry’s Battle for Your Ring Finger",
+   "published_at": "2026-10-16T18:53:12Z",
+   "duration_sec": 773,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/51f8f48b-7164-4ffc-a93b-b4e501356035/image.jpg?t=1792176627&size=Large",
+   "one_liner_ko": "랩그로운 다이아몬드가 가격과 이미지 양면에서 천연 다이아몬드를 위협하는 가운데, 업계 기득권(De Beers 등)이 '진짜'의 스토리와 감별 기술로 반격하는 과정을 다룬다.",
+   "tags": [
+    "diamonds",
+    "lab-grown",
+    "luxury",
+    "branding",
+    "consumer trends",
+    "De Beers"
+   ],
+   "cefr": "C1",
+   "expressions": 13,
+   "words": 1886,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
   {
    "id": "up-first-2026-10-16-oregon-school-shooting-russia-s-view-on-us-ukraine-split",
    "show": "up-first",

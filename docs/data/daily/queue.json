@@ -276,6 +276,31 @@
    "queued_at": "2026-10-16T12:21:04Z"
   },
   {
+   "id": "big-take-2026-10-16-the-diamond-industrys-battle-for-your-ring-finger",
+   "occasion": "2026-10-17-morning",
+   "slot": "morning",
+   "order": 2,
+   "post_at": "2026-10-17T07:00:00+09:00",
+   "post_at_ms": 1792188000000,
+   "until": "2026-10-17T12:00:00+09:00",
+   "until_ms": 1792206000000,
+   "title": "The Diamond Industry’s Battle for Your Ring Finger",
+   "show": {
+    "slug": "big-take",
+    "name": "Big Take",
+    "publisher": "Bloomberg",
+    "color": "#1f5fbf",
+    "homepage": "https://www.bloomberg.com/podcasts/series/big-take"
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=big-take-2026-10-16-the-diamond-industrys-battle-for-your-ring-finger",
+   "pick": "new",
+   "one_liner_ko": "랩그로운 다이아몬드가 가격과 이미지 양면에서 천연 다이아몬드를 위협하는 가운데, 업계 기득권(De Beers 등)이 '진짜'의 스토리와 감별 기술로 반격하는 과정을 다룬다.",
+   "duration_sec": 773,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/51f8f48b-7164-4ffc-a93b-b4e501356035/image.jpg?t=1792176627&size=Large",
+   "text": "🌅 아침 팟캐스트 · Big Take (10/17)\nThe Diamond Industry’s Battle for Your Ring Finger\n⏱ 12분\n\n랩그로운 다이아몬드가 가격과 이미지 양면에서 천연 다이아몬드를 위협하는 가운데, 업계 기득권(De Beers 등)이 '진짜'의 스토리와 감별 기술로 반격하는 과정을 다룬다.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=big-take-2026-10-16-the-diamond-industrys-battle-for-your-ring-finger",
+   "queued_at": "2026-10-16T21:08:35Z"
+  },
+  {
    "id": "trumponomics-2026-10-15-live-from-new-delhi-what-the-world-s-financial-leaders-fear",
    "occasion": "2026-10-17-evening",
    "slot": "evening",
@@ -301,7 +326,7 @@
    "queued_at": "2026-10-16T12:21:04Z"
   }
  ],
- "generated_at": "2026-10-16T18:06:13Z",
+ "generated_at": "2026-10-16T21:08:35Z",
  "kick_kst": [
   "05:25",
   "05:55",
