@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-15T21:24:02Z",
+ "generated_at": "2026-10-16T12:20:37Z",
  "shows": [
   {
    "slug": "big-take",
@@ -124,6 +124,51 @@
    "cefr": "C1",
    "expressions": 12,
    "words": 2225,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "trumponomics-2026-10-15-live-from-new-delhi-what-the-world-s-financial-leaders-fear",
+   "show": "trumponomics",
+   "title": "Live from New Delhi: What the World's Financial Leaders Fear Most",
+   "published_at": "2026-10-15T09:00:00Z",
+   "duration_sec": 2102,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/84f3c095-964f-4994-9d24-ae2b00130029/6020583d-ae34-432c-b4dc-b4e40079b77a/image.jpg?t=1792050493&size=Large",
+   "one_liner_ko": "뉴델리 New Economy Forum에서 Tom Orlik이 미 국채 금리 상승과 AI 자금 순환의 위험을 짚고, Sunak·Gray·Chandrasekaran이 불확실성 시대의 위험, 회복탄력성, 그래도 베팅할 만한 장기 트렌드를 논했다.",
+   "tags": [
+    "global economy",
+    "US Treasury yields",
+    "AI investment",
+    "fiscal sustainability",
+    "resilience",
+    "geopolitics"
+   ],
+   "cefr": "C1",
+   "expressions": 13,
+   "words": 5387,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "the-indicator-2026-10-15-how-did-political-campaigns-get-so-expensive",
+   "show": "the-indicator",
+   "title": "How did political campaigns get so expensive?",
+   "published_at": "2026-10-15T07:00:00Z",
+   "duration_sec": 481,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F22%2F1f%2F908891564f96b5afc9857b807b16%2F1521ace1-3635-4bde-89a4-a266ee1f6a14.jpg",
+   "one_liner_ko": "2026 중간선거가 역대 가장 비싼 선거가 될 전망인 가운데, 사법 판결·후보 선택·다크머니가 어떻게 미국 정치를 돈 중심으로 만들었는지 짚는 에피소드.",
+   "tags": [
+    "campaign finance",
+    "US midterms",
+    "dark money",
+    "Citizens United",
+    "political economy"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 1323,
    "has_translation": true,
    "mock": false,
    "demo": false

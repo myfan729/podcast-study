@@ -1,0 +1,30 @@
+{
+ "occasion": "2026-10-17-evening",
+ "posts": [
+  {
+   "id": "trumponomics-2026-10-15-live-from-new-delhi-what-the-world-s-financial-leaders-fear",
+   "occasion": "2026-10-17-evening",
+   "slot": "evening",
+   "order": 4,
+   "post_at": "2026-10-17T18:00:00+09:00",
+   "post_at_ms": 1792227600000,
+   "until": "2026-10-17T21:30:00+09:00",
+   "until_ms": 1792240200000,
+   "title": "Live from New Delhi: What the World's Financial Leaders Fear Most",
+   "show": {
+    "slug": "trumponomics",
+    "name": "Trumponomics",
+    "publisher": "Bloomberg",
+    "color": "#b5452f",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=trumponomics-2026-10-15-live-from-new-delhi-what-the-world-s-financial-leaders-fear",
+   "pick": "fallback",
+   "one_liner_ko": "뉴델리 New Economy Forum에서 Tom Orlik이 미 국채 금리 상승과 AI 자금 순환의 위험을 짚고, Sunak·Gray·Chandrasekaran이 불확실성 시대의 위험, 회복탄력성, 그래도 베팅할 만한 장기 트렌드를 논했다.",
+   "duration_sec": 2102,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/84f3c095-964f-4994-9d24-ae2b00130029/6020583d-ae34-432c-b4dc-b4e40079b77a/image.jpg?t=1792050493&size=Large",
+   "text": "🌙 하루 마무리 팟캐스트 · Trumponomics (10/15)\nLive from New Delhi: What the World's Financial Leaders Fear Most\n⏱ 35분\n\n뉴델리 New Economy Forum에서 Tom Orlik이 미 국채 금리 상승과 AI 자금 순환의 위험을 짚고, Sunak·Gray·Chandrasekaran이 불확실성 시대의 위험, 회복탄력성, 그래도 베팅할 만한 장기 트렌드를 논했다.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=trumponomics-2026-10-15-live-from-new-delhi-what-the-world-s-financial-leaders-fear",
+   "queued_at": "2026-10-16T12:21:04Z"
+  }
+ ]
+}

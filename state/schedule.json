@@ -70,13 +70,24 @@
    ],
    "checked_at": "2026-10-15T22:50:13Z"
   },
+  "2026-10-17-evening": {
+   "post_at": "2026-10-17T18:00:00+09:00",
+   "has": [],
+   "adding": [
+    "trumponomics (fallback): Live from New Delhi: What the World's Financial Leaders Fear Most"
+   ],
+   "waiting_for": [],
+   "expected": [],
+   "checked_at": "2026-10-16T12:16:53Z"
+  },
   "2026-10-17-morning": {
    "post_at": "2026-10-17T07:00:00+09:00",
    "has": [],
-   "adding": [],
+   "adding": [
+    "the-indicator (new): How did political campaigns get so expensive?"
+   ],
    "waiting_for": [
     "up-first",
-    "the-indicator",
     "big-take"
    ],
    "expected": [
@@ -84,8 +95,8 @@
     "everybodys-business",
     "up-first"
    ],
-   "checked_at": "2026-10-16T07:08:35Z"
+   "checked_at": "2026-10-16T12:14:23Z"
   }
  },
- "updated_at": "2026-10-16T07:08:35Z"
+ "updated_at": "2026-10-16T12:16:53Z"
 }

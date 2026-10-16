@@ -384,6 +384,32 @@
    "title": "What Is the US Economy Trying to Tell Us?",
    "published_at": "2026-10-15T20:38:37Z",
    "done_at": "2026-10-15T21:24:01Z"
+  },
+  "the-indicator:d639bffe5657": {
+   "first_seen": "2026-10-16T12:14:23Z",
+   "attempts": 1,
+   "occasion": "2026-10-17-morning",
+   "slot": "morning",
+   "pick": "new",
+   "assigned_at": "2026-10-16T12:14:23Z",
+   "status": "done",
+   "id": "the-indicator-2026-10-15-how-did-political-campaigns-get-so-expensive",
+   "title": "How did political campaigns get so expensive?",
+   "published_at": "2026-10-15T07:00:00Z",
+   "done_at": "2026-10-16T12:16:53Z"
+  },
+  "trumponomics:18812486cbdb": {
+   "first_seen": "2026-10-16T12:16:53Z",
+   "attempts": 1,
+   "occasion": "2026-10-17-evening",
+   "slot": "evening",
+   "pick": "fallback",
+   "assigned_at": "2026-10-16T12:16:53Z",
+   "status": "done",
+   "id": "trumponomics-2026-10-15-live-from-new-delhi-what-the-world-s-financial-leaders-fear",
+   "title": "Live from New Delhi: What the World's Financial Leaders Fear Most",
+   "published_at": "2026-10-15T09:00:00Z",
+   "done_at": "2026-10-16T12:20:37Z"
   }
  }
 }
