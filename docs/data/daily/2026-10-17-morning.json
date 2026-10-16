@@ -2,6 +2,31 @@
  "occasion": "2026-10-17-morning",
  "posts": [
   {
+   "id": "up-first-2026-10-16-oregon-school-shooting-russia-s-view-on-us-ukraine-split",
+   "occasion": "2026-10-17-morning",
+   "slot": "morning",
+   "order": 0,
+   "post_at": "2026-10-17T07:00:00+09:00",
+   "post_at_ms": 1792188000000,
+   "until": "2026-10-17T12:00:00+09:00",
+   "until_ms": 1792206000000,
+   "title": "Oregon School Shooting, Russia's View On US-Ukraine Split, DOJ Sues California",
+   "show": {
+    "slug": "up-first",
+    "name": "Up First",
+    "publisher": "NPR",
+    "color": "#d6352b",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-16-oregon-school-shooting-russia-s-view-on-us-ukraine-split",
+   "pick": "new",
+   "one_liner_ko": "오리건 초등학교 총격 사건, 미국과 우크라이나의 균열을 지켜보는 러시아의 시선, 캘리포니아를 상대로 한 미 법무부의 '비시민권자 유권자' 소송을 다룬 아침 뉴스 브리핑.",
+   "duration_sec": 734,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/1400/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe0%2F7a%2Ffe9d16a44fbf9dd2d9932ffe799b%2F510318.png",
+   "text": "🌅 아침 팟캐스트 · Up First (10/16)\nOregon School Shooting, Russia's View On US-Ukraine Split, DOJ Sues California\n⏱ 12분\n\n오리건 초등학교 총격 사건, 미국과 우크라이나의 균열을 지켜보는 러시아의 시선, 캘리포니아를 상대로 한 미 법무부의 '비시민권자 유권자' 소송을 다룬 아침 뉴스 브리핑.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-16-oregon-school-shooting-russia-s-view-on-us-ukraine-split",
+   "queued_at": "2026-10-16T18:06:13Z"
+  },
+  {
    "id": "the-indicator-2026-10-15-how-did-political-campaigns-get-so-expensive",
    "occasion": "2026-10-17-morning",
    "slot": "morning",

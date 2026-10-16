@@ -410,6 +410,19 @@
    "title": "Live from New Delhi: What the World's Financial Leaders Fear Most",
    "published_at": "2026-10-15T09:00:00Z",
    "done_at": "2026-10-16T12:20:37Z"
+  },
+  "up-first:9a51d3def728": {
+   "first_seen": "2026-10-16T18:02:42Z",
+   "attempts": 1,
+   "occasion": "2026-10-17-morning",
+   "slot": "morning",
+   "pick": "new",
+   "assigned_at": "2026-10-16T18:02:42Z",
+   "status": "done",
+   "id": "up-first-2026-10-16-oregon-school-shooting-russia-s-view-on-us-ukraine-split",
+   "title": "Oregon School Shooting, Russia's View On US-Ukraine Split, DOJ Sues California",
+   "published_at": "2026-10-16T09:54:13Z",
+   "done_at": "2026-10-16T18:05:45Z"
   }
  }
 }
