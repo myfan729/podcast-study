@@ -19,7 +19,7 @@ export default function Login() {
     setBusy(true); setMsg('');
     const { error } = await supabase.auth.signInWithOtp({ email: email.trim(), options: { shouldCreateUser: true, emailRedirectTo: AUTH_REDIRECT } });
     setBusy(false);
-    if (error) setMsg(error.message); else { setSent(true); setMsg('메일로 받은 6자리 코드를 입력하거나, 메일의 링크를 이 휴대폰에서 누르세요.'); }
+    if (error) setMsg(error.message); else { setSent(true); setMsg('메일로 받은 코드를 입력하거나, 메일의 링크를 이 휴대폰에서 누르세요.'); }
   };
   const signInPw = async () => {
     setBusy(true); setMsg('');
@@ -53,8 +53,8 @@ export default function Login() {
           </>}
           {sent && <>
             <Text style={[s.label, { marginTop: 12 }]} nativeID="codeLabel">인증 코드</Text>
-            <TextInput style={[s.input, s.code]} placeholder="000000" placeholderTextColor={C.faint} keyboardType="number-pad"
-              autoComplete="one-time-code" accessibilityLabelledBy="codeLabel" value={code} onChangeText={setCode} maxLength={6} />
+            <TextInput style={[s.input, s.code]} placeholder="인증 코드" placeholderTextColor={C.faint} keyboardType="number-pad"
+              autoComplete="one-time-code" accessibilityLabelledBy="codeLabel" value={code} onChangeText={setCode} maxLength={10} />
           </>}
           <Pressable style={[s.btn, busy && { opacity: 0.6 }]} disabled={busy} onPress={sent ? verify : usePw ? signInPw : send} accessibilityRole="button">
             {busy ? <ActivityIndicator color="#fff" /> : <Text style={s.btnT}>{sent || usePw ? '시작하기' : '코드 받기'}</Text>}
