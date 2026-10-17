@@ -6,12 +6,15 @@ import { ActivityIndicator, FlatList, Platform, Pressable, StyleSheet, Text, Vie
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Btn, Icon, RoundBtn } from '@/components/ui';
 import AutoSync, { type SyncResult } from '@/components/AutoSync';
+import Marquee from '@/components/Marquee';
 import * as api from '@/lib/api';
 import { addAnchor, toAudio, toContent, type Anchor } from '@/lib/timeline';
 import type { Episode, Expression, Pack, RequestResult } from '@/lib/types';
 import { C, F, R, fmt, shadow } from '@/lib/theme';
 
-type Sent = { a: number; b: number; s: number; text: string; ko?: string; speaker?: string; showSpk: boolean };
+type Mark = { from: number; to: number; kind: 'expr' | 'word'; idx: number };
+type Sent = { a: number; b: number; s: number; text: string; ko?: string; speaker?: string; showSpk: boolean; marks: Mark[] };
+type Peek = { kind: 'expr' | 'word'; idx: number } | null;
 const RATES = [0.8, 1, 1.2];
 
 export default function EpisodeScreen() {
@@ -83,13 +86,22 @@ function Center({ text, title, spin, icon, children }: { text?: string; title?: 
 }
 
 function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
-  const player = useAudioPlayer(pack.audio_url, { updateInterval: 250 });
+  // with auto-sync the player waits for the downloaded copy (playing the stream first only confuses: other ads)
+  const willSync = !!ep.sync_path && Platform.OS !== 'web';
+  const player = useAudioPlayer(willSync ? null : pack.audio_url, { updateInterval: 250 });
   const status = useAudioPlayerStatus(player);
   const [tab, setTab] = useState<'script' | 'words'>('script');
   const [ko, setKo] = useState(true);
   const [rate, setRate] = useState(1);
   const [syncMode, setSyncMode] = useState(false);
   const [anchors, setAnchors] = useState<Anchor[]>([]);
+  const [follow, setFollow] = useState(true);
+  const [peek, setPeek] = useState<Peek>(null);
+  const [syncRef, setSyncRef] = useState<unknown>(null);
+  const [auto, setAuto] = useState<'off' | 'working' | 'auto' | 'failed'>(willSync ? 'working' : 'off');
+  const [autoMsg, setAutoMsg] = useState('');
+  useEffect(() => { AsyncStorage.getItem('pref:follow').then((v) => { if (v === '0') setFollow(false); }).catch(() => {}); }, []);
+  const toggleFollow = () => { const v = !follow; setFollow(v); AsyncStorage.setItem('pref:follow', v ? '1' : '0').catch(() => {}); };
   const listRef = useRef<FlatList<Sent>>(null);
   const userScroll = useRef(0);
   const key = `anchors:${ep.id}`;
@@ -101,25 +113,47 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
     pack.transcript.segments.forEach((sg) => { for (let i = sg.cue_from; i <= sg.cue_to; i++) spkOf[i] = sg.display_speaker; });
     const pairs = pack.transcript.sentences ?? cues.map((_, i) => [i, i] as [number, number]);
     let last: string | undefined;
-    return pairs.map(([a, b]) => {
+    const out: Sent[] = pairs.map(([a, b]) => {
       const sp = spkOf[a]; const showSpk = !!sp && sp !== last; last = sp;
-      return { a, b, s: cues[a].s, text: cues.slice(a, b + 1).map((c) => c.t).join(' '), ko: tr[`${a}-${b}`], speaker: sp, showSpk };
+      return { a, b, s: cues[a].s, text: cues.slice(a, b + 1).map((c) => c.t).join(' '), ko: tr[`${a}-${b}`], speaker: sp, showSpk, marks: [] };
     });
+    const free = (sn: Sent, f: number, t: number) => sn.marks.every((m) => t <= m.from || f >= m.to);
+    // expressions: their quote inside their own segment (as on the website)
+    (pack.study.expressions ?? []).forEach((ex, idx) => {
+      const q = (ex.quote || ex.expression || '').toLowerCase().trim(); if (!q) return;
+      const seg = pack.transcript.segments.find((g) => g.id === ex.segment_id);
+      const cand = out.filter((sn) => !seg || (sn.b >= seg.cue_from && sn.a <= seg.cue_to));
+      for (const sn of cand) {
+        const at = sn.text.toLowerCase().indexOf(q);
+        if (at >= 0 && free(sn, at, at + q.length)) { sn.marks.push({ from: at, to: at + q.length, kind: 'expr', idx }); return; }
+      }
+    });
+    // words: first time each one is said
+    (pack.study.vocab ?? []).forEach((v, idx) => {
+      const w = (v.word || '').trim(); if (!w) return;
+      const re = new RegExp(`\\b${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+      for (const sn of out) {
+        const m = re.exec(sn.text);
+        if (m && free(sn, m.index, m.index + m[0].length)) { sn.marks.push({ from: m.index, to: m.index + m[0].length, kind: 'word', idx }); return; }
+      }
+    });
+    out.forEach((sn) => sn.marks.sort((x, y) => x.from - y.from));
+    return out;
   }, [pack]);
 
   useEffect(() => {
     AsyncStorage.getItem(key).then((v) => { if (v) setAnchors(JSON.parse(v)); }).catch(() => {});
     player.setActiveForLockScreen?.(true, { title: pack.title, artist: pack.show.name, artworkUrl: pack.show.image });
-    api.lastPosition(ep.id).then((p) => { if (p > 20) player.seekTo(p); }).catch(() => {});
+    if (!willSync) api.lastPosition(ep.id).then((p) => { if (p > 20) player.seekTo(p); }).catch(() => {});
     return () => { api.saveProgress(ep.id, player.currentTime ?? 0).catch(() => {}); };
   }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
   const c = toContent(status.currentTime ?? 0, anchors);
   const cur = useMemo(() => { let i = 0; for (let k = 0; k < sents.length; k++) { if (sents[k].s <= c + 0.15) i = k; else break; } return i; }, [c, sents]);
   useEffect(() => {
-    if (tab !== 'script' || !status.playing || Date.now() - userScroll.current < 4000) return;
-    listRef.current?.scrollToIndex({ index: cur, viewPosition: 0.3, animated: true });
-  }, [cur, tab, status.playing]);
+    if (!follow || tab !== 'script' || !status.playing || Date.now() - userScroll.current < 4000) return;
+    listRef.current?.scrollToIndex({ index: cur, viewPosition: 0, viewOffset: 8, animated: true });
+  }, [cur, tab, status.playing, follow]);
 
   const onSentence = useCallback((sn: Sent) => {
     if (syncMode) {
@@ -127,29 +161,28 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
       setAnchors(next); AsyncStorage.setItem(key, JSON.stringify(next)).catch(() => {}); setSyncMode(false);
       return;
     }
+    if (auto === 'working') return;                                 // not playable until the sync is done
     player.seekTo(toAudio(sn.s, anchors)); if (!status.playing) player.play();
-  }, [syncMode, anchors, player, status.playing, key]);
+    const i = sents.indexOf(sn);
+    if (i >= 0) { userScroll.current = 0; listRef.current?.scrollToIndex({ index: i, viewPosition: 0, viewOffset: 8, animated: true }); }
+  }, [syncMode, anchors, player, status.playing, key, sents, auto]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   // automatic ad-aware sync (needs the server's reference fingerprints for this episode)
-  const [syncRef, setSyncRef] = useState<unknown>(null);
-  const [auto, setAuto] = useState<'off' | 'working' | 'auto' | 'failed'>('off');
-  const [autoMsg, setAutoMsg] = useState('');
   useEffect(() => {
     if (!ep.sync_path || Platform.OS === 'web') return;              // the web build has no WebView / file system
     setAuto('working');
-    api.syncData(ep.sync_path).then(setSyncRef).catch(() => setAuto('failed'));
+    api.syncData(ep.sync_path).then(setSyncRef).catch(() => { setAuto('failed'); player.replace(pack.audio_url); });
   }, [ep.sync_path]);
   const onAutoDone = useCallback(async (r: SyncResult | null) => {
-    if (!r || !r.ok) { setAuto('failed'); return; }
-    const c = toContent(player.currentTime ?? 0, anchors), wasPlaying = player.playing;
-    setAnchors(r.anchors); AsyncStorage.setItem(key, JSON.stringify(r.anchors)).catch(() => {});
-    player.replace({ uri: r.fileUri });                         // play exactly the copy that was aligned
+    const ok = !!r?.ok;
+    const use = ok ? r!.anchors : anchors;
+    if (ok) { setAnchors(r!.anchors); AsyncStorage.setItem(key, JSON.stringify(r!.anchors)).catch(() => {}); }
+    player.replace(r?.fileUri ? { uri: r.fileUri } : pack.audio_url);   // play exactly the copy that was aligned
     player.setActiveForLockScreen?.(true, { title: pack.title, artist: pack.show.name, artworkUrl: pack.show.image });
-    setAuto('auto');
-    await new Promise((res) => setTimeout(res, 700));
-    await player.seekTo(toAudio(c, r.anchors));
-    if (wasPlaying) player.play();
-  }, [anchors, player, key, pack]);
+    setAuto(ok ? 'auto' : 'failed');
+    const last = await api.lastPosition(ep.id).catch(() => 0);
+    if (last > 20) { await new Promise((res) => setTimeout(res, 600)); player.seekTo(toAudio(toContent(last, use), use)); }
+  }, [anchors, player, key, pack, ep.id]);
 
   const setSpeed = () => { const r = RATES[(RATES.indexOf(rate) + 1) % RATES.length]; setRate(r); player.setPlaybackRate(r); };
   const offset = anchors.length ? Math.round(anchors[anchors.length - 1].a - anchors[anchors.length - 1].c) : 0;
@@ -168,7 +201,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
         <RoundBtn icon="chevron-back" label="뒤로" onPress={() => router.back()} />
         <View style={{ flex: 1, minWidth: 0, alignItems: 'center' }}>
           <Text style={st.topShow} numberOfLines={1}>{pack.show.name}</Text>
-          <Text style={st.topTitle} numberOfLines={1}>{pack.title}</Text>
+          <Marquee text={pack.title} style={st.topTitle} />
         </View>
         <View style={{ width: 44 }} />
       </View>
@@ -183,15 +216,22 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
           ListHeaderComponent={pack.study.one_liner_ko ? <View style={st.oneBox}><Icon name="bulb-outline" size={16} color={C.accent} /><Text style={st.one}>{pack.study.one_liner_ko}</Text></View> : undefined}
           onScrollBeginDrag={() => { userScroll.current = Date.now(); }}
           onScrollToIndexFailed={() => {}}
-          renderItem={({ item, index }) => <SentRow sn={item} state={index === cur ? 'cur' : index < cur ? 'past' : 'next'} ko={ko} onPress={onSentence} />} />
+          renderItem={({ item, index }) => <SentRow sn={item} state={index === cur ? 'cur' : index < cur ? 'past' : 'next'} ko={ko} onPress={onSentence} onMark={setPeek} />} />
       ) : (
         <Words pack={pack} episodeId={ep.id} onJump={(sec) => player.seekTo(toAudio(sec, anchors))} />
       )}
+      {peek && <PeekCard pack={pack} peek={peek} episodeId={ep.id} onClose={() => setPeek(null)} />}
+      {auto === 'working' && <View style={st.syncHint}><ActivityIndicator size="small" color={C.accent} /><Text style={st.syncT}>{autoMsg || '자동 싱크 준비 중…'} 끝나면 재생할 수 있어요</Text></View>}
       {auto === 'failed' && !syncMode && !anchors.length && <View style={st.syncHint}><Icon name="information-circle-outline" size={16} color={C.accent} /><Text style={st.syncT}>자동 싱크 실패 · 싱크를 누르고 들리는 문장을 눌러 주세요</Text></View>}
       {syncMode && <View style={st.syncHint}><Icon name="hand-left-outline" size={16} color={C.accent} /><Text style={st.syncT}>지금 들리는 문장을 눌러 주세요</Text></View>}
       <View style={[st.bar, { marginBottom: Math.max(insets.bottom, 0) + 12 }]}>
         <View style={st.timeRow}>
           <Text style={st.time}>{fmt(status.currentTime)} / {fmt(status.duration)}</Text>
+          <Pressable onPress={toggleFollow} style={[st.sync, { marginLeft: 'auto', marginRight: 8, flexDirection: 'row', gap: 4 }, follow && { backgroundColor: C.progress }]} hitSlop={6}
+            accessibilityRole="switch" accessibilityState={{ checked: follow }} accessibilityLabel="문장 자동 따라가기">
+            <Icon name={follow ? 'checkmark' : 'close'} size={13} color={follow ? C.dark : '#fff'} />
+            <Text style={[st.syncBtnT, follow && { color: C.dark }]}>따라가기</Text>
+          </Pressable>
           <Pressable onPress={() => setSyncMode(!syncMode)} style={[st.sync, syncMode && { backgroundColor: C.progress }]} hitSlop={6}
             accessibilityLabel="대본 싱크 맞추기">
             <Text style={[st.syncBtnT, syncMode && { color: C.dark }]}>{syncMode ? '취소' : auto === 'working' ? '맞추는 중…' : auto === 'auto' ? '자동 싱크' : offset ? `싱크 ${offset > 0 ? '+' : ''}${offset}s` : '싱크'}</Text>
@@ -205,8 +245,10 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
           <Pressable onPress={setSpeed} style={st.side} accessibilityLabel="재생 속도"><Text style={st.sideT}>{rate.toFixed(1)}x</Text></Pressable>
           <RoundBtn icon="play-back" label="5초 뒤로" size={48} bg="transparent" color="#fff"
             onPress={() => player.seekTo(Math.max(0, (status.currentTime ?? 0) - 5))} />
-          <RoundBtn icon={status.playing ? 'pause' : 'play'} label={status.playing ? '일시정지' : '재생'} size={64} bg="#fff" color={C.dark}
-            onPress={() => (status.playing ? player.pause() : player.play())} />
+          {auto === 'working'
+            ? <View style={st.wait}><ActivityIndicator color={C.dark} /></View>
+            : <RoundBtn icon={status.playing ? 'pause' : 'play'} label={status.playing ? '일시정지' : '재생'} size={64} bg="#fff" color={C.dark}
+                onPress={() => (status.playing ? player.pause() : player.play())} />}
           <RoundBtn icon="play-forward" label="5초 앞으로" size={48} bg="transparent" color="#fff"
             onPress={() => player.seekTo((status.currentTime ?? 0) + 5)} />
           <Pressable onPress={() => setKo(!ko)} style={[st.side, ko && { backgroundColor: C.progress }]} accessibilityLabel="한국어 번역 보기"
@@ -219,7 +261,19 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
   );
 }
 
-const SentRow = memo(function SentRow({ sn, state, ko, onPress }: { sn: Sent; state: 'past' | 'cur' | 'next'; ko: boolean; onPress: (s: Sent) => void }) {
+function Marked({ sn, style, onMark }: { sn: Sent; style: object; onMark: (p: Peek) => void }) {
+  if (!sn.marks.length) return <Text style={style}>{sn.text}</Text>;
+  const parts: React.ReactNode[] = []; let at = 0;
+  sn.marks.forEach((m, k) => {
+    if (m.from > at) parts.push(sn.text.slice(at, m.from));
+    parts.push(<Text key={k} style={m.kind === 'expr' ? st.hlExpr : st.hlWord} onPress={() => onMark({ kind: m.kind, idx: m.idx })}>{sn.text.slice(m.from, m.to)}</Text>);
+    at = m.to;
+  });
+  if (at < sn.text.length) parts.push(sn.text.slice(at));
+  return <Text style={style}>{parts}</Text>;
+}
+
+const SentRow = memo(function SentRow({ sn, state, ko, onPress, onMark }: { sn: Sent; state: 'past' | 'cur' | 'next'; ko: boolean; onPress: (s: Sent) => void; onMark: (p: Peek) => void }) {
   if (state === 'cur') {
     return (
       <Pressable onPress={() => onPress(sn)} style={[st.curCard, shadow]}>
@@ -227,7 +281,7 @@ const SentRow = memo(function SentRow({ sn, state, ko, onPress }: { sn: Sent; st
           {sn.speaker ? <View style={st.spkDot}><Text style={st.spkDotT}>{sn.speaker.slice(0, 1).toUpperCase()}</Text></View> : null}
           <Text style={st.spk}>{sn.speaker ? sn.speaker + ' · ' : ''}{fmt(sn.s)}</Text>
         </View>
-        <Text style={st.curEn}>{sn.text}</Text>
+        <Marked sn={sn} style={st.curEn} onMark={onMark} />
         {ko && sn.ko ? <View style={st.koBox}><Text style={st.curKo}>{sn.ko}</Text></View> : null}
       </Pressable>
     );
@@ -235,11 +289,39 @@ const SentRow = memo(function SentRow({ sn, state, ko, onPress }: { sn: Sent; st
   return (
     <Pressable onPress={() => onPress(sn)} style={st.sent}>
       {sn.showSpk && <Text style={st.spkSmall}>{sn.speaker}</Text>}
-      <Text style={[st.en, state === 'past' && { color: C.faint }]}>{sn.text}</Text>
+      <Marked sn={sn} style={[st.en, state === 'past' && { color: C.faint }]} onMark={onMark} />
       {ko && sn.ko ? <Text style={[st.ko, state === 'past' && { color: C.faint }]}>{sn.ko}</Text> : null}
     </Pressable>
   );
 });
+
+function PeekCard({ pack, peek, episodeId, onClose }: { pack: Pack; peek: NonNullable<Peek>; episodeId: string; onClose: () => void }) {
+  const [saved, setSaved] = useState(false);
+  const ex = peek.kind === 'expr' ? pack.study.expressions?.[peek.idx] : undefined;
+  const v = peek.kind === 'word' ? pack.study.vocab?.[peek.idx] : undefined;
+  const text = ex?.expression ?? v?.word ?? '';
+  const meaning = ex?.meaning_ko ?? v?.meaning_ko ?? '';
+  const example = ex?.examples?.[0] ?? v?.example;
+  const save = async () => {
+    setSaved(true);
+    try { await api.saveItem({ kind: ex ? 'expression' : 'word', text, meaning_ko: meaning, example, episode_id: episodeId }); } catch { /* retried on next tap */ }
+  };
+  return (
+    <View style={[st.peek, shadow]}>
+      <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 10 }}>
+        <View style={{ flex: 1, minWidth: 0 }}>
+          <Text style={st.peekKind}>{ex ? '표현' : '단어'}</Text>
+          <Text style={st.exprT}>{text}</Text>
+        </View>
+        <SaveBtn on={saved} onPress={save} />
+        <RoundBtn icon="close" label="닫기" size={38} bg={C.bg} onPress={onClose} />
+      </View>
+      <Text style={st.mean}>{meaning}</Text>
+      {ex?.nuance_ko ? <Text style={st.p} numberOfLines={3}>{ex.nuance_ko}</Text> : null}
+      {example ? <Text style={st.ex} numberOfLines={2}>{example}</Text> : null}
+    </View>
+  );
+}
 
 function Words({ pack, episodeId, onJump }: { pack: Pack; episodeId: string; onJump: (sec: number) => void }) {
   const [saved, setSaved] = useState<Set<string>>(new Set());
@@ -313,16 +395,16 @@ const st = StyleSheet.create({
   one: { flex: 1, color: C.ink2, fontSize: 13.5, lineHeight: 20 },
   sent: { paddingVertical: 9, paddingHorizontal: 4 },
   spkSmall: { color: C.ink3, fontSize: 12, marginTop: 8, marginBottom: 2 },
-  en: { color: C.ink2, fontFamily: F.en, fontSize: 16.5, lineHeight: 25 },
-  ko: { color: C.ink3, fontSize: 13.5, lineHeight: 20, marginTop: 3 },
+  en: { color: C.ink2, fontFamily: F.en, fontSize: 15, lineHeight: 23 },
+  ko: { color: C.ink3, fontSize: 12.5, lineHeight: 18, marginTop: 3 },
   curCard: { backgroundColor: C.sheet, borderRadius: R.card, padding: 18, marginVertical: 8, gap: 10 },
   spkRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   spkDot: { width: 26, height: 26, borderRadius: 13, backgroundColor: C.peach, alignItems: 'center', justifyContent: 'center' },
   spkDotT: { fontSize: 12, fontWeight: '700', color: C.ink },
   spk: { color: C.ink3, fontSize: 12 },
-  curEn: { color: C.ink, fontFamily: F.enB, fontSize: 21, lineHeight: 29 },
+  curEn: { color: C.ink, fontFamily: F.enB, fontSize: 18, lineHeight: 26 },
   koBox: { backgroundColor: C.bg, borderRadius: 18, paddingHorizontal: 14, paddingVertical: 11 },
-  curKo: { color: C.ink2, fontSize: 14.5, lineHeight: 22 },
+  curKo: { color: C.ink2, fontSize: 13.5, lineHeight: 20 },
   syncHint: { flexDirection: 'row', gap: 8, alignItems: 'center', justifyContent: 'center', backgroundColor: C.accentSoft, marginHorizontal: 14, marginBottom: 8, borderRadius: 18, padding: 10 },
   syncT: { color: C.accent, fontWeight: '700' },
   bar: { marginHorizontal: 12, marginBottom: 14, paddingHorizontal: 18, paddingTop: 14, paddingBottom: 14, borderRadius: 32, backgroundColor: C.dark, gap: 10 },
@@ -350,5 +432,10 @@ const st = StyleSheet.create({
   jump: { flexDirection: 'row', alignItems: 'center', gap: 4 },
   jumpT: { color: C.accent, fontSize: 12.5, fontWeight: '700' },
   simH: { color: C.ink3, fontSize: 12.5, marginTop: 12 },
+  hlExpr: { backgroundColor: '#FFE9A8', color: C.ink },
+  hlWord: { textDecorationLine: 'underline', textDecorationColor: C.accent, color: C.accent },
+  wait: { width: 64, height: 64, borderRadius: 32, backgroundColor: '#C9C6DC', alignItems: 'center', justifyContent: 'center' },
+  peek: { position: 'absolute', left: 14, right: 14, bottom: 190, backgroundColor: C.sheet, borderRadius: 24, padding: 16, gap: 4 },
+  peekKind: { color: C.accent, fontSize: 12, fontWeight: '700' },
   save: { width: 38, height: 38, borderRadius: 19, backgroundColor: C.accentSoft, alignItems: 'center', justifyContent: 'center' },
 });
