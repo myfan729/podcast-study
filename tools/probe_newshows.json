@@ -1,0 +1,951 @@
+{
+ "bbc": {
+  "6 Minute English": {
+   "feed": "https://podcasts.files.bbci.co.uk/p02pc9tn.rss",
+   "n": 345,
+   "eps": [
+    {
+     "title": "Why has gold got so expensive?",
+     "pub": "2026-10-15T09:24:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pgs2w6",
+     "dur": 419,
+     "tr": false
+    },
+    {
+     "title": "Are people drinking less alcohol?",
+     "pub": "2026-10-08T08:28:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pflmn5",
+     "dur": 409,
+     "tr": false
+    },
+    {
+     "title": "Why does heartbreak hurt so much?",
+     "pub": "2026-10-01T09:47:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pdc9cq",
+     "dur": 393,
+     "tr": false
+    },
+    {
+     "title": "Why do we itch?",
+     "pub": "2026-09-24T07:47:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pc61lm",
+     "dur": 382,
+     "tr": false
+    }
+   ]
+  },
+  "Learning English from the News": {
+   "feed": "https://podcasts.files.bbci.co.uk/p05hw4bq.rss",
+   "n": 398,
+   "eps": [
+    {
+     "title": "Deadly Saudi airport attacks",
+     "pub": "2026-10-14T11:23:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pglpd6",
+     "dur": 393,
+     "tr": false
+    },
+    {
+     "title": "French school protests",
+     "pub": "2026-10-07T11:49:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pfdyb9",
+     "dur": 427,
+     "tr": false
+    },
+    {
+     "title": "Young people's mental distress is real, according to the head of a new review in the UK",
+     "pub": "2026-09-30T11:55:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pd5ry2",
+     "dur": 487,
+     "tr": false
+    },
+    {
+     "title": "AI and trade: Will US and China agree?",
+     "pub": "2026-09-23T12:03:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pc1b3s",
+     "dur": 533,
+     "tr": false
+    }
+   ]
+  },
+  "Learning English Conversations": {
+   "feed": "https://podcasts.files.bbci.co.uk/p02pc9zn.rss",
+   "n": 829,
+   "eps": [
+    {
+     "title": "The English We Speak: Try one's patience",
+     "pub": "2026-10-13T08:22:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pgdrwh",
+     "dur": 160,
+     "tr": false
+    },
+    {
+     "title": "The English We Speak: Sack something off",
+     "pub": "2026-10-06T09:48:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pf6vwm",
+     "dur": 142,
+     "tr": false
+    },
+    {
+     "title": "The English We Speak: In a tizzy",
+     "pub": "2026-09-29T09:53:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pd00xc",
+     "dur": 140,
+     "tr": false
+    },
+    {
+     "title": "The English We Speak: Same person, different font",
+     "pub": "2026-09-22T09:33:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pbvx4y",
+     "dur": 159,
+     "tr": false
+    }
+   ]
+  },
+  "Learning English Vocabulary": {
+   "feed": "https://podcasts.files.bbci.co.uk/p02pc9xz.rss",
+   "n": 423,
+   "eps": [
+    {
+     "title": "Onomatopoeia",
+     "pub": "2026-10-12T09:00:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pg8c17",
+     "dur": 376,
+     "tr": false
+    },
+    {
+     "title": "Multi-word verbs",
+     "pub": "2026-10-05T08:55:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pf0nsz",
+     "dur": 381,
+     "tr": false
+    },
+    {
+     "title": "Adjectives ending with -ic and -ical",
+     "pub": "2026-09-28T08:14:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pctlbw",
+     "dur": 386,
+     "tr": false
+    },
+    {
+     "title": "Strong adjectives",
+     "pub": "2026-09-21T08:09:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pbpc7j",
+     "dur": 409,
+     "tr": false
+    }
+   ]
+  },
+  "Learning English Grammar": {
+   "feed": "https://podcasts.files.bbci.co.uk/p02pc9wq.rss",
+   "n": 330,
+   "eps": [
+    {
+     "title": "To-do lists",
+     "pub": "2026-10-13T08:28:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pgdsk6",
+     "dur": 403,
+     "tr": false
+    },
+    {
+     "title": "Fixing problems",
+     "pub": "2026-10-06T09:50:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pf6wk6",
+     "dur": 537,
+     "tr": false
+    },
+    {
+     "title": "Stories from the past",
+     "pub": "2026-09-29T10:14:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pd03qz",
+     "dur": 577,
+     "tr": false
+    },
+    {
+     "title": "An interesting sight",
+     "pub": "2026-09-22T09:47:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pbvyr3",
+     "dur": 565,
+     "tr": false
+    }
+   ]
+  },
+  "Learning English Stories": {
+   "feed": "https://podcasts.files.bbci.co.uk/p02pc9s1.rss",
+   "n": 289,
+   "eps": [
+    {
+     "title": "Classic Stories: The Adventures of Huckleberry Finn",
+     "pub": "2026-10-16T08:27:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0ph0vkc",
+     "dur": 227,
+     "tr": false
+    },
+    {
+     "title": "Classic Stories: Cinderella",
+     "pub": "2026-10-09T10:12:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pfvvjz",
+     "dur": 348,
+     "tr": false
+    },
+    {
+     "title": "Classic Stories: The Snow Queen",
+     "pub": "2026-10-02T09:05:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pdm6jq",
+     "dur": 280,
+     "tr": false
+    },
+    {
+     "title": "Classic Stories: Robin Hood",
+     "pub": "2026-09-25T12:03:00Z",
+     "link": "http://www.bbc.co.uk/programmes/p0pcgyjt",
+     "dur": 272,
+     "tr": false
+    }
+   ]
+  }
+ },
+ "le_index": {
+  "6-minute-english": {
+   "ok": true,
+   "links": [
+    "/learningenglish/english/features/6-minute-english/ep-170511",
+    "/learningenglish/english/features/6-minute-english/ep-170518",
+    "/learningenglish/english/features/6-minute-english/ep-170525",
+    "/learningenglish/english/features/6-minute-english/ep-170601",
+    "/learningenglish/english/features/6-minute-english/ep-170608",
+    "/learningenglish/english/features/6-minute-english/ep-170615",
+    "/learningenglish/english/features/6-minute-english/ep-170622",
+    "/learningenglish/english/features/6-minute-english/ep-170629",
+    "/learningenglish/english/features/6-minute-english/ep-170706",
+    "/learningenglish/english/features/6-minute-english/ep-170713",
+    "/learningenglish/english/features/6-minute-english/ep-170720",
+    "/learningenglish/english/features/6-minute-english/ep-170727"
+   ],
+   "n": 501,
+   "sample": {
+    "url": "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-261015",
+    "len": 473548,
+    "transcript_word": 7,
+    "classes": [
+     "Download Transcript"
+    ],
+    "jsonld": true
+   }
+  },
+  "learning-english-from-the-news": {
+   "ok": false,
+   "error": "404 Client Error: Not Found for url: https://www.bbc.co.uk/learningenglish/english/features/learning-english-from-the-news"
+  },
+  "news-review": {
+   "ok": false,
+   "error": "404 Client Error: Not Found for url: https://www.bbc.co.uk/learningenglish/english/features/news-review"
+  },
+  "the-english-we-speak": {
+   "ok": true,
+   "links": [
+    "/learningenglish/english/features/the-english-we-speak/ep-170314",
+    "/learningenglish/english/features/the-english-we-speak/ep-170321",
+    "/learningenglish/english/features/the-english-we-speak/ep-170328",
+    "/learningenglish/english/features/the-english-we-speak/ep-170404",
+    "/learningenglish/english/features/the-english-we-speak/ep-170411",
+    "/learningenglish/english/features/the-english-we-speak/ep-170418",
+    "/learningenglish/english/features/the-english-we-speak/ep-170425",
+    "/learningenglish/english/features/the-english-we-speak/ep-170502",
+    "/learningenglish/english/features/the-english-we-speak/ep-170509",
+    "/learningenglish/english/features/the-english-we-speak/ep-170516",
+    "/learningenglish/english/features/the-english-we-speak/ep-170523",
+    "/learningenglish/english/features/the-english-we-speak/ep-170530"
+   ],
+   "n": 501,
+   "sample": {
+    "url": "https://www.bbc.co.uk/learningenglish/english/features/the-english-we-speak_2026/ep-261012",
+    "len": 463399,
+    "transcript_word": 2,
+    "classes": [],
+    "jsonld": true
+   }
+  },
+  "6-minute-vocabulary": {
+   "ok": false,
+   "error": "404 Client Error: Not Found for url: https://www.bbc.co.uk/learningenglish/english/features/6-minute-vocabulary"
+  },
+  "6-minute-grammar": {
+   "ok": false,
+   "error": "404 Client Error: Not Found for url: https://www.bbc.co.uk/learningenglish/english/features/6-minute-grammar"
+  },
+  "learning-english-conversations": {
+   "ok": false,
+   "error": "404 Client Error: Not Found for url: https://www.bbc.co.uk/learningenglish/english/features/learning-english-conversations"
+  },
+  "english-in-a-minute": {
+   "ok": false,
+   "error": "404 Client Error: Not Found for url: https://www.bbc.co.uk/learningenglish/english/features/english-in-a-minute"
+  },
+  "real-easy-english": {
+   "ok": true,
+   "links": [
+    "/learningenglish/english/features/real-easy-english/240426",
+    "/learningenglish/english/features/real-easy-english/240503",
+    "/learningenglish/english/features/real-easy-english/240510",
+    "/learningenglish/english/features/real-easy-english/240517",
+    "/learningenglish/english/features/real-easy-english/240524",
+    "/learningenglish/english/features/real-easy-english/240531",
+    "/learningenglish/english/features/real-easy-english/240607",
+    "/learningenglish/english/features/real-easy-english/240608",
+    "/learningenglish/english/features/real-easy-english/240614",
+    "/learningenglish/english/features/real-easy-english/240621",
+    "/learningenglish/english/features/real-easy-english/240705",
+    "/learningenglish/english/features/real-easy-english/240719"
+   ],
+   "n": 125,
+   "sample": {
+    "url": "https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/rss",
+    "len": 65386,
+    "transcript_word": 0,
+    "classes": [],
+    "jsonld": false
+   }
+  },
+  "learning-english-stories": {
+   "ok": false,
+   "error": "404 Client Error: Not Found for url: https://www.bbc.co.uk/learningenglish/english/features/learning-english-stories"
+  }
+ },
+ "au": {
+  "ABC News Daily": {
+   "hits": [
+    {
+     "name": "Good Morning America",
+     "artist": "ABC News",
+     "feed": "https://feeds.megaphone.fm/ESP6267756011"
+    },
+    {
+     "name": "Start Here",
+     "artist": "ABC News",
+     "feed": "https://feeds.megaphone.fm/ESP8447327256"
+    },
+    {
+     "name": "World News Tonight with David Muir",
+     "artist": "ABC News",
+     "feed": "https://feeds.megaphone.fm/ESP4140596756"
+    }
+   ],
+   "feed": "https://feeds.megaphone.fm/ESP6267756011",
+   "eps": [
+    {
+     "title": "Saturday, October 17, 2026",
+     "pub": "2026-10-17T15:08:00Z",
+     "link": null,
+     "dur": 3445,
+     "tr": false
+    },
+    {
+     "title": "GMA3: Friday, October 16, 2026",
+     "pub": "2026-10-16T19:11:00Z",
+     "link": null,
+     "dur": 1819,
+     "tr": false
+    },
+    {
+     "title": "Friday, October 16, 2026",
+     "pub": "2026-10-16T16:21:00Z",
+     "link": null,
+     "dur": 3793,
+     "tr": false
+    }
+   ]
+  },
+  "ABC Business Daily": {
+   "hits": [
+    {
+     "name": "ABC Business Daily",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/106452508/podcast.xml"
+    }
+   ],
+   "feed": "https://www.abc.net.au/feeds/106452508/podcast.xml",
+   "eps": [
+    {
+     "title": "The 'Thelma and Louise' moment coming for global economies",
+     "pub": "2026-10-16T02:30:00Z",
+     "link": "https://www.abc.net.au/listen/programs/abc-business-daily/the-thelma-and-louise-moment-coming-for-global-economies/107271732",
+     "dur": 2304,
+     "tr": false
+    },
+    {
+     "title": "Will higher unemployment stop a rate hike?",
+     "pub": "2026-10-15T02:45:00Z",
+     "link": "https://www.abc.net.au/listen/programs/abc-business-daily/will-higher-unemployment-stop-a-rate-hike/107244308",
+     "dur": 1200,
+     "tr": false
+    },
+    {
+     "title": "Solving the productivity puzzle",
+     "pub": "2026-10-14T03:30:00Z",
+     "link": "https://www.abc.net.au/listen/programs/abc-business-daily/solving-the-productivity-puzzle/107244306",
+     "dur": 1380,
+     "tr": false
+    }
+   ],
+   "page": {
+    "url": "https://www.abc.net.au/listen/programs/abc-business-daily/the-thelma-and-louise-moment-coming-for-global-economies/107271732",
+    "len": 276230,
+    "transcript_word": 0,
+    "classes": [],
+    "jsonld": false
+   }
+  },
+  "AM ABC Radio National": {
+   "hits": [
+    {
+     "name": "Radio National Breakfast",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/2890360/podcast.xml"
+    },
+    {
+     "name": "The Radio National Hour",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/104812522/podcast.xml"
+    },
+    {
+     "name": "Radio National Presents",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/9602350/podcast.xml"
+    }
+   ],
+   "feed": "https://www.abc.net.au/feeds/2890360/podcast.xml",
+   "eps": [
+    {
+     "title": "Breakfast Wrap: Outcry over hidden camera on navy ship",
+     "pub": "2026-10-15T23:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/radionational-breakfast/radio-national-breakfast/107200274",
+     "dur": 1446,
+     "tr": false
+    },
+    {
+     "title": "The Friday Political Panel",
+     "pub": "2026-10-15T21:15:00Z",
+     "link": "https://www.abc.net.au/listen/programs/radionational-breakfast/the-friday-political-panel/107273692",
+     "dur": 898,
+     "tr": false
+    },
+    {
+     "title": "30 people wrongfully detained by Home Affairs last financial year",
+     "pub": "2026-10-15T21:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/radionational-breakfast/30-people-wrongfully-detained-by-home-affairs-last-financial-yea/107272608",
+     "dur": 430,
+     "tr": false
+    }
+   ],
+   "page": {
+    "url": "https://www.abc.net.au/listen/programs/radionational-breakfast/radio-national-breakfast/107200274",
+    "len": 305974,
+    "transcript_word": 0,
+    "classes": [],
+    "jsonld": false
+   }
+  },
+  "The Science Show ABC": {
+   "hits": [
+    {
+     "name": "The Science Show",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/13868682/podcast.xml"
+    },
+    {
+     "name": "The Science Show - Separate stories podcast",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/2885486/podcast.xml"
+    },
+    {
+     "name": "The Weather That Changed Us",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/14024818/podcast.xml"
+    }
+   ],
+   "feed": "https://www.abc.net.au/feeds/13868682/podcast.xml",
+   "eps": [
+    {
+     "title": "72 per cent of UK trees threatened by changing climate, plus the simple spud’s complex genetics",
+     "pub": "2026-10-17T01:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/scienceshow/trees-potatoes-brendan-may-step/107266790",
+     "dur": 3276,
+     "tr": false
+    },
+    {
+     "title": "Lab Notes: When astronomers make mistakes",
+     "pub": "2026-10-14T03:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/lab-notes/lab-notes-when-astronomers-make-mistakes/107232984",
+     "dur": 646,
+     "tr": false
+    },
+    {
+     "title": "Nobel Prizes, kitchen fumes and a biography of Francis Crick",
+     "pub": "2026-10-09T21:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/scienceshow/nobel-prizes-kitchen-fumes-and-a-biography-of-francis-crick/107174946",
+     "dur": 3275,
+     "tr": false
+    }
+   ],
+   "page": {
+    "url": "https://www.abc.net.au/listen/programs/scienceshow/trees-potatoes-brendan-may-step/107266790",
+    "len": 272028,
+    "transcript_word": 0,
+    "classes": [],
+    "jsonld": false
+   }
+  },
+  "All in the Mind ABC": {
+   "hits": [
+    {
+     "name": "All In The Mind",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/2888650/podcast.xml"
+    }
+   ],
+   "feed": "https://www.abc.net.au/feeds/2888650/podcast.xml",
+   "eps": [
+    {
+     "title": "'Task paralysis' and overcoming procrastination",
+     "pub": "2026-10-16T05:30:00Z",
+     "link": "https://www.abc.net.au/listen/programs/allinthemind/task-paralysis-overcoming-procrastination/107233006",
+     "dur": 1776,
+     "tr": false
+    },
+    {
+     "title": "What self-help advice is actually useful?",
+     "pub": "2026-10-09T05:30:00Z",
+     "link": "https://www.abc.net.au/listen/programs/allinthemind/self-help-levers-advice/107175824",
+     "dur": 1776,
+     "tr": false
+    },
+    {
+     "title": "Is AI the end of creativity and cognition?",
+     "pub": "2026-10-02T06:30:00Z",
+     "link": "https://www.abc.net.au/listen/programs/allinthemind/ai-creativity-cognition/107153212",
+     "dur": 1793,
+     "tr": false
+    }
+   ],
+   "page": {
+    "url": "https://www.abc.net.au/listen/programs/allinthemind/task-paralysis-overcoming-procrastination/107233006",
+    "len": 289558,
+    "transcript_word": 14,
+    "classes": [],
+    "jsonld": true
+   }
+  },
+  "Rear Vision ABC": {
+   "hits": [
+    {
+     "name": "Rear Vision — How History Shaped Today",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/2890034/podcast.xml"
+    }
+   ],
+   "feed": "https://www.abc.net.au/feeds/2890034/podcast.xml",
+   "eps": [
+    {
+     "title": "The American Israel lobby – powerful political force or antisemitic fiction",
+     "pub": "2026-10-16T21:30:00Z",
+     "link": "https://www.abc.net.au/listen/programs/rearvision/pro-israel-lobby-political-force-antisemitic-fiction/107232970",
+     "dur": 1776,
+     "tr": false
+    },
+    {
+     "title": "Ebola – a fifty-year history of outbreaks, fear and misunderstanding",
+     "pub": "2026-10-09T20:30:00Z",
+     "link": "https://www.abc.net.au/listen/programs/rearvision/rear-vision-ebola-who-history-zoonotic-disease-africa/107174974",
+     "dur": 1776,
+     "tr": false
+    },
+    {
+     "title": "Pacific pit-stop: cannabis to cocaine",
+     "pub": "2026-10-02T04:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/rearvision/rear-vision/107148998",
+     "dur": 1775,
+     "tr": false
+    }
+   ],
+   "page": {
+    "url": "https://www.abc.net.au/listen/programs/rearvision/pro-israel-lobby-political-force-antisemitic-fiction/107232970",
+    "len": 255887,
+    "transcript_word": 0,
+    "classes": [],
+    "jsonld": false
+   }
+  },
+  "Health Report ABC": {
+   "hits": [
+    {
+     "name": "Health Report",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/2887248/podcast.xml"
+    },
+    {
+     "name": "Health Report - Separate stories podcast",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/2887252/podcast.xml"
+    }
+   ],
+   "feed": "https://www.abc.net.au/feeds/2887248/podcast.xml",
+   "eps": [
+    {
+     "title": "Menopause guidelines could be a gamechanger",
+     "pub": "2026-10-16T18:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/healthreport/new-menopause-guidelines-could-be-a-gamechanger/107266726",
+     "dur": 2548,
+     "tr": false
+    },
+    {
+     "title": "What happens when you don't use BMI to measure obesity?",
+     "pub": "2026-10-09T22:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/healthreport/what-happens-when-you-don-t-use-bmi-to-measure-obesity-/107174954",
+     "dur": 2521,
+     "tr": false
+    },
+    {
+     "title": "Waking up stiff and sore? It could be PMR",
+     "pub": "2026-10-02T23:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/healthreport/waking-up-stiff-and-sore-it-could-be-pmr/107149094",
+     "dur": 2496,
+     "tr": false
+    }
+   ],
+   "page": {
+    "url": "https://www.abc.net.au/listen/programs/healthreport/new-menopause-guidelines-could-be-a-gamechanger/107266726",
+    "len": 289964,
+    "transcript_word": 0,
+    "classes": [],
+    "jsonld": false
+   }
+  },
+  "Science Friction ABC": {
+   "hits": [
+    {
+     "name": "Science Friction",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/8315172/podcast.xml"
+    }
+   ],
+   "feed": "https://www.abc.net.au/feeds/8315172/podcast.xml",
+   "eps": [
+    {
+     "title": "01 | Outbreaks: The aquarium illness",
+     "pub": "2026-10-13T18:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/sciencefriction/legionnaires-disease-outbreak-melbourne-philadelphia/107235874",
+     "dur": 1546,
+     "tr": false
+    },
+    {
+     "title": "INTRODUCING — Outbreaks",
+     "pub": "2026-10-06T05:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/sciencefriction/outbreaks-disease-podcast-abc-science-podcast-series/107234724",
+     "dur": 180,
+     "tr": false
+    },
+    {
+     "title": "04 | Dead and Alive: Hype train",
+     "pub": "2026-07-28T17:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/sciencefriction/quantum-computing-hype-when/106904380",
+     "dur": 1545,
+     "tr": false
+    }
+   ],
+   "page": {
+    "url": "https://www.abc.net.au/listen/programs/sciencefriction/legionnaires-disease-outbreak-melbourne-philadelphia/107235874",
+    "len": 271608,
+    "transcript_word": 0,
+    "classes": [],
+    "jsonld": false
+   }
+  },
+  "SBS Learn English": {
+   "hits": [
+    {
+     "name": "SBS Learn English",
+     "artist": "SBS",
+     "feed": "https://sbs-ondemand.streamguys1.com/sbs-learn-english/"
+    },
+    {
+     "name": "SBS Learn English Burmese",
+     "artist": "SBS",
+     "feed": "https://feeds.sbs.com.au/sbs-learn-english-burmese"
+    },
+    {
+     "name": "English on Repeat by SBS Learn English",
+     "artist": "SBS",
+     "feed": "https://feeds.sbs.com.au/english-on-repeat-by-sbs-learn-english"
+    }
+   ],
+   "feed": "https://sbs-ondemand.streamguys1.com/sbs-learn-english/",
+   "eps": [
+    {
+     "title": "#121 Picking up a prescription (Med)",
+     "pub": "2026-10-13T19:03:00Z",
+     "link": "https://www.sbs.com.au/language/english/en/podcast-episode/121-picking-up-a-prescription/940467f5s",
+     "dur": 547,
+     "tr": false
+    },
+    {
+     "title": "Bonus Practice: #121 Picking up a prescription (Med)",
+     "pub": "2026-10-13T19:00:00Z",
+     "link": "https://www.sbs.com.au/language/english/en/podcast-episode/bonus-practice-121-picking-up-a-prescription/68bkgbgog",
+     "dur": 206,
+     "tr": false
+    },
+    {
+     "title": "#120 Going to a wedding (Med)",
+     "pub": "2026-09-29T20:05:00Z",
+     "link": "https://www.sbs.com.au/language/english/en/podcast-episode/120-going-to-a-wedding/8oto9csb7",
+     "dur": 626,
+     "tr": false
+    }
+   ],
+   "page": {
+    "url": "https://www.sbs.com.au/language/english/en/podcast-episode/121-picking-up-a-prescription/940467f5s",
+    "len": 595751,
+    "transcript_word": 32,
+    "classes": [
+     "Icon-module__7tHgjG__root Icon-module__7tHgjG__md TranscriptAccordion-module__oesdnG__transcriptIcon",
+     "TranscriptAccordion-module__oesdnG__title",
+     "ViewTranscriptButton-module__QqbgfG__button",
+     "transcript-accordion",
+     "transcript-accordion-icon",
+     "transcript-accordion-title",
+     "transcript-clip",
+     "transcript-header"
+    ],
+    "jsonld": true
+   }
+  },
+  "Words We Use SBS Learn English": {
+   "hits": [
+    {
+     "name": "Words We Use by SBS Learn English",
+     "artist": "SBS",
+     "feed": "https://feeds.sbs.com.au/words-we-use"
+    }
+   ],
+   "feed": "https://feeds.sbs.com.au/words-we-use",
+   "eps": [
+    {
+     "title": "MiniPod: Hammered | Words we use",
+     "pub": "2026-06-28T23:00:00Z",
+     "link": "https://www.sbs.com.au/language/english/en/podcast-episode/minipod-hammered-words-we-use/pnlykdr2u",
+     "dur": 201,
+     "tr": false
+    },
+    {
+     "title": "MiniPod: Banger | Words we use",
+     "pub": "2026-06-21T23:00:00Z",
+     "link": "https://www.sbs.com.au/language/english/en/podcast-episode/minipod-banger-words-we-use/z33f38770",
+     "dur": 190,
+     "tr": false
+    },
+    {
+     "title": "MiniPod: On the back foot | Words we use",
+     "pub": "2026-06-14T23:00:00Z",
+     "link": "https://www.sbs.com.au/language/english/en/podcast-episode/minipod-on-the-back-foot-words-we-use/4q3h73yhz",
+     "dur": 159,
+     "tr": false
+    }
+   ],
+   "page": {
+    "url": "https://www.sbs.com.au/language/english/en/podcast-episode/minipod-hammered-words-we-use/pnlykdr2u",
+    "len": 480616,
+    "transcript_word": 26,
+    "classes": [
+     "Icon-module__7tHgjG__root Icon-module__7tHgjG__md TranscriptAccordion-module__oesdnG__transcriptIcon",
+     "TranscriptAccordion-module__oesdnG__title",
+     "ViewTranscriptButton-module__QqbgfG__button",
+     "transcript-accordion",
+     "transcript-accordion-icon",
+     "transcript-accordion-title",
+     "transcript-clip",
+     "transcript-header"
+    ],
+    "jsonld": true
+   }
+  },
+  "Conversations ABC": {
+   "hits": [
+    {
+     "name": "Conversations",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/7711104/podcast.xml"
+    },
+    {
+     "name": "The Conversation Hour",
+     "artist": "ABC",
+     "feed": "https://www.abc.net.au/feeds/7981094/podcast.xml"
+    },
+    {
+     "name": "Conversations: Psychology & Relationships",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/105636406/podcast.xml"
+    }
+   ],
+   "feed": "https://www.abc.net.au/feeds/7711104/podcast.xml",
+   "eps": [
+    {
+     "title": "How to keep living when life falls apart",
+     "pub": "2026-10-16T00:30:00Z",
+     "link": "https://www.abc.net.au/listen/programs/conversations/robin-bailey-on-helping-her-sons-navigate-their-dads-suicide/107253008",
+     "dur": 3060,
+     "tr": false
+    },
+    {
+     "title": "Encore: Inside the minds of the fish who sleep, have friends, and know it's the weekend",
+     "pub": "2026-10-15T00:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/conversations/encore-dr-culum-brown-fish-sharks-feelings-friendship-memory/107252050",
+     "dur": 3000,
+     "tr": false
+    },
+    {
+     "title": "How I decentred men and fell in love with my friends instead of another f*ckboy",
+     "pub": "2026-10-14T00:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/conversations/dee-salmin-love-relationships-hookup-triple-j/107249318",
+     "dur": 3208,
+     "tr": false
+    }
+   ],
+   "page": {
+    "url": "https://www.abc.net.au/listen/programs/conversations/robin-bailey-on-helping-her-sons-navigate-their-dads-suicide/107253008",
+    "len": 280797,
+    "transcript_word": 0,
+    "classes": [],
+    "jsonld": false
+   }
+  },
+  "Late Night Live ABC": {
+   "hits": [
+    {
+     "name": "Late Night Live — Full program podcast",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/2890646/podcast.xml"
+    },
+    {
+     "name": "Late Night Live - Separate stories podcast",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/2890652/podcast.xml"
+    }
+   ],
+   "feed": "https://www.abc.net.au/feeds/2890646/podcast.xml",
+   "eps": [
+    {
+     "title": "Democracy Now's Amy Goodman, and secret women's business re-visited",
+     "pub": "2026-10-15T11:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/latenightlive/late-night-live-amy-goodman-tracey-rigney-hindmarsh-island-/107266756",
+     "dur": 3275,
+     "tr": false
+    },
+    {
+     "title": "Snow gums on the front line of climate change, plus Susan Orlean's life in writing",
+     "pub": "2026-10-14T11:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/latenightlive/meet-snow-gums-before-they-go-non-fiction-writer-susan-orlean/107194076",
+     "dur": 3259,
+     "tr": false
+    },
+    {
+     "title": "Ian Dunt's UK, Yanis Varoufakis and the meaning of zero",
+     "pub": "2026-10-13T11:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/latenightlive/late-night-live-ian-dunt-yanis-varoufakis-/107185076",
+     "dur": 3275,
+     "tr": false
+    }
+   ],
+   "page": {
+    "url": "https://www.abc.net.au/listen/programs/latenightlive/late-night-live-amy-goodman-tracey-rigney-hindmarsh-island-/107266756",
+    "len": 267028,
+    "transcript_word": 0,
+    "classes": [],
+    "jsonld": false
+   }
+  },
+  "The Signal ABC": {
+   "hits": [
+    {
+     "name": "ABC7 Chicago - News Specials",
+     "artist": "WLS-TV",
+     "feed": "http://dig.abclocal.go.com/wls/podcast/newsspecialspod.xml"
+    },
+    {
+     "name": "The Busy Signal",
+     "artist": "Jym",
+     "feed": "https://anchor.fm/s/f2b39b04/podcast/rss"
+    },
+    {
+     "name": "The View: Behind the Table",
+     "artist": "ABC News",
+     "feed": "https://feeds.megaphone.fm/ESP9353667360"
+    }
+   ],
+   "feed": "http://dig.abclocal.go.com/wls/podcast/newsspecialspod.xml",
+   "eps": [
+    {
+     "title": "ABC7 presents special edition of Heart and Soul",
+     "pub": "2011-07-23T11:39:59Z",
+     "link": null,
+     "dur": 1337,
+     "tr": false
+    },
+    {
+     "title": "The N Beat: Cultural Connections",
+     "pub": "2011-06-25T11:39:59Z",
+     "link": null,
+     "dur": 1342,
+     "tr": false
+    },
+    {
+     "title": "Chicago's Mayor: The Daley Years: May 12, 2011",
+     "pub": "2011-05-12T11:39:59Z",
+     "link": null,
+     "dur": 1347,
+     "tr": false
+    }
+   ]
+  },
+  "Background Briefing ABC": {
+   "hits": [
+    {
+     "name": "Background Briefing",
+     "artist": "ABC Australia",
+     "feed": "https://www.abc.net.au/feeds/2890982/podcast.xml"
+    }
+   ],
+   "feed": "https://www.abc.net.au/feeds/2890982/podcast.xml",
+   "eps": [
+    {
+     "title": "03 Dark Menace | Operation Queenstown",
+     "pub": "2026-10-15T13:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/backgroundbriefing/03-dark-menace-operation-queenstown/107269394",
+     "dur": 2354,
+     "tr": false
+    },
+    {
+     "title": "02 Dark Menace | What Happened At Sunrise",
+     "pub": "2026-10-08T13:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/backgroundbriefing/02-dark-menace-mark-dennis-just-trust-him/107246724",
+     "dur": 2295,
+     "tr": false
+    },
+    {
+     "title": "01 Dark Menace | The Chairman's Secrets",
+     "pub": "2026-10-01T14:00:00Z",
+     "link": "https://www.abc.net.au/listen/programs/backgroundbriefing/01-dark-menace-the-chairmans-secrets-lawyer-sydney-mark-dennis/107220162",
+     "dur": 2495,
+     "tr": false
+    }
+   ],
+   "page": {
+    "url": "https://www.abc.net.au/listen/programs/backgroundbriefing/03-dark-menace-operation-queenstown/107269394",
+    "len": 245764,
+    "transcript_word": 0,
+    "classes": [],
+    "jsonld": false
+   }
+  }
+ }
+}
