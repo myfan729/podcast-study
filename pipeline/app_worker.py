@@ -79,6 +79,10 @@ def show_config(row: dict) -> dict:
            "style": (row.get("description") or "")[:300]}
     if row["path"] == "npr":
         cfg.update(transcript="web", parser=row.get("parser") or "npr")
+    elif row["path"] == "web":                      # publisher web pages (BBC Learning English, ABC, …)
+        cfg.update(transcript="web", parser=row.get("parser") or "generic")
+        if row.get("page_url"):
+            cfg["page_url"] = row["page_url"]
     return cfg
 
 
@@ -86,7 +90,7 @@ def episode_row(show: dict, ep: Episode, path: str) -> dict:
     return {"show_id": show["id"], "guid": ep.guid, "title": ep.title, "published_at": ep.published_iso,
             "duration_sec": ep.duration_sec, "audio_url": ep.audio_url, "episode_url": ep.link,
             "image_url": ep.image_url, "description": strip_html(ep.description_html, 1500),
-            "has_transcript": bool(ep.best_transcript) or path == "npr"}
+            "has_transcript": bool(ep.best_transcript) or path in ("npr", "web")}
 
 
 def mark_npr_transcripts(db: Supa, session, sh: dict, cfg: dict, kept: list, rows: list[dict]) -> None:
@@ -125,7 +129,7 @@ def refresh(db: Supa, only: str | None = None) -> int:
         ok = show_filter(cfg)
         kept = [e for e in eps if ok(e)][:KEEP_PER_SHOW]
         rows = [episode_row(sh, e, sh["path"]) for e in kept]
-        if sh["path"] == "npr":
+        if sh["path"] in ("npr", "web"):
             mark_npr_transcripts(db, session, sh, cfg, kept, rows)
         # don't overwrite worker-owned columns (status, pack paths) on existing rows: upsert only listing fields
         db.upsert("episodes", rows, "show_id,guid")
@@ -224,9 +228,16 @@ def sync_pending(db: Supa, max_n: int = 10) -> int:
 def seed(db: Supa, path: Path) -> int:
     rows = json.loads(path.read_text())["shows"]
     keep = ("feed_url", "title", "author", "image_url", "description", "language", "path", "parser", "speaker_labels",
-            "max_minutes", "title_include", "title_exclude", "category", "level")
+            "max_minutes", "title_include", "title_exclude", "category", "level", "page_url")
     db.upsert("shows", [dict({k: r.get(k) for k in keep}, catalog=True) for r in rows], "feed_url")
-    log.info("seeded %d catalog shows", len(rows))
+    # shows dropped from the catalog (they can't be served well): out of the catalog, and nobody follows them
+    listed = {r["feed_url"] for r in rows}
+    gone = [sh for sh in db.select("shows", "select=id,title,feed_url&catalog=eq.true") if sh["feed_url"] not in listed]
+    for sh in gone:
+        db.update("shows", f"id=eq.{sh['id']}", {"catalog": False})
+        db.s.delete(f"{db.url}/rest/v1/subscriptions?show_id=eq.{sh['id']}", headers=db.h, timeout=60).raise_for_status()
+        log.info("dropped from the catalog: %s", sh["title"])
+    log.info("seeded %d catalog shows (%d dropped)", len(rows), len(gone))
     return len(rows)
 
 

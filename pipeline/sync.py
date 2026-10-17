@@ -28,6 +28,7 @@ from .util import http_session, log, read_json, setup_logging, utcnow_iso, write
 SYNC_DIR = DATA / "sync"
 REF_LEN = 45.0            # seconds of content fingerprinted after each break
 BACKUP_AT = 60.0          # …and again this far into the same stretch, in case the first spot fails in a browser
+GRID_EVERY = 120.0        # …and every this many seconds of content (catches ad slots that were empty in our copy)
 RETRY_AT = (0.0, 25.0, 60.0, 120.0)   # content seconds after a break where its text is looked for
 TARGET_TOKENS = 24        # transcript words used to locate a break in the ASR output
 MIN_SCORE = 0.55
@@ -284,8 +285,13 @@ def build(doc: dict, asr: Asr | None, session, do_selftest: bool = False) -> dic
         if br.get("a") is None:
             continue
         seg_end = breaks[i + 1]["c"] if i + 1 < len(breaks) else content_dur
-        for d in (0.0, BACKUP_AT):
+        # right after the break, a backup a minute later, then a grid every GRID_EVERY seconds: an ad slot that was
+        # empty in our copy (so we saw no break there) can be filled in the listener's copy, and the grid catches it
+        ds = [0.0, BACKUP_AT] + [g for g in range(int(GRID_EVERY), int(seg_end - br["c"] - REF_LEN), int(GRID_EVERY))]
+        for d in sorted(set(ds)):
             if d and br["c"] + d + REF_LEN > seg_end:
+                continue
+            if d and d != BACKUP_AT and abs(d - BACKUP_AT) < 40:
                 continue
             a0 = max(0, int((br["a"] + d) * F.SR))
             seg = pcm8[a0:a0 + int(REF_LEN * F.SR)]
