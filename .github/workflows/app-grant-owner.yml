@@ -1,0 +1,20 @@
+name: App — give the owner account Pro (one-off)
+on:
+  workflow_dispatch:
+jobs:
+  grant:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+    steps:
+      - run: |
+          sudo apt-get install -y -qq postgresql-client > /dev/null
+          # every real (non-test, non-review) account that exists today = the owner during the closed beta
+          n=$(psql "$SUPABASE_DB_URL" -tA -c "with u as (
+                insert into public.entitlements (user_id, plan, source)
+                select id, 'pro', 'owner' from auth.users
+                where email not like '%.test' and email <> 'review@ingpot.app'
+                on conflict (user_id) do update set plan = 'pro', expires_at = null, source = 'owner', updated_at = now()
+                returning 1) select count(*) from u" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g")
+          echo "::notice title=accounts set to Pro::$n"
