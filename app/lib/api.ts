@@ -88,3 +88,9 @@ export async function review(item: SavedItem, grade: 0 | 1 | 2 | 3) {
   const due = new Date(Date.now() + (iv ? iv * 86400e3 : 10 * 60e3)).toISOString();
   ok(await supabase.from('vocab').update({ ease, interval_days: iv, reps, due_at: due }).eq('id', item.id));
 }
+
+/** Permanently deletes the signed-in user's account and everything saved under it. */
+export async function deleteMyAccount() {
+  ok(await supabase.rpc('delete_my_account'));
+  await supabase.auth.signOut();
+}

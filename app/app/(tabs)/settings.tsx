@@ -1,12 +1,12 @@
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Linking, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon, PageTitle } from '@/components/ui';
 import * as api from '@/lib/api';
 import { supabase } from '@/lib/supabase';
 import { useSession } from '@/lib/session';
-import { FREE_PER_WEEK } from '@/lib/config';
+import { FREE_PER_WEEK, PRIVACY_URL } from '@/lib/config';
 import { C, F, R } from '@/lib/theme';
 
 export default function Settings() {
@@ -14,6 +14,12 @@ export default function Settings() {
   const [plan, setPlan] = useState<{ free_left: number; pro: boolean } | null>(null);
   useFocusEffect(useCallback(() => { api.freeLeft().then(setPlan).catch(() => {}); }, []));
   const email = session?.user.email ?? '';
+  const remove = () => {
+    const run = () => api.deleteMyAccount().catch((e) => Alert.alert('삭제하지 못했어요', String(e.message ?? e)));
+    const msg = '계정과 저장한 단어장, 듣기 기록이 모두 지워지고 되돌릴 수 없어요.';
+    if (Platform.OS === 'web') { if (globalThis.confirm?.(msg)) run(); return; }
+    Alert.alert('계정을 삭제할까요?', msg, [{ text: '취소', style: 'cancel' }, { text: '삭제', style: 'destructive', onPress: run }]);
+  };
   return (
     <SafeAreaView edges={['top']} style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={{ paddingBottom: 24 }}>
@@ -40,6 +46,11 @@ export default function Settings() {
         <Pressable style={s.out} onPress={() => supabase.auth.signOut()} accessibilityRole="button">
           <Icon name="log-out-outline" size={18} color={C.warn} /><Text style={s.outT}>로그아웃</Text>
         </Pressable>
+        <View style={s.links}>
+          <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} hitSlop={8}><Text style={s.link}>개인정보처리방침</Text></Pressable>
+          <Text style={s.link}>·</Text>
+          <Pressable onPress={remove} hitSlop={8} accessibilityRole="button"><Text style={s.link}>계정 삭제</Text></Pressable>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -60,4 +71,6 @@ const s = StyleSheet.create({
   soonT: { color: C.ink2, fontSize: 13 },
   out: { flexDirection: 'row', gap: 6, alignItems: 'center', justifyContent: 'center', minHeight: 52, marginTop: 18 },
   outT: { color: C.warn, fontWeight: '700' },
+  links: { flexDirection: 'row', justifyContent: 'center', gap: 10, marginTop: 4 },
+  link: { color: C.ink3, fontSize: 13, textDecorationLine: 'none' },
 });

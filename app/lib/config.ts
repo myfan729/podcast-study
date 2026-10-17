@@ -5,3 +5,5 @@ const extra = (Constants.expoConfig?.extra ?? {}) as Record<string, string | und
 export const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL ?? extra.supabaseUrl ?? '';
 export const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY ?? extra.supabaseAnonKey ?? '';
 export const FREE_PER_WEEK = 2;
+export const SITE_URL = 'https://myfan729.github.io/podcast-study/';
+export const PRIVACY_URL = SITE_URL + 'privacy.html';

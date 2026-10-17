@@ -8,7 +8,7 @@
     "scheme": "podcaststudy",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "io.github.myfan729.podcaststudy",
       "infoPlist": {
         "UIBackgroundModes": [
@@ -24,7 +24,14 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "io.github.myfan729.podcaststudy"
+      "package": "io.github.myfan729.podcaststudy",
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.SYSTEM_ALERT_WINDOW"
+      ],
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",
@@ -45,7 +52,9 @@
       [
         "expo-audio",
         {
-          "enableBackgroundPlayback": true
+          "enableBackgroundPlayback": true,
+          "recordAudioAndroid": false,
+          "microphonePermission": false
         }
       ]
     ],
@@ -55,6 +64,7 @@
     "extra": {
       "supabaseUrl": "https://neyaiwhtuczbsdoqqgir.supabase.co",
       "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5leWFpd2h0dWN6YnNkb3FxZ2lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyMDMxNDAsImV4cCI6MjEwNzc3OTE0MH0.GH0ryPV0A92KOakQEyIxDVo2kQM-gBizvGVKUZqLQdU"
-    }
+    },
+    "description": "진짜 영어 팟캐스트를 대본·번역·표현과 함께 듣는 영어 학습 앱"
   }
 }
