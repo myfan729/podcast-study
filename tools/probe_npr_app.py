@@ -33,4 +33,6 @@ for name, feed in SHOWS.items():
     out[name] = rows
 Path("tools/probe_npr_app.json").write_text(json.dumps(out, ensure_ascii=False, indent=1))
 for k, v in out.items():
-    print(k, sum(1 for r in v if r.get("ok")), "/", len(v))
+    for r in v:
+        print(f"::notice title={k}::{'OK' if r.get('ok') else 'FAIL'} {r['pub'][:16]} {r['title'][:50]} | paras={r.get('paras','')} "
+              f"{r.get('error','')} | {r.get('page_title') or ''} | {r.get('url','')}")
