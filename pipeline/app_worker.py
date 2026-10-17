@@ -121,10 +121,13 @@ def refresh(db: Supa, only: str | None = None) -> int:
     n = 0
     for sh in shows:
         try:
-            _, eps = parse_feed(http_get_text(session, sh["feed_url"]))
+            meta, eps = parse_feed(http_get_text(session, sh["feed_url"]))
         except Exception as e:  # noqa: BLE001
             log.error("feed failed for %s: %s", sh["title"], e)
             continue
+        if not sh.get("description") and meta.get("description"):
+            # the show's own description (used for its Korean one-liner); a one-liner written without it is redone
+            db.update("shows", f"id=eq.{sh['id']}", {"description": strip_html(meta["description"], 1500), "intro_ko": None})
         cfg = show_config(sh)
         ok = show_filter(cfg)
         kept = [e for e in eps if ok(e)][:KEEP_PER_SHOW]
