@@ -57,7 +57,7 @@ export default function EpisodeScreen() {
     const failed = ep?.status === 'failed' || ep?.status === 'no_transcript';
     return failed
       ? <Center icon="alert-circle-outline" title="준비하지 못했어요" text="이 에피소드는 대본을 만들 수 없었어요. 다른 에피소드를 골라 주세요." />
-      : <Center spin title="에피소드를 준비하고 있어요" text={'대본·번역·표현을 만드는 중이에요.\n처음 여는 에피소드는 5분 정도 걸려요.\n이 화면을 나가도 계속 준비돼요.'} />;
+      : <Center spin title="에피소드를 준비하고 있어요" text={'대본·번역·표현을 만드는 중이에요.\n처음 여는 에피소드는 1~2분 정도 걸려요.\n이 화면을 나가도 계속 준비돼요.'} />;
   }
   return <Player pack={pack} ep={ep!} />;
 }

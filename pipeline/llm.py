@@ -336,15 +336,18 @@ class StudyGenerator:
         data = self._call_json(self.model, SYSTEM_STUDY, prompt, STUDY_SCHEMA, max_tokens=18000, strict=False)
         return postprocess_study_pack(data, segments)
 
-    def translate_items(self, items: list[tuple[str, str]], chunk: int = 80) -> dict[str, str]:
+    def translate_items(self, items: list[tuple[str, str]], chunk: int = 40) -> dict[str, str]:
         """Korean for each (id, english) line — used for cues (sentences) and, formerly, segments."""
         if self.mock:
             return {i: f"[번역 자리표시자] {t[:60]}…" for i, t in items}
         out: dict[str, str] = {}
-        for k in range(0, len(items), chunk):
-            part = items[k:k + chunk]
-            data = self._call_json(self.translate_model, SYSTEM_TRANSLATE, build_translate_prompt(part),
-                                   TRANSLATION_SCHEMA, max_tokens=16000)
+        parts = [items[k:k + chunk] for k in range(0, len(items), chunk)]
+        call = lambda part: self._call_json(self.translate_model, SYSTEM_TRANSLATE, build_translate_prompt(part),  # noqa: E731
+                                            TRANSLATION_SCHEMA, max_tokens=16000)
+        from concurrent.futures import ThreadPoolExecutor
+        with ThreadPoolExecutor(max_workers=4) as pool:                     # chunks in parallel
+            results = list(pool.map(call, parts))
+        for data in results:
             for row in data.get("translations", []):
                 if row.get("id") and row.get("ko"):
                     out[str(row["id"])] = row["ko"].strip()

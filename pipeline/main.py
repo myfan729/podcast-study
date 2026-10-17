@@ -370,11 +370,15 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
         study.setdefault("mock", False)
         study.setdefault("model", "fixture")
     else:
-        study = gen.generate_study_pack(meta, show, segments, speaker_mode)
+        # the study pack and the sentence translations are independent: run them at the same time
+        from concurrent.futures import ThreadPoolExecutor
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            f_tr = pool.submit(gen.translate_sentences, cues, sentences) if translate else None
+            study = gen.generate_study_pack(meta, show, segments, speaker_mode)
+            if f_tr is not None:
+                study["translations_sent"] = f_tr.result()                              # sentence by sentence
         study["mock"] = gen.mock
         study["model"] = gen.model
-        if translate:
-            study["translations_sent"] = gen.translate_sentences(cues, sentences)      # sentence by sentence
     study["generated_at"] = utcnow_iso()
 
     # Apply speaker names to segments for display.

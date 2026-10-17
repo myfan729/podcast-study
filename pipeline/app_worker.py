@@ -5,7 +5,9 @@ Runs on GitHub Actions (.github/workflows/app-worker.yml), talking to Supabase w
   ANTHROPIC_API_KEY                    (study pack + translations)
 
   python -m pipeline.app_worker refresh        # RSS of every show → new rows in `episodes`
-  python -m pipeline.app_worker process        # episodes with status=queued → pack + sync → storage → ready
+  python -m pipeline.app_worker process        # episodes with status=queued → pack → storage → ready (then sync)
+  python -m pipeline.app_worker prefetch       # newest episode of every followed show → status=prefetch
+  python -m pipeline.app_worker process --status prefetch   # build those (separate, low-priority job)
   python -m pipeline.app_worker seed FILE      # load the verified catalog (tools/catalog/catalog.json) into `shows`
 """
 from __future__ import annotations
@@ -105,18 +107,32 @@ def refresh(db: Supa, only: str | None = None) -> int:
     return n
 
 
-def process(db: Supa, max_n: int = 4, mock: bool = False) -> int:
-    from . import sync as SY
-    queued = db.select("episodes", "select=*,shows(*)&status=eq.queued&order=requested_at.asc&limit=%d" % max_n)
+def prefetch(db: Supa, per_show: int = 1) -> int:
+    """Mark the newest unbuilt episode(s) of every show someone follows, so it is ready before anyone opens it."""
+    followed = {r["show_id"] for r in db.select("subscriptions", "select=show_id")}
+    n = 0
+    for sid in followed:
+        eps = db.select("episodes", f"select=id,status,published_at&show_id=eq.{sid}&has_transcript=eq.true"
+                                     f"&order=published_at.desc&limit={per_show}")
+        for e in eps:
+            if e["status"] == "none":
+                if db.update("episodes", f"id=eq.{e['id']}&status=eq.none", {"status": "prefetch", "requested_at": utcnow_iso()}):
+                    n += 1
+    log.info("prefetch: %d new episode(s) of %d followed shows", n, len(followed))
+    return n
+
+
+def process(db: Supa, max_n: int = 4, mock: bool = False, status: str = "queued") -> int:
+    """Build study packs. Audio sync is a separate, later step (`sync`) so the app can open the episode sooner."""
+    queued = db.select("episodes", "select=*,shows(*)&status=eq.%s&order=requested_at.asc&limit=%d" % (status, max_n))
     if not queued:
         log.info("nothing queued")
         return 0
     session = http_session()
     gen = StudyGenerator(mock=mock)
-    asr = None
     done = 0
     for row in queued:
-        claimed = db.update("episodes", f"id=eq.{row['id']}&status=eq.queued", {"status": "processing"})
+        claimed = db.update("episodes", f"id=eq.{row['id']}&status=eq.{status}", {"status": "processing"})
         if not claimed:
             continue                                   # another worker took it
         sh = row["shows"]
@@ -134,28 +150,45 @@ def process(db: Supa, max_n: int = 4, mock: bool = False) -> int:
             doc["id"] = row["id"]
             doc["show"].update(slug=str(sh["id"]), name=sh["title"], image=sh.get("image_url"))
             db.put_object("episodes", f"{row['id']}.json", json.dumps(doc, ensure_ascii=False, separators=(",", ":")).encode())
-            sync_path = None
-            try:
-                if asr is None and not (doc.get("audio_meta") or {}).get("fixed"):
-                    asr = SY.Asr()
-                sync = SY.build(doc, asr, session)
-                db.put_object("episodes", f"{row['id']}.sync.json", json.dumps(sync, separators=(",", ":")).encode())
-                sync_path = f"{row['id']}.sync.json"
-            except Exception as e:  # noqa: BLE001
-                log.error("  sync failed (pack still usable, manual sync): %s", e)
+            # the pack is all the app needs: mark it ready right away, then add the audio sync (slow) afterwards
             db.update("episodes", f"id=eq.{row['id']}", {
-                "status": "ready", "pack_path": f"{row['id']}.json", "sync_path": sync_path, "error": None,
+                "status": "ready", "pack_path": f"{row['id']}.json", "error": None,
                 "one_liner_ko": (doc.get("study") or {}).get("one_liner_ko"), "ready_at": utcnow_iso(),
                 "duration_sec": doc.get("duration_sec")})
+            log.info("  ✓ ready (pack)")
             done += 1
-            log.info("  ✓ ready")
         except Exception as e:  # noqa: BLE001
             from .webtranscript import TranscriptNotReady
-            status = "queued" if isinstance(e, TranscriptNotReady) else "failed"
-            db.update("episodes", f"id=eq.{row['id']}", {"status": status, "error": str(e)[:300],
-                                                       "attempts": (row.get("attempts") or 0) + (0 if status == "queued" else 1)})
+            new = status if isinstance(e, TranscriptNotReady) else "failed"
+            db.update("episodes", f"id=eq.{row['id']}", {"status": new, "error": str(e)[:300],
+                                                       "attempts": (row.get("attempts") or 0) + (0 if new == status else 1)})
             log.error("  ✗ %s", e)
     return done
+
+
+def sync_pending(db: Supa, max_n: int = 10) -> int:
+    """Add the audio↔transcript sync to ready episodes that don't have it yet (needs requirements-sync.txt + ffmpeg)."""
+    from . import sync as SY
+    rows = db.select("episodes", "select=id,title,pack_path&status=eq.ready&sync_path=is.null&pack_path=not.is.null"
+                                 "&order=ready_at.desc&limit=%d" % max_n)
+    if not rows:
+        return 0
+    session, asr, n = http_session(), None, 0
+    for row in rows:
+        try:
+            r = db.s.get(f"{db.url}/storage/v1/object/episodes/{row['pack_path']}", headers=db.h, timeout=120)
+            r.raise_for_status()
+            doc = r.json()
+            if asr is None and not (doc.get("audio_meta") or {}).get("fixed"):
+                asr = SY.Asr()
+            sync = SY.build(doc, asr, session)
+            db.put_object("episodes", f"{row['id']}.sync.json", json.dumps(sync, separators=(",", ":")).encode())
+            db.update("episodes", f"id=eq.{row['id']}", {"sync_path": f"{row['id']}.sync.json"})
+            n += 1
+            log.info("synced %s", row["title"])
+        except Exception as e:  # noqa: BLE001
+            log.error("sync failed for %s: %s", row["title"], e)
+    return n
 
 
 def seed(db: Supa, path: Path) -> int:
@@ -169,10 +202,11 @@ def seed(db: Supa, path: Path) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", choices=["refresh", "process", "seed"])
+    ap.add_argument("cmd", choices=["refresh", "process", "prefetch", "sync", "seed"])
     ap.add_argument("arg", nargs="?")
     ap.add_argument("--max", type=int, default=4)
     ap.add_argument("--mock", action="store_true")
+    ap.add_argument("--status", default="queued", choices=["queued", "prefetch"])
     ap.add_argument("-v", "--verbose", action="store_true")
     a = ap.parse_args(argv)
     setup_logging(a.verbose)
@@ -180,7 +214,11 @@ def main(argv: list[str] | None = None) -> int:
     if a.cmd == "refresh":
         refresh(db, a.arg)
     elif a.cmd == "process":
-        process(db, a.max, a.mock)
+        process(db, a.max, a.mock, a.status)
+    elif a.cmd == "prefetch":
+        prefetch(db)
+    elif a.cmd == "sync":
+        sync_pending(db, a.max)
     else:
         seed(db, Path(a.arg or "tools/catalog/catalog.json"))
     return 0
