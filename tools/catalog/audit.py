@@ -30,6 +30,14 @@ extra = Path("tools/catalog/new_candidates.json")
 if extra.exists():
     shows += [dict(s, candidate=True) for s in json.loads(extra.read_text())["shows"]]
 mine = [s for i, s in enumerate(shows) if i % nsh == shard]
+# resume: shows already audited (committed results from an earlier run) are kept, not redone
+done_before = {}
+for f in Path("tools/catalog/audit").glob("*.json"):
+    try:
+        done_before.update({k: v for k, v in json.loads(f.read_text()).items() if not v.get("error")})
+    except Exception:  # noqa: BLE001
+        pass
+_np = lambda o: o.item() if hasattr(o, "item") else str(o)   # numpy scalars → JSON
 session, gen, asr = http_session(), StudyGenerator(mock=True), None
 
 
@@ -92,8 +100,10 @@ def check_points(doc: dict, matches: list[dict], pcm16) -> list[dict]:
     return res
 
 
-out = {}
+out = {k: v for k, v in done_before.items() if k in {s["feed_url"] for s in mine}}
 for sh in mine:
+    if sh["feed_url"] in out:
+        continue
     t0 = time.time()
     rec = {"title": sh["title"], "path": sh.get("path"), "candidate": bool(sh.get("candidate"))}
     try:
@@ -139,8 +149,8 @@ for sh in mine:
     rec["sec"] = round(time.time() - t0)
     out[sh["feed_url"]] = rec
     Path("tools/catalog/audit").mkdir(exist_ok=True)
-    Path(f"tools/catalog/audit/{shard}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1))   # after every show
+    Path(f"tools/catalog/audit/{shard}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1, default=_np))   # after every show
     print(json.dumps({k: rec.get(k) for k in ("title", "verdict", "transcript_rate", "accuracy", "sync", "refs", "error")},
-                     ensure_ascii=False), flush=True)
+                     ensure_ascii=False, default=_np), flush=True)
 Path("tools/catalog/audit").mkdir(exist_ok=True)
-Path(f"tools/catalog/audit/{shard}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1))
+Path(f"tools/catalog/audit/{shard}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1, default=_np))
