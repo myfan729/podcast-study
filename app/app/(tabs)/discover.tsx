@@ -1,9 +1,11 @@
 import { Link, useFocusEffect } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
-import { FlatList, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Art, Chip, Icon, PageTitle } from '@/components/ui';
 import * as api from '@/lib/api';
 import type { Show } from '@/lib/types';
-import { C } from '@/lib/theme';
+import { C, F, R } from '@/lib/theme';
 
 export default function Discover() {
   const [shows, setShows] = useState<Show[]>([]);
@@ -23,41 +25,46 @@ export default function Discover() {
     try { await api.setSubscribed(id, on); } catch { setSubs(subs); }
   };
   return (
-    <View style={{ flex: 1 }}>
-      <TextInput style={s.search} placeholder="쇼 이름 검색" value={q} onChangeText={setQ} />
-      <FlatList horizontal data={cats} keyExtractor={(c) => c} style={{ flexGrow: 0, minHeight: 44 }} contentContainerStyle={{ paddingHorizontal: 14, gap: 8, alignItems: 'center', paddingBottom: 6 }}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <Pressable onPress={() => setCat(item)} style={[s.chip, cat === item && s.chipOn]}>
-            <Text style={[s.chipT, cat === item && { color: '#fff' }]}>{item}</Text>
-          </Pressable>)} />
-      <FlatList contentContainerStyle={{ padding: 14 }} data={list} keyExtractor={(x) => x.id}
-        renderItem={({ item }) => (
-          <Link href={{ pathname: '/show/[id]', params: { id: item.id } }} asChild>
-            <Pressable style={s.row}>
-              {item.image_url ? <Image source={{ uri: item.image_url }} style={s.img} /> : <View style={s.img} />}
-              <View style={{ flex: 1 }}>
-                <Text style={s.title} numberOfLines={1}>{item.title}</Text>
-                <Text style={s.meta} numberOfLines={1}>{item.author}{item.level ? ` · ${item.level}` : ''}</Text>
-              </View>
-              <Pressable onPress={() => toggle(item.id)} style={[s.sub, subs.has(item.id) && s.subOn]}>
-                <Text style={[s.subT, subs.has(item.id) && { color: '#fff' }]}>{subs.has(item.id) ? '구독 중' : '구독'}</Text>
+    <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+      <PageTitle>찾기</PageTitle>
+      <View style={s.search}>
+        <Icon name="search" size={18} color={C.ink3} />
+        <TextInput style={s.input} placeholder="쇼 이름으로 찾기" placeholderTextColor={C.ink3} value={q} onChangeText={setQ}
+          accessibilityLabel="쇼 검색" returnKeyType="search" />
+      </View>
+      <FlatList horizontal data={cats} keyExtractor={(c) => c} style={{ flexGrow: 0, minHeight: 50 }}
+        contentContainerStyle={{ paddingHorizontal: 22, gap: 8, alignItems: 'center' }} showsHorizontalScrollIndicator={false}
+        renderItem={({ item }) => <Chip label={item} on={cat === item} onPress={() => setCat(item)} />} />
+      <FlatList contentContainerStyle={{ padding: 16, paddingTop: 8 }} data={list} keyExtractor={(x) => x.id}
+        ListEmptyComponent={<Text style={s.none}>{shows.length ? '찾는 쇼가 없어요.' : '불러오는 중…'}</Text>}
+        renderItem={({ item }) => {
+          const on = subs.has(item.id);
+          return (
+            <Link href={{ pathname: '/show/[id]', params: { id: item.id } }} asChild>
+              <Pressable style={({ pressed }) => [s.row, pressed && { opacity: 0.85 }]}>
+                <Art uri={item.image_url} id={item.id} size={58} radius={16} />
+                <View style={{ flex: 1, minWidth: 0 }}>
+                  <Text style={s.title} numberOfLines={1}>{item.title}</Text>
+                  <Text style={s.meta} numberOfLines={1}>{item.author}{item.level ? ` · ${item.level}` : ''}</Text>
+                </View>
+                <Pressable onPress={() => toggle(item.id)} accessibilityLabel={on ? '구독 취소' : '구독'} hitSlop={6}
+                  style={[s.sub, on && { backgroundColor: C.accent }]}>
+                  <Icon name={on ? 'checkmark' : 'add'} size={16} color={on ? '#fff' : C.accent} />
+                  <Text style={[s.subT, on && { color: '#fff' }]}>{on ? '구독 중' : '구독'}</Text>
+                </Pressable>
               </Pressable>
-            </Pressable>
-          </Link>)} />
-    </View>
+            </Link>);
+        }} />
+    </SafeAreaView>
   );
 }
 const s = StyleSheet.create({
-  search: { margin: 14, marginBottom: 10, backgroundColor: C.sheet, borderRadius: 12, borderWidth: 1, borderColor: C.line, padding: 12, fontSize: 15 },
-  chip: { paddingHorizontal: 12, paddingVertical: 7, borderRadius: 99, backgroundColor: C.sheet, borderWidth: 1, borderColor: C.line },
-  chipOn: { backgroundColor: C.ink, borderColor: C.ink },
-  chipT: { color: C.ink2, fontSize: 13 },
-  row: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: 12, backgroundColor: C.sheet, borderRadius: 14, marginBottom: 10, borderWidth: 1, borderColor: C.line },
-  img: { width: 56, height: 56, borderRadius: 10, backgroundColor: C.line },
-  title: { color: C.ink, fontWeight: '600', fontSize: 15 },
+  search: { flexDirection: 'row', alignItems: 'center', gap: 8, marginHorizontal: 22, marginBottom: 6, backgroundColor: C.sheet, borderRadius: R.pill, paddingHorizontal: 16, minHeight: 50 },
+  input: { flex: 1, fontSize: 15, color: C.ink, paddingVertical: 12 },
+  row: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: 12, backgroundColor: C.sheet, borderRadius: 24, marginBottom: 10 },
+  title: { color: C.ink, fontFamily: F.enB, fontSize: 15.5 },
   meta: { color: C.ink3, fontSize: 12.5, marginTop: 3 },
-  sub: { borderWidth: 1, borderColor: C.accent, borderRadius: 99, paddingHorizontal: 12, paddingVertical: 6 },
-  subOn: { backgroundColor: C.accent },
-  subT: { color: C.accent, fontWeight: '600', fontSize: 13 },
+  sub: { flexDirection: 'row', alignItems: 'center', gap: 3, backgroundColor: C.accentSoft, borderRadius: R.pill, paddingHorizontal: 12, minHeight: 38 },
+  subT: { color: C.accent, fontWeight: '700', fontSize: 13 },
+  none: { color: C.ink3, textAlign: 'center', marginTop: 40 },
 });

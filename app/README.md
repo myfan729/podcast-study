@@ -1,4 +1,4 @@
-# Podcast Study — app (Expo)
+# 잉팟 — app (Expo)
 
 Real English podcasts with a synced transcript, sentence-by-sentence Korean, words & expressions and a review deck.
 

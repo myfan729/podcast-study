@@ -46,7 +46,14 @@ export const pack = (path: string) => download<Pack>(path);
 export const syncData = (path: string) => download<any>(path);
 
 export async function saveProgress(episodeId: string, position: number, finished = false) {
-  await supabase.from('unlocks').update({ position_sec: position, finished }).eq('episode_id', episodeId);
+  await supabase.from('unlocks').update({ position_sec: position, finished, played_at: new Date().toISOString() }).eq('episode_id', episodeId);
+}
+/** The episode the user was last in the middle of (for "이어 듣기"). */
+export async function continueListening(): Promise<{ position: number; ep: Episode } | null> {
+  const r = await supabase.from('unlocks').select('position_sec,episodes(' + EP_COLS + ',shows(title,image_url))')
+    .eq('finished', false).gt('position_sec', 20).not('played_at', 'is', null).order('played_at', { ascending: false }).limit(1);
+  const row = (r.data as unknown as { position_sec: number; episodes: Episode | null }[] | null)?.[0];
+  return row?.episodes ? { position: row.position_sec, ep: row.episodes } : null;
 }
 export async function lastPosition(episodeId: string): Promise<number> {
   const r = await supabase.from('unlocks').select('position_sec').eq('episode_id', episodeId).maybeSingle();

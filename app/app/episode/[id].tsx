@@ -1,12 +1,14 @@
-import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Btn, Icon, RoundBtn } from '@/components/ui';
 import * as api from '@/lib/api';
 import { addAnchor, toAudio, toContent, type Anchor } from '@/lib/timeline';
 import type { Episode, Expression, Pack, RequestResult } from '@/lib/types';
-import { C, fmt } from '@/lib/theme';
+import { C, F, R, fmt, shadow } from '@/lib/theme';
 
 type Sent = { a: number; b: number; s: number; text: string; ko?: string; speaker?: string; showSpk: boolean };
 const RATES = [0.8, 1, 1.2];
@@ -44,23 +46,35 @@ export default function EpisodeScreen() {
   if (!req) return <Center spin />;
   if (!req.unlocked) {
     return (
-      <View style={st.center}>
-        <Text style={st.h}>{req.reason === 'quota' ? '이번 주 무료 에피소드를 다 썼어요' : '이 에피소드는 대본이 없어요'}</Text>
-        {req.reason === 'quota' && <Text style={st.p}>무료는 일주일에 {2}편까지예요. 프로로 업그레이드하면 무제한으로 들을 수 있어요.</Text>}
-        {req.reason === 'quota' && <Pressable style={st.btn} onPress={() => router.push('/settings')}><Text style={st.btnT}>프로 알아보기</Text></Pressable>}
-      </View>
+      <Center icon={req.reason === 'quota' ? 'lock-closed' : 'document-text-outline'}
+        title={req.reason === 'quota' ? '이번 주 무료 에피소드를 다 썼어요' : '이 에피소드는 대본이 없어요'}
+        text={req.reason === 'quota' ? '무료는 일주일에 2편까지예요. 프로로 업그레이드하면 무제한으로 들을 수 있어요.' : undefined}>
+        {req.reason === 'quota' && <Btn label="프로 알아보기" onPress={() => router.push('/settings')} style={{ alignSelf: 'stretch', marginTop: 20 }} />}
+      </Center>
     );
   }
   if (!pack) {
     const failed = ep?.status === 'failed' || ep?.status === 'no_transcript';
-    return <Center spin={!failed} text={failed ? '이 에피소드는 준비하지 못했어요. 다른 에피소드를 골라 주세요.'
-      : '대본·번역·표현을 준비하고 있어요.\n처음 여는 에피소드는 5분 정도 걸려요. 이 화면을 나가도 계속 준비돼요.'} />;
+    return failed
+      ? <Center icon="alert-circle-outline" title="준비하지 못했어요" text="이 에피소드는 대본을 만들 수 없었어요. 다른 에피소드를 골라 주세요." />
+      : <Center spin title="에피소드를 준비하고 있어요" text={'대본·번역·표현을 만드는 중이에요.\n처음 여는 에피소드는 5분 정도 걸려요.\n이 화면을 나가도 계속 준비돼요.'} />;
   }
   return <Player pack={pack} ep={ep!} />;
 }
 
-function Center({ text, spin }: { text?: string; spin?: boolean }) {
-  return <View style={st.center}>{spin && <ActivityIndicator size="large" color={C.accent} />}{text && <Text style={[st.p, { textAlign: 'center', marginTop: 14 }]}>{text}</Text>}</View>;
+function Center({ text, title, spin, icon, children }: { text?: string; title?: string; spin?: boolean; icon?: 'lock-closed' | 'document-text-outline' | 'alert-circle-outline'; children?: ReactNode }) {
+  const router = useRouter();
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ paddingHorizontal: 16, paddingTop: 6 }}><RoundBtn icon="chevron-back" label="뒤로" onPress={() => router.back()} /></View>
+      <View style={st.center}>
+        <View style={st.centerArt}>{spin ? <ActivityIndicator size="large" color={C.accent} /> : icon ? <Icon name={icon} size={34} color={C.accent} /> : null}</View>
+        {title ? <Text style={st.h}>{title}</Text> : null}
+        {text ? <Text style={[st.p, { textAlign: 'center', marginTop: 8 }]}>{text}</Text> : null}
+        {children}
+      </View>
+    </SafeAreaView>
+  );
 }
 
 function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
@@ -114,49 +128,85 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
   const setSpeed = () => { const r = RATES[(RATES.indexOf(rate) + 1) % RATES.length]; setRate(r); player.setPlaybackRate(r); };
   const offset = anchors.length ? Math.round(anchors[anchors.length - 1].a - anchors[anchors.length - 1].c) : 0;
 
+  const router = useRouter();
+  const [barW, setBarW] = useState(1);
+  const dur = status.duration || pack.duration_sec || 1;
+  const pct = Math.min(1, (status.currentTime ?? 0) / dur);
+
   return (
-    <View style={{ flex: 1 }}>
-      <Stack.Screen options={{ title: pack.show.name }} />
-      <View style={st.tabs}>
+    <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+      <View style={st.top}>
+        <RoundBtn icon="chevron-back" label="뒤로" onPress={() => router.back()} />
+        <View style={{ flex: 1, minWidth: 0, alignItems: 'center' }}>
+          <Text style={st.topShow} numberOfLines={1}>{pack.show.name}</Text>
+          <Text style={st.topTitle} numberOfLines={1}>{pack.title}</Text>
+        </View>
+        <View style={{ width: 44 }} />
+      </View>
+      <View style={st.seg}>
         {(['script', 'words'] as const).map((t) => (
-          <Pressable key={t} onPress={() => setTab(t)} style={[st.tab, tab === t && st.tabOn]}>
-            <Text style={[st.tabT, tab === t && { color: C.ink }]}>{t === 'script' ? '스크립트' : '단어 및 표현'}</Text>
+          <Pressable key={t} onPress={() => setTab(t)} style={[st.segB, tab === t && st.segOn]} accessibilityRole="tab" accessibilityState={{ selected: tab === t }}>
+            <Text style={[st.segT, tab === t && { color: C.ink, fontWeight: '700' }]}>{t === 'script' ? '스크립트' : '단어·표현'}</Text>
           </Pressable>))}
-        {tab === 'script' && <Pressable onPress={() => setKo(!ko)} style={[st.pill, ko && st.pillOn]}><Text style={[st.pillT, ko && { color: '#fff' }]}>한국어</Text></Pressable>}
       </View>
       {tab === 'script' ? (
-        <FlatList ref={listRef} data={sents} keyExtractor={(x) => String(x.a)} contentContainerStyle={{ padding: 16, paddingBottom: 40 }}
-          ListHeaderComponent={<View style={{ marginBottom: 14 }}><Text style={st.title}>{pack.title}</Text>
-            {pack.study.one_liner_ko ? <Text style={st.p}>{pack.study.one_liner_ko}</Text> : null}</View>}
+        <FlatList ref={listRef} data={sents} keyExtractor={(x) => String(x.a)} contentContainerStyle={{ padding: 18, paddingBottom: 40 }}
+          ListHeaderComponent={pack.study.one_liner_ko ? <View style={st.oneBox}><Icon name="bulb-outline" size={16} color={C.accent} /><Text style={st.one}>{pack.study.one_liner_ko}</Text></View> : undefined}
           onScrollBeginDrag={() => { userScroll.current = Date.now(); }}
           onScrollToIndexFailed={() => {}}
-          renderItem={({ item, index }) => <SentRow sn={item} active={index === cur} ko={ko} onPress={onSentence} />} />
+          renderItem={({ item, index }) => <SentRow sn={item} state={index === cur ? 'cur' : index < cur ? 'past' : 'next'} ko={ko} onPress={onSentence} />} />
       ) : (
         <Words pack={pack} episodeId={ep.id} onJump={(sec) => player.seekTo(toAudio(sec, anchors))} />
       )}
-      {syncMode && <Text style={st.syncHint}>지금 들리는 문장을 누르세요</Text>}
+      {syncMode && <View style={st.syncHint}><Icon name="hand-left-outline" size={16} color={C.accent} /><Text style={st.syncT}>지금 들리는 문장을 눌러 주세요</Text></View>}
       <View style={st.bar}>
-        <Text style={st.time}>{fmt(status.currentTime)} / {fmt(status.duration)}</Text>
-        <View style={st.ctrls}>
-          <Btn label="↺5" onPress={() => player.seekTo(Math.max(0, (status.currentTime ?? 0) - 5))} />
-          <Pressable onPress={() => (status.playing ? player.pause() : player.play())} style={st.play}>
-            <Text style={{ color: '#fff', fontSize: 20 }}>{status.playing ? '❚❚' : '▶'}</Text>
+        <View style={st.timeRow}>
+          <Text style={st.time}>{fmt(status.currentTime)} / {fmt(status.duration)}</Text>
+          <Pressable onPress={() => setSyncMode(!syncMode)} style={[st.sync, syncMode && { backgroundColor: C.progress }]} hitSlop={6}
+            accessibilityLabel="대본 싱크 맞추기">
+            <Text style={[st.syncBtnT, syncMode && { color: C.dark }]}>{syncMode ? '취소' : offset ? `싱크 ${offset > 0 ? '+' : ''}${offset}s` : '싱크'}</Text>
           </Pressable>
-          <Btn label="5↻" onPress={() => player.seekTo((status.currentTime ?? 0) + 5)} />
-          <Btn label={`${rate.toFixed(1)}×`} onPress={setSpeed} />
-          <Btn label={syncMode ? '취소' : offset ? `싱크 ${offset > 0 ? '+' : ''}${offset}s` : '싱크'} onPress={() => setSyncMode(!syncMode)} />
+        </View>
+        <Pressable onLayout={(e) => setBarW(e.nativeEvent.layout.width || 1)} hitSlop={{ top: 12, bottom: 12 }} accessibilityLabel="재생 위치"
+          onPress={(e) => player.seekTo((e.nativeEvent.locationX / barW) * dur)} style={st.track}>
+          <View style={[st.fill, { width: `${pct * 100}%` }]} />
+        </Pressable>
+        <View style={st.ctrls}>
+          <Pressable onPress={setSpeed} style={st.side} accessibilityLabel="재생 속도"><Text style={st.sideT}>{rate.toFixed(1)}x</Text></Pressable>
+          <RoundBtn icon="play-back" label="5초 뒤로" size={48} bg="transparent" color="#fff"
+            onPress={() => player.seekTo(Math.max(0, (status.currentTime ?? 0) - 5))} />
+          <RoundBtn icon={status.playing ? 'pause' : 'play'} label={status.playing ? '일시정지' : '재생'} size={64} bg="#fff" color={C.dark}
+            onPress={() => (status.playing ? player.pause() : player.play())} />
+          <RoundBtn icon="play-forward" label="5초 앞으로" size={48} bg="transparent" color="#fff"
+            onPress={() => player.seekTo((status.currentTime ?? 0) + 5)} />
+          <Pressable onPress={() => setKo(!ko)} style={[st.side, ko && { backgroundColor: C.progress }]} accessibilityLabel="한국어 번역 보기"
+            accessibilityState={{ checked: ko }}>
+            <Text style={[st.sideT, ko && { color: C.dark }]}>한글</Text>
+          </Pressable>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
-const SentRow = memo(function SentRow({ sn, active, ko, onPress }: { sn: Sent; active: boolean; ko: boolean; onPress: (s: Sent) => void }) {
+const SentRow = memo(function SentRow({ sn, state, ko, onPress }: { sn: Sent; state: 'past' | 'cur' | 'next'; ko: boolean; onPress: (s: Sent) => void }) {
+  if (state === 'cur') {
+    return (
+      <Pressable onPress={() => onPress(sn)} style={[st.curCard, shadow]}>
+        <View style={st.spkRow}>
+          {sn.speaker ? <View style={st.spkDot}><Text style={st.spkDotT}>{sn.speaker.slice(0, 1).toUpperCase()}</Text></View> : null}
+          <Text style={st.spk}>{sn.speaker ? sn.speaker + ' · ' : ''}{fmt(sn.s)}</Text>
+        </View>
+        <Text style={st.curEn}>{sn.text}</Text>
+        {ko && sn.ko ? <View style={st.koBox}><Text style={st.curKo}>{sn.ko}</Text></View> : null}
+      </Pressable>
+    );
+  }
   return (
-    <Pressable onPress={() => onPress(sn)} style={[st.sent, active && st.sentOn]}>
-      {sn.showSpk && <Text style={st.spk}>{fmt(sn.s)}  {sn.speaker}</Text>}
-      <Text style={st.en}>{sn.text}</Text>
-      {ko && sn.ko ? <Text style={st.ko}>{sn.ko}</Text> : null}
+    <Pressable onPress={() => onPress(sn)} style={st.sent}>
+      {sn.showSpk && <Text style={st.spkSmall}>{sn.speaker}</Text>}
+      <Text style={[st.en, state === 'past' && { color: C.faint }]}>{sn.text}</Text>
+      {ko && sn.ko ? <Text style={[st.ko, state === 'past' && { color: C.faint }]}>{sn.ko}</Text> : null}
     </Pressable>
   );
 });
@@ -173,75 +223,102 @@ function Words({ pack, episodeId, onJump }: { pack: Pack; episodeId: string; onJ
     <FlatList data={[{ k: 'v' }, ...exprs.map((e, i) => ({ k: 'e' + i, e }))] as { k: string; e?: Expression }[]}
       keyExtractor={(x) => x.k} contentContainerStyle={{ padding: 16, paddingBottom: 40 }}
       renderItem={({ item }) => item.k === 'v' ? (
-        <View style={st.card}>
-          <Text style={st.cardH}>단어 {vocab.length}</Text>
-          {vocab.map((v) => (
-            <View key={v.word} style={st.vrow}>
-              <View style={{ flex: 1 }}>
-                <Text style={st.word}>{v.word} <Text style={st.pos}>{v.pos}</Text></Text>
-                <Text style={st.mean}>{v.meaning_ko}</Text>
-                {v.example ? <Text style={st.ex}>{v.example}</Text> : null}
-              </View>
-              <SaveBtn on={saved.has(v.word)} onPress={() => save('word', v.word, v.meaning_ko, v.example)} />
-            </View>))}
-          <Text style={[st.cardH, { marginTop: 18 }]}>표현 {exprs.length}</Text>
+        <View>
+          <Text style={st.secH}>단어 <Text style={st.secN}>{vocab.length}</Text></Text>
+          <View style={st.card}>
+            {vocab.map((v, i) => (
+              <View key={v.word} style={[st.vrow, i > 0 && st.vrowLine]}>
+                <View style={{ flex: 1, minWidth: 0 }}>
+                  <Text style={st.word}>{v.word} {v.pos ? <Text style={st.pos}>{v.pos}</Text> : null}</Text>
+                  <Text style={st.mean}>{v.meaning_ko}</Text>
+                  {v.example ? <Text style={st.ex}>{v.example}</Text> : null}
+                </View>
+                <SaveBtn on={saved.has(v.word)} onPress={() => save('word', v.word, v.meaning_ko, v.example)} />
+              </View>))}
+          </View>
+          <Text style={[st.secH, { marginTop: 22 }]}>표현 <Text style={st.secN}>{exprs.length}</Text></Text>
         </View>
       ) : (
         <View style={st.card}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-            <Text style={[st.word, { flex: 1 }]}>{item.e!.expression}</Text>
-            {item.e!.segment_id && segStart[item.e!.segment_id] != null &&
-              <Pressable onPress={() => onJump(segStart[item.e!.segment_id!])}><Text style={st.jump}>▶ {fmt(segStart[item.e!.segment_id!])}</Text></Pressable>}
+          <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 8 }}>
+            <Text style={[st.exprT, { flex: 1 }]}>{item.e!.expression}</Text>
             <SaveBtn on={saved.has(item.e!.expression)} onPress={() => save('expression', item.e!.expression, item.e!.meaning_ko, item.e!.examples?.[0])} />
           </View>
           <Text style={st.mean}>{item.e!.meaning_ko}</Text>
           {item.e!.nuance_ko ? <Text style={st.p}>{item.e!.nuance_ko}</Text> : null}
-          {item.e!.quote ? <Text style={st.quote}>“{item.e!.quote}”</Text> : null}
+          {item.e!.quote ? (
+            <Pressable style={st.quoteBox} disabled={!(item.e!.segment_id && segStart[item.e!.segment_id] != null)}
+              onPress={() => onJump(segStart[item.e!.segment_id!])}>
+              <Text style={st.quote}>“{item.e!.quote}”</Text>
+              {item.e!.segment_id && segStart[item.e!.segment_id] != null &&
+                <View style={st.jump}><Icon name="play" size={12} color={C.accent} /><Text style={st.jumpT}>{fmt(segStart[item.e!.segment_id!])}에서 듣기</Text></View>}
+            </Pressable>) : null}
           {(item.e!.examples ?? []).map((x) => <Text key={x} style={st.ex}>• {x}</Text>)}
-          {(item.e!.similar ?? []).map((x) => <Text key={x.expression} style={st.ex}>≈ <Text style={{ fontWeight: '600' }}>{x.expression}</Text> — {x.example}</Text>)}
+          {(item.e!.similar ?? []).length ? <Text style={st.simH}>비슷한 표현</Text> : null}
+          {(item.e!.similar ?? []).map((x) => <Text key={x.expression} style={st.ex}><Text style={{ fontFamily: F.enB, color: C.ink }}>{x.expression}</Text> — {x.example}</Text>)}
         </View>
       )} />
   );
 }
 
-const Btn = ({ label, onPress }: { label: string; onPress: () => void }) => (
-  <Pressable onPress={onPress} style={st.btnS}><Text style={st.btnST}>{label}</Text></Pressable>);
 const SaveBtn = ({ on, onPress }: { on: boolean; onPress: () => void }) => (
-  <Pressable onPress={onPress} hitSlop={8}><Text style={{ fontSize: 18, color: on ? C.accent : C.ink3 }}>{on ? '★' : '☆'}</Text></Pressable>);
+  <Pressable onPress={onPress} hitSlop={8} accessibilityLabel={on ? '단어장에 저장됨' : '단어장에 저장'}
+    style={[st.save, on && { backgroundColor: C.accent }]}>
+    <Icon name={on ? 'star' : 'star-outline'} size={18} color={on ? '#fff' : C.accent} />
+  </Pressable>);
 
 const st = StyleSheet.create({
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 28 },
-  h: { fontSize: 18, fontWeight: '700', color: C.ink, textAlign: 'center', marginBottom: 8 },
-  p: { color: C.ink2, lineHeight: 21, fontSize: 14 },
-  btn: { backgroundColor: C.accent, padding: 14, borderRadius: 12, marginTop: 18, paddingHorizontal: 24 },
-  btnT: { color: '#fff', fontWeight: '700' },
-  title: { fontSize: 20, fontWeight: '700', color: C.ink, lineHeight: 27, marginBottom: 6 },
-  tabs: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 14, paddingTop: 8 },
-  tab: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 99 },
-  tabOn: { backgroundColor: C.sheet },
-  tabT: { color: C.ink3, fontWeight: '600' },
-  pill: { marginLeft: 'auto', borderWidth: 1, borderColor: C.accent, borderRadius: 99, paddingHorizontal: 10, paddingVertical: 5 },
-  pillOn: { backgroundColor: C.accent },
-  pillT: { color: C.accent, fontSize: 12.5, fontWeight: '600' },
-  sent: { paddingVertical: 7, paddingHorizontal: 8, borderRadius: 10 },
-  sentOn: { backgroundColor: '#fff6c2' },
-  spk: { color: C.ink3, fontSize: 12, marginTop: 10, marginBottom: 2 },
-  en: { color: C.ink, fontSize: 17, lineHeight: 26 },
-  ko: { color: C.ink3, fontSize: 13.5, lineHeight: 20, marginTop: 2 },
-  syncHint: { textAlign: 'center', backgroundColor: C.ink, color: '#fff', padding: 8 },
-  bar: { borderTopWidth: 1, borderColor: C.line, backgroundColor: C.sheet, paddingHorizontal: 14, paddingTop: 8, paddingBottom: 22 },
-  time: { color: C.ink3, fontSize: 12, textAlign: 'center', marginBottom: 6 },
-  ctrls: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10 },
-  play: { width: 52, height: 52, borderRadius: 26, backgroundColor: C.accent, alignItems: 'center', justifyContent: 'center' },
-  btnS: { minWidth: 46, height: 38, borderRadius: 19, borderWidth: 1, borderColor: C.line, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 10 },
-  btnST: { color: C.ink, fontSize: 13 },
-  card: { backgroundColor: C.sheet, borderRadius: 14, padding: 14, borderWidth: 1, borderColor: C.line, marginBottom: 12 },
-  cardH: { fontWeight: '700', color: C.ink, marginBottom: 8 },
-  vrow: { flexDirection: 'row', gap: 10, paddingVertical: 8, borderTopWidth: 1, borderColor: C.line },
-  word: { fontWeight: '700', color: C.ink, fontSize: 15.5 },
-  pos: { fontWeight: '400', color: C.ink3, fontSize: 12.5 },
-  mean: { color: C.ink, marginTop: 3, fontSize: 14.5 },
-  ex: { color: C.ink2, fontSize: 13.5, marginTop: 4, lineHeight: 19 },
-  quote: { color: C.ink2, fontStyle: 'italic', marginTop: 6, fontSize: 13.5 },
-  jump: { color: C.accent, fontSize: 13 },
+  centerArt: { width: 84, height: 84, borderRadius: 42, backgroundColor: C.accentSoft, alignItems: 'center', justifyContent: 'center', marginBottom: 18 },
+  h: { fontFamily: F.title, fontSize: 22, color: C.ink, textAlign: 'center' },
+  p: { color: C.ink2, lineHeight: 21, fontSize: 14, marginTop: 6 },
+  top: { flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 16, paddingTop: 6 },
+  topShow: { color: C.ink3, fontSize: 12 },
+  topTitle: { color: C.ink, fontFamily: F.enB, fontSize: 14.5 },
+  seg: { flexDirection: 'row', marginHorizontal: 22, marginTop: 12, padding: 4, backgroundColor: C.line, borderRadius: R.pill },
+  segB: { flex: 1, minHeight: 40, borderRadius: R.pill, alignItems: 'center', justifyContent: 'center' },
+  segOn: { backgroundColor: C.sheet },
+  segT: { color: C.ink3, fontSize: 14 },
+  oneBox: { flexDirection: 'row', gap: 8, backgroundColor: C.accentSoft, borderRadius: 20, padding: 14, marginBottom: 14 },
+  one: { flex: 1, color: C.ink2, fontSize: 13.5, lineHeight: 20 },
+  sent: { paddingVertical: 9, paddingHorizontal: 4 },
+  spkSmall: { color: C.ink3, fontSize: 12, marginTop: 8, marginBottom: 2 },
+  en: { color: C.ink2, fontFamily: F.en, fontSize: 16.5, lineHeight: 25 },
+  ko: { color: C.ink3, fontSize: 13.5, lineHeight: 20, marginTop: 3 },
+  curCard: { backgroundColor: C.sheet, borderRadius: R.card, padding: 18, marginVertical: 8, gap: 10 },
+  spkRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  spkDot: { width: 26, height: 26, borderRadius: 13, backgroundColor: C.peach, alignItems: 'center', justifyContent: 'center' },
+  spkDotT: { fontSize: 12, fontWeight: '700', color: C.ink },
+  spk: { color: C.ink3, fontSize: 12 },
+  curEn: { color: C.ink, fontFamily: F.enB, fontSize: 21, lineHeight: 29 },
+  koBox: { backgroundColor: C.bg, borderRadius: 18, paddingHorizontal: 14, paddingVertical: 11 },
+  curKo: { color: C.ink2, fontSize: 14.5, lineHeight: 22 },
+  syncHint: { flexDirection: 'row', gap: 8, alignItems: 'center', justifyContent: 'center', backgroundColor: C.accentSoft, marginHorizontal: 14, marginBottom: 8, borderRadius: 18, padding: 10 },
+  syncT: { color: C.accent, fontWeight: '700' },
+  bar: { marginHorizontal: 12, marginBottom: 14, paddingHorizontal: 18, paddingTop: 14, paddingBottom: 14, borderRadius: 32, backgroundColor: C.dark, gap: 10 },
+  timeRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', height: 30 },
+  time: { color: '#C9C6DC', fontSize: 12, fontVariant: ['tabular-nums'] },
+  sync: { minWidth: 76, height: 30, borderRadius: 15, backgroundColor: C.dark2, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 10 },
+  syncBtnT: { color: '#fff', fontSize: 12, fontWeight: '700', fontVariant: ['tabular-nums'] },
+  track: { height: 6, borderRadius: 3, backgroundColor: C.track, overflow: 'hidden' },
+  fill: { height: 6, borderRadius: 3, backgroundColor: C.progress },
+  ctrls: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', height: 66 },
+  side: { width: 58, height: 44, borderRadius: 22, backgroundColor: C.dark2, alignItems: 'center', justifyContent: 'center' },
+  sideT: { color: '#fff', fontFamily: F.enB, fontSize: 14 },
+  secH: { fontFamily: F.title, fontSize: 19, color: C.ink, marginBottom: 10, marginLeft: 4 },
+  secN: { color: C.accent },
+  card: { backgroundColor: C.sheet, borderRadius: 24, padding: 16, marginBottom: 12 },
+  vrow: { flexDirection: 'row', gap: 10, paddingVertical: 10 },
+  vrowLine: { borderTopWidth: 1, borderColor: C.line },
+  word: { fontFamily: F.enB, color: C.ink, fontSize: 16 },
+  pos: { fontFamily: F.en, color: C.ink3, fontSize: 12.5 },
+  exprT: { fontFamily: F.enX, color: C.ink, fontSize: 18, lineHeight: 24 },
+  mean: { color: C.ink, marginTop: 4, fontSize: 14.5, lineHeight: 21 },
+  ex: { color: C.ink2, fontFamily: F.en, fontSize: 13.5, marginTop: 5, lineHeight: 19 },
+  quoteBox: { backgroundColor: C.bg, borderRadius: 18, padding: 12, marginTop: 10, gap: 6 },
+  quote: { color: C.ink2, fontFamily: F.en, fontSize: 14, lineHeight: 20 },
+  jump: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  jumpT: { color: C.accent, fontSize: 12.5, fontWeight: '700' },
+  simH: { color: C.ink3, fontSize: 12.5, marginTop: 12 },
+  save: { width: 38, height: 38, borderRadius: 19, backgroundColor: C.accentSoft, alignItems: 'center', justifyContent: 'center' },
 });

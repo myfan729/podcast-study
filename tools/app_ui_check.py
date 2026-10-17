@@ -47,7 +47,7 @@ async def main():
             await pg.goto(f"http://localhost:8081{path}"); await pg.wait_for_timeout(wait)
             await pg.screenshot(path=str(OUT / f"{name}.png"))
             if name == "episode":
-                await pg.get_by_text("단어 및 표현").first.click(); await pg.wait_for_timeout(1500)
+                await pg.get_by_text("단어·표현").first.click(); await pg.wait_for_timeout(1500)
                 await pg.screenshot(path=str(OUT / "episode_words.png"))
         (OUT / "errors.json").write_text(json.dumps(errs[:40], ensure_ascii=False, indent=1))
         await b.close()
