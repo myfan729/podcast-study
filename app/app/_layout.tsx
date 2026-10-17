@@ -10,6 +10,8 @@ import { Nunito_800ExtraBold } from '@expo-google-fonts/nunito/800ExtraBold';
 import { Nunito_900Black } from '@expo-google-fonts/nunito/900Black';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import 'react-native-reanimated';
+import * as Linking from 'expo-linking';
+import { handleAuthUrl } from '@/lib/authLink';
 import { SessionProvider, useSession } from '@/lib/session';
 import { C } from '@/lib/theme';
 
@@ -20,6 +22,8 @@ function Gate({ fontsReady }: { fontsReady: boolean }) {
   const { session, loading } = useSession();
   const segments = useSegments();
   const router = useRouter();
+  const url = Linking.useURL();
+  useEffect(() => { handleAuthUrl(url).catch(() => {}); }, [url]);
   useEffect(() => {
     if (loading || !fontsReady) return;
     SplashScreen.hideAsync();

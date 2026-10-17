@@ -3,6 +3,7 @@ import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollVie
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
+import { AUTH_REDIRECT } from '@/lib/authLink';
 import { C, F, R } from '@/lib/theme';
 
 export default function Login() {
@@ -16,9 +17,9 @@ export default function Login() {
 
   const send = async () => {
     setBusy(true); setMsg('');
-    const { error } = await supabase.auth.signInWithOtp({ email: email.trim(), options: { shouldCreateUser: true } });
+    const { error } = await supabase.auth.signInWithOtp({ email: email.trim(), options: { shouldCreateUser: true, emailRedirectTo: AUTH_REDIRECT } });
     setBusy(false);
-    if (error) setMsg(error.message); else { setSent(true); setMsg('메일로 받은 6자리 코드를 입력하세요.'); }
+    if (error) setMsg(error.message); else { setSent(true); setMsg('메일로 받은 6자리 코드를 입력하거나, 메일의 링크를 이 휴대폰에서 누르세요.'); }
   };
   const signInPw = async () => {
     setBusy(true); setMsg('');
