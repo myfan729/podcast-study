@@ -230,17 +230,23 @@ def write_intros(db: Supa, max_eps: int = 300) -> int:
     gen = StudyGenerator()
     n = 0
     shows = db.select("shows", "select=id,title,author,description&catalog=eq.true&intro_ko=is.null&limit=200")
-    for k in range(0, len(shows), 15):
-        part = shows[k:k + 15]
-        got = gen.short_intros([(s["id"], f"{s['title']} ({s.get('author') or ''})\n{strip_html(s.get('description') or '', 600)}") for s in part], "show")
+    for k in range(0, len(shows), 12):
+        part = shows[k:k + 12]
+        try:
+            got = gen.short_intros([(s["id"], f"{s['title']} ({s.get('author') or ''})\n{strip_html(s.get('description') or '', 600)}") for s in part], "show")
+        except Exception as e:  # noqa: BLE001
+            log.error("show intros failed: %s", e); continue
         for sid, ko in got.items():
             db.update("shows", f"id=eq.{sid}", {"intro_ko": ko[:80]}); n += 1
     since = (datetime.now(timezone.utc) - timedelta(days=60)).strftime("%Y-%m-%dT%H:%M:%SZ")
     eps = db.select("episodes", f"select=id,title,description&intro_ko=is.null&has_transcript=eq.true&published_at=gte.{since}"
                                 f"&order=published_at.desc&limit={max_eps}")
-    for k in range(0, len(eps), 25):
-        part = eps[k:k + 25]
-        got = gen.short_intros([(e["id"], f"{e['title']}\n{e.get('description') or ''}") for e in part], "episode")
+    for k in range(0, len(eps), 15):
+        part = eps[k:k + 15]
+        try:
+            got = gen.short_intros([(e["id"], f"{e['title']}\n{(e.get('description') or '')[:500]}") for e in part], "episode")
+        except Exception as e:  # noqa: BLE001
+            log.error("episode intros failed: %s", e); continue
         for eid, ko in got.items():
             db.update("episodes", f"id=eq.{eid}", {"intro_ko": ko[:90]}); n += 1
     log.info("intros: wrote %d", n)

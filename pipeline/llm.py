@@ -370,7 +370,7 @@ class StudyGenerator:
         schema = {"type": "object", "additionalProperties": False, "required": ["items"],
                   "properties": {"items": {"type": "array", "items": {"type": "object", "additionalProperties": False,
                                  "required": ["id", "ko"], "properties": {"id": {"type": "string"}, "ko": {"type": "string"}}}}}}
-        data = self._call_json(INTRO_MODEL, system, user, schema, max_tokens=4000)
+        data = self._call_json(INTRO_MODEL, system, user, schema, max_tokens=8000)
         return {str(r["id"]): r["ko"].strip() for r in data.get("items", []) if r.get("id") and r.get("ko")}
 
     def translate_segments(self, segments: list[Segment]) -> dict[str, str]:
