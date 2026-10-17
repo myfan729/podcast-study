@@ -1,0 +1,18 @@
+name: App dispatch test (queue one episode → DB wakes the worker)
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+    steps:
+      - run: |
+          sudo apt-get install -y -qq postgresql-client > /dev/null
+          q() { psql "$SUPABASE_DB_URL" -tA -v ON_ERROR_STOP=1 -c "$1" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g"; }
+          ep=$(q "update public.episodes set status='queued', requested_at=now() where id = (select e.id from public.episodes e join public.shows s on s.id=e.show_id where s.title like 'The Indicator%' and e.status not in ('queued','processing','ready','failed','no_transcript') order by e.published_at desc limit 1) returning id || ' | ' || title")
+          echo "::notice title=queued::$ep"
+          sleep 15
+          r=$(q "select coalesce(status_code::text,'-') || ' ' || coalesce(error_msg,'') || ' ' || left(coalesce(content,''),120) from net._http_response order by created desc limit 1")
+          echo "::notice title=github response (204 = ok)::$r"
