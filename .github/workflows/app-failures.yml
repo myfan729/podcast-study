@@ -1,6 +1,8 @@
 name: App — recent failed episodes (diagnostics)
 on:
   workflow_dispatch:
+    inputs:
+      retry: { description: "re-queue failed episodes (attempts reset)", type: boolean, default: false }
 jobs:
   show:
     runs-on: ubuntu-latest
@@ -10,6 +12,10 @@ jobs:
     steps:
       - run: |
           sudo apt-get install -y -qq postgresql-client > /dev/null
+          if [ "${{ inputs.retry }}" = "true" ]; then
+            n=$(psql "$SUPABASE_DB_URL" -tA -c "with u as (update public.episodes set status='queued', attempts=0, error=null, requested_at=now() where status='failed' returning 1) select count(*) from u" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g")
+            echo "::notice title=re-queued::$n"
+          fi
           psql "$SUPABASE_DB_URL" -tA -F ' | ' -c "select s.title, e.title, e.status, e.attempts, left(coalesce(e.error,''), 400)
             from public.episodes e join public.shows s on s.id = e.show_id
             where e.status in ('failed','no_transcript') or e.error is not null
