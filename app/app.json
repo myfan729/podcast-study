@@ -52,8 +52,8 @@
       "typedRoutes": true
     },
     "extra": {
-      "supabaseUrl": "",
-      "supabaseAnonKey": ""
+      "supabaseUrl": "https://neyaiwhtuczbsdoqqgir.supabase.co",
+      "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5leWFpd2h0dWN6YnNkb3FxZ2lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyMDMxNDAsImV4cCI6MjEwNzc3OTE0MH0.GH0ryPV0A92KOakQEyIxDVo2kQM-gBizvGVKUZqLQdU"
     }
   }
 }
