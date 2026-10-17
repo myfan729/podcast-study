@@ -79,6 +79,14 @@
       }
     },
     "description": "진짜 영어 팟캐스트를 대본·번역·표현과 함께 듣는 영어 학습 앱",
-    "owner": "hwany2359"
+    "owner": "hwany2359",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/08670ea6-a2f6-4247-bbdb-afd4fa52c495",
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0
+    }
   }
 }

@@ -1,0 +1,32 @@
+name: App update (over the air, no reinstall)
+# Ships JS/UI changes to installed apps. Native changes (new native packages, app.json plugins/permissions) still need a build.
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        type: choice
+        options: [preview, production, both]
+        default: both
+      message: { description: "What changed", default: "update" }
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+    defaults:
+      run: { working-directory: app }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm install --no-audit --no-fund
+      - run: |
+          set +e
+          chs="${{ inputs.channel }}"; [ "$chs" = both ] && chs="preview production"
+          for ch in $chs; do
+            npx -y eas-cli@latest update --channel $ch --environment $ch --message "${{ inputs.message }}" --non-interactive > /tmp/u.log 2>&1
+            rc=$?
+            echo "::notice title=update $ch (exit $rc)::$(grep -v '^npm' /tmp/u.log | tail -c 500 | tr '\n' ' ')"
+            [ $rc -eq 0 ] || exit 1
+          done
