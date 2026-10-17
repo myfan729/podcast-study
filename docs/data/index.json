@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-16T21:08:12Z",
+ "generated_at": "2026-10-17T03:28:35Z",
  "shows": [
   {
    "slug": "big-take",
@@ -100,6 +100,29 @@
    "cefr": "C1",
    "expressions": 12,
    "words": 2214,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "the-indicator-2026-10-16-supercore-inflation-bumble-valuation-and-pooh-s-repatriation",
+   "show": "the-indicator",
+   "title": "Supercore inflation, Bumble valuation and Pooh's repatriation",
+   "published_at": "2026-10-16T07:00:00Z",
+   "duration_sec": 540,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Feb%2Ff3%2Fd44d9d2244248a0eb1ead2be5af0%2Fa0fde56c-f4ef-4c40-8501-66a2fdb83f5d.png",
+   "one_liner_ko": "서비스 물가(슈퍼코어) 상승률이 임금 상승률을 앞지르고, 실적이 나쁜 Bumble이 비상장 전환 인수 제안으로 주가가 119% 뛰고, 푸 인형 100주년을 계기로 영국이 반환을 원하는 논쟁이 다시 불붙었다는 주간 경제 토픽 모음.",
+   "tags": [
+    "inflation",
+    "wages",
+    "going private",
+    "dating apps",
+    "cultural repatriation",
+    "podcast roundup"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 1653,
    "has_translation": true,
    "mock": false,
    "demo": false
