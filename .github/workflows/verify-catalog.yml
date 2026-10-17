@@ -23,7 +23,9 @@ jobs:
           pip install -r requirements.txt -r requirements-sync.txt
       - run: python tools/catalog/verify_catalog.py ${{ matrix.shard }} 6
       - uses: actions/upload-artifact@v4
-        with: { name: "verify-${{ matrix.shard }}", path: tools/catalog/verify/${{ matrix.shard }}.json }
+        with:
+          name: verify-${{ matrix.shard }}
+          path: tools/catalog/verify/${{ matrix.shard }}.json
   collect:
     needs: verify
     if: always()
