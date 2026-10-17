@@ -41,7 +41,7 @@ export default function Discover() {
           const on = subs.has(item.id);
           return (
             <Link href={{ pathname: '/show/[id]', params: { id: item.id } }} asChild>
-              <Pressable style={({ pressed }) => [s.row, pressed && { opacity: 0.85 }]}>
+              <Pressable style={s.row}>
                 <Art uri={item.image_url} id={item.id} size={58} radius={16} />
                 <View style={{ flex: 1, minWidth: 0 }}>
                   <Text style={s.title} numberOfLines={1}>{item.title}</Text>

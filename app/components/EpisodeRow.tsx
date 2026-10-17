@@ -16,7 +16,7 @@ export default function EpisodeRow({ ep, showTitle }: { ep: Episode; showTitle?:
   const b = BADGE[ep.status];
   return (
     <Link href={{ pathname: '/episode/[id]', params: { id: ep.id } }} asChild>
-      <Pressable style={({ pressed }) => [s.row, pressed && { opacity: 0.8 }]}>
+      <Pressable style={s.row}>
         {showTitle ? <Art uri={ep.shows?.image_url} id={ep.show_id} size={56} radius={16} /> : null}
         <View style={{ flex: 1, minWidth: 0 }}>
           <Text style={s.meta} numberOfLines={1}>{showTitle && ep.shows ? ep.shows.title + ' · ' : ''}{dateKo(ep.published_at)} · {mins(ep.duration_sec)}</Text>

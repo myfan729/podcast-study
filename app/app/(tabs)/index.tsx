@@ -38,7 +38,7 @@ export default function Home() {
         <Text style={s.hello}>{cont ? '어제 듣던 거,\n마저 들어볼까요?' : '오늘은 뭘\n들어볼까요?'}</Text>
 
         {cont && (
-          <Pressable style={({ pressed }) => [s.cont, pressed && { opacity: 0.9 }]}
+          <Pressable style={s.cont}
             onPress={() => router.push({ pathname: '/episode/[id]', params: { id: cont.ep.id } })}>
             <View style={s.play}><Icon name="play" size={22} color={C.accent} /></View>
             <View style={{ flex: 1, minWidth: 0 }}>
@@ -63,7 +63,7 @@ export default function Home() {
               contentContainerStyle={{ paddingHorizontal: 22, gap: 12 }}
               renderItem={({ item }) => (
                 <Link href={{ pathname: '/episode/[id]', params: { id: item.id } }} asChild>
-                  <Pressable style={({ pressed }) => [s.tile, pressed && { opacity: 0.85 }]}>
+                  <Pressable style={s.tile}>
                     <Art uri={item.shows?.image_url} id={item.show_id} size={126} />
                     <Text style={s.tileShow} numberOfLines={1}>{item.shows?.title}</Text>
                     <Text style={s.tileT} numberOfLines={2}>{item.title}</Text>

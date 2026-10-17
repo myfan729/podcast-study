@@ -32,7 +32,7 @@ export function RoundBtn({ icon, onPress, label, size = 44, bg = C.sheet, color 
   { icon: IconName; onPress?: () => void; label: string; size?: number; bg?: string; color?: string }) {
   return (
     <Pressable accessibilityRole="button" accessibilityLabel={label} onPress={onPress} hitSlop={4}
-      style={({ pressed }) => [{ width: size, height: size, borderRadius: size / 2, backgroundColor: bg, alignItems: 'center', justifyContent: 'center', opacity: pressed ? 0.7 : 1 }]}>
+      style={{ width: size, height: size, borderRadius: size / 2, backgroundColor: bg, alignItems: 'center', justifyContent: 'center' }}>
       <Icon name={icon} size={size * 0.45} color={color} />
     </Pressable>
   );
@@ -44,7 +44,7 @@ export function Btn({ label, onPress, kind = 'primary', disabled, style }:
   const fg = kind === 'primary' ? C.onAccent : kind === 'soft' ? C.accent : C.ink2;
   return (
     <Pressable accessibilityRole="button" onPress={onPress} disabled={disabled}
-      style={({ pressed }) => [s.btn, { backgroundColor: bg, opacity: disabled ? 0.45 : pressed ? 0.8 : 1 }, style]}>
+      style={[s.btn, { backgroundColor: bg, opacity: disabled ? 0.45 : 1 }, style]}>
       <Text style={[s.btnT, { color: fg }]}>{label}</Text>
     </Pressable>
   );
