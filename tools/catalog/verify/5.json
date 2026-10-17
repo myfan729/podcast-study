@@ -1,0 +1,217 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/15e00369-eef2-4085-a194-b00d01137fde/8f25e357-09d8-46db-a150-b00d0113ef63/podcast.rss": {
+  "title": "Bloomberg Talks",
+  "episode": "US Chamber of Commerce President & CEO Suzanne Clark Talks Economy Growth",
+  "cues": 91,
+  "sentences": 91,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3"
+  ],
+  "words": 1517,
+  "dai": "yes",
+  "markers": 3,
+  "sample": [
+   "Podcasts.",
+   "Radio."
+  ],
+  "sync": "ok",
+  "refs": 3,
+  "ok": true,
+  "sec": 22
+ },
+ "https://feeds.npr.org/510289/podcast.xml": {
+  "title": "Planet Money",
+  "episode": "Wanna slow down AI? These biologists can help.",
+  "cues": 375,
+  "sentences": 375,
+  "speakers": [
+   "Alex Capron",
+   "Alexi Horowitz-Ghazi",
+   "Announcer",
+   "Bob Pollack",
+   "James Watson",
+   "Janet Mertz"
+  ],
+  "words": 4727,
+  "dai": "detected",
+  "markers": 3,
+  "sample": [
+   "There's a very strange puzzle at the center of the AI debate right now.",
+   "If by strange, you mean, like, totally terrifying and apocalyptic."
+  ],
+  "sync": "ok",
+  "refs": 7,
+  "ok": true,
+  "sec": 170
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d15648c4-cee0-4e99-a5ca-af80014d921d/65ce2954-d8a8-4c66-9f42-af80014d923e/podcast.rss": {
+  "title": "Bloomberg Daybreak: US Edition",
+  "episode": "Daybreak Weekend: US Housing, Germany Summit, BOK Decision",
+  "cues": 399,
+  "sentences": 399,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3",
+   "Speaker 4",
+   "Speaker 5",
+   "Speaker 6"
+  ],
+  "words": 6678,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "Podcasts.",
+   "Radio."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 70
+ },
+ "https://feeds.npr.org/510312/podcast.xml": {
+  "title": "Code Switch",
+  "episode": "How much reality do we want in our reality TV?",
+  "cues": 370,
+  "sentences": 370,
+  "speakers": [
+   "Alan Cumming",
+   "B A Parker",
+   "Danielle Lindemann",
+   "Drew Campbell",
+   "Ron Funches",
+   "Ryan Ken"
+  ],
+  "words": 4823,
+  "dai": "detected",
+  "markers": 2,
+  "sample": [
+   "You're listening to CODE SWITCH, the show about race and identity from NPR. I'm B.A. Parker.",
+   "Now, I've been watching a lot of competitive reality TV lately."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 165
+ },
+ "https://feeds.npr.org/510338/podcast.xml": {
+  "title": "Life Kit",
+  "episode": "How to stock your medicine cabinet for cold and flu season",
+  "cues": 269,
+  "sentences": 268,
+  "speakers": [
+   "Alisha Reed",
+   "Marielle Segarra",
+   "Mona Amin",
+   "Tagle"
+  ],
+  "words": 3695,
+  "dai": "detected",
+  "markers": 2,
+  "sample": [
+   "And, you know, my first thought, of course, is, is she sick? Right?",
+   "Like, you're, like, hoping she's choking. That sounds..."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 142
+ },
+ "https://feeds.npr.org/510333/podcast.xml": {
+  "title": "Throughline",
+  "episode": "Why does everything get a standing ovation now?",
+  "cues": 218,
+  "sentences": 218,
+  "speakers": [
+   "Alfonso Ribeiro",
+   "Amy Pedulla",
+   "Haley",
+   "Irene Noguchi",
+   "Jasmine Romero",
+   "Julia Redpath"
+  ],
+  "words": 2559,
+  "dai": "detected",
+  "markers": 1,
+  "sample": [
+   "All right, Schuyler. I'm ready.",
+   "Can you guess?"
+  ],
+  "sync": "ok",
+  "refs": 4,
+  "ok": true,
+  "sec": 100
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d3d3abca-191a-4010-8160-b3530112d393/c639b22c-ee8c-43dd-86c1-b3530112d3a3/podcast.rss": {
+  "title": "Shell Game",
+  "episode": "From How to Life Forever: The Longevinauts",
+  "cues": 541,
+  "sentences": 538,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 10",
+   "Speaker 11",
+   "Speaker 12",
+   "Speaker 13",
+   "Speaker 14"
+  ],
+  "words": 7726,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "You will, however, hear about looks maxing colonialism, and there will be references to the Golden Girls and the Odyssey.",
+   "There will also be disclosure of one or more annoying astrological predictions, as well as adult language and mention of suicide, So sensitive listeners take care."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 137
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/3330cb46-e122-4797-bc0c-ae32006cd1f8/bcfb0fa6-e85d-4c5f-a52f-ae32006cd206/podcast.rss": {
+  "title": "Part-Time Genius",
+  "episode": "Are We Living Through a Rudeness Epidemic? ft. Danny Wallace",
+  "cues": 448,
+  "sentences": 446,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3",
+   "Speaker 4",
+   "Speaker 5"
+  ],
+  "words": 6483,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "What's that, Mango?",
+   "So I know Portlandia has kind of mocked Portland and the stereotypes mercilessly, but can I just tell you about one thing that made me fall in love with the city?"
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 131
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/32c25e85-1667-4acb-99fd-ae3c0021f33e/beacef48-19d2-4f52-b9e8-ae3c0021f347/podcast.rss": {
+  "title": "What's Your Problem?",
+  "episode": "Can a Robot Build Better, Cheaper Houses?",
+  "cues": 660,
+  "sentences": 660,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2"
+  ],
+  "words": 9859,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "My guest today is Jason Ballard.",
+   "Jason is the co-founder and CEO of a company called Icon, and his problem is this. can you use 3D printing to build houses that are cheaper and better and maybe more interesting than the houses that we build now?"
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 88
+ }
+}

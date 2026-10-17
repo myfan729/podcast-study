@@ -1,0 +1,212 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/8b1dd624-a026-43e9-8b57-ae2b00130066/podcast.rss": {
+  "title": "Big Take",
+  "episode": "The Diamond Industry’s Battle for Your Ring Finger",
+  "cues": 151,
+  "sentences": 151,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3",
+   "Speaker 4",
+   "Speaker 5",
+   "Speaker 6"
+  ],
+  "words": 1886,
+  "dai": "yes",
+  "markers": 3,
+  "sample": [
+   "Podcasts. Radio.",
+   "News."
+  ],
+  "sync": "ok",
+  "refs": 4,
+  "ok": true,
+  "sec": 60
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/f541f9b4-77cb-45aa-bf94-b1d300e5d357/1d448cb7-e0fc-45b8-b51f-b1d300e623a7/podcast.rss": {
+  "title": "Everybody's Business",
+  "episode": "Why are Tech Billionaires in the Business of Political Spending?",
+  "cues": 516,
+  "sentences": 516,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3",
+   "Speaker 4",
+   "Speaker 5",
+   "Speaker 6"
+  ],
+  "words": 7416,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "Podcasts. Radio. News.",
+   "Max, Halloween is just around the corner."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 94
+ },
+ "https://feeds.npr.org/510325/podcast.xml": {
+  "title": "The Indicator from Planet Money",
+  "episode": "A rebate runaround, a car rental rip-off and … roaches?!",
+  "cues": 140,
+  "sentences": 137,
+  "speakers": [
+   "Adrian Ma",
+   "Announcer",
+   "Deb Orsini",
+   "Joe Morton",
+   "Johnathan Palmer",
+   "Katie Story"
+  ],
+  "words": 1574,
+  "dai": "none",
+  "markers": 0,
+  "sample": [
+   "This is The Indicator from Planet Money.",
+   "I'm Adrian Ma."
+  ],
+  "sync": "ok",
+  "refs": 2,
+  "ok": true,
+  "sec": 44
+ },
+ "https://feeds.npr.org/510355/podcast.xml": {
+  "title": "Consider This from NPR",
+  "episode": "Inflation is ticking up. What does it mean for the economy?",
+  "cues": 73,
+  "sentences": 73,
+  "speakers": [
+   "Anita Barrett",
+   "Austan Goolsbee",
+   "Scott Detrow"
+  ],
+  "words": 1062,
+  "dai": "detected",
+  "markers": 1,
+  "sample": [
+   "Today, inflation is heating up.",
+   "It rose by 3.7% since last September."
+  ],
+  "sync": "ok",
+  "refs": 3,
+  "ok": true,
+  "sec": 39
+ },
+ "https://feeds.npr.org/510311/podcast.xml": {
+  "title": "Embedded",
+  "episode": "Where is Austin Tice?: Those who know",
+  "cues": 420,
+  "sentences": 420,
+  "speakers": [
+   "Bassam Al-Hassan",
+   "Debra Tice",
+   "George Chaoui",
+   "Josh Baker",
+   "Makki",
+   "Salha"
+  ],
+  "words": 4548,
+  "dai": "detected",
+  "markers": 4,
+  "sample": [
+   "When Sara and I first arrived in Damascus, there were celebrations.",
+   "It was just after the fall of the regime in December of 2024."
+  ],
+  "sync": "ok",
+  "refs": 10,
+  "ok": true,
+  "sec": 161
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/96c5c41e-0bc8-4661-b184-ae32006cd726/d623ef0b-3fee-4c26-b815-ae32006cd739/podcast.rss": {
+  "title": "The Happiness Lab with Dr. Laurie Santos",
+  "episode": "What Gets Lost When We Text Instead of Talk with Dr. Nick Epley",
+  "cues": 621,
+  "sentences": 621,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2"
+  ],
+  "words": 8892,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "If you're a fan of the show, you can probably guess that holing yourself up alone in a three by four foot room with nothing but a laptop and a microphone, it's not exactly the best way to experience happiness.",
+   "So whenever I get the opportunity, I like to venture out into the world to record the conversations you get to hear on this show in front of a live audience of actual fans just like you."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 161
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/f4e26994-3ddb-4ec7-b855-ae32006cd5de/ea4fae0c-3282-4cfd-b315-ae32006cd5ec/podcast.rss": {
+  "title": "Against the Rules with Michael Lewis",
+  "episode": "Out Now: Blockers | Michael Lewis's New Audiobook",
+  "cues": 57,
+  "sentences": 57,
+  "speakers": [
+   "Speaker 1"
+  ],
+  "words": 998,
+  "dai": "yes",
+  "markers": 2,
+  "sample": [
+   "And I found six of them.",
+   "People who devoted their lives to public service, who believed their work mattered, until they were told they no longer belonged."
+  ],
+  "sync": "ok",
+  "refs": 2,
+  "ok": true,
+  "sec": 32
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/53726b04-3b06-43b5-b265-ae3300346e4e/add8ee8b-ff73-4b72-a3ee-ae3300346e5c/podcast.rss": {
+  "title": "Here's The Thing with Alec Baldwin",
+  "episode": "From the Archives: Patricia Bosworth",
+  "cues": 760,
+  "sentences": 760,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3"
+  ],
+  "words": 7183,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "Mark Twain once likened biographies to what he called, quote, the clothes and buttons of the man.",
+   "He said, quote, the biography of the man himself cannot be written."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 177
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/2e824128-fbd5-4c9e-9a57-ae2f0056b0c4/66d98a23-900c-44b0-a40b-ae2f0056b0db/podcast.rss": {
+  "title": "Stuff They Don't Want You To Know",
+  "episode": "October Surprise: A Live Q&A on Virgin Voyages",
+  "cues": 582,
+  "sentences": 579,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 10",
+   "Speaker 11",
+   "Speaker 2",
+   "Speaker 3",
+   "Speaker 4"
+  ],
+  "words": 5793,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "You can turn back now or learn the stuff they don't want you to know.",
+   "Oh, my God."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 120
+ }
+}

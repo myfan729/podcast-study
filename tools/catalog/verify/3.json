@@ -1,0 +1,203 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/7f534b8c-9e91-429a-b102-ae3c00090c6d/0ad812bf-fd15-4012-a18c-ae3c00090c76/podcast.rss": {
+  "title": "Bloomberg Intelligence",
+  "episode": "Tesla Launches Roadster at SpaceX Site in Latest Merger Hint",
+  "cues": 254,
+  "sentences": 254,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3",
+   "Speaker 4",
+   "Speaker 5",
+   "Speaker 6"
+  ],
+  "words": 3554,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "Podcasts. Radio.",
+   "News."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 75
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/ee4336cb-155f-4488-90e0-b1400134e40e/77e6a3a7-290d-4a82-8164-b14001353ef2/podcast.rss": {
+  "title": "Money Stuff: The Podcast",
+  "episode": "Release Me From This Demon",
+  "cues": 643,
+  "sentences": 641,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2"
+  ],
+  "words": 7686,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "Podcasts. Radio. News.",
+   "I left my Odd Lots mug in the kitchen."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 75
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/37c6caa7-d377-4c08-b479-af9d012ed5ad/a7faefb0-28ec-4b1d-85f3-af9d012ed5c9/podcast.rss": {
+  "title": "Zero: The Climate Race",
+  "episode": "A historic El Niño is coming that could cost the world trillions: Odd Lots",
+  "cues": 471,
+  "sentences": 471,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3",
+   "Speaker 4",
+   "Speaker 5"
+  ],
+  "words": 9045,
+  "dai": "yes",
+  "markers": 3,
+  "sample": [
+   "Podcasts.",
+   "Radio. News."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 51
+ },
+ "https://rss2.flightcast.com/xmsftuzjjykcmqwolaqn6mdn": {
+  "title": "The Diary Of A CEO with Steven Bartlett",
+  "episode": "Most Replayed Moment: Christian vs Atheist - Is Faith A Human Creation?",
+  "cues": 364,
+  "sentences": 363,
+  "speakers": [],
+  "words": 5629,
+  "dai": "unknown",
+  "markers": 0,
+  "sample": [
+   "A personal God.",
+   "A God. There is a personal God who is involved with the world."
+  ],
+  "sync": "ok",
+  "refs": 2,
+  "ok": true,
+  "sec": 96
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/29ee4014-65ab-4d60-812e-ae4c00549b7f/3889a49b-3697-48af-9765-ae4c00549b97/podcast.rss": {
+  "title": "Stuff Mom Never Told You",
+  "episode": "A Special Live Episode: Witches, Monsters and Women, Oh My!",
+  "cues": 960,
+  "sentences": 959,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2"
+  ],
+  "words": 11809,
+  "dai": "yes",
+  "markers": 5,
+  "sample": [
+   "I am Samantha.",
+   "I am Annie."
+  ],
+  "sync": "ok",
+  "refs": 8,
+  "ok": true,
+  "sec": 163
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/cfb428ef-eafc-44d0-9d09-ae2701747e6f/fb626e1f-112c-4246-a40d-ae2701747e7d/podcast.rss": {
+  "title": "Stuff You Missed in History Class",
+  "episode": "Behind the Scenes Minis: Pistols and Candy Corn",
+  "cues": 242,
+  "sentences": 240,
+  "speakers": [
+   "Speaker 1"
+  ],
+  "words": 3179,
+  "dai": "yes",
+  "markers": 3,
+  "sample": [
+   "Hello and happy Friday.",
+   "I'm Holly Frey."
+  ],
+  "sync": "ok",
+  "refs": 4,
+  "ok": true,
+  "sec": 63
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/21bd98b3-8cc6-4565-a21e-b4c9014d00dd/04897743-92ff-422f-9fed-b4c9014d05a3/podcast.rss": {
+  "title": "Lost Hills",
+  "episode": "12. Dig Two Graves",
+  "cues": 460,
+  "sentences": 460,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 10",
+   "Speaker 11",
+   "Speaker 2",
+   "Speaker 3",
+   "Speaker 4"
+  ],
+  "words": 5752,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "This spring, as we were finishing the show, my birthday rolled around again.",
+   "I always associate this time of year with my trees now because it's when I learned Rick Forsberg's name."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 40
+ },
+ "https://feeds.npr.org/510379/podcast.xml": {
+  "title": "Wild Card with Rachel Martin",
+  "episode": "Pádraig Ó Tuama",
+  "cues": 1190,
+  "sentences": 1190,
+  "speakers": [
+   "Pádraig Ó Tuama",
+   "Rachel Martin",
+   "Ó Tuama"
+  ],
+  "words": 11550,
+  "dai": "detected",
+  "markers": 5,
+  "sample": [
+   "It was a February day, and I remember walking in bright cold sunshine in Dublin, feeling the world is open and frightened and frightening.",
+   "And I am alive, and I am gay."
+  ],
+  "sync": "ok",
+  "refs": 10,
+  "ok": true,
+  "sec": 251
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/41764a4f-fc64-4e11-89ba-ae7c0030ab5e/9caafc41-289c-4115-995d-ae7c0030ab75/podcast.rss": {
+  "title": "Bloomberg Tech",
+  "episode": "Chip Stocks Slide as Apple Demand Surges",
+  "cues": 526,
+  "sentences": 525,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 10",
+   "Speaker 11",
+   "Speaker 12",
+   "Speaker 13",
+   "Speaker 14"
+  ],
+  "words": 7445,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "Podcasts.",
+   "Radio."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 105
+ }
+}

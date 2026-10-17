@@ -1,0 +1,207 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/3b082bbf-691d-443b-bc59-ae2b0012ff93/9222076a-d22a-4a9f-9d26-ae2b0012ffb4/podcast.rss": {
+  "title": "Bloomberg Businessweek",
+  "episode": "Bloomberg Businessweek Weekend - October 16th, 2026",
+  "cues": 609,
+  "sentences": 608,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3",
+   "Speaker 4",
+   "Speaker 5"
+  ],
+  "words": 7941,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "Podcasts. Radio.",
+   "News."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 119
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/1742e0df-336e-4798-9bdf-af4d00f3c918/b65f5d94-dd18-419c-9276-af4d00f43c32/podcast.rss": {
+  "title": "Merryn Talks Money",
+  "episode": "Markets Wrap: AI Jitters, Budget Expectations and UK Housing Rebound?",
+  "cues": 119,
+  "sentences": 118,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2"
+  ],
+  "words": 2106,
+  "dai": "yes",
+  "markers": 2,
+  "sample": [
+   "Podcasts. Radio. News.",
+   "Welcome to the Merrin Talks Money Market Wrap, where we talk about the biggest moves in the markets this week and what is driving them."
+  ],
+  "sync": "ok",
+  "refs": 2,
+  "ok": true,
+  "sec": 28
+ },
+ "https://feeds.npr.org/510351/podcast.xml": {
+  "title": "Short Wave",
+  "episode": "What Flock cameras really see – and how",
+  "cues": 172,
+  "sentences": 172,
+  "speakers": [
+   "Emily Kwong",
+   "Joseph Cox",
+   "Nathan Rott"
+  ],
+  "words": 2503,
+  "dai": "detected",
+  "markers": 1,
+  "sample": [
+   "Where I live, there are 23.",
+   "In Los Angeles, the nearest city to me, there are at least 992."
+  ],
+  "sync": "ok",
+  "refs": 4,
+  "ok": true,
+  "sec": 94
+ },
+ "https://feeds.npr.org/510318/podcast.xml": {
+  "title": "Up First from NPR",
+  "episode": "Ukraine's President Sits With NPR, Pope Leo Cancer, Ambassador Guilfoyle Forced Out",
+  "cues": 183,
+  "sentences": 183,
+  "speakers": [
+   "Eric Rubin",
+   "Joanna Kakissis",
+   "Marco Rubio",
+   "Michel Martin",
+   "Michele Kelemen",
+   "President Volodymyr Zelenskyy"
+  ],
+  "words": 2397,
+  "dai": "detected",
+  "markers": 3,
+  "sample": [
+   "Stop attacking Russian oil refineries or we will stop sharing intelligence you use to defend yourself.",
+   "We'll hear more from NPR's Joanna Kakissis' interview with Ukraine's president."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 105
+ },
+ "https://feeds.npr.org/510282/podcast.xml": {
+  "title": "Pop Culture Happy Hour",
+  "episode": "Other Mommy",
+  "cues": 217,
+  "sentences": 215,
+  "speakers": [
+   "Bela",
+   "Reanna Cruz",
+   "Stephen Thompson",
+   "Tre'Vell Anderson",
+   "Ursula"
+  ],
+  "words": 2514,
+  "dai": "detected",
+  "markers": 1,
+  "sample": [
+   "Wow.",
+   "Listen, I watch a lot of bad movies, so--"
+  ],
+  "sync": "ok",
+  "refs": 4,
+  "ok": true,
+  "sec": 101
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/dca0d8ad-e0b8-4a52-a2a8-ae300188d1e2/fe9400d8-dd2a-489f-82d9-ae300188d1eb/podcast.rss": {
+  "title": "Ridiculous History",
+  "episode": "The Weird Afterlife of The Zombies",
+  "cues": 473,
+  "sentences": 469,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3",
+   "Speaker 4"
+  ],
+  "words": 6961,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "Welcome back to the show, fellow ridiculous historians.",
+   "Thank you, as always, so much for tuning in."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 157
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/afbd76b8-eff2-442a-b938-b28e0126edad/d08826cd-f888-4cd3-b700-b28e0126edbb/podcast.rss": {
+  "title": "Heavyweight",
+  "episode": "Regrets, I've Had a Slew",
+  "cues": 432,
+  "sentences": 432,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 10",
+   "Speaker 11",
+   "Speaker 12",
+   "Speaker 13",
+   "Speaker 14"
+  ],
+  "words": 5111,
+  "dai": "yes",
+  "markers": 3,
+  "sample": [
+   "Whereas I'm usually the one helping a stranger confront their deepest, most uncomfortable regrets, on this occasion, I turned the spotlight on myself, live on stage.",
+   "And because we recorded the whole thing, you, Dear listeners can journey back in time to experience my dangerously personal self-interrogation from the safety of your earbuds."
+  ],
+  "sync": "ok",
+  "refs": 4,
+  "ok": true,
+  "sec": 65
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d4afad24-707c-42c5-afc3-b36200ef6fe2/16eda0d4-f4e8-48ea-8fbb-b36200ef73d1/podcast.rss": {
+  "title": "The Mishal Husain Show",
+  "episode": "Michael Palin on the Philippines, China and the Fish-Slapping Dance",
+  "cues": 573,
+  "sentences": 573,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2"
+  ],
+  "words": 7606,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "Podcasts. Radio.",
+   "News."
+  ],
+  "sync": "ok",
+  "refs": 5,
+  "ok": true,
+  "sec": 103
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/4be3ef45-824a-44b3-b437-b038010038fc/3eb75c81-5ed8-4148-bb7b-b03801003947/podcast.rss": {
+  "title": "Unexplained",
+  "episode": "S09E37: Anger is An Energy Pt.2 of 2 (The Tina Resch Story)",
+  "cues": 259,
+  "sentences": 259,
+  "speakers": [
+   "Speaker 1"
+  ],
+  "words": 5269,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "If you're new here and you're a fan of expertly told atmospheric stories about the strange and unexplained, then you've come to the right place, and please subscribe to the show if you haven't already done so.",
+   "Now, just to let you know before we begin, this episode will conclude Season 9 of Unexplained, We'll be having a short break from new episodes until Season 10 begins on November Friday 13th."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 149
+ }
+}

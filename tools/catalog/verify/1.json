@@ -1,0 +1,205 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/55b5c41e-b796-493d-829e-b16201392082/ed303395-bd29-403a-98d9-b16201396959/podcast.rss": {
+  "title": "Big Take Asia",
+  "episode": "How India’s Day Traders Broke the World’s Biggest Options Market",
+  "cues": 221,
+  "sentences": 221,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3"
+  ],
+  "words": 2712,
+  "dai": "yes",
+  "markers": 3,
+  "sample": [
+   "Podcasts.",
+   "Radio. News. At its very peak, how dominant did India become in global options trading?"
+  ],
+  "sync": "ok",
+  "refs": 4,
+  "ok": true,
+  "sec": 32
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/4e4cd910-40a1-4619-a5f3-ae2b0012ffff/5873a3cb-298f-40bc-b71f-ae2b0013000d/podcast.rss": {
+  "title": "Masters in Business",
+  "episode": "Financing In The AI Boom: Masters  in Business with Bob Michele",
+  "cues": 914,
+  "sentences": 912,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2"
+  ],
+  "words": 10959,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "This week on the podcast, another fantastic conversation.",
+   "Bob Michael has had an amazing career, could be one of the most informed, influential managers in the whole world of fixed income."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 65
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/84f3c095-964f-4994-9d24-ae2b00130029/c9553948-bc39-4871-8989-ae2b00130032/podcast.rss": {
+  "title": "Trumponomics",
+  "episode": "Live from New Delhi: What the World's Financial Leaders Fear Most",
+  "cues": 344,
+  "sentences": 344,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3",
+   "Speaker 4",
+   "Speaker 5",
+   "Speaker 6"
+  ],
+  "words": 5387,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "Podcasts.",
+   "Radio."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 60
+ },
+ "https://feeds.npr.org/510310/podcast.xml": {
+  "title": "The NPR Politics Podcast",
+  "episode": "AI chatbots: the new voter guides?",
+  "cues": 156,
+  "sentences": 156,
+  "speakers": [
+   "Domenico Montanaro",
+   "Maham Javaid",
+   "Tamara Keith"
+  ],
+  "words": 2786,
+  "dai": "detected",
+  "markers": 1,
+  "sample": [
+   "But can it replace voter guides and informing people about issues in upcoming elections?",
+   "Today on the pod, we look at the rise of voters turning to chatbots before going to the polls."
+  ],
+  "sync": "ok",
+  "refs": 4,
+  "ok": true,
+  "sec": 54
+ },
+ "https://feeds.npr.org/510317/podcast.xml": {
+  "title": "It's Been a Minute",
+  "episode": "The high flying girls who desegregated America",
+  "cues": 269,
+  "sentences": 269,
+  "speakers": [
+   "Amira Rose Davis",
+   "Barton Girdwood",
+   "Brittany Luse",
+   "Cher Vincent",
+   "Corey Antonio Rose",
+   "Natalie Guice Adams"
+  ],
+  "words": 4671,
+  "dai": "detected",
+  "markers": 2,
+  "sample": [
+   "Consider the cheerleader you have in your mind.",
+   "Maybe she's bubbly and sweet, like Sandy from \"Grease.\" Maybe she's shrewd and calculating, like Santana from \"Glee.\" No matter what you think of her, the point is that the cheerleader has become one of America's defining images, symbolizing femininity, youth, beauty and so much more."
+  ],
+  "sync": "ok",
+  "refs": 5,
+  "ok": true,
+  "sec": 80
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/e5f91208-cc7e-4726-a312-ae280140ad11/d64f756d-6d5e-4fae-b24f-ae280140ad36/podcast.rss": {
+  "title": "Behind the Bastards",
+  "episode": "Part Two: Peter Attia and the Cult of Longevity",
+  "cues": 1139,
+  "sentences": 1137,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3",
+   "Speaker 4",
+   "Speaker 5"
+  ],
+  "words": 12921,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "And here to talk about, well, here to do a special reverse bastards episode where I don't have to research and write about a terrible person.",
+   "My guest does is Dr. Kaveh Hoda, who has been very kindly teaching us about Dr."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 111
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/c0ae8c6e-22f0-4e9b-ac1c-ae390037ac53/7f5a4714-6b10-4ccf-a424-ae390037ac70/podcast.rss": {
+  "title": "Cautionary Tales with Tim Harford",
+  "episode": "A Tale of Blood and Ashes: The Exeter Vampires | Halloween Season",
+  "cues": 312,
+  "sentences": 312,
+  "speakers": [
+   "Speaker 1"
+  ],
+  "words": 4327,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "It's spring 1990.",
+   "Years of excavation have carved this place into a series of steep, grey banks."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 59
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/3329f452-8e18-4801-8c62-aef2010eef8c/5c38870a-227f-4e4f-a7dd-aef2010eefa3/podcast.rss": {
+  "title": "Leaders with Francine Lacqua",
+  "episode": "Ngozi Okonjo-Iweala on Leading the WTO Through a New Era of Tariffs",
+  "cues": 267,
+  "sentences": 267,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3"
+  ],
+  "words": 3313,
+  "dai": "yes",
+  "markers": 3,
+  "sample": [
+   "The 1st of April, 2025, Liberation Day is etched in a lot of people's minds.",
+   "I mean, as head of the WTO, what was your first reaction?"
+  ],
+  "sync": "ok",
+  "refs": 4,
+  "ok": true,
+  "sec": 25
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/a91018a4-ea4f-4130-bf55-ae270180c327/44710ecc-10bb-48d1-93c7-ae270180c33e/podcast.rss": {
+  "title": "Stuff You Should Know",
+  "episode": "The Disappearance of Dorothy Arnold",
+  "cues": 573,
+  "sentences": 572,
+  "speakers": [
+   "Speaker 1",
+   "Speaker 2",
+   "Speaker 3"
+  ],
+  "words": 7407,
+  "dai": "yes",
+  "markers": 4,
+  "sample": [
+   "Hey, and welcome to the podcast.",
+   "I'm Josh, and there's Chuck, and Jerry's here, too."
+  ],
+  "sync": "ok",
+  "refs": 6,
+  "ok": true,
+  "sec": 63
+ }
+}
