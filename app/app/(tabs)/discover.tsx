@@ -25,7 +25,7 @@ export default function Discover() {
   return (
     <View style={{ flex: 1 }}>
       <TextInput style={s.search} placeholder="쇼 이름 검색" value={q} onChangeText={setQ} />
-      <FlatList horizontal data={cats} keyExtractor={(c) => c} style={{ flexGrow: 0 }} contentContainerStyle={{ paddingHorizontal: 14, gap: 8 }}
+      <FlatList horizontal data={cats} keyExtractor={(c) => c} style={{ flexGrow: 0, minHeight: 44 }} contentContainerStyle={{ paddingHorizontal: 14, gap: 8, alignItems: 'center', paddingBottom: 6 }}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <Pressable onPress={() => setCat(item)} style={[s.chip, cat === item && s.chipOn]}>
