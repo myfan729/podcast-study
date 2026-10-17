@@ -20,6 +20,19 @@ uid = sess["user"]["id"]
 for t in ("Odd Lots", "The Indicator from Planet Money"):
     sid = requests.get(f"{URL}/rest/v1/shows?select=id&title=eq.{requests.utils.quote(t)}", headers=H, timeout=30).json()[0]["id"]
     requests.post(f"{URL}/rest/v1/subscriptions", headers={**H, "Prefer": "resolution=ignore-duplicates"}, json={"user_id": uid, "show_id": sid}, timeout=30)
+# stage the test account so the screenshots look like real use (also used for the store listing)
+S = {"apikey": SVC, "Authorization": f"Bearer {SVC}"}
+requests.patch(f"{URL}/rest/v1/unlocks?user_id=eq.{uid}", headers=S, timeout=30,
+               json={"unlocked_at": "2026-01-01T00:00:00Z"})                      # weekly quota → full again
+WORDS = [("word", "underlying", "근본적인, 기저의", "The underlying problem isn't the schedule."),
+         ("word", "annualized", "연율로 환산한", "At that pace, the annualized growth would be around 8%."),
+         ("word", "spiral", "악순환적 상승·하락, 나선", "The club slid into a downward spiral."),
+         ("expression", "pass along", "(비용 등을) 다른 사람에게 넘기다, 전가하다", "A lot of that cost gets passed along to shoppers."),
+         ("expression", "on the hook", "(비용·책임을) 떠안은", "Taxpayers could be on the hook for the bill."),
+         ("word", "buyout", "(기업) 인수, 지분 매입", "The owners accepted a buyout offer.")]
+requests.post(f"{URL}/rest/v1/vocab?on_conflict=user_id,kind,text", headers={**S, "Prefer": "resolution=merge-duplicates"}, timeout=30,
+              json=[{"user_id": uid, "kind": k, "text": t, "meaning_ko": m, "example": e, "due_at": "2026-01-01T00:00:00Z", "reps": 2 if i % 2 else 0}
+                    for i, (k, t, m, e) in enumerate(WORDS)])
 SPA = r"""
 import http.server, os
 class H(http.server.SimpleHTTPRequestHandler):
@@ -35,7 +48,7 @@ time.sleep(1.5)
 
 async def main():
     async with async_playwright() as p:
-        b = await p.chromium.launch()
+        b = await p.chromium.launch(args=['--autoplay-policy=no-user-gesture-required'])
         ctx = await b.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2)
         await ctx.add_init_script(f"localStorage.setItem('sb-{REF}-auth-token', {json.dumps(json.dumps(sess))});")
         pg = await ctx.new_page()
@@ -45,6 +58,9 @@ async def main():
         for name, path, wait in (("home", "/", 6000), ("discover", "/discover", 5000), ("show", f"/show/{show}", 5000),
                                  ("episode", f"/episode/{ep}", 9000), ("vocab", "/vocab", 4000), ("settings", "/settings", 4000)):
             await pg.goto(f"http://localhost:8081{path}"); await pg.wait_for_timeout(wait)
+            if name == "episode":
+                await pg.mouse.click(195, 640); await pg.wait_for_timeout(2500)        # tap a sentence → jump + play
+                await pg.mouse.wheel(0, 260); await pg.wait_for_timeout(3500)
             await pg.screenshot(path=str(OUT / f"{name}.png"))
             if name == "episode":
                 await pg.get_by_text("단어·표현").first.click(); await pg.wait_for_timeout(1500)
