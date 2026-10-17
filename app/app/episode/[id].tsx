@@ -2,9 +2,10 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { memo, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ActivityIndicator, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Btn, Icon, RoundBtn } from '@/components/ui';
+import AutoSync, { type SyncResult } from '@/components/AutoSync';
 import * as api from '@/lib/api';
 import { addAnchor, toAudio, toContent, type Anchor } from '@/lib/timeline';
 import type { Episode, Expression, Pack, RequestResult } from '@/lib/types';
@@ -125,6 +126,27 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
     player.seekTo(toAudio(sn.s, anchors)); if (!status.playing) player.play();
   }, [syncMode, anchors, player, status.playing, key]);
 
+  // automatic ad-aware sync (needs the server's reference fingerprints for this episode)
+  const [syncRef, setSyncRef] = useState<unknown>(null);
+  const [auto, setAuto] = useState<'off' | 'working' | 'auto' | 'failed'>('off');
+  const [autoMsg, setAutoMsg] = useState('');
+  useEffect(() => {
+    if (!ep.sync_path || Platform.OS === 'web') return;              // the web build has no WebView / file system
+    setAuto('working');
+    api.syncData(ep.sync_path).then(setSyncRef).catch(() => setAuto('failed'));
+  }, [ep.sync_path]);
+  const onAutoDone = useCallback(async (r: SyncResult | null) => {
+    if (!r || !r.ok) { setAuto('failed'); return; }
+    const c = toContent(player.currentTime ?? 0, anchors), wasPlaying = player.playing;
+    setAnchors(r.anchors); AsyncStorage.setItem(key, JSON.stringify(r.anchors)).catch(() => {});
+    player.replace({ uri: r.fileUri });                         // play exactly the copy that was aligned
+    player.setActiveForLockScreen?.(true, { title: pack.title, artist: pack.show.name, artworkUrl: pack.show.image });
+    setAuto('auto');
+    await new Promise((res) => setTimeout(res, 700));
+    await player.seekTo(toAudio(c, r.anchors));
+    if (wasPlaying) player.play();
+  }, [anchors, player, key, pack]);
+
   const setSpeed = () => { const r = RATES[(RATES.indexOf(rate) + 1) % RATES.length]; setRate(r); player.setPlaybackRate(r); };
   const offset = anchors.length ? Math.round(anchors[anchors.length - 1].a - anchors[anchors.length - 1].c) : 0;
 
@@ -136,6 +158,8 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
 
   return (
     <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+      {syncRef && auto === 'working' && pack.audio_url ? (
+        <AutoSync episodeId={ep.id} audioUrl={pack.audio_url} syncRef={syncRef} onStatus={setAutoMsg} onDone={onAutoDone} />) : null}
       <View style={st.top}>
         <RoundBtn icon="chevron-back" label="뒤로" onPress={() => router.back()} />
         <View style={{ flex: 1, minWidth: 0, alignItems: 'center' }}>
@@ -159,13 +183,14 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
       ) : (
         <Words pack={pack} episodeId={ep.id} onJump={(sec) => player.seekTo(toAudio(sec, anchors))} />
       )}
+      {auto === 'failed' && !syncMode && !anchors.length && <View style={st.syncHint}><Icon name="information-circle-outline" size={16} color={C.accent} /><Text style={st.syncT}>자동 싱크 실패 · 싱크를 누르고 들리는 문장을 눌러 주세요</Text></View>}
       {syncMode && <View style={st.syncHint}><Icon name="hand-left-outline" size={16} color={C.accent} /><Text style={st.syncT}>지금 들리는 문장을 눌러 주세요</Text></View>}
       <View style={[st.bar, { marginBottom: Math.max(insets.bottom, 0) + 12 }]}>
         <View style={st.timeRow}>
           <Text style={st.time}>{fmt(status.currentTime)} / {fmt(status.duration)}</Text>
           <Pressable onPress={() => setSyncMode(!syncMode)} style={[st.sync, syncMode && { backgroundColor: C.progress }]} hitSlop={6}
             accessibilityLabel="대본 싱크 맞추기">
-            <Text style={[st.syncBtnT, syncMode && { color: C.dark }]}>{syncMode ? '취소' : offset ? `싱크 ${offset > 0 ? '+' : ''}${offset}s` : '싱크'}</Text>
+            <Text style={[st.syncBtnT, syncMode && { color: C.dark }]}>{syncMode ? '취소' : auto === 'working' ? '맞추는 중…' : auto === 'auto' ? '자동 싱크' : offset ? `싱크 ${offset > 0 ? '+' : ''}${offset}s` : '싱크'}</Text>
           </Pressable>
         </View>
         <Pressable onLayout={(e) => setBarW(e.nativeEvent.layout.width || 1)} hitSlop={{ top: 12, bottom: 12 }} accessibilityLabel="재생 위치"
