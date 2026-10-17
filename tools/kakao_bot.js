@@ -1,5 +1,5 @@
 /*
- * Podcast Study — 카카오톡 오픈채팅 자동 게시 봇 (메신저봇R 용)  v6
+ * Podcast Study — 카카오톡 오픈채팅 자동 게시 봇 (메신저봇R 용)  v7
  *
  * 사이트의 게시 대기열(data/daily/queue.json)을 5분마다 확인해서, 글마다 정해진 시각(아침 07:00 두 편,
  * 저녁 18:00 한 편 — 시각과 편수는 사이트 설정이 정함)이 되면 등록된 방에 한 편씩 올립니다.
@@ -155,14 +155,26 @@ function maybeKick() {
 }
 
 // ---- 보내기 ----
-var lastTargetReplier = null;        // 게시 방에서 마지막으로 받은 알림의 답장 경로 (replyRoom 실패 시 대안)
+// 카톡 답장은 "그 방에서 온 알림"의 답장 버튼을 빌려 쓰는 방식이라, 봇이 글을 올리면 카톡이 그 알림을 지우고
+// 다음 알림(누군가의 새 메시지)이 올 때까지 그 방으로 보낼 길이 없어질 수 있어요. 그래서 여러 경로를 차례로 시도:
+//   1) 새 API의 bot.send (메신저봇R이 저장해 둔 방 세션 사용 — 알림이 사라져도 동작하는 경우가 있음)
+//   2) Api.replyRoom (지금 떠 있는 알림 기준)
+//   3) 마지막으로 받은 그 방 알림의 replier
+var lastTargetReplier = null;
+var lastSendPath = "";
 function send(room, text) {
-  var ok = false;
-  try { ok = Api.replyRoom(room, text); } catch (e) { Log.e("replyRoom error: " + e); }
-  if (!ok && lastTargetReplier && norm(room) === norm(targetRoom())) {
-    try { lastTargetReplier.reply(text); ok = true; } catch (e) { Log.e("replier fallback failed: " + e); }
+  try {
+    if (typeof BotManager !== "undefined" && BotManager.getCurrentBot) {
+      var b = BotManager.getCurrentBot();
+      if (b && b.send && b.send(room, text) === true) { lastSendPath = "bot.send"; return true; }
+    }
+  } catch (e) { Log.e("bot.send error: " + e); }
+  try { if (Api.replyRoom(room, text)) { lastSendPath = "replyRoom"; return true; } } catch (e) { Log.e("replyRoom error: " + e); }
+  if (lastTargetReplier && norm(room) === norm(targetRoom())) {
+    try { lastTargetReplier.reply(text); lastSendPath = "replier"; return true; } catch (e) { Log.e("replier fallback failed: " + e); }
   }
-  return ok;
+  lastSendPath = "실패(세션 없음)";
+  return false;
 }
 
 var LOCK = new java.util.concurrent.locks.ReentrantLock();
@@ -285,10 +297,11 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
   if (text === "!방이름") { replier.reply("봇이 보는 이 방: [" + r + "] · 단톡=" + isGroupChat + " · 게시 방: [" + (targetRoom() || "미등록") + "]"); return; }
   if (text === "!핑") {
     var nx = upcoming()[0];
-    replier.reply("살아 있어요 (v6) · " + dateKst() + " " + hhmm() + " KST\n게시 방: [" + (targetRoom() || "미등록 — 게시할 방에서 !여기") + "]"
+    replier.reply("살아 있어요 (v7) · " + dateKst() + " " + hhmm() + " KST\n게시 방: [" + (targetRoom() || "미등록 — 게시할 방에서 !여기") + "]"
       + "\n다음 게시: " + (nx ? whenLabel(nx.post_at_ms) + " · " + nx.show.name : "대기 중인 글 없음")
       + "\n대기열 확인: " + (lastFetch ? hhmm(lastFetch) : "아직") + (lastFetchError ? " (오류: " + lastFetchError.slice(0, 80) + ")" : "")
       + "\n자동 점검: " + (lastTick ? hhmm(lastTick) + (Date.now() - lastTick < 3 * 60 * 1000 ? " (정상)" : " (멈춰 있었음 → 다시 시작)") : "아직")
+      + "\n마지막 전송 경로: " + (lastSendPath || "아직") + " · 세션 API: " + (typeof BotManager !== "undefined" ? "있음" : "없음")
       + "\n다음 알람: " + (nextAlarmAt ? whenLabel(nextAlarmAt) : "없음") + (lastAlarmAt ? " · 마지막 알람 " + whenLabel(lastAlarmAt) : "")
       + "\n업데이트 깨우기: " + (ghToken() ? "켜짐" + (lastKick.at ? " · 마지막 " + hhmm(lastKick.at) + " " + lastKick.result : "") : "꺼짐 (GH_TOKEN 없음)"));
     return;
