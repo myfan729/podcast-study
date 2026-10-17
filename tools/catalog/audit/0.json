@@ -1,0 +1,163 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/8b1dd624-a026-43e9-8b57-ae2b00130066/podcast.rss": {
+  "title": "Big Take",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Big Take",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/8b1dd624-a026-43e9-8b57-ae2b00130066/image.jpg?t=1719592920&size=Large",
+   "image_url": null,
+   "description": "<p>The Big Take from Bloomberg News brings you inside what’s shaping the world's economies with the smartest and most informed business reporters around the world. The context you need on the stories that can move markets. Every afternoon.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T18:53:12Z",
+  "episode": "The Diamond Industry’s Battle for Your Ring Finger",
+  "cues": 151,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 773,
+  "sync": "ok",
+  "refs": 8,
+  "listener": {
+   "duration": 1180.0,
+   "refs_ok": 8,
+   "refs": 8,
+   "offsets": [
+    110.0,
+    311.6
+   ]
+  },
+  "points": [
+   {
+    "c": 34.9,
+    "pred": 144.9,
+    "err": -0.45,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 161.8,
+    "pred": 271.8,
+    "err": -0.34,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 289.47,
+    "pred": 399.5,
+    "err": 0.11,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 401.44,
+    "pred": 511.5,
+    "err": -0.71,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 560.555,
+    "pred": 872.2,
+    "err": -0.09,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 731.533,
+    "pred": 1043.1,
+    "err": -0.19,
+    "ok": true,
+    "score": 0.857
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 75
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/8a94442e-5a74-4fa2-8b8d-ae27003a8d6b/982f5071-765c-403d-969d-ae27003a8d83/podcast.rss": {
+  "title": "Odd Lots",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Odd Lots",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/8a94442e-5a74-4fa2-8b8d-ae27003a8d6b/982f5071-765c-403d-969d-ae27003a8d83/image.jpg?t=1681322812&size=Large",
+   "image_url": null,
+   "description": "<p>Bloomberg's Joe Weisenthal and Tracy Alloway explore the most interesting topics in finance, markets and economics. Join the conversation every Monday, Thursday, and Friday</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-17T08:00:00Z",
+  "episode": "David Byrne Explains How Forgotten Ideas Come Back to Life",
+  "cues": 693,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 3620,
+  "sync": "ok",
+  "refs": 34,
+  "listener": {
+   "duration": 4182.4,
+   "refs_ok": 34,
+   "refs": 34,
+   "offsets": [
+    98.7,
+    248.2,
+    439.1
+   ]
+  },
+  "points": [
+   {
+    "c": 33.31,
+    "pred": 132.0,
+    "err": 0.14,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 708.404,
+    "pred": 807.1,
+    "err": -0.25,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 1450.216,
+    "pred": 1698.5,
+    "err": -0.44,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2155.246,
+    "pred": 2594.3,
+    "err": -0.73,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 2858.84,
+    "pred": 3298.0,
+    "err": -0.85,
+    "ok": true,
+    "score": 0.714
+   },
+   {
+    "c": 3578.03,
+    "pred": 4017.1,
+    "err": -0.84,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 127
+ }
+}

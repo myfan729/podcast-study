@@ -1,0 +1,81 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/3b082bbf-691d-443b-bc59-ae2b0012ff93/9222076a-d22a-4a9f-9d26-ae2b0012ffb4/podcast.rss": {
+  "title": "Bloomberg Businessweek",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Bloomberg Businessweek",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/3b082bbf-691d-443b-bc59-ae2b0012ff93/9222076a-d22a-4a9f-9d26-ae2b0012ffb4/image.jpg?t=1742894668&size=Large",
+   "image_url": null,
+   "description": "<p>Listen for reporting from the magazine that helps global leaders stay ahead. Hosts Carol Massar and Tim Stenovec cover the changing world of money, power and technology.&nbsp;You can watch and listen to Businessweek LIVE on YouTube, weekdays from 2PM to 5PM ET:&nbsp;<a href=\"http://bit.ly/3vTiACF\">http://bit.ly/3vTiACF</a>.&nbsp;</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T23:00:00Z",
+  "episode": "Bloomberg Businessweek Weekend - October 16th, 2026",
+  "cues": 609,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 3327,
+  "sync": "ok",
+  "refs": 31,
+  "listener": {
+   "duration": 3937.6,
+   "refs_ok": 31,
+   "refs": 31,
+   "offsets": [
+    111.6,
+    313.1,
+    514.4
+   ]
+  },
+  "points": [
+   {
+    "c": 31.66,
+    "pred": 143.3,
+    "found": false,
+    "text": "Hi, everyone. Welcome to the Bloomberg Business Week weekend"
+   },
+   {
+    "c": 652.942,
+    "pred": 764.6,
+    "err": 0.3,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 1157.435,
+    "pred": 1269.1,
+    "err": -0.3,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1793.487,
+    "pred": 2106.6,
+    "err": -0.5,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2491.394,
+    "pred": 2804.5,
+    "found": false,
+    "text": "And Jay Cook and company had then gotten into, after the Civ"
+   },
+   {
+    "c": 3297.489,
+    "pred": 3811.9,
+    "err": -0.13,
+    "ok": true,
+    "score": 0.857
+   }
+  ],
+  "accuracy": 0.67,
+  "verdict": "check",
+  "sec": 117
+ }
+}

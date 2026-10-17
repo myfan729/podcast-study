@@ -1,0 +1,85 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/8e704079-ca57-4eac-9741-ae27003e2b7f/9739700c-72c3-4176-ae55-ae27003e2b96/podcast.rss": {
+  "title": "Bloomberg Surveillance",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Bloomberg Surveillance",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/8e704079-ca57-4eac-9741-ae27003e2b7f/9739700c-72c3-4176-ae55-ae27003e2b96/image.jpg?t=1705949541&size=Large",
+   "image_url": null,
+   "description": "<p>Listen for the latest in finance, economics and investment. <br><br>Jonathan Ferro, Lisa Abramowicz and Annmarie Hordern bring you interviews from Bloomberg Surveillance Television. <br><br>Join Tom Keene and Paul Sweeney for the best conversations from Bloomberg Surveillance Radio.&nbsp;<br><br>Watch Surveillance TV LIVE each mornings: <a href=\"http://bit.ly/3P7nstQ\">http://bit.ly/3P7nstQ</a>. <br><br>Watch Surveillance Radio LIVE weekday mornings: <a href=\"http://bit.ly/3vTiACF\" data-destination=\"rte:bind\">http://bit.ly/3vTiACF</a>.&nbsp;</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-17T10:00:00Z",
+  "episode": "Bank Earnings, Why Consumers Are 'Roughed Up' & Real Estate Trends",
+  "cues": 772,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2519,
+  "sync": "ok",
+  "refs": 26,
+  "listener": {
+   "duration": 3329.5,
+   "refs_ok": 26,
+   "refs": 26,
+   "offsets": [
+    109.9,
+    110.0,
+    311.2,
+    513.0,
+    714.5
+   ]
+  },
+  "points": [
+   {
+    "c": 30.728,
+    "pred": 140.7,
+    "err": -0.12,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 485.77,
+    "pred": 595.7,
+    "err": 0.39,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 1015.939,
+    "pred": 1327.2,
+    "err": 0.06,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1536.609,
+    "pred": 2049.6,
+    "err": -0.18,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2063.454,
+    "pred": 2576.5,
+    "err": -0.18,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 2495.184,
+    "pred": 3209.7,
+    "err": -0.49,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 179
+ }
+}

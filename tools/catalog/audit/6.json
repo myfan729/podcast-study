@@ -1,0 +1,163 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/f541f9b4-77cb-45aa-bf94-b1d300e5d357/1d448cb7-e0fc-45b8-b51f-b1d300e623a7/podcast.rss": {
+  "title": "Everybody's Business",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Everybody's Business",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/f541f9b4-77cb-45aa-bf94-b1d300e5d357/image.jpg?t=1746726643&size=Large",
+   "image_url": null,
+   "description": "<p>Bloomberg Businessweek brings you a smart and fun chat show about all things...business. Hosted by award-winning business and economics journalists Max Chafkin (author of The Contrarian: Peter Thiel and Silicon Valley&rsquo;s Pursuit of Power) and Stacey Vanek Smith (former co-host of NPR&rsquo;s Planet Money and reporter for Marketplace), Everybody's Business is powered by the unparalleled sources and reporters who bring you Businessweek magazine&rsquo;s headlines and the stories behind them. The show gives listeners a window into the discussions happening in boardrooms, Zooms and group chats in power centers around the world. From interpreting Fed meetings to the business of wolf cloning, each week Max, Stacey and their friends at Bloomberg Businessweek guide listeners through what really went on during the last week from Wall Street and Main Street. Because what&rsquo;s happening with money and markets is everybody&rsquo;s business.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T09:00:00Z",
+  "episode": "Why are Tech Billionaires in the Business of Political Spending?",
+  "cues": 516,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2540,
+  "sync": "ok",
+  "refs": 24,
+  "listener": {
+   "duration": 3113.2,
+   "refs_ok": 24,
+   "refs": 24,
+   "offsets": [
+    74.4,
+    275.7,
+    477.0
+   ]
+  },
+  "points": [
+   {
+    "c": 30.174,
+    "pred": 104.6,
+    "err": -0.24,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 455.0,
+    "pred": 529.4,
+    "err": -0.01,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 983.45,
+    "pred": 1057.9,
+    "found": false,
+    "text": "Merger Madness. With a little game we call Merger Madness."
+   },
+   {
+    "c": 1384.273,
+    "pred": 1660.0,
+    "err": 0.56,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1827.21,
+    "pred": 2304.2,
+    "err": -0.01,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2513.946,
+    "pred": 2990.9,
+    "err": 0.24,
+    "ok": true,
+    "score": 0.929
+   }
+  ],
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 108
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/58e85be7-dbb5-4043-afed-af80014dc0b3/27143354-63aa-4ac5-965d-af80014dc0d3/podcast.rss": {
+  "title": "Bloomberg Daybreak: Asia Edition",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Bloomberg Daybreak: Asia Edition",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/58e85be7-dbb5-4043-afed-af80014dc0b3/27143354-63aa-4ac5-965d-af80014dc0d3/image.jpg?t=1673278548&size=Large",
+   "image_url": null,
+   "description": "<p>Listen for business and finance news centered in the Asia-Pacific region. <br><br>Host Doug Krizner brings you insight and analysis on the day's top stories from China, India, Japan, Korea, Hong Kong, Singapore, Australia and more.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T21:00:00Z",
+  "episode": "Daybreak Weekend: US Housing, Germany Summit, BOK Decision",
+  "cues": 399,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2348,
+  "sync": "ok",
+  "refs": 23,
+  "listener": {
+   "duration": 2981.0,
+   "refs_ok": 23,
+   "refs": 23,
+   "offsets": [
+    110.1,
+    110.2,
+    305.5,
+    501.0
+   ]
+  },
+  "points": [
+   {
+    "c": 31.46,
+    "pred": 141.6,
+    "err": -0.13,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 516.99,
+    "pred": 627.1,
+    "err": -0.08,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 976.74,
+    "pred": 1282.2,
+    "err": 0.06,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1393.684,
+    "pred": 1699.2,
+    "found": false,
+    "text": "And it's also close relationship with China in terms of its "
+   },
+   {
+    "c": 1808.863,
+    "pred": 2309.9,
+    "err": -0.08,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2316.286,
+    "pred": 2817.3,
+    "err": -0.39,
+    "ok": true,
+    "score": 0.929
+   }
+  ],
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 109
+ }
+}

@@ -1,0 +1,80 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/1742e0df-336e-4798-9bdf-af4d00f3c918/b65f5d94-dd18-419c-9276-af4d00f43c32/podcast.rss": {
+  "title": "Merryn Talks Money",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Merryn Talks Money",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/1742e0df-336e-4798-9bdf-af4d00f3c918/image.jpg?t=1668543575&size=Large",
+   "image_url": null,
+   "description": "<p>Merryn Talks Money with Bloomberg senior columnist Merryn Somerset Webb is your key to understanding how markets work – and how you can make them work for you. Every episode features a relaxed but in-depth conversation with a fund manager, a strategist, a Bloomberg expert or just someone Merryn finds particularly interesting in any given week. Listen in for the kind of insights and explanations everyone can use to help them make better saving and investing choices.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T08:26:14Z",
+  "episode": "Markets Wrap: AI Jitters, Budget Expectations and UK Housing Rebound?",
+  "cues": 119,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 691,
+  "sync": "ok",
+  "refs": 7,
+  "listener": {
+   "duration": 928.1,
+   "refs_ok": 7,
+   "refs": 7,
+   "offsets": [
+    112.7,
+    112.8
+   ]
+  },
+  "points": [
+   {
+    "c": 32.1,
+    "pred": 144.9,
+    "err": -1.43,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 178.682,
+    "pred": 291.4,
+    "err": -1.42,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 279.965,
+    "pred": 392.7,
+    "err": -1.2,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 425.33,
+    "pred": 538.1,
+    "found": false,
+    "text": "And even at the time, HMRC was treating it as a grey area."
+   },
+   {
+    "c": 556.435,
+    "pred": 669.2,
+    "err": -1.35,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 663.534,
+    "pred": 776.3,
+    "found": false,
+    "text": "If you like our show, rate, review and subscribe wherever yo"
+   }
+  ],
+  "accuracy": 0.67,
+  "verdict": "check",
+  "sec": 71
+ }
+}

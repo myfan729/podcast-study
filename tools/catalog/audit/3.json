@@ -1,0 +1,167 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/7f534b8c-9e91-429a-b102-ae3c00090c6d/0ad812bf-fd15-4012-a18c-ae3c00090c76/podcast.rss": {
+  "title": "Bloomberg Intelligence",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Bloomberg Intelligence",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/7f534b8c-9e91-429a-b102-ae3c00090c6d/0ad812bf-fd15-4012-a18c-ae3c00090c76/image.jpg?t=1750939420&size=Large",
+   "image_url": null,
+   "description": "<p>Listen for investment news and in-depth company research. <br><br>Hosts Paul Sweeney and Scarlet Fu harness the power of Bloomberg Intelligence to analyze investments on Wall Street. Watch Bloomberg Intelligence LIVE on YouTube, weekdays from 10AM to 12PM ET: <a href=\"http://bit.ly/3vTiACF\">http://bit.ly/3vTiACF</a>.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-17T10:00:00Z",
+  "episode": "Bank Earnings, Why Consumers Are 'Roughed Up' & Real Estate Trends",
+  "cues": 772,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2519,
+  "sync": "ok",
+  "refs": 26,
+  "listener": {
+   "duration": 3331.1,
+   "refs_ok": 26,
+   "refs": 26,
+   "offsets": [
+    111.4,
+    111.5,
+    312.8,
+    514.5,
+    716.0
+   ]
+  },
+  "points": [
+   {
+    "c": 30.728,
+    "pred": 142.2,
+    "err": -0.11,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 485.77,
+    "pred": 597.2,
+    "err": 0.45,
+    "ok": true,
+    "score": 0.786
+   },
+   {
+    "c": 1015.939,
+    "pred": 1328.7,
+    "err": 0.07,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 1536.609,
+    "pred": 2051.2,
+    "err": -0.17,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2063.454,
+    "pred": 2578.0,
+    "err": -0.23,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 2495.184,
+    "pred": 3211.1,
+    "err": -0.42,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 134
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/84f3c095-964f-4994-9d24-ae2b00130029/c9553948-bc39-4871-8989-ae2b00130032/podcast.rss": {
+  "title": "Trumponomics",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Trumponomics",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/84f3c095-964f-4994-9d24-ae2b00130029/c9553948-bc39-4871-8989-ae2b00130032/image.jpg?t=1736353307&size=Large",
+   "image_url": null,
+   "description": "<p>Tariffs, crypto, deregulation, tax cuts, protectionism, are just some of the things back on the table when Donald Trump returns to the Presidency. To help you plan for Trump's singular approach to economics, Bloomberg presents Trumponomics, a weekly podcast focused on the Trump administration's economic policies and plans. Editorial head of government and economics Stephanie Flanders will be joined each week by reporters in Washington D.C. and Wall Street to examine how Trump's policies are shaping the global economy and what on earth is going to happen next.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-15T09:00:00Z",
+  "episode": "Live from New Delhi: What the World's Financial Leaders Fear Most",
+  "cues": 344,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2102,
+  "sync": "ok",
+  "refs": 20,
+  "listener": {
+   "duration": 2734.2,
+   "refs_ok": 20,
+   "refs": 20,
+   "offsets": [
+    110.5,
+    305.5,
+    500.0,
+    500.1
+   ]
+  },
+  "points": [
+   {
+    "c": 42.729,
+    "pred": 153.3,
+    "err": -0.49,
+    "ok": true,
+    "score": 0.714
+   },
+   {
+    "c": 518.12,
+    "pred": 628.6,
+    "err": -0.74,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 927.356,
+    "pred": 1232.8,
+    "err": -0.04,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1303.091,
+    "pred": 1608.6,
+    "err": -0.18,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1692.499,
+    "pred": 2192.5,
+    "err": 1.59,
+    "ok": false,
+    "score": 0.929
+   },
+   {
+    "c": 2070.858,
+    "pred": 2570.9,
+    "err": 0.45,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 94
+ }
+}

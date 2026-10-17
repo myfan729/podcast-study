@@ -1,0 +1,83 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/55b5c41e-b796-493d-829e-b16201392082/ed303395-bd29-403a-98d9-b16201396959/podcast.rss": {
+  "title": "Big Take Asia",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Big Take Asia",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/55b5c41e-b796-493d-829e-b16201392082/image.jpg?t=1753133654&size=Large",
+   "image_url": null,
+   "description": "<p>We’re taking The Big Take to Asia. Each week, Bloomberg’s Oanh Ha tells a story from the home of the world's most dynamic economies - and the markets, tycoons and businesses that drive the ever-shifting region.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-13T20:40:58Z",
+  "episode": "How India’s Day Traders Broke the World’s Biggest Options Market",
+  "cues": 221,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 1052,
+  "sync": "ok",
+  "refs": 11,
+  "listener": {
+   "duration": 1460.6,
+   "refs_ok": 11,
+   "refs": 11,
+   "offsets": [
+    111.6,
+    111.7,
+    313.1,
+    313.2
+   ]
+  },
+  "points": [
+   {
+    "c": 31.43,
+    "pred": 143.1,
+    "err": 0.32,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 224.57,
+    "pred": 336.2,
+    "err": 0.55,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 388.66,
+    "pred": 500.3,
+    "err": -0.3,
+    "ok": true,
+    "score": 0.786
+   },
+   {
+    "c": 579.179,
+    "pred": 690.9,
+    "err": -0.1,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 796.89,
+    "pred": 1110.0,
+    "err": -0.81,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1016.74,
+    "pred": 1329.9,
+    "found": false,
+    "text": "This is The Big Take Asia from Bloomberg News."
+   }
+  ],
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 103
+ }
+}

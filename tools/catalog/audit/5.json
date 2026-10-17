@@ -1,0 +1,163 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/15e00369-eef2-4085-a194-b00d01137fde/8f25e357-09d8-46db-a150-b00d0113ef63/podcast.rss": {
+  "title": "Bloomberg Talks",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Bloomberg Talks",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/15e00369-eef2-4085-a194-b00d01137fde/image.jpg?t=1685033236&size=Large",
+   "image_url": null,
+   "description": "<p>Listen for top interviews from Bloomberg News. <br><br>Hear conversations with the biggest names in finance, politics, technology, foreign relations, sports and entertainment.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T23:49:38Z",
+  "episode": "US Chamber of Commerce President & CEO Suzanne Clark Talks Economy Growth",
+  "cues": 91,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 473,
+  "sync": "ok",
+  "refs": 6,
+  "listener": {
+   "duration": 529.7,
+   "refs_ok": 6,
+   "refs": 6,
+   "offsets": [
+    14.8,
+    14.9,
+    15.0
+   ]
+  },
+  "points": [
+   {
+    "c": 33.378,
+    "pred": 48.4,
+    "found": false,
+    "text": "Joining us now for more is Suzanne Clark, president and CEO "
+   },
+   {
+    "c": 110.16,
+    "pred": 125.1,
+    "err": -0.26,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 180.417,
+    "pred": 195.4,
+    "err": -0.46,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 287.268,
+    "pred": 302.2,
+    "err": -0.38,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 368.843,
+    "pred": 383.8,
+    "err": -0.49,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 450.18,
+    "pred": 465.2,
+    "err": -0.18,
+    "ok": true,
+    "score": 0.857
+   }
+  ],
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 57
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/37c6caa7-d377-4c08-b479-af9d012ed5ad/a7faefb0-28ec-4b1d-85f3-af9d012ed5c9/podcast.rss": {
+  "title": "Zero: The Climate Race",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Zero: The Climate Race",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/37c6caa7-d377-4c08-b479-af9d012ed5ad/a7faefb0-28ec-4b1d-85f3-af9d012ed5c9/image.jpg?t=1675362156&size=Large",
+   "image_url": null,
+   "description": "Zero is about the tactics and technologies taking us to a world of zero emissions. Each week Bloomberg’s award-winning reporter Akshat Rathi talks to the people tackling climate change – a venture capitalist hunting for the best cleantech investment, scientists starting companies, politicians who have successfully created climate laws, and CEOs who have completely transformed their businesses. The road to zero emissions has many paths and everyone’s got an opinion about the best route. Listen in."
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-15T04:00:00Z",
+  "episode": "A historic El Niño is coming that could cost the world trillions: Odd Lots",
+  "cues": 471,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 3384,
+  "sync": "ok",
+  "refs": 32,
+  "listener": {
+   "duration": 3511.2,
+   "refs_ok": 32,
+   "refs": 32,
+   "offsets": [
+    42.0,
+    85.4,
+    126.8
+   ]
+  },
+  "points": [
+   {
+    "c": 32.12,
+    "pred": 74.1,
+    "err": -0.13,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 572.98,
+    "pred": 615.0,
+    "err": -0.47,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1343.62,
+    "pred": 1429.0,
+    "err": -1.21,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 2053.44,
+    "pred": 2180.2,
+    "err": 0.18,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 2810.45,
+    "pred": 2937.2,
+    "err": -0.18,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 3337.79,
+    "pred": 3464.6,
+    "err": -0.27,
+    "ok": true,
+    "score": 0.857
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 135
+ }
+}

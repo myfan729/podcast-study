@@ -1,0 +1,84 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/ee4336cb-155f-4488-90e0-b1400134e40e/77e6a3a7-290d-4a82-8164-b14001353ef2/podcast.rss": {
+  "title": "Money Stuff: The Podcast",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Money Stuff: The Podcast",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/ee4336cb-155f-4488-90e0-b1400134e40e/image.jpg?t=1711565317&size=Large",
+   "image_url": null,
+   "description": "<p>The audio companion to Bloomberg Opinion’s beloved Money Stuff column hosted by its author Matt Levine, “whose deadpan style mixes technical elucidation and wit” (NY Times). Once a week, Matt and his friend, Bloomberg News reporter and TV host Katie Greifeld, talk about Wall Street, finance and…other stuff. New episodes every Friday.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T15:09:29Z",
+  "episode": "Release Me From This Demon",
+  "cues": 643,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2278,
+  "sync": "ok",
+  "refs": 23,
+  "listener": {
+   "duration": 3005.7,
+   "refs_ok": 23,
+   "refs": 23,
+   "offsets": [
+    104.4,
+    104.5,
+    335.9,
+    602.2,
+    602.3
+   ]
+  },
+  "points": [
+   {
+    "c": 31.65,
+    "pred": 136.1,
+    "err": -0.39,
+    "ok": true,
+    "score": 0.786
+   },
+   {
+    "c": 495.31,
+    "pred": 599.8,
+    "err": 0.08,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 909.66,
+    "pred": 1014.1,
+    "err": -0.28,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 1345.398,
+    "pred": 1681.3,
+    "found": false,
+    "text": "One aspect of that is like, you know, so like instead of lik"
+   },
+   {
+    "c": 1849.74,
+    "pred": 2452.0,
+    "err": 0.02,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2241.181,
+    "pred": 2843.5,
+    "err": 0.03,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 191
+ }
+}
