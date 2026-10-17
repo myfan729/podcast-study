@@ -1,0 +1,42 @@
+name: App worker (catalog refresh + study packs)
+on:
+  repository_dispatch:
+    types: [process]            # sent by the database when an app user opens an episode
+  workflow_dispatch:
+  schedule:
+    - cron: "11,41 * * * *"     # fallback: GitHub skips many scheduled runs, the dispatch is the main trigger
+concurrency:
+  group: app-worker
+  cancel-in-progress: false
+jobs:
+  work:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      STUDY_MODEL: ${{ vars.STUDY_MODEL }}
+      TRANSLATE_MODEL: ${{ vars.TRANSLATE_MODEL }}
+    steps:
+      - name: Skip until Supabase is configured
+        id: cfg
+        run: if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_KEY" ]; then echo "on=false" >> $GITHUB_OUTPUT; else echo "on=true" >> $GITHUB_OUTPUT; fi
+      - if: steps.cfg.outputs.on == 'true'
+        uses: actions/checkout@v4
+      - if: steps.cfg.outputs.on == 'true'
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - if: steps.cfg.outputs.on == 'true'
+        uses: actions/cache@v4
+        with: { path: ~/.cache/huggingface, key: whisper-base.en-v1 }
+      - if: steps.cfg.outputs.on == 'true'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+          pip install -r requirements.txt -r requirements-sync.txt
+      - if: steps.cfg.outputs.on == 'true' && github.event_name != 'repository_dispatch'
+        name: Refresh show feeds
+        run: python -m pipeline.app_worker refresh
+      - if: steps.cfg.outputs.on == 'true'
+        name: Build requested episodes
+        run: python -m pipeline.app_worker process --max 6

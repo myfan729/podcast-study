@@ -14,7 +14,7 @@ on:
     - cron: "3,23 9 * * *"                    # 18:03, 18:23 KST (late arrivals)
   push:
     branches: [main]
-    paths-ignore: ["docs/data/**", "state/**"]   # code/config changes trigger a run; the bot's own data commits do not
+    paths-ignore: ["docs/data/**", "state/**", "app/**", "supabase/**", "tools/catalog/**"]   # code/config changes trigger a run; the bot's own data commits do not
   workflow_dispatch:
     inputs:
       backfill:
