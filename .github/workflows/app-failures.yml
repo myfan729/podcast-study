@@ -1,0 +1,17 @@
+name: App — recent failed episodes (diagnostics)
+on:
+  workflow_dispatch:
+jobs:
+  show:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+    steps:
+      - run: |
+          sudo apt-get install -y -qq postgresql-client > /dev/null
+          psql "$SUPABASE_DB_URL" -tA -F ' | ' -c "select s.title, e.title, e.status, e.attempts, left(coalesce(e.error,''), 400)
+            from public.episodes e join public.shows s on s.id = e.show_id
+            where e.status in ('failed','no_transcript') or e.error is not null
+            order by coalesce(e.requested_at, e.published_at) desc limit 8" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g" |
+          while IFS= read -r l; do echo "::notice::$l"; done
