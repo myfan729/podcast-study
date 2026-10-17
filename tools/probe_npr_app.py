@@ -15,6 +15,8 @@ for name, feed in SHOWS.items():
     _, eps = parse_feed(http_get_text(s, feed))
     rows = []
     for ep in eps[:8]:
+        if name != "Life Kit":
+            continue
         r = {"title": ep.title, "pub": ep.published_iso, "link": ep.link}
         try:
             url = W.resolve_page_url(s, {"parser": "npr"}, ep); r["url"] = url
@@ -27,6 +29,11 @@ for name, feed in SHOWS.items():
                 Path(f"tools/npr_samples/fail-{sid}.html").write_text(html[:400000])
                 r["has_transcript_word"] = "transcript" in html.lower(); r["len"] = len(html)
                 m = re.search(r"<title>(.*?)</title>", html, re.S); r["page_title"] = m.group(1).strip()[:120] if m else None
+                body = re.sub(r"<script.*?</script>|<style.*?</style>", " ", html, flags=re.S)
+                cls = sorted(set(re.findall(r'class="([^"]*transcript[^"]*)"', html, re.I)))[:6]
+                txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", body))
+                i = txt.lower().find("transcript", txt.lower().find(ep.title.lower()[:20]) + 1)
+                r["page_title"] = f"classes={cls} text≈{txt[max(0, i - 80):i + 320]}"
         except Exception as e:  # noqa: BLE001
             r["ok"] = False; r["error"] = f"{type(e).__name__}: {e}"[:200]
         rows.append(r)
