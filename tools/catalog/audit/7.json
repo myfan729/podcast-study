@@ -1,0 +1,410 @@
+{
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/4e4cd910-40a1-4619-a5f3-ae2b0012ffff/5873a3cb-298f-40bc-b71f-ae2b0013000d/podcast.rss": {
+  "title": "Masters in Business",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Masters in Business",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/4e4cd910-40a1-4619-a5f3-ae2b0012ffff/5873a3cb-298f-40bc-b71f-ae2b0013000d/image.jpg?t=1677179752&size=Large",
+   "image_url": null,
+   "description": "<p>Bloomberg Radio host Barry Ritholtz speaks to the people and ideas that shape markets, investing and business.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T21:00:00Z",
+  "episode": "Financing In The AI Boom: Masters  in Business with Bob Michele",
+  "cues": 914,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 4278,
+  "sync": "ok",
+  "refs": 39,
+  "listener": {
+   "duration": 5020.1,
+   "refs_ok": 39,
+   "refs": 39,
+   "offsets": [
+    110.9,
+    111.0,
+    352.8,
+    610.1
+   ]
+  },
+  "points": [
+   {
+    "c": 43.726,
+    "pred": 154.7,
+    "found": false,
+    "text": "Few people know as much about what drives the fixed income m"
+   },
+   {
+    "c": 849.001,
+    "pred": 960.0,
+    "err": 0.23,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1739.815,
+    "pred": 2092.6,
+    "err": 0.18,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2478.63,
+    "pred": 3088.7,
+    "err": 0.01,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 3439.27,
+    "pred": 4049.3,
+    "err": 0.24,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 4251.662,
+    "pred": 4861.7,
+    "err": 0.75,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 212
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d15648c4-cee0-4e99-a5ca-af80014d921d/65ce2954-d8a8-4c66-9f42-af80014d923e/podcast.rss": {
+  "title": "Bloomberg Daybreak: US Edition",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Bloomberg Daybreak: US Edition",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d15648c4-cee0-4e99-a5ca-af80014d921d/65ce2954-d8a8-4c66-9f42-af80014d923e/image.jpg?t=1673278228&size=Large",
+   "image_url": null,
+   "description": "<p>Listen for today's top stories, with context, in just 15 minutes. <br><br>Each morning, hosts Nathan Hager and Karen Moskow bring you the latest on US politics, foreign relations, business, financial markets and global economics. The show is recorded at 5 AM ET each weekday, so you get the freshest reporting on the stories that matter. Get informed from Bloomberg's 3,000 journalists and analysts. Listen and subscribe to Bloomberg Daybreak: US Edition.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T21:00:00Z",
+  "episode": "Daybreak Weekend: US Housing, Germany Summit, BOK Decision",
+  "cues": 399,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2348,
+  "sync": "ok",
+  "refs": 23,
+  "listener": {
+   "duration": 3038.3,
+   "refs_ok": 23,
+   "refs": 23,
+   "offsets": [
+    111.7,
+    337.6,
+    337.7,
+    563.7
+   ]
+  },
+  "points": [
+   {
+    "c": 31.46,
+    "pred": 143.1,
+    "err": -0.19,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 516.99,
+    "pred": 628.7,
+    "err": -0.08,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 976.74,
+    "pred": 1314.4,
+    "err": 0.06,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1393.684,
+    "pred": 1731.3,
+    "found": false,
+    "text": "And it's also close relationship with China in terms of its "
+   },
+   {
+    "c": 1808.863,
+    "pred": 2372.6,
+    "err": -0.02,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2316.286,
+    "pred": 2880.0,
+    "err": -0.31,
+    "ok": true,
+    "score": 0.929
+   }
+  ],
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 179
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/29ee4014-65ab-4d60-812e-ae4c00549b7f/3889a49b-3697-48af-9765-ae4c00549b97/podcast.rss": {
+  "title": "Stuff Mom Never Told You",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Stuff Mom Never Told You",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/29ee4014-65ab-4d60-812e-ae4c00549b7f/image.jpg?t=1752697592&size=Large",
+   "image_url": null,
+   "description": "<p>Through an intersectional feminist perspective, hosts Anney and Samantha dive into science, history, and culture to make sense of the everyday and unpack the stories that brought us to where we are today. This podcast aims to better understand the challenges facing women and marginalized folks all over the world and highlights the tools we can use to tackle them head on.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-17T07:05:00Z",
+  "episode": "SMNTY Classics: The Legacy of the Blair Witch Project",
+  "cues": 684,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2892,
+  "sync": "ok",
+  "refs": 27,
+  "listener": {
+   "duration": 3807.6,
+   "refs_ok": 27,
+   "refs": 27,
+   "offsets": [
+    187.6,
+    187.7,
+    484.5,
+    738.2,
+    738.3
+   ]
+  },
+  "points": [
+   {
+    "c": 37.08,
+    "pred": 224.7,
+    "err": 0.33,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 579.846,
+    "pred": 767.5,
+    "err": 0.24,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 1106.896,
+    "pred": 1591.4,
+    "err": -3.22,
+    "ok": false,
+    "score": 1.0
+   },
+   {
+    "c": 1641.337,
+    "pred": 2125.8,
+    "err": -3.92,
+    "ok": false,
+    "score": 1.0
+   },
+   {
+    "c": 2248.573,
+    "pred": 2986.8,
+    "err": -0.57,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 2856.053,
+    "pred": 3594.3,
+    "err": -0.25,
+    "ok": true,
+    "score": 0.786
+   }
+  ],
+  "accuracy": 0.67,
+  "verdict": "check",
+  "sec": 231
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/c0ae8c6e-22f0-4e9b-ac1c-ae390037ac53/7f5a4714-6b10-4ccf-a424-ae390037ac70/podcast.rss": {
+  "title": "Cautionary Tales with Tim Harford",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Cautionary Tales with Tim Harford",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/c0ae8c6e-22f0-4e9b-ac1c-ae390037ac53/7f5a4714-6b10-4ccf-a424-ae390037ac70/image.jpg?t=1650471153&size=Large",
+   "image_url": null,
+   "description": "<p>We tell our children unsettling fairy tales to teach them valuable lessons, but these Cautionary Tales are for the education of the grown ups &ndash; and they are all true. Tim Harford (Financial Times, BBC, author of &ldquo;The Data Detective&rdquo;) brings you stories of awful human error, tragic catastrophes, and hilarious fiascos. They'll delight you, scare you, but also make you wiser. New episodes every Friday.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T04:01:00Z",
+  "episode": "A Tale of Blood and Ashes: The Exeter Vampires | Halloween Season",
+  "cues": 312,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2264,
+  "sync": "ok",
+  "refs": 23,
+  "listener": {
+   "duration": 2894.1,
+   "refs_ok": 23,
+   "refs": 23,
+   "offsets": [
+    119.4,
+    308.7,
+    308.8,
+    499.3,
+    499.4
+   ]
+  },
+  "points": [
+   {
+    "c": 31.397,
+    "pred": 150.8,
+    "err": -0.86,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 445.027,
+    "pred": 564.5,
+    "err": -1.31,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 873.673,
+    "pred": 1182.4,
+    "err": -1.73,
+    "ok": false,
+    "score": 0.929
+   },
+   {
+    "c": 1334.029,
+    "pred": 1642.8,
+    "err": -1.21,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1768.92,
+    "pred": 2268.3,
+    "err": -3.91,
+    "ok": false,
+    "score": 0.929
+   },
+   {
+    "c": 2237.09,
+    "pred": 2736.5,
+    "found": false,
+    "text": "To sign up, head to patreon.com slash cautionaryclub."
+   }
+  ],
+  "accuracy": 0.5,
+  "verdict": "check",
+  "sec": 156
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/3330cb46-e122-4797-bc0c-ae32006cd1f8/bcfb0fa6-e85d-4c5f-a52f-ae32006cd206/podcast.rss": {
+  "title": "Part-Time Genius",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Part-Time Genius",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/3330cb46-e122-4797-bc0c-ae32006cd1f8/image.jpg?t=1772126235&size=Large",
+   "image_url": null,
+   "description": "<p>Are you a knowledge junkie who loves when facts are stranger than fiction? Do you find yourself constantly tripping down Wikipedia rabbit holes (and delighting in the journey)? Have you ever been told you ask a lot of questions? If so, congrats! You&rsquo;re one of us: a Part-Time Genius! Join Will, Mango, and the team as we scour the globe in search of obscure facts, offbeat locales, and hidden histories. Along the way, we&rsquo;ll chat with experts, play some games, get in touch with our silly side, and celebrate the fine art of staying curious.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T12:00:00Z",
+  "episode": "Are We Living Through a Rudeness Epidemic? ft. Danny Wallace",
+  "cues": 448,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2181,
+  "sync": "ok",
+  "refs": 22,
+  "listener": {
+   "duration": 2798.4,
+   "refs_ok": 22,
+   "refs": 22,
+   "offsets": [
+    144.2,
+    365.3,
+    494.6
+   ]
+  },
+  "points": [
+   {
+    "c": 34.93,
+    "pred": 179.1,
+    "err": -0.3,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 374.16,
+    "pred": 518.4,
+    "err": -0.25,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 798.193,
+    "pred": 1163.5,
+    "err": 0.55,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1269.074,
+    "pred": 1634.3,
+    "err": 0.12,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1675.16,
+    "pred": 2169.7,
+    "err": 0.06,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2143.35,
+    "pred": 2638.0,
+    "err": 0.08,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 158
+ }
+}
