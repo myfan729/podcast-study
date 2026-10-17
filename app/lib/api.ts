@@ -28,7 +28,7 @@ export async function showEpisodes(showId: string): Promise<Episode[]> {
 }
 export async function feed(showIds: string[]): Promise<Episode[]> {
   if (!showIds.length) return [];
-  return ok(await supabase.from('episodes').select(EP_COLS + ',shows(title,image_url)').in('show_id', showIds)
+  return ok(await supabase.from('episodes').select(EP_COLS + ',shows(title,image_url)').in('show_id', showIds).eq('has_transcript', true)
     .order('published_at', { ascending: false }).limit(40)) as unknown as Episode[];
 }
 export async function episode(id: string): Promise<Episode> {
