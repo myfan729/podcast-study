@@ -159,5 +159,329 @@
   "accuracy": 1.0,
   "verdict": "keep",
   "sec": 127
+ },
+ "https://feeds.npr.org/510318/podcast.xml": {
+  "title": "Up First from NPR",
+  "path": "npr",
+  "candidate": false,
+  "meta": {
+   "title": "Up First from NPR",
+   "author": null,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/1400/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe0%2F7a%2Ffe9d16a44fbf9dd2d9932ffe799b%2F510318.png",
+   "image_url": null,
+   "description": "NPR's Up First is the news you need to start your day. The three biggest stories of the day, with reporting and analysis from NPR News — in 10 minutes. Available weekdays at 6:30 a.m. ET, with hosts Leila Fadel, Steve Inskeep, Michel Martin and A Martinez. Also available on Saturdays at 9 a.m. ET, with Ayesha Rascoe and Scott Simon. On Sundays, hear a longer exploration behind the headlines with Ayesha Rascoe on \"The Sunday Story,\" available by 8 a.m. ET. Subscribe and listen, then support your local NPR station at donate.npr.org.<br><br><em> Support public media by joining NPR+ at </em><a href=\"http://plus.npr.org/\"target=\"_blank\"   ><em>plus.npr.org</em></a><em>. You’ll get perks for over 25 NPR podcasts, including sponsor-free listening for Up First, NPR News Now, and more.</em>"
+  },
+  "recent": 8,
+  "judged": 6,
+  "with_transcript": 4,
+  "transcript_rate": 0.67,
+  "newest": "2026-10-17T13:32:49Z",
+  "episode": "Trump's Midterm Travel, Ukraine Starshield Restrictions, Houthis Attack Aramco",
+  "cues": 178,
+  "dai": "detected",
+  "fixed": false,
+  "duration": 779,
+  "sync": "ok",
+  "refs": 9,
+  "listener": {
+   "duration": 809.0,
+   "refs_ok": 9,
+   "refs": 9,
+   "offsets": [
+    1.7,
+    9.5,
+    9.6
+   ]
+  },
+  "points": [
+   {
+    "c": 38.1,
+    "pred": 39.8,
+    "err": -0.15,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 169.21,
+    "pred": 170.9,
+    "err": 0.04,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 299.88,
+    "pred": 301.5,
+    "err": -0.33,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 446.69,
+    "pred": 448.4,
+    "err": 0.14,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 608.74,
+    "pred": 618.3,
+    "err": -0.29,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 753.88,
+    "pred": 763.4,
+    "err": 0.13,
+    "ok": true,
+    "score": 0.857
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 132
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/96c5c41e-0bc8-4661-b184-ae32006cd726/d623ef0b-3fee-4c26-b815-ae32006cd739/podcast.rss": {
+  "title": "The Happiness Lab with Dr. Laurie Santos",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "The Happiness Lab with Dr. Laurie Santos",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/96c5c41e-0bc8-4661-b184-ae32006cd726/d623ef0b-3fee-4c26-b815-ae32006cd739/image.jpg?t=1789652340&size=Large",
+   "image_url": null,
+   "description": "<p dir=\"ltr\">The Happiness Lab is serving up scientifically-backed takes this summer that are so hot, even your SPF 50 won&rsquo;t protect you.</p>\n<p dir=\"ltr\">With the help of behavioral scientists, historians, and cultural critics, Yale psychologist Dr. Laurie Santos challenges some of our biggest assumptions about what it takes to live a good life. Dr. Laurie explores topics like why we should forget about TMI and lean into oversharing, how dumping small talk makes for better conversations, why the kids these days are actually doing just fine, and how men can establish strong bromances. Each episode unpacks a bold, counterintuitive claim &mdash;&nbsp;using research, data, and expert insight to question the conventional wisdom around happiness and wellbeing.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-12T07:00:00Z",
+  "episode": "What Gets Lost When We Text Instead of Talk with Dr. Nick Epley",
+  "cues": 621,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2699,
+  "sync": "ok",
+  "refs": 26,
+  "listener": {
+   "duration": 3474.6,
+   "refs_ok": 26,
+   "refs": 26,
+   "offsets": [
+    172.4,
+    377.6,
+    595.8
+   ]
+  },
+  "points": [
+   {
+    "c": 46.496,
+    "pred": 218.9,
+    "found": false,
+    "text": "If you're a fan of the show, you can probably guess that hol"
+   },
+   {
+    "c": 570.886,
+    "pred": 743.3,
+    "found": false,
+    "text": "They communicated a lot of information to coordinate things."
+   },
+   {
+    "c": 1063.917,
+    "pred": 1441.5,
+    "err": -0.24,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1619.466,
+    "pred": 1997.1,
+    "err": -0.21,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2200.806,
+    "pred": 2796.6,
+    "err": -0.79,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 2676.086,
+    "pred": 3271.9,
+    "err": -0.86,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 0.67,
+  "verdict": "check",
+  "sec": 214
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/0e563f45-9d14-4ce8-8ef0-ae32006cd7e7/0d4cc74d-fff7-4b89-8818-ae32006cd7f0/podcast.rss": {
+  "title": "Revisionist History",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Revisionist History",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/0e563f45-9d14-4ce8-8ef0-ae32006cd7e7/0d4cc74d-fff7-4b89-8818-ae32006cd7f0/image.jpg?t=1790020110&size=Large",
+   "image_url": null,
+   "description": "<p>Revisionist History is Malcolm Gladwell's journey through the overlooked and the misunderstood. Every episode re-examines something from the past&mdash;an event, a person, an idea, even a song&mdash;and asks whether we got it right the first time. From Pushkin Industries. Because sometimes the past deserves a second chance.</p>\n<p>To get early access to ad-free episodes and extra content, subscribe to Pushkin+ in <a href=\"https://podcasts.apple.com/us/podcast/revisionist-history/id1119389968\">Apple Podcasts</a> or at <a href=\"https://www.pushkin.fm/join-pushkin\">pushkin.fm/plus</a>.</p>\n<p>iHeartMedia is the exclusive podcast partner of Pushkin Industries.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-15T07:00:00Z",
+  "episode": "Wolfgang's Law - Part Two",
+  "cues": 392,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2068,
+  "sync": "ok",
+  "refs": 21,
+  "listener": {
+   "duration": 2714.5,
+   "refs_ok": 21,
+   "refs": 21,
+   "offsets": [
+    112.4,
+    311.2,
+    311.3,
+    506.9
+   ]
+  },
+  "points": [
+   {
+    "c": 30.303,
+    "pred": 142.8,
+    "err": -0.03,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 470.189,
+    "pred": 582.6,
+    "found": false,
+    "text": "And it worked dramatically better than we ever dreamed that "
+   },
+   {
+    "c": 871.359,
+    "pred": 1182.6,
+    "err": -2.84,
+    "ok": false,
+    "score": 1.0
+   },
+   {
+    "c": 1258.953,
+    "pred": 1570.2,
+    "err": -2.53,
+    "ok": false,
+    "score": 1.0
+   },
+   {
+    "c": 1684.47,
+    "pred": 2191.4,
+    "err": -2.63,
+    "ok": false,
+    "score": 0.929
+   },
+   {
+    "c": 2025.577,
+    "pred": 2532.5,
+    "err": -2.13,
+    "ok": false,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 0.17,
+  "verdict": "drop",
+  "sec": 172
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/4be3ef45-824a-44b3-b437-b038010038fc/3eb75c81-5ed8-4148-bb7b-b03801003947/podcast.rss": {
+  "title": "Unexplained",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Unexplained",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/4be3ef45-824a-44b3-b437-b038010038fc/image.jpg?t=1772039206&size=Large",
+   "image_url": null,
+   "description": "<p>Unexplained is a haunting and unsettling bi-weekly podcast about strange and mysterious real life events that continue to evade explanation. A story-based show mixing spoken-word narrative, history and ideas - often to terrifying effect - that explores the space between what we think of as real and what is not; where sometimes belief can be as concrete as &lsquo;reality,&rsquo; whatever that is&hellip;</p>\n<p>More info at www.unexplainedpodcast.com and on twitter @unexplainedpod and facebook.com/unexplainedpodcast</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T16:30:00Z",
+  "episode": "S09E37: Anger is An Energy Pt.2 of 2 (The Tina Resch Story)",
+  "cues": 259,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2204,
+  "sync": "ok",
+  "refs": 22,
+  "listener": {
+   "duration": 3061.4,
+   "refs_ok": 22,
+   "refs": 22,
+   "offsets": [
+    156.6,
+    420.9,
+    421.0,
+    690.4,
+    690.5
+   ]
+  },
+  "points": [
+   {
+    "c": 32.384,
+    "pred": 189.0,
+    "err": -0.23,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 470.06,
+    "pred": 626.7,
+    "err": 0.49,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 957.58,
+    "pred": 1378.5,
+    "err": -2.48,
+    "ok": false,
+    "score": 1.0
+   },
+   {
+    "c": 1322.53,
+    "pred": 1743.5,
+    "err": -2.02,
+    "ok": false,
+    "score": 0.857
+   },
+   {
+    "c": 1742.81,
+    "pred": 2433.2,
+    "err": -2.67,
+    "ok": false,
+    "score": 1.0
+   },
+   {
+    "c": 2164.181,
+    "pred": 2854.6,
+    "err": -2.19,
+    "ok": false,
+    "score": 0.857
+   }
+  ],
+  "accuracy": 0.33,
+  "verdict": "drop",
+  "sec": 200
  }
 }

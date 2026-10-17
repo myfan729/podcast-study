@@ -80,5 +80,330 @@
   "accuracy": 0.83,
   "verdict": "keep",
   "sec": 191
+ },
+ "https://feeds.npr.org/510310/podcast.xml": {
+  "title": "The NPR Politics Podcast",
+  "path": "npr",
+  "candidate": false,
+  "meta": {
+   "title": "The NPR Politics Podcast",
+   "author": null,
+   "image": "https://media.npr.org/assets/img/2024/01/11/podcast-politics_2023_update1_sq-eaabdbd6adb312e163cb96909efd902cc2e9e004.jpg?s=1400&c=66&f=jpg",
+   "image_url": null,
+   "description": "Every weekday, NPR's best political reporters are there to explain the big news coming out of Washington and the campaign trail. They don't just tell you what happened. They tell you why it matters. Every afternoon.<br><br><em> Support public media by joining NPR+ at </em><a href=\"http://plus.npr.org/\"target=\"_blank\"   ><em>plus.npr.org</em></a><em>. You’ll get perks for over 25 NPR podcasts, including bonus episodes and sponsor-free listening for The NPR Politics Podcast.</em>"
+  },
+  "recent": 8,
+  "judged": 7,
+  "with_transcript": 6,
+  "transcript_rate": 0.86,
+  "newest": "2026-10-16T20:45:03Z",
+  "episode": "They voted for Trump in 2024. Now, they regret it.",
+  "cues": 255,
+  "dai": "detected",
+  "fixed": false,
+  "duration": 1073,
+  "sync": "ok",
+  "refs": 12,
+  "listener": {
+   "duration": 1224.0,
+   "refs_ok": 12,
+   "refs": 12,
+   "offsets": [
+    20.5,
+    20.6,
+    20.7
+   ]
+  },
+  "points": [
+   {
+    "c": 30.26,
+    "pred": 50.8,
+    "err": -0.05,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 211.16,
+    "pred": 231.7,
+    "found": false,
+    "text": "Michelle (ph) was one of them."
+   },
+   {
+    "c": 430.063,
+    "pred": 450.6,
+    "err": 0.01,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 615.14,
+    "pred": 635.8,
+    "found": false,
+    "text": "A lot of voters did not like that Mike Collins was aligned w"
+   },
+   {
+    "c": 807.97,
+    "pred": 828.7,
+    "found": false,
+    "text": "Like, people usually have something bad to say, and especial"
+   },
+   {
+    "c": 1046.96,
+    "pred": 1067.6,
+    "found": false,
+    "text": "So they're going to send an important message about corrupti"
+   }
+  ],
+  "accuracy": 0.33,
+  "verdict": "drop",
+  "sec": 103
+ },
+ "https://feeds.npr.org/510338/podcast.xml": {
+  "title": "Life Kit",
+  "path": "npr",
+  "candidate": false,
+  "meta": {
+   "title": "Life Kit",
+   "author": null,
+   "image": "https://media.npr.org/assets/img/2022/09/23/life-kit_tile_npr-network-01_sq-57e850131de55d68e20bbd9dff2408721d7518e2.jpg?s=1400&c=66&f=jpg",
+   "image_url": null,
+   "description": "Everyone needs a little help being a human. From sleep to saving money to parenting and more, host Marielle Segarra talks to experts to get the best advice out there. Life Kit is here to help you get it together. <br><br><em>Support public media by joining NPR+ at </em><a href=\"http://plus.npr.org/\"target=\"_blank\"   ><em>plus.npr.org</em></a><em>. You’ll get perks for over 25 NPR podcasts, including sponsor-free listening and helpful curated playlists by topic for Life Kit.</em>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 4,
+  "transcript_rate": 0.5,
+  "newest": "2026-10-15T07:00:02Z",
+  "episode": "How to stock your medicine cabinet for cold and flu season",
+  "cues": 269,
+  "dai": "detected",
+  "fixed": false,
+  "duration": 1237,
+  "sync": "ok",
+  "refs": 14,
+  "listener": {
+   "duration": 1462.4,
+   "refs_ok": 14,
+   "refs": 14,
+   "offsets": [
+    14.7,
+    14.8,
+    116.3,
+    116.4,
+    164.8,
+    164.9
+   ]
+  },
+  "points": [
+   {
+    "c": 32.04,
+    "pred": 46.8,
+    "err": 0.37,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 239.26,
+    "pred": 355.6,
+    "err": -0.31,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 483.34,
+    "pred": 599.7,
+    "err": -0.51,
+    "ok": true,
+    "score": 0.714
+   },
+   {
+    "c": 717.4,
+    "pred": 833.8,
+    "err": -0.68,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 937.94,
+    "pred": 1102.8,
+    "err": 0.23,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1216.56,
+    "pred": 1381.4,
+    "err": 0.02,
+    "ok": true,
+    "score": 0.786
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "check",
+  "sec": 109
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/21bd98b3-8cc6-4565-a21e-b4c9014d00dd/04897743-92ff-422f-9fed-b4c9014d05a3/podcast.rss": {
+  "title": "Lost Hills",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Lost Hills",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/21bd98b3-8cc6-4565-a21e-b4c9014d00dd/04897743-92ff-422f-9fed-b4c9014d05a3/image.jpg?t=1790355467&size=Large",
+   "image_url": null,
+   "description": "<p><em data-ogsc=\"\" data-olk-copy-source=\"MessageBody\">Lost Hills</em>&nbsp;investigates the dark side of Malibu, California. Beneath a seductive facade, this city of billionaires, celebrities, and surf bums is hiding something menacing.&nbsp;Season 4: On September 16, 2009, 24-year-old Mitrice Richardson was arrested by the Los Angeles County Sheriff&rsquo;s Department for failing to pay her bill at a restaurant in Malibu, CA. After being released from Lost Hills Station shortly after midnight, she disappeared. Eleven months later, her naked, skeletal remains were discovered in a canyon some six miles away. For nearly 15 years, the Los Angeles County Sheriff&rsquo;s Department, Mitrice&rsquo;s friends and family, and generations of internet sleuths have tried to crack the case. To this day, her death remains an unsolved mystery.&nbsp;The truth lies in the remote Malibu community where Mitrice was last seen. And now, finally, people are starting to talk.&nbsp;</p>\n<p>Season 3: There&rsquo;s an evil undercurrent that runs through the surf world, and it all leads back to the Dark Prince of Malibu: Miki Dora. A surfer who ruled Malibu from the 1950s to the 1970s, he was also a con man and led the FBI on a 7-year manhunt around the world. To many people, Miki is a hero. But there&rsquo;s darkness in the legacy he left behind.</p>\n<p>Season 2: In January 1981, Verna Johnson-Roehler and her young son, Doug, drowned while boating thirty miles off the coast of Malibu. Verna&rsquo;s husband, Fred Roehler, was the sole survivor and only witness. Initially, the deaths were ruled accidental. But a phone call from a Malibu neighbor changed everything. Was Fred a monster, masquerading as the perfect Malibu dad? Or was an innocent man convicted by his gossiping neighbors?&nbsp;</p>\n<p>Season 1: After Tristan Beaudette&rsquo;s murder, other victims come forward telling similar tales. . . of a sniper in Malibu who has been shooting at campers and at moving cars for the past 18 months. Always in the dark of night, at 4AM. The cops say they can&rsquo;t connect the crimes, but then they arrest a drifter: 42-year-old Anthony Rauda, who lives under a tarp behind the Lost Hills Sheriff&rsquo;s Station. Is he the killer, or a scapegoat? Hosted by Dana Goodyear (<em data-ogsc=\"\">The New Yorker</em>) and produced by Western Sound and Pushkin Industries. Show artwork copyright Francesca Gabbiani.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-01T17:30:00Z",
+  "episode": "12. Dig Two Graves",
+  "cues": 460,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2542,
+  "sync": "ok",
+  "refs": 25,
+  "listener": {
+   "duration": 2659.1,
+   "refs_ok": 25,
+   "refs": 25,
+   "offsets": [
+    19.9,
+    20.0,
+    49.0,
+    49.1,
+    78.2
+   ]
+  },
+  "points": [
+   {
+    "c": 34.226,
+    "pred": 54.2,
+    "err": 0.25,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 514.076,
+    "pred": 534.0,
+    "err": -0.13,
+    "ok": true,
+    "score": 0.786
+   },
+   {
+    "c": 1008.942,
+    "pred": 1058.0,
+    "err": 0.33,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1476.481,
+    "pred": 1525.5,
+    "err": -0.98,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1981.708,
+    "pred": 2059.9,
+    "err": 0.13,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2518.991,
+    "pred": 2597.2,
+    "err": -0.32,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 69
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/a91018a4-ea4f-4130-bf55-ae270180c327/44710ecc-10bb-48d1-93c7-ae270180c33e/podcast.rss": {
+  "title": "Stuff You Should Know",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Stuff You Should Know",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/a91018a4-ea4f-4130-bf55-ae270180c327/image.jpg?t=1749759419&size=Large",
+   "image_url": null,
+   "description": "If you've ever wanted to know about champagne, satanism, the Stonewall Uprising, chaos theory, LSD, El Nino, true crime and Rosa Parks, then look no further. Josh and Chuck have you covered."
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-17T09:00:00Z",
+  "episode": "Selects: Sacagawea: Impressive Teen",
+  "cues": 641,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2930,
+  "sync": "ok",
+  "refs": 28,
+  "listener": {
+   "duration": 3474.2,
+   "refs_ok": 28,
+   "refs": 28,
+   "offsets": [
+    98.2,
+    258.1,
+    416.5
+   ]
+  },
+  "points": [
+   {
+    "c": 34.378,
+    "pred": 132.6,
+    "err": 0.04,
+    "ok": true,
+    "score": 0.714
+   },
+   {
+    "c": 562.801,
+    "pred": 661.0,
+    "err": 0.01,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 1194.32,
+    "pred": 1452.4,
+    "err": -1.91,
+    "ok": false,
+    "score": 0.929
+   },
+   {
+    "c": 1804.57,
+    "pred": 2062.7,
+    "err": -0.55,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 2330.875,
+    "pred": 2747.4,
+    "err": -1.34,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 2900.466,
+    "pred": 3317.0,
+    "err": -1.09,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 105
  }
 }

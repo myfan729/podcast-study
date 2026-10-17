@@ -159,5 +159,327 @@
   "accuracy": 1.0,
   "verdict": "keep",
   "sec": 135
+ },
+ "https://feeds.npr.org/510317/podcast.xml": {
+  "title": "It's Been a Minute",
+  "path": "npr",
+  "candidate": false,
+  "meta": {
+   "title": "It's Been a Minute",
+   "author": null,
+   "image": "https://media.npr.org/assets/img/2023/02/27/ibam_tile-2023_sq-7803f41ed0370749ef50b8afb21b3d35f64d3870.jpg?s=1400&c=66&f=jpg",
+   "image_url": null,
+   "description": "Want in on a secret? Your likes and dislikes didn't develop by accident. There are subtle and not-so-subtle forces around you, shaping what you think, how you act, and even who you think you are. Brittany Luse is here to break the spell and help you feel wiser in a society that makes things blurry.<br><br>THE BEST POP CULTURE PODCAST AWARD WINNER AT THE 2025 SIGNAL AWARDS<br><br>It’s Been A Minute with Brittany Luse is the best podcast for understanding what’s going on in culture right now, and helps you consume it smarter. From how politics influences pop culture to how identity influences tech or health, Brittany makes the picture clearer for you every Monday, Wednesday, and Friday.It’s Been A Minute reaches millions of people every week. Join the community and conversation today.<br><br><em> Support public media by joining NPR+ at </em><a href=\"http://plus.npr.org/\"target=\"_blank\"   ><em>plus.npr.org</em></a><em>. You’ll get perks for over 25 NPR podcasts, including sponsor-free listening for It's Been A Minute.</em>"
+  },
+  "recent": 8,
+  "judged": 7,
+  "with_transcript": 7,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T07:00:00Z",
+  "episode": "The high flying girls who desegregated America",
+  "cues": 269,
+  "dai": "detected",
+  "fixed": false,
+  "duration": 1664,
+  "sync": "ok",
+  "refs": 17,
+  "listener": {
+   "duration": 1818.9,
+   "refs_ok": 17,
+   "refs": 17,
+   "offsets": [
+    23.3,
+    23.4,
+    85.3,
+    85.4
+   ]
+  },
+  "points": [
+   {
+    "c": 39.7,
+    "pred": 63.1,
+    "err": -0.12,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 281.22,
+    "pred": 304.6,
+    "err": -0.04,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 617.24,
+    "pred": 640.6,
+    "err": -0.04,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 969.08,
+    "pred": 1054.4,
+    "err": -0.6,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 1314.06,
+    "pred": 1399.4,
+    "err": -0.22,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1643.38,
+    "pred": 1728.7,
+    "err": -0.14,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 185
+ },
+ "https://feeds.npr.org/510333/podcast.xml": {
+  "title": "Throughline",
+  "path": "npr",
+  "candidate": false,
+  "meta": {
+   "title": "Throughline",
+   "author": null,
+   "image": "https://media.npr.org/assets/img/2024/05/15/throughline_tile-art_sq-a59d7da2ea2bf97562aeec6440ddf837e8f7de65.jpg?s=1400&c=66&f=jpg",
+   "image_url": null,
+   "description": "<em>Throughline</em> is a time machine. Each episode, we travel beyond the headlines to answer the question, \"How did we get here?\" We use sound and stories to bring history to life and put you into the middle of it. From ancient civilizations to forgotten figures, we take you directly to the moments that shaped our world. <em>Throughline</em> is hosted by Peabody Award-winning journalist Rund Abdelfatah.<br><br><em> Support public media by joining NPR+ at </em><a href=\"http://plus.npr.org/\"target=\"_blank\"   ><em>plus.npr.org</em></a><em>. You’ll get perks for over 25 NPR podcasts, including sponsor-free listening for Throughline.</em>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 5,
+  "transcript_rate": 0.62,
+  "newest": "2026-10-15T05:05:02Z",
+  "episode": "Why does everything get a standing ovation now?",
+  "cues": 218,
+  "dai": "detected",
+  "fixed": false,
+  "duration": 960,
+  "sync": "ok",
+  "refs": 10,
+  "listener": {
+   "duration": 1128.0,
+   "refs_ok": 10,
+   "refs": 10,
+   "offsets": [
+    23.4,
+    23.9,
+    24.0
+   ]
+  },
+  "points": [
+   {
+    "c": 35.64,
+    "pred": 59.0,
+    "err": 0.59,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 203.16,
+    "pred": 227.2,
+    "found": false,
+    "text": "You know, it's a little weird when I've just said, OK, pleas"
+   },
+   {
+    "c": 395.55,
+    "pred": 419.6,
+    "found": false,
+    "text": "So in the '50s, there were, like, these classic '50s musical"
+   },
+   {
+    "c": 561.91,
+    "pred": 585.9,
+    "found": false,
+    "text": "He says supersized standing ovations are now the trademark o"
+   },
+   {
+    "c": 735.35,
+    "pred": 759.4,
+    "found": false,
+    "text": "So a lot of people didn't get to see it."
+   },
+   {
+    "c": 934.01,
+    "pred": 958.0,
+    "found": false,
+    "text": "This episode was produced by me and..."
+   }
+  ],
+  "accuracy": 0.17,
+  "verdict": "drop",
+  "sec": 153
+ },
+ "https://feeds.npr.org/510379/podcast.xml": {
+  "title": "Wild Card with Rachel Martin",
+  "path": "npr",
+  "candidate": false,
+  "meta": {
+   "title": "Wild Card with Rachel Martin",
+   "author": null,
+   "image": "https://media.npr.org/assets/img/2024/04/19/tile-wild-card-with-rachel-martin_sq-37e6eb53b1f2c79fea8083d26aa6c3f69b1139e4.jpg?s=1400&c=66&f=jpg",
+   "image_url": null,
+   "description": "Life’s too short for small talk. Rachel gets right to the questions that matter most. Once a week, famous guests pull questions from a deck of cards and open up about the kind of stuff we all think about but rarely say out loud. Actors, authors, and thinkers are prompted to talk about everything from their insecurities and dreams to grief and God.<em> </em>Named one of<em> </em>the 10 best podcasts of 2024 by <em>The New York Time</em>s, <em>Wild Card</em> stands out among celebrity interview podcasts. When modern life feels chaotic or overwhelming, listen to <em>Wild Card</em> for a joyful, grounding reminder of our shared humanity.<em> </em>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 7,
+  "transcript_rate": 0.88,
+  "newest": "2026-10-15T09:00:00Z",
+  "episode": "Pádraig Ó Tuama",
+  "cues": 1190,
+  "dai": "detected",
+  "fixed": false,
+  "duration": 3692,
+  "sync": "ok",
+  "refs": 35,
+  "listener": {
+   "duration": 3903.3,
+   "refs_ok": 35,
+   "refs": 35,
+   "offsets": [
+    14.4,
+    65.9,
+    143.1
+   ]
+  },
+  "points": [
+   {
+    "c": 33.66,
+    "pred": 48.1,
+    "err": 0.64,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 719.44,
+    "pred": 733.8,
+    "err": -0.02,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1447.578,
+    "pred": 1513.4,
+    "err": 0.28,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 2123.0,
+    "pred": 2188.9,
+    "err": -0.45,
+    "ok": true,
+    "score": 0.786
+   },
+   {
+    "c": 2803.67,
+    "pred": 2946.8,
+    "err": 0.39,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 3666.95,
+    "pred": 3810.0,
+    "err": -0.63,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 362
+ },
+ "https://sbs-ondemand.streamguys1.com/sbs-learn-english/": {
+  "title": "SBS Learn English",
+  "path": "web",
+  "candidate": true,
+  "meta": {
+   "title": "SBS Learn English",
+   "author": null,
+   "image": "https://sbs-rss.streamguys1.com/sbs-learn-english/20260213143307-90.jpg",
+   "image_url": null,
+   "description": "Ease into the English language and Australian culture. We make learning English convenient, fun and practical. Don’t just learn a language, love language!"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-13T19:03:00Z",
+  "episode": "#121 Picking up a prescription (Med)",
+  "cues": 118,
+  "dai": "detected",
+  "fixed": false,
+  "duration": 519,
+  "sync": "ok",
+  "refs": 9,
+  "listener": {
+   "duration": 663.5,
+   "refs_ok": 9,
+   "refs": 9,
+   "offsets": [
+    38.1,
+    38.2,
+    38.3,
+    43.6,
+    102.3
+   ]
+  },
+  "points": [
+   {
+    "c": 34.67,
+    "pred": 73.0,
+    "err": 6.31,
+    "ok": false,
+    "score": 0.929
+   },
+   {
+    "c": 126.0,
+    "pred": 164.3,
+    "err": 5.89,
+    "ok": false,
+    "score": 1.0
+   },
+   {
+    "c": 206.09,
+    "pred": 244.4,
+    "err": 6.0,
+    "ok": false,
+    "score": 1.0
+   },
+   {
+    "c": 293.05,
+    "pred": 331.4,
+    "err": 5.88,
+    "ok": false,
+    "score": 0.857
+   },
+   {
+    "c": 391.82,
+    "pred": 430.1,
+    "err": 5.49,
+    "ok": false,
+    "score": 1.0
+   },
+   {
+    "c": 492.34,
+    "pred": 594.6,
+    "err": 0.21,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 0.17,
+  "verdict": "drop",
+  "sec": 138
  }
 }

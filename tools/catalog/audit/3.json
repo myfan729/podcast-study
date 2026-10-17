@@ -163,5 +163,331 @@
   "accuracy": 0.83,
   "verdict": "keep",
   "sec": 94
+ },
+ "https://feeds.npr.org/510312/podcast.xml": {
+  "title": "Code Switch",
+  "path": "npr",
+  "candidate": false,
+  "meta": {
+   "title": "Code Switch",
+   "author": null,
+   "image": "https://media.npr.org/assets/img/2022/09/22/code-switch_tile_npr-network-01_sq-d238b5cbd3882f82ea3253c4facbe1f6fc9a78a1.jpg?s=1400&c=66&f=jpg",
+   "image_url": null,
+   "description": "What's CODE SWITCH? It's the fearless conversations about race that you've been waiting for. Hosted by journalists of color, our podcast tackles the subject of race with empathy and humor. We explore how race affects every part of society — from politics and pop culture to history, food and everything in between. This podcast makes all of us part of the conversation — because we're all part of the story. Code Switch was named Apple Podcasts' first-ever Show of the Year in 2020.<br><br><em> Support public media by joining NPR+ at </em><a href=\"http://plus.npr.org/\"target=\"_blank\"   ><em>plus.npr.org</em></a><em>. You’ll get perks for over 25 NPR podcasts, including bonus episodes and sponsor-free listening for Code Switch.</em>"
+  },
+  "recent": 8,
+  "judged": 7,
+  "with_transcript": 7,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T07:00:01Z",
+  "episode": "How much reality do we want in our reality TV?",
+  "cues": 370,
+  "dai": "detected",
+  "fixed": false,
+  "duration": 1669,
+  "sync": "partial",
+  "refs": 17,
+  "listener": {
+   "duration": 1901.2,
+   "refs_ok": 17,
+   "refs": 17,
+   "offsets": [
+    10.5,
+    102.9,
+    103.0,
+    165.6
+   ]
+  },
+  "points": [
+   {
+    "c": 41.1,
+    "pred": 51.6,
+    "err": -0.8,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 376.16,
+    "pred": 479.1,
+    "err": -0.2,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 731.84,
+    "pred": 834.8,
+    "err": -0.0,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 1058.13,
+    "pred": 1223.7,
+    "err": -0.05,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1341.56,
+    "pred": 1507.1,
+    "err": -0.25,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 1646.46,
+    "pred": 1812.0,
+    "err": -0.18,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 225
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/cfb428ef-eafc-44d0-9d09-ae2701747e6f/fb626e1f-112c-4246-a40d-ae2701747e7d/podcast.rss": {
+  "title": "Stuff You Missed in History Class",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Stuff You Missed in History Class",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/cfb428ef-eafc-44d0-9d09-ae2701747e6f/image.jpg?t=1749829805&size=Large",
+   "image_url": null,
+   "description": "Join Holly and Tracy as they bring you the greatest and strangest Stuff You Missed In History Class in this podcast by iHeartRadio."
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-17T14:59:00Z",
+  "episode": "SYMHC Classics: Original Six Impossible Episodes",
+  "cues": 239,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 1609,
+  "sync": "ok",
+  "refs": 17,
+  "listener": {
+   "duration": 2559.2,
+   "refs_ok": 17,
+   "refs": 17,
+   "offsets": [
+    189.9,
+    474.4,
+    754.8
+   ]
+  },
+  "points": [
+   {
+    "c": 30.82,
+    "pred": 220.7,
+    "err": -0.37,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 324.65,
+    "pred": 514.5,
+    "err": 0.07,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 648.862,
+    "pred": 1123.3,
+    "found": false,
+    "text": "And that is by George M. Gould and Walter L. Pyle, and that "
+   },
+   {
+    "c": 927.42,
+    "pred": 1401.8,
+    "err": -4.07,
+    "ok": false,
+    "score": 0.857
+   },
+   {
+    "c": 1187.669,
+    "pred": 1942.5,
+    "err": -0.38,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 1575.469,
+    "pred": 2330.3,
+    "err": 0.24,
+    "ok": true,
+    "score": 0.929
+   }
+  ],
+  "accuracy": 0.67,
+  "verdict": "check",
+  "sec": 200
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/3329f452-8e18-4801-8c62-aef2010eef8c/5c38870a-227f-4e4f-a7dd-aef2010eefa3/podcast.rss": {
+  "title": "Leaders with Francine Lacqua",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Leaders with Francine Lacqua",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/3329f452-8e18-4801-8c62-aef2010eef8c/5c38870a-227f-4e4f-a7dd-aef2010eefa3/image.jpg?t=1773154382&size=Large",
+   "image_url": null,
+   "description": "<p>What makes a leader successful? Learn from people at the top. Join Bloomberg Television award-winning anchor and editor-at-large Francine Lacqua as she speaks with CEOs and other industry leaders to discover what drives them, their definition of success and how they are shaping their companies amid a fast-changing world. Publishes every other Monday.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-12T05:00:00Z",
+  "episode": "Ngozi Okonjo-Iweala on Leading the WTO Through a New Era of Tariffs",
+  "cues": 267,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 1261,
+  "sync": "ok",
+  "refs": 13,
+  "listener": {
+   "duration": 1605.8,
+   "refs_ok": 13,
+   "refs": 13,
+   "offsets": [
+    108.6,
+    108.7,
+    260.5,
+    260.6
+   ]
+  },
+  "points": [
+   {
+    "c": 33.6,
+    "pred": 142.3,
+    "err": -0.17,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 292.57,
+    "pred": 401.2,
+    "err": 0.08,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 533.232,
+    "pred": 641.9,
+    "err": 0.28,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 761.2,
+    "pred": 1021.7,
+    "err": 0.21,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 988.04,
+    "pred": 1248.6,
+    "err": 0.36,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 1227.139,
+    "pred": 1487.7,
+    "err": -0.22,
+    "ok": true,
+    "score": 0.929
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 97
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/32c25e85-1667-4acb-99fd-ae3c0021f33e/beacef48-19d2-4f52-b9e8-ae3c0021f347/podcast.rss": {
+  "title": "What's Your Problem?",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "What's Your Problem?",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/32c25e85-1667-4acb-99fd-ae3c0021f33e/image.jpg?t=1753123599&size=Large",
+   "image_url": null,
+   "description": "<p>Every week on What's Your Problem?, former Planet Money host Jacob Goldstein talks with&nbsp;entrepreneurs and engineers&nbsp;tackling the biggest challenges at the forefront of technology. How do you make a trip to space as routine as a plane flight? How do you turn solar energy into clean fuel? How do you use AI to stop deadly infections before they spread? We hear a lot these days about how the world is getting worse. What's Your Problem? learns from the thinkers and doers trying to make our future better.</p>\n<p>iHeartMedia is the exclusive podcast partner of Pushkin Industries.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-15T07:00:00Z",
+  "episode": "Can a Robot Build Better, Cheaper Houses?",
+  "cues": 660,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 3034,
+  "sync": "ok",
+  "refs": 28,
+  "listener": {
+   "duration": 3259.2,
+   "refs_ok": 28,
+   "refs": 28,
+   "offsets": [
+    103.4,
+    103.5,
+    103.8,
+    103.9
+   ]
+  },
+  "points": [
+   {
+    "c": 33.606,
+    "pred": 137.5,
+    "err": -0.38,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 619.226,
+    "pred": 723.1,
+    "err": -0.36,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 1166.069,
+    "pred": 1269.9,
+    "err": -0.33,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1742.531,
+    "pred": 1845.9,
+    "err": 0.64,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2396.026,
+    "pred": 2499.4,
+    "err": 0.13,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 3002.75,
+    "pred": 3106.3,
+    "err": 0.08,
+    "ok": true,
+    "score": 0.786
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 137
  }
 }

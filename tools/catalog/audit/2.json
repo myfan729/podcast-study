@@ -77,5 +77,410 @@
   "accuracy": 0.67,
   "verdict": "check",
   "sec": 117
+ },
+ "https://feeds.npr.org/510325/podcast.xml": {
+  "title": "The Indicator from Planet Money",
+  "path": "npr",
+  "candidate": false,
+  "meta": {
+   "title": "The Indicator from Planet Money",
+   "author": null,
+   "image": "https://media.npr.org/assets/img/2024/03/25/the-indicator_2024_sq-121249a297878ab2327b321c997ab870300ec659.jpg?s=1400&c=66&f=jpg",
+   "image_url": null,
+   "description": "A bite-sized show about big ideas. From the people who make <em>Planet Money</em>, <em>The Indicator</em> helps you make sense of what's happening in today's economy. It's a quick hit of insight into money, work, and business. Monday through Friday, in 10 minutes or less. <br>Sign up for our <a href=\"https://www.npr.org/newsletter/indicator\"target=\"_blank\"   >newsletter</a>.<br><br><em> Support public media by joining NPR+ at plus.npr.org. You’ll get perks for over 25 NPR podcasts, including bonus episodes for Planet Money and sponsor-free listening for The Indicator.</em>"
+  },
+  "recent": 8,
+  "judged": 7,
+  "with_transcript": 7,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T07:00:00Z",
+  "episode": "How did political campaigns get so expensive?",
+  "cues": 99,
+  "dai": "detected",
+  "fixed": false,
+  "duration": 481,
+  "sync": "ok",
+  "refs": 5,
+  "listener": {
+   "duration": 602.5,
+   "refs_ok": 5,
+   "refs": 5,
+   "offsets": [
+    0.0,
+    66.5,
+    66.6
+   ]
+  },
+  "points": [
+   {
+    "c": 36.42,
+    "pred": 36.4,
+    "err": 0.08,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 96.62,
+    "pred": 163.2,
+    "err": -0.34,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 196.42,
+    "pred": 262.9,
+    "found": false,
+    "text": "So all of those together has resulted in a kind of Wild West"
+   },
+   {
+    "c": 288.45,
+    "pred": 355.0,
+    "err": -0.07,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 371.58,
+    "pred": 438.1,
+    "err": 0.1,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 460.29,
+    "pred": 526.8,
+    "err": -0.05,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 100
+ },
+ "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques": {
+  "title": "Think Fast Talk Smart: Communication Techniques",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Think Fast Talk Smart: Communication Techniques",
+   "author": null,
+   "image": "https://img.transistorcdn.com/PnQH0uXqoWcTGWFJMZsyxcW4a_UTMcBsEmtAQtejWjU/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS9kMTFm/MzE2MzEwOTVhNTYy/YjVjYzBlYWJmZWJm/ZjM5ZS5wbmc.jpg",
+   "image_url": null,
+   "description": "One of the most essential ingredients to success in business and life is effective communication. \n\nJoin Matt Abrahams, best-selling author and Strategic Communication lecturer at Stanford Graduate School of Business, as he interviews experts to provide actionable insights that help you communicate with clarity, confidence, and impact. From handling impromptu questions to crafting compelling messages, Matt explores practical strategies for real-world communication challenges.\n\nWhether you’re navigating a high-stakes presentation, perfecting your email tone, or speaking off the cuff, Think Fast, Talk Smart equips you with the tools, techniques, and best practices to express yourself effectively in any situation. Enhance your communication skills to elevate your career and build stronger professional relationships.\n\nTune in every Monday and Thursday for new episodes. Subscribe now to unlock your potential as a thoughtful, impactful communicator. Learn more and sign up for our Newsletter at fastersmarter.io."
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-15T13:00:00Z",
+  "episode": "332. Rethinks: Learn Faster and Fail Smarter",
+  "cues": 336,
+  "dai": "likely",
+  "fixed": false,
+  "duration": 2089,
+  "sync": "ok",
+  "refs": 20,
+  "listener": {
+   "duration": 2317.6,
+   "refs_ok": 20,
+   "refs": 20,
+   "offsets": [
+    79.9,
+    80.0,
+    205.3,
+    205.4
+   ]
+  },
+  "points": [
+   {
+    "c": 35.593,
+    "pred": 115.6,
+    "err": 0.11,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 394.86,
+    "pred": 474.8,
+    "err": 0.22,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 787.652,
+    "pred": 867.6,
+    "err": -0.42,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1233.803,
+    "pred": 1439.1,
+    "err": 0.11,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 1661.506,
+    "pred": 1866.9,
+    "err": 0.36,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2064.257,
+    "pred": 2269.6,
+    "err": 0.28,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 177
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/dca0d8ad-e0b8-4a52-a2a8-ae300188d1e2/fe9400d8-dd2a-489f-82d9-ae300188d1eb/podcast.rss": {
+  "title": "Ridiculous History",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Ridiculous History",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/dca0d8ad-e0b8-4a52-a2a8-ae300188d1e2/image.jpg?t=1749846060&size=Large",
+   "image_url": null,
+   "description": "History is beautiful, brutal and, often, ridiculous. Join Ben Bowlin and Noel Brown as they dive into some of the weirdest stories from across the span of human civilization in Ridiculous History, a podcast by iHeartRadio."
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-17T11:00:00Z",
+  "episode": "CLASSIC: Did the US Mafia actually start in New Orleans?",
+  "cues": 345,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 1682,
+  "sync": "ok",
+  "refs": 17,
+  "listener": {
+   "duration": 2588.2,
+   "refs_ok": 17,
+   "refs": 17,
+   "offsets": [
+    0.0,
+    0.1,
+    453.3,
+    731.2
+   ]
+  },
+  "points": [
+   {
+    "c": 30.348,
+    "pred": 30.4,
+    "err": -0.43,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 292.039,
+    "pred": 292.1,
+    "found": false,
+    "text": "He also did a movie about, what's it called?"
+   },
+   {
+    "c": 629.975,
+    "pred": 630.0,
+    "found": false,
+    "text": "Eventually, 19 are fingered for the crime."
+   },
+   {
+    "c": 987.284,
+    "pred": 1440.5,
+    "found": false,
+    "text": "really funny I was in Brooklyn recently and I went to the mo"
+   },
+   {
+    "c": 1368.447,
+    "pred": 2099.6,
+    "found": false,
+    "text": "But, you know, I mean, I'm sure they just kind of adapted an"
+   },
+   {
+    "c": 1658.735,
+    "pred": 2389.9,
+    "err": 0.08,
+    "ok": true,
+    "score": 0.929
+   }
+  ],
+  "accuracy": 0.33,
+  "verdict": "drop",
+  "sec": 212
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/53726b04-3b06-43b5-b265-ae3300346e4e/add8ee8b-ff73-4b72-a3ee-ae3300346e5c/podcast.rss": {
+  "title": "Here's The Thing with Alec Baldwin",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Here's The Thing with Alec Baldwin",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/53726b04-3b06-43b5-b265-ae3300346e4e/image.jpg?t=1752853094&size=Large",
+   "image_url": null,
+   "description": "Award-winning actor Alec Baldwin takes listeners into the lives of artists, policy makers and performers. Alec sidesteps the predictable by going inside the dressing rooms, apartments, and offices of people we want to understand better: Ira Glass, Lena Dunham, David Letterman, Barbara Streisand, Tom Yorke, Chris Rock and others. Hear what happens when an inveterate guest becomes a host."
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-13T04:00:00Z",
+  "episode": "From the Archives: Patricia Bosworth",
+  "cues": 760,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2317,
+  "sync": "ok",
+  "refs": 22,
+  "listener": {
+   "duration": 3227.5,
+   "refs_ok": 22,
+   "refs": 22,
+   "offsets": [
+    163.0,
+    455.9,
+    746.9,
+    747.0
+   ]
+  },
+  "points": [
+   {
+    "c": 31.573,
+    "pred": 194.6,
+    "err": -0.5,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 467.62,
+    "pred": 630.6,
+    "err": -0.05,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 955.28,
+    "pred": 1118.3,
+    "err": -0.51,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1431.588,
+    "pred": 1887.5,
+    "err": -0.27,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1873.824,
+    "pred": 2329.7,
+    "err": -0.05,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2279.62,
+    "pred": 3026.6,
+    "err": 0.19,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 235
+ },
+ "https://rss.introcast.io/282795787/www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d02e7811-037c-4b4c-ba2d-ae2b00350ef0/659ad4ad-c26b-48a7-bb34-ae2b00350f07/podcast.rss": {
+  "title": "TechStuff",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "TechStuff",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d02e7811-037c-4b4c-ba2d-ae2b00350ef0/659ad4ad-c26b-48a7-bb34-ae2b00350f07/image.jpg?t=1775059623&size=Large",
+   "image_url": null,
+   "description": "<p dir=\"ltr\">Behind every innovation is a new kind of power. TechStuff unpacks how technology reshapes influence, creativity, and control, from Silicon Valley&rsquo;s rising moguls to the cultural forces they create. Because tech is the new religion, economy, and entertainment, all at once.</p>\n<p dir=\"ltr\">Each week, Oz Woloshyn and the brightest minds covering tech dig into the weird, funny, and sometimes unsettling ways technology, AI, and the internet shape our daily lives. From AI and social media to privacy, digital burnout, and the creator economy, they ask how all this innovation is changing who we are, how we work, love, and make meaning.</p>\n<p dir=\"ltr\">Smart talk, strange stories, and the questions everyone&rsquo;s Googling: whether AI will replace us, how social media is affecting our kids, and what it all says about us.</p>\n<p>Get in touch here:&nbsp;<a href=\"mailto:techstuffpodcast@gmail.com\" data-stringify-link=\"mailto:techstuffpodcast@gmail.com\" data-sk=\"tooltip_parent\" aria-haspopup=\"menu\">techstuffpodcast@gmail.com</a></p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T09:00:00Z",
+  "episode": "Hollywood’s Silicon Valley Obsession - Week in Tech",
+  "cues": 439,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2093,
+  "sync": "ok",
+  "refs": 21,
+  "listener": {
+   "duration": 2814.1,
+   "refs_ok": 21,
+   "refs": 21,
+   "offsets": [
+    134.4,
+    134.5,
+    367.5,
+    586.3,
+    586.4
+   ]
+  },
+  "points": [
+   {
+    "c": 43.03,
+    "pred": 177.5,
+    "err": 0.69,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 458.06,
+    "pred": 592.5,
+    "err": 0.68,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 836.8,
+    "pred": 971.3,
+    "err": 0.53,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1269.756,
+    "pred": 1637.3,
+    "err": -6.77,
+    "ok": false,
+    "score": 0.786
+   },
+   {
+    "c": 1699.26,
+    "pred": 2285.6,
+    "err": 0.54,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2064.0,
+    "pred": 2650.4,
+    "err": 1.57,
+    "ok": false,
+    "score": 0.571
+   }
+  ],
+  "accuracy": 0.67,
+  "verdict": "check",
+  "sec": 181
  }
 }

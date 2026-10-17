@@ -79,5 +79,409 @@
   "accuracy": 0.83,
   "verdict": "keep",
   "sec": 103
+ },
+ "https://feeds.npr.org/510289/podcast.xml": {
+  "title": "Planet Money",
+  "path": "npr",
+  "candidate": false,
+  "meta": {
+   "title": "Planet Money",
+   "author": null,
+   "image": "https://media.npr.org/assets/img/2022/10/24/pm_new_tile_2022_sq-e543deddd0a46a98be481b46e6a72efa6b52236f.jpg?s=1400&c=66&f=jpg",
+   "image_url": null,
+   "description": "Wanna see a trick? Give us any topic and we can tie it back to the economy. At <em>Planet Money</em>, we explore the forces that shape our lives and bring you along for the ride. Don't just understand the economy – understand the world.<br><br><em> Support public media by joining NPR+ at </em><a href=\"http://plus.npr.org/\"target=\"_blank\"   ><em>plus.npr.org</em></a><em>. You’ll get perks for over 25 NPR podcasts, including bonus episodes and sponsor-free listening for Planet Money.</em>"
+  },
+  "recent": 8,
+  "judged": 7,
+  "with_transcript": 7,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T21:30:00Z",
+  "episode": "Wanna slow down AI? These biologists can help.",
+  "cues": 375,
+  "dai": "detected",
+  "fixed": false,
+  "duration": 1727,
+  "sync": "ok",
+  "refs": 18,
+  "listener": {
+   "duration": 1981.5,
+   "refs_ok": 18,
+   "refs": 18,
+   "offsets": [
+    24.4,
+    96.7,
+    190.1
+   ]
+  },
+  "points": [
+   {
+    "c": 40.92,
+    "pred": 65.3,
+    "err": -0.78,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 372.86,
+    "pred": 469.5,
+    "err": -0.35,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 686.02,
+    "pred": 782.7,
+    "err": -0.3,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 1000.36,
+    "pred": 1097.0,
+    "err": -0.21,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1364.77,
+    "pred": 1554.9,
+    "err": 0.05,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 1704.99,
+    "pred": 1895.1,
+    "err": 0.11,
+    "ok": true,
+    "score": 0.786
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 230
+ },
+ "https://rss2.flightcast.com/xmsftuzjjykcmqwolaqn6mdn": {
+  "title": "The Diary Of A CEO with Steven Bartlett",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "The Diary Of A CEO with Steven Bartlett",
+   "author": null,
+   "image": "https://assets.flightcast.com/workspaces/edpmsc3wdznn1aa2txug5e3p/podcasts/xmsftuzjjykcmqwolaqn6mdn/cs9v0tiwz4lv6yfo3vt6q6dx.png",
+   "image_url": null,
+   "description": "<p class=\"text-node\">Welcome to <strong>The Diary Of A CEO </strong>where you'll find raw, human conversations with the world’s most fascinating experts, storytellers, thinkers and business leaders.</p><p class=\"text-node\">Hosted by <strong>Steven Bartlett (</strong>entrepreneur, investor, author, and founder of Steven.com and Flight Fund) this channel was created with a simple mission: to share personal lessons that help both you live better, more fulfilling lives.</p><p class=\"text-node\"><strong>What is DOAC?</strong> Beyond <em>Diary Of A CEO</em>, the acronym reflects our core ethos:</p><ul class=\"list-node\"><li class=\"list-item-node\"><strong>D</strong>reamers — Dream boldly.</li><li class=\"list-item-node\"><strong>O</strong>pen-minded — Think without limits.</li><li class=\"list-item-node\"><strong>A</strong>wareness — Expand your perspective.</li><li class=\"list-item-node\"><strong>C</strong>onnection — Feel more connected.</li></ul><p class=\"text-node\">This is your corner of the internet to dream boldly, think openly, expand your awareness, and feel more connected.<br>The Diary Of A CEO:<br>◼ Join DOAC circle here -<a target=\"_blank\" rel=\"noopener noreferrer\" class=\"link\" href=\"https://doaccircle.com/\"> https://doaccircle.com/<br></a>◼ Buy The Diary Of A CEO book here -<a target=\"_blank\" rel=\"noopener noreferrer\" class=\"link\" href=\"https://link.thediaryofaceo.com/BWjLTZK\"> https://link.thediaryofaceo.com/BWjLTZK<br></a>◼ Shop The Diary Of A CEO collection: <a target=\"_blank\" rel=\"noopener noreferrer\" class=\"link\" href=\"https://thediary.com/collections/shop\">https://thediary.com/collections/shop</a><a target=\"_blank\" rel=\"noopener noreferrer\" class=\"link\" href=\"https://thediary.com/products/the-conversation-cards-2nd-edition\"><br></a>◼ Get email updates -<a target=\"_blank\" rel=\"noopener noreferrer\" class=\"link\" href=\"https://link.thediaryofaceo.com/5IB1H6E\"> https://link.thediaryofaceo.com/5IB1H6E<br></a>◼ Follow Steven -<a target=\"_blank\" rel=\"noopener noreferrer\" class=\"link\" href=\"https://link.thediaryofaceo.com/AGU9QP4\"> https://link.thediaryofaceo.com/AGU9QP4</a></p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T05:00:00Z",
+  "episode": "Most Replayed Moment: Christian vs Atheist - Is Faith A Human Creation?",
+  "cues": 364,
+  "dai": "unknown",
+  "fixed": false,
+  "duration": 1730,
+  "sync": "ok",
+  "refs": 15,
+  "listener": {
+   "duration": 1859.8,
+   "refs_ok": 15,
+   "refs": 15,
+   "offsets": [
+    64.5
+   ]
+  },
+  "points": [
+   {
+    "c": 32.507,
+    "pred": 97.0,
+    "err": -0.73,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 424.572,
+    "pred": 489.1,
+    "err": 0.02,
+    "ok": true,
+    "score": 0.786
+   },
+   {
+    "c": 787.761,
+    "pred": 852.3,
+    "err": -0.42,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1059.73,
+    "pred": 1124.2,
+    "err": -0.42,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1312.787,
+    "pred": 1377.3,
+    "err": -0.02,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1705.38,
+    "pred": 1769.9,
+    "err": -0.0,
+    "ok": true,
+    "score": 0.929
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 169
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/e5f91208-cc7e-4726-a312-ae280140ad11/d64f756d-6d5e-4fae-b24f-ae280140ad36/podcast.rss": {
+  "title": "Behind the Bastards",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Behind the Bastards",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/e5f91208-cc7e-4726-a312-ae280140ad11/image.jpg?t=1749761552&size=Large",
+   "image_url": null,
+   "description": "There’s a reason the History Channel has produced hundreds of documentaries about Hitler but only a few about Dwight D. Eisenhower. Bad guys (and gals) are eternally fascinating. Behind the Bastards dives in past the Cliffs Notes of the worst humans in history and exposes the bizarre realities of their lives. Listeners will learn about the young adult novels that helped Hitler form his monstrous ideology, the founder of Blackwater’s insane quest to build his own Air Force, the bizarre lives of the sons and daughters of dictators and Saddam Hussein’s side career as a trashy romance novelist."
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-15T09:00:00Z",
+  "episode": "Part Two: Peter Attia and the Cult of Longevity",
+  "cues": 1139,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 4619,
+  "sync": "ok",
+  "refs": 41,
+  "listener": {
+   "duration": 5631.1,
+   "refs_ok": 41,
+   "refs": 41,
+   "offsets": [
+    -0.3,
+    0.0,
+    510.6,
+    834.3
+   ]
+  },
+  "points": [
+   {
+    "c": 34.953,
+    "pred": 35.0,
+    "err": -0.24,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1090.26,
+    "pred": 1090.0,
+    "found": false,
+    "text": "A lot of Ackmans in there."
+   },
+   {
+    "c": 1866.467,
+    "pred": 2377.1,
+    "err": -0.94,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2738.63,
+    "pred": 3249.2,
+    "err": -0.32,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 3718.075,
+    "pred": 4552.4,
+    "err": -0.18,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 4591.53,
+    "pred": 5425.8,
+    "err": -0.34,
+    "ok": true,
+    "score": 0.929
+   }
+  ],
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 274
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d3d3abca-191a-4010-8160-b3530112d393/c639b22c-ee8c-43dd-86c1-b3530112d3a3/podcast.rss": {
+  "title": "Shell Game",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Shell Game",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d3d3abca-191a-4010-8160-b3530112d393/c639b22c-ee8c-43dd-86c1-b3530112d3a3/image.jpg?t=1762346646&size=Large",
+   "image_url": null,
+   "description": "<p>A podcast about things that are not what they seem, hosted by journalist Evan Ratliff.&nbsp;</p>\n<p>NEW SEASON launching October 21.&nbsp;</p>\n<p>Shell Game is a multiple award-winning series that has been named one of the best of the year by Apple, The Atlantic, The Guardian, Vulture, The Information, The Economist. It's \"riveting,\" says The New Yorker, \"awesome\" says The Verge, and \"slightly terrifying,\" says The Globe and Mail.&nbsp;</p>\n<p><a href=\"https://www.shellgame.co?utm_medium=podcast\">www.shellgame.co</a></p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-08-04T07:01:00Z",
+  "episode": "From How to Life Forever: The Longevinauts",
+  "cues": 541,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 3078,
+  "sync": "ok",
+  "refs": 29,
+  "listener": {
+   "duration": 3845.5,
+   "refs_ok": 29,
+   "refs": 29,
+   "offsets": [
+    142.3,
+    380.9,
+    623.0,
+    623.1
+   ]
+  },
+  "points": [
+   {
+    "c": 55.975,
+    "pred": 198.3,
+    "found": false,
+    "text": "I'm mongaish and I am so happy here."
+   },
+   {
+    "c": 631.8,
+    "pred": 774.1,
+    "err": -0.93,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1186.336,
+    "pred": 1328.7,
+    "err": -0.38,
+    "ok": true,
+    "score": 0.786
+   },
+   {
+    "c": 1817.32,
+    "pred": 2198.2,
+    "err": 0.72,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2385.68,
+    "pred": 2766.6,
+    "err": 0.79,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 3044.434,
+    "pred": 3667.5,
+    "err": -0.79,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 229
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/41764a4f-fc64-4e11-89ba-ae7c0030ab5e/9caafc41-289c-4115-995d-ae7c0030ab75/podcast.rss": {
+  "title": "Bloomberg Tech",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Bloomberg Tech",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/41764a4f-fc64-4e11-89ba-ae7c0030ab5e/9caafc41-289c-4115-995d-ae7c0030ab75/image.jpg?t=1749548917&size=Large",
+   "image_url": null,
+   "description": "<p>Listen for news and analysis on global technology companies and investors.&nbsp;<br><br>Ed Ludlow brings you the only daily news program focused exclusively on technology, innovation and the future of business.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T16:38:52Z",
+  "episode": "Chip Stocks Slide as Apple Demand Surges",
+  "cues": 526,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2598,
+  "sync": "ok",
+  "refs": 25,
+  "listener": {
+   "duration": 3183.0,
+   "refs_ok": 25,
+   "refs": 25,
+   "offsets": [
+    101.1,
+    101.2,
+    329.1,
+    329.2,
+    558.2
+   ]
+  },
+  "points": [
+   {
+    "c": 37.823,
+    "pred": 138.9,
+    "err": 0.21,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 515.562,
+    "pred": 616.7,
+    "found": false,
+    "text": "In my opinion, their ability to gather assets and generate c"
+   },
+   {
+    "c": 1064.13,
+    "pred": 1393.3,
+    "err": -1.21,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 1559.52,
+    "pred": 1888.7,
+    "err": -1.41,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 2097.446,
+    "pred": 2655.6,
+    "err": -3.5,
+    "ok": false,
+    "score": 0.857
+   },
+   {
+    "c": 2567.795,
+    "pred": 3126.0,
+    "err": -3.12,
+    "ok": false,
+    "score": 0.929
+   }
+  ],
+  "accuracy": 0.5,
+  "verdict": "check",
+  "sec": 168
  }
 }

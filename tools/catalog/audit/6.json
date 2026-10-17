@@ -159,5 +159,265 @@
   "accuracy": 0.83,
   "verdict": "keep",
   "sec": 109
+ },
+ "https://feeds.npr.org/510282/podcast.xml": {
+  "title": "Pop Culture Happy Hour",
+  "path": "npr",
+  "candidate": false,
+  "meta": {
+   "title": "Pop Culture Happy Hour",
+   "author": null,
+   "image": "https://media.npr.org/assets/img/2022/09/23/popculture-happyhour_tile_npr-network-01_sq-8f7dd7b8b06bf1f4d5c063f3752b7b60979624b4.jpg?s=1400&c=66&f=jpg",
+   "image_url": null,
+   "description": "Trying to keep up with the latest in pop culture? We’ve got you covered. The Pop Culture Happy Hour podcast helps you find the best new binge-worthy tv shows, movies, music, and videogames.<br><br>Join hosts Linda Holmes, Aisha Harris, Stephen Thompson, and Glen Weldon four episodes a week - plus a rotating cast of guest pop culture enthusiasts. It’s your fix for reviews, recommendations, and recaps of the pop culture everyone is talking about. From lowbrow reality TV to Oscar-winning movies to the stuff in between, we take it all with a shot of cheer. On the Pop Culture Happy Hour podcast, we watch everything so that you never miss anything.<br><br><em> Support public media by joining NPR+ at </em><a href=\"http://plus.npr.org/\"target=\"_blank\"   ><em>plus.npr.org</em></a><em>. You’ll get perks for over 25 NPR podcasts, including bonus episodes and sponsor-free listening for Pop Culture Happy Hour.</em>"
+  },
+  "recent": 8,
+  "judged": 7,
+  "with_transcript": 7,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T07:00:00Z",
+  "episode": "The Lowdown",
+  "cues": 280,
+  "dai": "detected",
+  "fixed": false,
+  "duration": 1106,
+  "sync": "ok",
+  "refs": 12,
+  "listener": {
+   "duration": 1257.9,
+   "refs_ok": 12,
+   "refs": 12,
+   "offsets": [
+    14.4,
+    91.3
+   ]
+  },
+  "points": [
+   {
+    "c": 38.38,
+    "pred": 52.8,
+    "err": 0.32,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 240.56,
+    "pred": 255.0,
+    "err": 0.36,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 460.38,
+    "pred": 474.8,
+    "err": 0.21,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 680.08,
+    "pred": 771.4,
+    "err": 0.14,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 892.35,
+    "pred": 983.6,
+    "err": 0.51,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 1085.32,
+    "pred": 1176.6,
+    "err": -0.09,
+    "ok": true,
+    "score": 0.714
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 98
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/f4e26994-3ddb-4ec7-b855-ae32006cd5de/ea4fae0c-3282-4cfd-b315-ae32006cd5ec/podcast.rss": {
+  "title": "Against the Rules with Michael Lewis",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Against the Rules with Michael Lewis",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/f4e26994-3ddb-4ec7-b855-ae32006cd5de/ea4fae0c-3282-4cfd-b315-ae32006cd5ec/image.jpg?t=1780573170&size=Large",
+   "image_url": null,
+   "description": "<p>Journalist and bestselling author Michael Lewis explores the figures in American life who rely on the public's trust, whether in sports, in business, in the courtroom, or on TV. What happens when that trust erodes and we can no longer agree on what's fair and what's not?</p>\n<p>Get your copy of The Big Short audiobook, narrated by Michael Lewis, on <a href=\"https://www.audible.com/pd/The-Big-Short-Inside-the-Doomsday-Machine-Audiobook/B0FJTH21JS?qid=1758041668&amp;sr=1-1&amp;ref_pageloadid=not_applicable&amp;pf_rd_p=83218cca-c308-412f-bfcf-90198b687a2f&amp;pf_rd_r=W8EJYNFBTNKENZERAF3F&amp;plink=MffxLjWat1SZzQ9C&amp;pageLoadId=8twGCD6I2yKFLwtS&amp;creativeId=0d6f6720-f41c-457e-a42b-8c8dceb62f2c&amp;ref=a_search_c3_lProduct_1_1\">Audible</a>, <a href=\"https://open.spotify.com/show/4jMnkmyFmZT7j7R72nlNXz?si=b627a059b2e644cc\">Spotify</a>, <a href=\"https://books.apple.com/us/audiobook/the-big-short-inside-the-doomsday-machine/id1828393213\">Apple Books</a>,&nbsp;<a href=\"http://pushkin.fm/bigshort\">pushkin.fm/bigshort</a> or wherever you get audiobooks.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-06T07:00:00Z",
+  "episode": "Out Now: Blockers | Michael Lewis's New Audiobook",
+  "cues": 57,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 390,
+  "sync": "ok",
+  "refs": 4,
+  "listener": {
+   "duration": 705.3,
+   "refs_ok": 4,
+   "refs": 4,
+   "offsets": [
+    189.8
+   ]
+  },
+  "points": [
+   {
+    "c": 33.562,
+    "pred": 223.3,
+    "err": -0.39,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 147.559,
+    "pred": 337.3,
+    "found": false,
+    "text": "All of this was obviously kind of weird."
+   },
+   {
+    "c": 197.356,
+    "pred": 387.1,
+    "err": -0.61,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 254.626,
+    "pred": 444.4,
+    "err": -0.65,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 315.516,
+    "pred": 505.3,
+    "err": -0.5,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 377.126,
+    "pred": 566.9,
+    "err": -0.23,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 51
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/91c26f87-aa4e-4e61-816b-ae320005be01/5ca66d21-7139-45ee-8d4e-ae320005be14/podcast.rss": {
+  "title": "BrainStuff",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "BrainStuff",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/91c26f87-aa4e-4e61-816b-ae320005be01/image.jpg?t=1752868866&size=Large",
+   "image_url": null,
+   "description": "Whether the topic is popcorn or particle physics, you can count on BrainStuff to explore -- and explain -- the everyday science in the world around us."
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-17T09:00:00Z",
+  "episode": "BrainStuff Classics: When Has a Single Vote Decided an Election?",
+  "cues": 55,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 470,
+  "sync": "ok",
+  "refs": 5,
+  "listener": {
+   "duration": 838.6,
+   "refs_ok": 5,
+   "refs": 5,
+   "offsets": [
+    169.2,
+    169.3
+   ]
+  },
+  "points": [
+   {
+    "c": 31.158,
+    "pred": 200.4,
+    "err": 0.27,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 134.301,
+    "pred": 303.6,
+    "err": 0.22,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 201.44,
+    "pred": 370.7,
+    "err": 0.11,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 276.41,
+    "pred": 445.7,
+    "err": -0.66,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 361.304,
+    "pred": 530.6,
+    "err": 0.43,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 435.595,
+    "pred": 604.9,
+    "err": -0.43,
+    "ok": true,
+    "score": 1.0
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 50
+ },
+ "https://www.abc.net.au/feeds/106452508/podcast.xml": {
+  "title": "ABC Business Daily",
+  "path": "web",
+  "candidate": true,
+  "meta": {
+   "title": "ABC Business Daily",
+   "author": null,
+   "image": "https://live-production.wcms.abc-cdn.net.au/2c1275ec072268a6acfc347de4215dfa.jpg?src",
+   "image_url": null,
+   "description": "The podcast that helps you unpack the latest business and finance news, analysing the stories moving share markets, shaping industries and affecting the Australian economy.\n\nMonday to Friday, ABC Senior Business Correspondent Carrington Clarke examines the biggest business news with ABC's specialist reporters. From finance, to AI technology, and how politics intersects, the team will break down what happened, why it matters, and what it might mean for you and your financial future.\n\nCarrington Clarke is a former economist, ABC North America correspondent from Washington DC and East Asia correspondent from Seoul. Previously, he worked as a Sky News journalist and Fairfax Media editor. He has also reported for ABC Investigations’ flagship current affairs television program 7.30 and The Business .\n\nFor more sharp insights, clear explanations, and business news coverage you can trust, hit follow or favourite to add new episodes of ABC Business Daily to your playlist, on ABC listen app, or wherever you get your podcasts."
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T02:30:00Z",
+  "episode": "The 'Thelma and Louise' moment coming for global economies",
+  "error": "ValueError: alignment too weak (32% of transcript tokens matched)",
+  "trace": "ome/runner/work/podcast-study/podcast-study/pipeline/main.py\", line 212, in web_transcript_cues\n    cues, info = A.align_paragraphs(paras, words, dur, ad_free=ad_free)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/podcast-study/podcast-study/pipeline/align.py\", line 150, in align_paragraphs\n    raise ValueError(f\"alignment too weak ({coverage:.0%} of transcript tokens matched)\")\nValueError: alignment too weak (32% of transcript tokens matched)\n",
+  "verdict": "drop",
+  "sec": 73
  }
 }

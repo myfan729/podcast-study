@@ -76,5 +76,324 @@
   "accuracy": 0.67,
   "verdict": "check",
   "sec": 71
+ },
+ "https://feeds.npr.org/510355/podcast.xml": {
+  "title": "Consider This from NPR",
+  "path": "npr",
+  "candidate": false,
+  "meta": {
+   "title": "Consider This from NPR",
+   "author": null,
+   "image": "https://media.npr.org/assets/img/2022/09/22/consider-this_tile_npr-network-01_sq-99737f9f5560c4c6c67ef3d9638b5a584be8a5e9.jpg?s=1400&c=66&f=jpg",
+   "image_url": null,
+   "description": "The hosts of NPR's All Things Considered help you make sense of a major news story and what it means for you, in 15 minutes. New episodes six days a week, Sunday through Friday.<br><br> Support public media by joining NPR+ at <a href=\"http://plus.npr.org/\"target=\"_blank\"   >plus.npr.org</a>. You’ll get perks for over 25 NPR podcasts, including sponsor-free listening for Consider This."
+  },
+  "recent": 8,
+  "judged": 6,
+  "with_transcript": 6,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-17T23:32:58Z",
+  "episode": "The skincare scheme that led to consumer complaints and a federal investigation",
+  "cues": 260,
+  "dai": "detected",
+  "fixed": false,
+  "duration": 1260,
+  "sync": "ok",
+  "refs": 12,
+  "listener": {
+   "duration": 1370.9,
+   "refs_ok": 12,
+   "refs": 12,
+   "offsets": [
+    0.0,
+    75.0
+   ]
+  },
+  "points": [
+   {
+    "c": 35.36,
+    "pred": 35.4,
+    "err": -0.21,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 278.69,
+    "pred": 353.7,
+    "err": 0.09,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 540.85,
+    "pred": 615.8,
+    "err": 0.05,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 773.07,
+    "pred": 848.0,
+    "err": 0.12,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 997.43,
+    "pred": 1072.4,
+    "err": -0.2,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1237.43,
+    "pred": 1312.4,
+    "err": 0.05,
+    "ok": true,
+    "score": 0.929
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 147
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/39e934d7-2ddc-4b3e-bc73-ae2b00156363/ab6037f4-9a9a-449b-915d-ae2b00156375/podcast.rss": {
+  "title": "The Daily Zeitgeist",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "The Daily Zeitgeist",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/39e934d7-2ddc-4b3e-bc73-ae2b00156363/image.jpg?t=1750265490&size=Large",
+   "image_url": null,
+   "description": "There’s more news and less comprehension today than any historical period that didn’t involve literal witch trials, and trying to stay on top of it all can feel like playing a game of telephone with 30 people, except everyone’s speaking at the same time and like a third of them are openly racist for some reason. From Cracked co-founder Jack O’Brien, THE DAILY ZEITGEIST is stepping into that fray with some of the funniest and smartest comedic and journalistic minds around. Jack and co-host Miles Gray spend up to an hour every weekday sorting through the events and stories driving the headlines, to help you find the signal in the noise, with a few laughs thrown in for free."
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T07:05:00Z",
+  "episode": "Whalefall Til You Ball, Strip Club Bouncers Needed 10.16.26",
+  "cues": 1185,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 4256,
+  "sync": "ok",
+  "refs": 39,
+  "listener": {
+   "duration": 5295.4,
+   "refs_ok": 39,
+   "refs": 39,
+   "offsets": [
+    -0.3,
+    0.0,
+    210.6,
+    838.7
+   ]
+  },
+  "points": [
+   {
+    "c": 33.216,
+    "pred": 33.2,
+    "err": 0.05,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 790.551,
+    "pred": 790.2,
+    "found": false,
+    "text": "But yeah, I was just curious to know what her actual height "
+   },
+   {
+    "c": 1610.74,
+    "pred": 1821.3,
+    "found": false,
+    "text": "I got mine right here at the desk."
+   },
+   {
+    "c": 2419.235,
+    "pred": 2629.8,
+    "found": false,
+    "text": "I think is moot, yeah, because precisely..."
+   },
+   {
+    "c": 3352.685,
+    "pred": 4191.3,
+    "err": 0.13,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 4227.22,
+    "pred": 5065.9,
+    "err": 0.07,
+    "ok": true,
+    "score": 0.857
+   }
+  ],
+  "accuracy": 0.5,
+  "verdict": "check",
+  "sec": 285
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/afbd76b8-eff2-442a-b938-b28e0126edad/d08826cd-f888-4cd3-b700-b28e0126edbb/podcast.rss": {
+  "title": "Heavyweight",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Heavyweight",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/afbd76b8-eff2-442a-b938-b28e0126edad/image.jpg?t=1753291848&size=Large",
+   "image_url": null,
+   "description": "<p>Maybe you&rsquo;ve laid awake and imagined how it could have been, how it might yet be, but the moment to act was never right. Well, the moment is here and the podcast making it happen is Heavyweight. Join Jonathan Goldstein for road trips, thorny reunions, and difficult conversations as he backpedals his way into the past like a therapist with a time machine.&nbsp;</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-15T08:00:00Z",
+  "episode": "Regrets, I've Had a Slew",
+  "cues": 432,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 2061,
+  "sync": "ok",
+  "refs": 19,
+  "listener": {
+   "duration": 2499.6,
+   "refs_ok": 19,
+   "refs": 19,
+   "offsets": [
+    112.0,
+    113.1,
+    113.2
+   ]
+  },
+  "points": [
+   {
+    "c": 31.14,
+    "pred": 144.3,
+    "err": -0.8,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 459.531,
+    "pred": 572.7,
+    "err": -0.41,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 833.897,
+    "pred": 947.0,
+    "err": 0.04,
+    "ok": true,
+    "score": 0.714
+   },
+   {
+    "c": 1229.24,
+    "pred": 1342.4,
+    "err": -1.32,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 1588.52,
+    "pred": 1700.6,
+    "found": false,
+    "text": "But then at the last minute, I was like, I could just call u"
+   },
+   {
+    "c": 2023.242,
+    "pred": 2135.3,
+    "found": false,
+    "text": "Thank you. Thank you so much."
+   }
+  ],
+  "accuracy": 0.67,
+  "verdict": "check",
+  "sec": 120
+ },
+ "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/2e824128-fbd5-4c9e-9a57-ae2f0056b0c4/66d98a23-900c-44b0-a40b-ae2f0056b0db/podcast.rss": {
+  "title": "Stuff They Don't Want You To Know",
+  "path": "rss",
+  "candidate": false,
+  "meta": {
+   "title": "Stuff They Don't Want You To Know",
+   "author": null,
+   "image": "https://www.omnycontent.com/d/programs/e73c998e-6e60-432f-8610-ae210140c5b1/2e824128-fbd5-4c9e-9a57-ae2f0056b0c4/image.jpg?t=1749831085&size=Large",
+   "image_url": null,
+   "description": "<p>From UFOs to psychic powers and government cover-ups, history is riddled with unexplained events. You can turn back now or learn the Stuff They Don't Want You To Know ... an audio podcast from iHeartRadio.</p>"
+  },
+  "recent": 8,
+  "judged": 8,
+  "with_transcript": 8,
+  "transcript_rate": 1.0,
+  "newest": "2026-10-16T19:28:59Z",
+  "episode": "October Surprise: A Live Q&A on Virgin Voyages",
+  "cues": 582,
+  "dai": "yes",
+  "fixed": false,
+  "duration": 1970,
+  "sync": "ok",
+  "refs": 20,
+  "listener": {
+   "duration": 2518.4,
+   "refs_ok": 20,
+   "refs": 20,
+   "offsets": [
+    163.2,
+    165.0,
+    358.6
+   ]
+  },
+  "points": [
+   {
+    "c": 33.074,
+    "pred": 196.3,
+    "err": 0.44,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 408.37,
+    "pred": 573.4,
+    "err": -0.37,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 805.332,
+    "pred": 970.3,
+    "err": -0.34,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 1162.192,
+    "pred": 1520.7,
+    "err": 0.71,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1546.884,
+    "pred": 1905.4,
+    "err": 0.7,
+    "ok": true,
+    "score": 0.929
+   },
+   {
+    "c": 1936.67,
+    "pred": 2295.2,
+    "err": 0.39,
+    "ok": true,
+    "score": 0.741
+   }
+  ],
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 163
  }
 }
