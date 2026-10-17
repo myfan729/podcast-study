@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
@@ -35,7 +35,9 @@ export default function Login() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: C.bg }}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={s.wrap}>
+      {/* Android draws edge-to-edge, so the window no longer resizes for the keyboard: pad on both platforms and scroll */}
+      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }} keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 24}>
+       <ScrollView contentContainerStyle={s.wrap} keyboardShouldPersistTaps="handled" keyboardDismissMode="interactive">
         <View style={s.mark}><Icon name="ear" size={44} color="#fff" /></View>
         <Text style={s.logo}>잉팟</Text>
         <Text style={s.sub}>진짜 영어 팟캐스트를{'\n'}대본·번역·표현과 함께 들어요</Text>
@@ -61,12 +63,13 @@ export default function Login() {
             <Text style={[s.link, { color: C.ink3, fontWeight: '400', fontSize: 13 }]}>{usePw ? '이메일 코드로 로그인' : '비밀번호로 로그인'}</Text></Pressable>}
           {!!msg && <Text style={s.msg}>{msg}</Text>}
         </View>
+       </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
 const s = StyleSheet.create({
-  wrap: { flex: 1, justifyContent: 'center', padding: 24 },
+  wrap: { flexGrow: 1, justifyContent: 'center', padding: 24 },
   mark: { width: 84, height: 84, borderRadius: 30, backgroundColor: C.accent, alignItems: 'center', justifyContent: 'center', alignSelf: 'center' },
   logo: { fontFamily: F.title, fontSize: 40, color: C.ink, textAlign: 'center', marginTop: 14 },
   sub: { color: C.ink2, textAlign: 'center', lineHeight: 22, marginTop: 6, marginBottom: 28 },
