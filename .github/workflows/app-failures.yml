@@ -19,5 +19,11 @@ jobs:
           psql "$SUPABASE_DB_URL" -tA -F ' | ' -c "select s.title, e.title, e.status, e.attempts, left(coalesce(e.error,''), 400)
             from public.episodes e join public.shows s on s.id = e.show_id
             where e.status in ('failed','no_transcript') or e.error is not null
-            order by coalesce(e.requested_at, e.published_at) desc limit 8" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g" |
+            order by coalesce(e.requested_at, e.published_at) desc limit 25" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g" |
           while IFS= read -r l; do echo "::notice::$l"; done
+          psql "$SUPABASE_DB_URL" -tA -F ' | ' -c "select s.title, count(*) filter (where e.has_transcript) as with_tr, count(*) filter (where not e.has_transcript) as no_tr,
+              count(*) filter (where e.status='ready') as ready, count(*) filter (where e.status='failed') as failed, count(*) filter (where e.status in ('queued','prefetch','processing')) as pending,
+              count(*) filter (where e.status='ready' and e.sync_path is null) as ready_nosync
+            from public.episodes e join public.shows s on s.id=e.show_id
+            where s.title ilike any (array['%life kit%','%indicator%','%big take%','%up first%'])
+            group by s.title" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g" | while IFS= read -r l; do echo "::notice title=show stats (title|with transcript|no transcript|ready|failed|pending|ready w/o sync)::$l"; done
