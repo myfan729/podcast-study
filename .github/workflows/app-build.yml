@@ -30,14 +30,19 @@ jobs:
         with: { node-version: 22 }
       - run: npm install --no-audit --no-fund
       - name: Who am I
-        run: echo "::notice title=expo account::$(npx -y eas-cli@latest whoami 2>&1 | head -1)"
+        run: echo "::notice title=expo account::$(npx -y eas-cli@latest whoami 2>/dev/null | grep -v '^npm' | head -1)"
       - name: Link the EAS project (first run only)
         run: |
-          if ! grep -q '"projectId"' app.json; then
-            npx -y eas-cli@latest init --non-interactive --force 2>&1 | tee /tmp/init.log || { echo "::error::$(tail -c 400 /tmp/init.log | tr '\n' ' ')"; exit 1; }
-            cd .. && git config user.name "podcast-study bot" && git config user.email "actions@users.noreply.github.com"
-            git add app/app.json && git commit -m "app: link EAS project" && git pull --rebase origin main && git push
-          fi
+          set +e
+          if grep -q '"projectId"' app.json; then echo "already linked"; exit 0; fi
+          npx -y eas-cli@latest init --non-interactive --force > /tmp/init.log 2>&1; rc=$?
+          echo "::notice title=eas init (exit $rc)::$(grep -v '^npm' /tmp/init.log | tail -c 700 | tr '\n' ' ')"
+          [ $rc -eq 0 ] || exit 1
+          git -C .. diff --stat
+          if ! grep -q '"projectId"' app.json; then echo "::error::eas init did not write extra.eas.projectId into app.json"; exit 1; fi
+          cd .. && git config user.name "podcast-study bot" && git config user.email "actions@users.noreply.github.com"
+          git add app/app.json && git commit -qm "app: link EAS project" && git pull -q --rebase origin main && git push -q \
+            || { echo "::error::could not push the linked app.json"; exit 1; }
       - name: Start the build
         run: |
           npx -y eas-cli@latest build --platform android --profile ${{ inputs.profile }} --non-interactive --no-wait --json > /tmp/build.json 2> /tmp/build.err || {
