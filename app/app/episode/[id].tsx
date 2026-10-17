@@ -3,7 +3,7 @@ import { useAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { memo, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Btn, Icon, RoundBtn } from '@/components/ui';
 import * as api from '@/lib/api';
 import { addAnchor, toAudio, toContent, type Anchor } from '@/lib/timeline';
@@ -129,6 +129,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
   const offset = anchors.length ? Math.round(anchors[anchors.length - 1].a - anchors[anchors.length - 1].c) : 0;
 
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const [barW, setBarW] = useState(1);
   const dur = status.duration || pack.duration_sec || 1;
   const pct = Math.min(1, (status.currentTime ?? 0) / dur);
@@ -159,7 +160,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
         <Words pack={pack} episodeId={ep.id} onJump={(sec) => player.seekTo(toAudio(sec, anchors))} />
       )}
       {syncMode && <View style={st.syncHint}><Icon name="hand-left-outline" size={16} color={C.accent} /><Text style={st.syncT}>지금 들리는 문장을 눌러 주세요</Text></View>}
-      <View style={st.bar}>
+      <View style={[st.bar, { marginBottom: Math.max(insets.bottom, 0) + 12 }]}>
         <View style={st.timeRow}>
           <Text style={st.time}>{fmt(status.currentTime)} / {fmt(status.duration)}</Text>
           <Pressable onPress={() => setSyncMode(!syncMode)} style={[st.sync, syncMode && { backgroundColor: C.progress }]} hitSlop={6}
