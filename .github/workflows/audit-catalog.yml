@@ -19,8 +19,12 @@ jobs:
       - run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
           pip install -r requirements.txt -r requirements-sync.txt
-      - run: python tools/catalog/audit.py ${{ matrix.shard }} 10
-      - uses: actions/upload-artifact@v4
+      - run: |
+          python tools/catalog/audit.py ${{ matrix.shard }} 10 > /tmp/a.log 2>&1 || echo "::error::shard crashed: $(grep -v '^ ' /tmp/a.log | tail -c 700 | tr '\n' ' ')"
+          grep '^{' /tmp/a.log | while IFS= read -r l; do echo "::notice::$l"; done
+          dmesg 2>/dev/null | grep -i -E "killed process|out of memory" | tail -2 | while IFS= read -r l; do echo "::warning::$l"; done
+      - if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: audit-${{ matrix.shard }}
           path: tools/catalog/audit/${{ matrix.shard }}.json

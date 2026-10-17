@@ -132,12 +132,14 @@ for sh in mine:
         pts = check_points(doc, matches, pcm16)
         rec["points"] = pts
         rec["accuracy"] = round(sum(1 for p in pts if p.get("ok")) / len(pts), 2) if pts else 0.0
-    except Exception as e:  # noqa: BLE001
-        rec.update(error=str(e)[:300], trace=traceback.format_exc()[-500:])
+    except BaseException as e:  # noqa: BLE001  (also SystemExit from deep inside a library)
+        rec.update(error=f"{type(e).__name__}: {e}"[:300], trace=traceback.format_exc()[-500:])
     rec["verdict"] = ("keep" if rec.get("transcript_rate", 0) >= 0.6 and rec.get("accuracy", 0) >= 0.8
                       else "check" if rec.get("transcript_rate", 0) >= 0.4 and rec.get("accuracy", 0) >= 0.5 else "drop")
     rec["sec"] = round(time.time() - t0)
     out[sh["feed_url"]] = rec
+    Path("tools/catalog/audit").mkdir(exist_ok=True)
+    Path(f"tools/catalog/audit/{shard}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1))   # after every show
     print(json.dumps({k: rec.get(k) for k in ("title", "verdict", "transcript_rate", "accuracy", "sync", "refs", "error")},
                      ensure_ascii=False), flush=True)
 Path("tools/catalog/audit").mkdir(exist_ok=True)
