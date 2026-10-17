@@ -21,7 +21,7 @@ jobs:
             npx -y eas-cli@latest build:list --platform android --limit 5 --json --non-interactive > /tmp/l.json 2>/tmp/b.err; node -e "const l=require('/tmp/l.json'); const id='${{ inputs.build_id }}'; const b=l.find(x=>x.id===id)||l[0]; require('fs').writeFileSync('/tmp/b.json', JSON.stringify(b))" 2>>/tmp/b.err
             st=$(node -e "try{console.log(require('/tmp/b.json').status||'')}catch(e){console.log('')}")
             if [ -z "$st" ]; then miss=$((miss+1)); [ $miss -ge 3 ] && exit 1; fi
-            [ -n "$st" ] || echo "::warning::build:view: $(grep -v '^npm' /tmp/b.err | head -c 900 | tr '\n' ' ')"
+            [ -n "$st" ] || echo "::warning::eas says: $(head -c 600 /tmp/l.json | tr '\n' ' ')"
             echo "status: $st"
             case "$st" in FINISHED|ERRORED|CANCELED) break;; esac
             sleep 60
