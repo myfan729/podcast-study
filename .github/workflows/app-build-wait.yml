@@ -1,0 +1,26 @@
+name: App build — wait for result
+on:
+  workflow_dispatch:
+    inputs:
+      build_id: { description: "EAS build id", required: true }
+jobs:
+  wait:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+    defaults:
+      run: { working-directory: app }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: |
+          for i in $(seq 1 85); do
+            npx -y eas-cli@latest build:view ${{ inputs.build_id }} --json > /tmp/b.json 2>/dev/null
+            st=$(node -e "console.log(require('/tmp/b.json').status||'')")
+            echo "status: $st"
+            case "$st" in FINISHED|ERRORED|CANCELED) break;; esac
+            sleep 60
+          done
+          node -e "const b=require('/tmp/b.json'); console.log('::notice title=build '+b.status+'::'+((b.artifacts&&(b.artifacts.applicationArchiveUrl||b.artifacts.buildUrl))||'')+' '+((b.error&&b.error.message)||''))"
