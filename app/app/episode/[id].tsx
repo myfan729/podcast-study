@@ -48,8 +48,8 @@ export default function EpisodeScreen() {
   if (!req.unlocked) {
     return (
       <Center icon={req.reason === 'quota' ? 'lock-closed' : 'document-text-outline'}
-        title={req.reason === 'quota' ? '이번 주 무료 에피소드를 다 썼어요' : '이 에피소드는 대본이 없어요'}
-        text={req.reason === 'quota' ? '무료는 일주일에 2편까지예요. 프로로 업그레이드하면 무제한으로 들을 수 있어요.' : undefined}>
+        title={req.reason === 'quota' ? '이번 주 무료 에피소드를 다 썼어요' : '대본이 아직 안 올라왔어요'}
+        text={req.reason === 'quota' ? '무료는 일주일에 2편까지예요. 프로로 업그레이드하면 무제한으로 들을 수 있어요.' : '방송사가 대본을 올리면 목록에 다시 나타나요. 조금 뒤에 확인해 주세요.'}>
         {req.reason === 'quota' && <Btn label="프로 알아보기" onPress={() => router.push('/settings')} style={{ alignSelf: 'stretch', marginTop: 20 }} />}
       </Center>
     );

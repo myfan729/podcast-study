@@ -23,10 +23,11 @@ import requests
 
 from .feeds import Episode, parse_feed, strip_html
 from .llm import StudyGenerator
-from .main import process_episode, show_filter
+from .main import process_episode, show_filter, web_transcript_ready
 from .util import http_get_text, http_session, log, setup_logging, utcnow_iso
 
 KEEP_PER_SHOW = 30            # newest episodes listed per show
+NPR_CHECK = 4                 # newest NPR episodes whose transcript page is checked on every refresh
 
 
 class Supa:
@@ -97,8 +98,15 @@ def refresh(db: Supa, only: str | None = None) -> int:
         except Exception as e:  # noqa: BLE001
             log.error("feed failed for %s: %s", sh["title"], e)
             continue
-        ok = show_filter(show_config(sh))
-        rows = [episode_row(sh, e, sh["path"]) for e in eps if ok(e)][:KEEP_PER_SHOW]
+        cfg = show_config(sh)
+        ok = show_filter(cfg)
+        kept = [e for e in eps if ok(e)][:KEEP_PER_SHOW]
+        rows = [episode_row(sh, e, sh["path"]) for e in kept]
+        if sh["path"] == "npr":
+            # NPR posts the transcript hours (sometimes a day) after the audio: keep the newest episodes
+            # hidden in the app (has_transcript=false) until their transcript page actually exists
+            for e, row in zip(kept[:NPR_CHECK], rows[:NPR_CHECK]):
+                row["has_transcript"] = web_transcript_ready(session, cfg, e)
         # don't overwrite worker-owned columns (status, pack paths) on existing rows: upsert only listing fields
         db.upsert("episodes", rows, "show_id,guid")
         db.update("shows", f"id=eq.{sh['id']}", {"refreshed_at": utcnow_iso()})
