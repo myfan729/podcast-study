@@ -6,7 +6,7 @@ export type EpisodeStatus = 'none' | 'queued' | 'processing' | 'ready' | 'failed
 export type Episode = {
   id: string; show_id: string; title: string; published_at: string; duration_sec: number | null;
   audio_url: string | null; image_url: string | null; status: EpisodeStatus; one_liner_ko: string | null;
-  has_transcript: boolean; pack_path: string | null; sync_path: string | null;
+  has_transcript: boolean; pack_path: string | null; sync_path: string | null; error?: string | null;
   shows?: Pick<Show, 'title' | 'image_url'>;
 };
 export type Cue = { s: number; e: number; t: string; spk?: string | null };

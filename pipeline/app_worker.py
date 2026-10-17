@@ -159,9 +159,11 @@ def process(db: Supa, max_n: int = 4, mock: bool = False, status: str = "queued"
             done += 1
         except Exception as e:  # noqa: BLE001
             from .webtranscript import TranscriptNotReady
-            new = status if isinstance(e, TranscriptNotReady) else "failed"
+            # transcript not published yet (NPR posts some a day later): back to the low-priority hourly job.
+            # Never straight back to 'queued' — that fires the database's dispatch trigger again at once (a loop).
+            new = "prefetch" if isinstance(e, TranscriptNotReady) else "failed"
             db.update("episodes", f"id=eq.{row['id']}", {"status": new, "error": str(e)[:300],
-                                                       "attempts": (row.get("attempts") or 0) + (0 if new == status else 1)})
+                                                       "attempts": (row.get("attempts") or 0) + (0 if new == "prefetch" else 1)})
             log.error("  ✗ %s", e)
     return done
 

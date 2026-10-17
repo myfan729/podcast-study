@@ -56,6 +56,10 @@ export default function EpisodeScreen() {
   }
   if (!pack) {
     const failed = ep?.status === 'failed' || ep?.status === 'no_transcript';
+    if (ep?.error?.includes('no transcript on the page yet')) {
+      return <Center icon="time-outline" title="대본이 아직 안 올라왔어요"
+        text={'이 방송사는 대본을 방송 후 몇 시간~하루 뒤에 올려요.\n올라오면 자동으로 준비해 둘게요. 나중에 다시 열어 주세요.'} />;
+    }
     return failed
       ? <Center icon="alert-circle-outline" title="준비하지 못했어요" text="이 에피소드는 대본을 만들 수 없었어요. 다른 에피소드를 골라 주세요." />
       : <Center spin title="에피소드를 준비하고 있어요" text={'대본·번역·표현을 만드는 중이에요.\n처음 여는 에피소드는 1~2분 정도 걸려요.\n이 화면을 나가도 계속 준비돼요.'} />;
@@ -63,7 +67,7 @@ export default function EpisodeScreen() {
   return <Player pack={pack} ep={ep!} />;
 }
 
-function Center({ text, title, spin, icon, children }: { text?: string; title?: string; spin?: boolean; icon?: 'lock-closed' | 'document-text-outline' | 'alert-circle-outline'; children?: ReactNode }) {
+function Center({ text, title, spin, icon, children }: { text?: string; title?: string; spin?: boolean; icon?: 'lock-closed' | 'document-text-outline' | 'alert-circle-outline' | 'time-outline'; children?: ReactNode }) {
   const router = useRouter();
   return (
     <SafeAreaView style={{ flex: 1 }}>
