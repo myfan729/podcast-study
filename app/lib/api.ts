@@ -22,7 +22,7 @@ export async function setSubscribed(showId: string, on: boolean) {
   if (on) ok(await supabase.from('subscriptions').upsert({ user_id: data.user.id, show_id: showId }));
   else ok(await supabase.from('subscriptions').delete().eq('show_id', showId));
 }
-const EP_COLS = 'id,show_id,title,published_at,duration_sec,audio_url,image_url,status,one_liner_ko,has_transcript,pack_path,sync_path,error,intro_ko';
+const EP_COLS = 'id,show_id,title,published_at,duration_sec,audio_url,image_url,status,one_liner_ko,has_transcript,pack_path,sync_path,error,intro_ko,episode_url';
 export async function showEpisodes(showId: string): Promise<Episode[]> {
   return ok(await supabase.from('episodes').select(EP_COLS).eq('show_id', showId).order('published_at', { ascending: false }).limit(30));
 }

@@ -6,7 +6,7 @@ import { Icon, PageTitle } from '@/components/ui';
 import * as api from '@/lib/api';
 import { supabase } from '@/lib/supabase';
 import { useSession } from '@/lib/session';
-import { FREE_PER_WEEK, PRIVACY_URL } from '@/lib/config';
+import { FREE_PER_WEEK, PRIVACY_URL, TERMS_URL } from '@/lib/config';
 import * as Updates from 'expo-updates';
 import Constants from 'expo-constants';
 import { C, F, R } from '@/lib/theme';
@@ -49,6 +49,8 @@ export default function Settings() {
           <Icon name="log-out-outline" size={18} color={C.warn} /><Text style={s.outT}>로그아웃</Text>
         </Pressable>
         <View style={s.links}>
+          <Pressable onPress={() => Linking.openURL(TERMS_URL)} hitSlop={8}><Text style={s.link}>이용약관·저작권</Text></Pressable>
+          <Text style={s.link}>·</Text>
           <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} hitSlop={8}><Text style={s.link}>개인정보처리방침</Text></Pressable>
           <Text style={s.link}>·</Text>
           <Pressable onPress={remove} hitSlop={8} accessibilityRole="button"><Text style={s.link}>계정 삭제</Text></Pressable>

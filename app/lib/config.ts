@@ -7,3 +7,4 @@ export const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY ?? ex
 export const FREE_PER_WEEK = 2;
 export const SITE_URL = 'https://myfan729.github.io/podcast-study/';
 export const PRIVACY_URL = SITE_URL + 'privacy.html';
+export const TERMS_URL = SITE_URL + 'terms.html';

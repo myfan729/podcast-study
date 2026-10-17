@@ -2,7 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { memo, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ActivityIndicator, FlatList, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, Linking, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Btn, Icon, RoundBtn } from '@/components/ui';
 import AutoSync, { type SyncResult } from '@/components/AutoSync';
@@ -215,6 +215,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
       {tab === 'script' ? (
         <FlatList ref={listRef} data={sents} keyExtractor={(x) => String(x.a)} contentContainerStyle={{ padding: 18, paddingBottom: 40 }}
           ListHeaderComponent={pack.study.one_liner_ko ? <View style={st.oneBox}><Icon name="bulb-outline" size={16} color={C.accent} /><Text style={st.one}>{pack.study.one_liner_ko}</Text></View> : undefined}
+          ListFooterComponent={<Credit pack={pack} ep={ep} />}
           onScrollBeginDrag={() => { userScroll.current = Date.now(); }}
           onScrollToIndexFailed={() => {}}
           renderItem={({ item, index }) => <SentRow sn={item} state={index === cur ? 'cur' : index < cur ? 'past' : 'next'} ko={ko} onPress={onSentence} onMark={setPeek} />} />
@@ -295,6 +296,17 @@ const SentRow = memo(function SentRow({ sn, state, ko, onPress, onMark }: { sn: 
     </Pressable>
   );
 });
+
+/** Whose work this is, and the way to the original — shown under every transcript. */
+function Credit({ pack, ep }: { pack: Pack; ep: Episode }) {
+  const url = ep.episode_url || null;
+  return (
+    <View style={st.credit}>
+      <Text style={st.creditT}>대본·오디오의 저작권은 {pack.show.name}{pack.show.publisher ? ` (${pack.show.publisher})` : ''}에 있어요. 오디오는 원본 서버에서 그대로 재생돼요.</Text>
+      {url ? <Pressable onPress={() => Linking.openURL(url)} hitSlop={8}><Text style={st.creditL}>원본 에피소드 페이지 보기 ›</Text></Pressable> : null}
+    </View>
+  );
+}
 
 function PeekCard({ pack, peek, episodeId, onClose }: { pack: Pack; peek: NonNullable<Peek>; episodeId: string; onClose: () => void }) {
   const [saved, setSaved] = useState(false);
@@ -437,6 +449,9 @@ const st = StyleSheet.create({
   hlWord: { textDecorationLine: 'underline', textDecorationColor: C.accent, color: C.accent },
   wait: { width: 64, height: 64, borderRadius: 32, backgroundColor: '#C9C6DC', alignItems: 'center', justifyContent: 'center' },
   peek: { position: 'absolute', left: 14, right: 14, bottom: 190, backgroundColor: C.sheet, borderRadius: 24, padding: 16, gap: 4 },
+  credit: { marginTop: 24, padding: 14, borderRadius: 16, backgroundColor: C.sheet, gap: 6 },
+  creditT: { color: C.ink3, fontSize: 11.5, lineHeight: 16 },
+  creditL: { color: C.accent, fontSize: 12, fontWeight: '700' },
   peekKind: { color: C.accent, fontSize: 12, fontWeight: '700' },
   save: { width: 38, height: 38, borderRadius: 19, backgroundColor: C.accentSoft, alignItems: 'center', justifyContent: 'center' },
 });
