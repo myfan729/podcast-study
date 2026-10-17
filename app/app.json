@@ -31,7 +31,12 @@
         "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.SYSTEM_ALERT_WINDOW"
       ],
-      "versionCode": 1
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -63,8 +68,17 @@
     },
     "extra": {
       "supabaseUrl": "https://neyaiwhtuczbsdoqqgir.supabase.co",
-      "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5leWFpd2h0dWN6YnNkb3FxZ2lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyMDMxNDAsImV4cCI6MjEwNzc3OTE0MH0.GH0ryPV0A92KOakQEyIxDVo2kQM-gBizvGVKUZqLQdU"
+      "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5leWFpd2h0dWN6YnNkb3FxZ2lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyMDMxNDAsImV4cCI6MjEwNzc3OTE0MH0.GH0ryPV0A92KOakQEyIxDVo2kQM-gBizvGVKUZqLQdU",
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "08670ea6-a2f6-4247-bbdb-afd4fa52c495"
+      }
     },
-    "description": "진짜 영어 팟캐스트를 대본·번역·표현과 함께 듣는 영어 학습 앱"
+    "description": "진짜 영어 팟캐스트를 대본·번역·표현과 함께 듣는 영어 학습 앱",
+    "owner": "hwany2359"
   }
 }
