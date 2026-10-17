@@ -152,7 +152,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
   const cur = useMemo(() => { let i = 0; for (let k = 0; k < sents.length; k++) { if (sents[k].s <= c + 0.15) i = k; else break; } return i; }, [c, sents]);
   useEffect(() => {
     if (!follow || tab !== 'script' || !status.playing || Date.now() - userScroll.current < 4000) return;
-    listRef.current?.scrollToIndex({ index: cur, viewPosition: 0, viewOffset: 8, animated: true });
+    listRef.current?.scrollToIndex({ index: cur, viewPosition: 0, viewOffset: 14, animated: true });
   }, [cur, tab, status.playing, follow]);
 
   const onSentence = useCallback((sn: Sent) => {
@@ -164,7 +164,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
     if (auto === 'working') return;                                 // not playable until the sync is done
     player.seekTo(toAudio(sn.s, anchors)); if (!status.playing) player.play();
     const i = sents.indexOf(sn);
-    if (i >= 0) { userScroll.current = 0; listRef.current?.scrollToIndex({ index: i, viewPosition: 0, viewOffset: 8, animated: true }); }
+    if (i >= 0) { userScroll.current = 0; listRef.current?.scrollToIndex({ index: i, viewPosition: 0, viewOffset: 14, animated: true }); }
   }, [syncMode, anchors, player, status.playing, key, sents, auto]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   // automatic ad-aware sync (needs the server's reference fingerprints for this episode)
@@ -213,12 +213,15 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
           </Pressable>))}
       </View>
       {tab === 'script' ? (
+        <View style={st.listBox}>
         <FlatList ref={listRef} data={sents} keyExtractor={(x) => String(x.a)} contentContainerStyle={{ padding: 18, paddingBottom: 40 }}
+          style={{ flex: 1 }} removeClippedSubviews={false}
           ListHeaderComponent={pack.study.one_liner_ko ? <View style={st.oneBox}><Icon name="bulb-outline" size={16} color={C.accent} /><Text style={st.one}>{pack.study.one_liner_ko}</Text></View> : undefined}
           ListFooterComponent={<Credit pack={pack} ep={ep} />}
           onScrollBeginDrag={() => { userScroll.current = Date.now(); }}
           onScrollToIndexFailed={() => {}}
           renderItem={({ item, index }) => <SentRow sn={item} state={index === cur ? 'cur' : index < cur ? 'past' : 'next'} ko={ko} onPress={onSentence} onMark={setPeek} />} />
+        </View>
       ) : (
         <Words pack={pack} episodeId={ep.id} onJump={(sec) => player.seekTo(toAudio(sec, anchors))} />
       )}
@@ -449,6 +452,7 @@ const st = StyleSheet.create({
   hlWord: { textDecorationLine: 'underline', textDecorationColor: C.accent, color: C.accent },
   wait: { width: 64, height: 64, borderRadius: 32, backgroundColor: '#C9C6DC', alignItems: 'center', justifyContent: 'center' },
   peek: { position: 'absolute', left: 14, right: 14, bottom: 190, backgroundColor: C.sheet, borderRadius: 24, padding: 16, gap: 4 },
+  listBox: { flex: 1, overflow: 'hidden', marginTop: 6 },          // the current-sentence card (with shadow) must not draw over the tabs
   credit: { marginTop: 24, padding: 14, borderRadius: 16, backgroundColor: C.sheet, gap: 6 },
   creditT: { color: C.ink3, fontSize: 11.5, lineHeight: 16 },
   creditL: { color: C.accent, fontSize: 12, fontWeight: '700' },
