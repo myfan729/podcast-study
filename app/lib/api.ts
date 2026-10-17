@@ -7,10 +7,10 @@ const ok = <T,>(r: { data: T | null; error: { message: string } | null }): T => 
 };
 
 export async function catalog(): Promise<Show[]> {
-  return ok(await supabase.from('shows').select('id,title,author,image_url,description,category,level,catalog').eq('catalog', true).order('title'));
+  return ok(await supabase.from('shows').select('id,title,author,image_url,description,category,level,catalog,intro_ko').eq('catalog', true).order('title'));
 }
 export async function show(id: string): Promise<Show> {
-  return ok(await supabase.from('shows').select('id,title,author,image_url,description,category,level,catalog').eq('id', id).single());
+  return ok(await supabase.from('shows').select('id,title,author,image_url,description,category,level,catalog,intro_ko').eq('id', id).single());
 }
 export async function mySubscriptions(): Promise<string[]> {
   const rows = ok(await supabase.from('subscriptions').select('show_id'));
@@ -22,7 +22,7 @@ export async function setSubscribed(showId: string, on: boolean) {
   if (on) ok(await supabase.from('subscriptions').upsert({ user_id: data.user.id, show_id: showId }));
   else ok(await supabase.from('subscriptions').delete().eq('show_id', showId));
 }
-const EP_COLS = 'id,show_id,title,published_at,duration_sec,audio_url,image_url,status,one_liner_ko,has_transcript,pack_path,sync_path,error';
+const EP_COLS = 'id,show_id,title,published_at,duration_sec,audio_url,image_url,status,one_liner_ko,has_transcript,pack_path,sync_path,error,intro_ko';
 export async function showEpisodes(showId: string): Promise<Episode[]> {
   return ok(await supabase.from('episodes').select(EP_COLS).eq('show_id', showId).order('published_at', { ascending: false }).limit(30));
 }

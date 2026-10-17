@@ -19,6 +19,7 @@ from .util import fmt_clock, log
 
 DEFAULT_MODEL = os.environ.get("STUDY_MODEL") or "claude-sonnet-5-5"
 TRANSLATE_MODEL = os.environ.get("TRANSLATE_MODEL") or DEFAULT_MODEL
+INTRO_MODEL = os.environ.get("INTRO_MODEL") or "claude-haiku-5-5"      # one-line Korean intros (cheap)
 
 # ---------------------------------------------------------------------------
 # JSON schemas (Claude structured outputs: every property required, no min/max)
@@ -355,6 +356,22 @@ class StudyGenerator:
         if missing:
             log.warning("translation missing for %d lines (%s…)", len(missing), ", ".join(missing[:5]))
         return out
+
+    def short_intros(self, items: list[tuple[str, str]], what: str) -> dict[str, str]:
+        """One short Korean line per item (a show or an episode), from its title + publisher description."""
+        if self.mock:
+            return {i: f"[소개 자리표시자] {t[:30]}" for i, t in items}
+        limit = "40자" if what == "show" else "45자"
+        system = (f"You write very short Korean introductions for English podcast {'shows' if what == 'show' else 'episodes'} "
+                  f"in a Korean English-learning app. For each item write ONE natural Korean line (at most {limit}) saying what it is "
+                  "about, so a learner can decide whether to listen. No hype, no emoji, no quotes, no English unless it is a name. "
+                  "Use only facts in the given text; skip ads, sponsor reads and calls to subscribe.")
+        user = "\n\n".join(f"[{i}]\n{t[:700]}" for i, t in items)
+        schema = {"type": "object", "additionalProperties": False, "required": ["items"],
+                  "properties": {"items": {"type": "array", "items": {"type": "object", "additionalProperties": False,
+                                 "required": ["id", "ko"], "properties": {"id": {"type": "string"}, "ko": {"type": "string"}}}}}}
+        data = self._call_json(INTRO_MODEL, system, user, schema, max_tokens=4000)
+        return {str(r["id"]): r["ko"].strip() for r in data.get("items", []) if r.get("id") and r.get("ko")}
 
     def translate_segments(self, segments: list[Segment]) -> dict[str, str]:
         return self.translate_items([(s.id, s.text) for s in segments])

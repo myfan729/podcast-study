@@ -67,6 +67,7 @@ export default function Home() {
                     <Art uri={item.shows?.image_url} id={item.show_id} size={126} />
                     <Text style={s.tileShow} numberOfLines={1}>{item.shows?.title}</Text>
                     <Text style={s.tileT} numberOfLines={2}>{item.title}</Text>
+                    {item.intro_ko ? <Text style={s.tileIntro} numberOfLines={2}>{item.intro_ko}</Text> : null}
                     <Text style={s.tileMeta}>{mins(item.duration_sec)}</Text>
                   </Pressable>
                 </Link>)} />
@@ -95,6 +96,7 @@ const s = StyleSheet.create({
   tileShow: { color: C.ink3, fontSize: 11.5, marginTop: 4 },
   tileT: { color: C.ink, fontFamily: F.enB, fontSize: 14, lineHeight: 18, minHeight: 36 },
   tileMeta: { color: C.ink3, fontSize: 12 },
+  tileIntro: { color: C.ink3, fontSize: 11.5, lineHeight: 15 },
   empty: { margin: 22, marginTop: 28, padding: 24, borderRadius: R.card, backgroundColor: C.sheet, alignItems: 'center' },
   emptyArt: { width: 72, height: 72, borderRadius: 36, backgroundColor: C.accentSoft, alignItems: 'center', justifyContent: 'center', marginBottom: 14 },
   emptyH: { fontFamily: F.title, fontSize: 20, color: C.ink },

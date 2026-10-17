@@ -46,6 +46,7 @@ export default function Discover() {
                 <View style={{ flex: 1, minWidth: 0 }}>
                   <Text style={s.title} numberOfLines={1}>{item.title}</Text>
                   <Text style={s.meta} numberOfLines={1}>{item.author}{item.level ? ` · ${item.level}` : ''}</Text>
+                  {item.intro_ko ? <Text style={s.intro} numberOfLines={2}>{item.intro_ko}</Text> : null}
                 </View>
                 <Pressable onPress={() => toggle(item.id)} accessibilityLabel={on ? '구독 취소' : '구독'} hitSlop={6}
                   style={[s.sub, on && { backgroundColor: C.accent }]}>
@@ -64,6 +65,7 @@ const s = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: 12, backgroundColor: C.sheet, borderRadius: 24, marginBottom: 10 },
   title: { color: C.ink, fontFamily: F.enB, fontSize: 15.5 },
   meta: { color: C.ink3, fontSize: 12.5, marginTop: 3 },
+  intro: { color: C.ink2, fontSize: 12, marginTop: 4, lineHeight: 16 },
   sub: { flexDirection: 'row', alignItems: 'center', gap: 3, backgroundColor: C.accentSoft, borderRadius: R.pill, paddingHorizontal: 12, minHeight: 38 },
   subT: { color: C.accent, fontWeight: '700', fontSize: 13 },
   none: { color: C.ink3, textAlign: 'center', marginTop: 40 },

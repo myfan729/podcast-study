@@ -29,6 +29,7 @@ export default function ShowScreen() {
             <Art uri={show.image_url} id={show.id} size={120} radius={28} />
             <Text style={s.title}>{show.title}</Text>
             <Text style={s.meta}>{show.author}{show.level ? ` · ${show.level}` : ''}</Text>
+            {show.intro_ko ? <Text style={s.intro}>{show.intro_ko}</Text> : null}
             {show.description ? <Text style={s.desc} numberOfLines={3}>{show.description}</Text> : null}
             <Pressable onPress={toggle} style={[s.btn, sub && s.btnOn]} accessibilityRole="button">
               <Icon name={sub ? 'checkmark' : 'add'} size={18} color={sub ? C.accent : '#fff'} />
@@ -45,7 +46,8 @@ const s = StyleSheet.create({
   head: { alignItems: 'center', marginBottom: 6 },
   title: { fontFamily: F.enX, fontSize: 22, color: C.ink, textAlign: 'center', marginTop: 14 },
   meta: { color: C.ink3, marginTop: 4 },
-  desc: { color: C.ink2, textAlign: 'center', lineHeight: 20, marginTop: 10, paddingHorizontal: 8 },
+  intro: { color: C.ink2, textAlign: 'center', fontSize: 13.5, lineHeight: 19, marginTop: 10, paddingHorizontal: 8 },
+  desc: { color: C.ink3, textAlign: 'center', fontSize: 12, lineHeight: 17, marginTop: 6, paddingHorizontal: 8 },
   btn: { flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: C.accent, borderRadius: R.pill, paddingHorizontal: 22, minHeight: 48, marginTop: 16 },
   btnOn: { backgroundColor: C.accentSoft },
   btnT: { color: '#fff', fontWeight: '700', fontSize: 15 },

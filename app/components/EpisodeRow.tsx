@@ -21,7 +21,7 @@ export default function EpisodeRow({ ep, showTitle }: { ep: Episode; showTitle?:
         <View style={{ flex: 1, minWidth: 0 }}>
           <Text style={s.meta} numberOfLines={1}>{showTitle && ep.shows ? ep.shows.title + ' · ' : ''}{dateKo(ep.published_at)} · {mins(ep.duration_sec)}</Text>
           <Text style={s.title} numberOfLines={2}>{ep.title}</Text>
-          {ep.one_liner_ko ? <Text style={s.one} numberOfLines={2}>{ep.one_liner_ko}</Text> : null}
+          {ep.one_liner_ko || ep.intro_ko ? <Text style={s.one} numberOfLines={2}>{ep.one_liner_ko || ep.intro_ko}</Text> : null}
           {b ? <View style={[s.badge, { backgroundColor: b.bg }]}><Text style={[s.badgeT, { color: b.fg }]}>{b.t}</Text></View> : null}
         </View>
       </Pressable>
@@ -32,7 +32,7 @@ const s = StyleSheet.create({
   row: { flexDirection: 'row', gap: 14, padding: 14, backgroundColor: C.sheet, borderRadius: 24, marginBottom: 10 },
   meta: { color: C.ink3, fontSize: 12.5, marginBottom: 4 },
   title: { color: C.ink, fontSize: 15.5, fontFamily: F.enB, lineHeight: 21 },
-  one: { color: C.ink2, fontSize: 13.5, marginTop: 5, lineHeight: 19 },
+  one: { color: C.ink3, fontSize: 12.5, marginTop: 4, lineHeight: 17 },
   badge: { alignSelf: 'flex-start', marginTop: 8, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4 },
   badgeT: { fontSize: 11.5, fontWeight: '700' },
 });

@@ -27,6 +27,8 @@ jobs:
           pip install -r requirements.txt
       - name: Refresh show feeds
         run: python -m pipeline.app_worker refresh
+      - name: Korean one-line intros for shows and new episodes
+        run: python -m pipeline.app_worker intros || echo "::warning::intros failed"
       - name: Mark new episodes of followed shows
         run: python -m pipeline.app_worker prefetch
       - name: Build them
