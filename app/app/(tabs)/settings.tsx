@@ -7,6 +7,8 @@ import * as api from '@/lib/api';
 import { supabase } from '@/lib/supabase';
 import { useSession } from '@/lib/session';
 import { FREE_PER_WEEK, PRIVACY_URL } from '@/lib/config';
+import * as Updates from 'expo-updates';
+import Constants from 'expo-constants';
 import { C, F, R } from '@/lib/theme';
 
 export default function Settings() {
@@ -51,6 +53,7 @@ export default function Settings() {
           <Text style={s.link}>·</Text>
           <Pressable onPress={remove} hitSlop={8} accessibilityRole="button"><Text style={s.link}>계정 삭제</Text></Pressable>
         </View>
+        <Text style={s.ver}>버전 {Constants.expoConfig?.version} · {Updates.updateId ? `업데이트 ${Updates.updateId.slice(0, 8)}` : '기본'}</Text>
       </ScrollView>
     </SafeAreaView>
   );
@@ -73,4 +76,5 @@ const s = StyleSheet.create({
   outT: { color: C.warn, fontWeight: '700' },
   links: { flexDirection: 'row', justifyContent: 'center', gap: 10, marginTop: 4 },
   link: { color: C.ink3, fontSize: 13, textDecorationLine: 'none' },
+  ver: { color: C.faint, fontSize: 11.5, textAlign: 'center', marginTop: 14 },
 });

@@ -11,6 +11,7 @@ import { Nunito_900Black } from '@expo-google-fonts/nunito/900Black';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import 'react-native-reanimated';
 import * as Linking from 'expo-linking';
+import * as Updates from 'expo-updates';
 import { handleAuthUrl } from '@/lib/authLink';
 import { SessionProvider, useSession } from '@/lib/session';
 import { C } from '@/lib/theme';
@@ -43,6 +44,16 @@ function Gate({ fontsReady }: { fontsReady: boolean }) {
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({ Jua_400Regular, Nunito_600SemiBold, Nunito_800ExtraBold, Nunito_900Black, ...Ionicons.font });
+  useEffect(() => {
+    // pick up a newer over-the-air update right away instead of on the next launch
+    if (__DEV__ || !Updates.isEnabled) return;
+    (async () => {
+      try {
+        const r = await Updates.checkForUpdateAsync();
+        if (r.isAvailable) { await Updates.fetchUpdateAsync(); await Updates.reloadAsync(); }
+      } catch { /* offline: keep the current version */ }
+    })();
+  }, []);
   useEffect(() => {
     // background playback with lock-screen controls (expo-audio)
     setAudioModeAsync({ playsInSilentMode: true, shouldPlayInBackground: true, interruptionMode: 'doNotMix' }).catch(() => {});
