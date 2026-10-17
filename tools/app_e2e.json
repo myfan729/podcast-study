@@ -1,0 +1,41 @@
+{
+ "catalog_shows": 54,
+ "episodes_listed": 1000,
+ "test_episode": "Supercore inflation, Bumble valuation and Pooh's repatriation",
+ "request_1": {
+  "pro": false,
+  "status": "queued",
+  "unlocked": true,
+  "free_left": 1
+ },
+ "after_worker": {
+  "status": "ready",
+  "pack_path": "21c8a5b7-275f-42ab-b52c-45d076bf4f8e.json",
+  "sync_path": "21c8a5b7-275f-42ab-b52c-45d076bf4f8e.sync.json",
+  "error": null
+ },
+ "build_sec": 202,
+ "owner_download": 200,
+ "pack": {
+  "cues": 148,
+  "translations": 148,
+  "vocab": 8,
+  "expressions": 12,
+  "one_liner": "슈퍼코어 서비스 물가가 임금 상승률을 앞지르고 있다는 지표, 인수 소식에 두 배 오른 범블 주가, 100주년을 맞아 영국 반환론이 다시 불거진 뉴욕 도서관의 곰돌이 푸 인형을 가볍게 훑는 주간 리뷰."
+ },
+ "other_user_download": 400,
+ "request_2": {
+  "pro": false,
+  "status": "queued",
+  "unlocked": true,
+  "free_left": 0
+ },
+ "request_3_quota": {
+  "pro": false,
+  "reason": "quota",
+  "status": "none",
+  "unlocked": false,
+  "free_left": 0
+ },
+ "ok": true
+}
