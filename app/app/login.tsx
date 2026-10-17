@@ -11,12 +11,20 @@ export default function Login() {
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState('');
+  const [usePw, setUsePw] = useState(false);       // password sign-in (store-review account)
+  const [pw, setPw] = useState('');
 
   const send = async () => {
     setBusy(true); setMsg('');
     const { error } = await supabase.auth.signInWithOtp({ email: email.trim(), options: { shouldCreateUser: true } });
     setBusy(false);
     if (error) setMsg(error.message); else { setSent(true); setMsg('메일로 받은 6자리 코드를 입력하세요.'); }
+  };
+  const signInPw = async () => {
+    setBusy(true); setMsg('');
+    const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password: pw });
+    setBusy(false);
+    if (error) setMsg('이메일이나 비밀번호가 맞지 않아요.');
   };
   const verify = async () => {
     setBusy(true); setMsg('');
@@ -36,15 +44,21 @@ export default function Login() {
           <TextInput style={[s.input, sent && { color: C.ink3 }]} placeholder="you@example.com" placeholderTextColor={C.faint}
             autoCapitalize="none" keyboardType="email-address" autoComplete="email" accessibilityLabelledBy="emailLabel"
             value={email} onChangeText={setEmail} editable={!sent} />
+          {usePw && !sent && <>
+            <Text style={[s.label, { marginTop: 12 }]} nativeID="pwLabel">비밀번호</Text>
+            <TextInput style={s.input} secureTextEntry autoCapitalize="none" accessibilityLabelledBy="pwLabel" value={pw} onChangeText={setPw} />
+          </>}
           {sent && <>
             <Text style={[s.label, { marginTop: 12 }]} nativeID="codeLabel">인증 코드</Text>
             <TextInput style={[s.input, s.code]} placeholder="000000" placeholderTextColor={C.faint} keyboardType="number-pad"
               autoComplete="one-time-code" accessibilityLabelledBy="codeLabel" value={code} onChangeText={setCode} maxLength={6} />
           </>}
-          <Pressable style={[s.btn, busy && { opacity: 0.6 }]} disabled={busy} onPress={sent ? verify : send} accessibilityRole="button">
-            {busy ? <ActivityIndicator color="#fff" /> : <Text style={s.btnT}>{sent ? '시작하기' : '코드 받기'}</Text>}
+          <Pressable style={[s.btn, busy && { opacity: 0.6 }]} disabled={busy} onPress={sent ? verify : usePw ? signInPw : send} accessibilityRole="button">
+            {busy ? <ActivityIndicator color="#fff" /> : <Text style={s.btnT}>{sent || usePw ? '시작하기' : '코드 받기'}</Text>}
           </Pressable>
           {sent && <Pressable onPress={() => { setSent(false); setCode(''); setMsg(''); }} hitSlop={8}><Text style={s.link}>이메일 다시 입력</Text></Pressable>}
+          {!sent && <Pressable onPress={() => { setUsePw(!usePw); setMsg(''); }} hitSlop={8}>
+            <Text style={[s.link, { color: C.ink3, fontWeight: '400', fontSize: 13 }]}>{usePw ? '이메일 코드로 로그인' : '비밀번호로 로그인'}</Text></Pressable>}
           {!!msg && <Text style={s.msg}>{msg}</Text>}
         </View>
       </KeyboardAvoidingView>
