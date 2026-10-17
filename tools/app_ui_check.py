@@ -20,7 +20,17 @@ uid = sess["user"]["id"]
 for t in ("Odd Lots", "The Indicator from Planet Money"):
     sid = requests.get(f"{URL}/rest/v1/shows?select=id&title=eq.{requests.utils.quote(t)}", headers=H, timeout=30).json()[0]["id"]
     requests.post(f"{URL}/rest/v1/subscriptions", headers={**H, "Prefer": "resolution=ignore-duplicates"}, json={"user_id": uid, "show_id": sid}, timeout=30)
-srv = subprocess.Popen([sys.executable, "-m", "http.server", "8081", "-d", "app/dist"])
+SPA = r"""
+import http.server, os
+class H(http.server.SimpleHTTPRequestHandler):
+    def __init__(self, *a, **k): super().__init__(*a, directory="app/dist", **k)
+    def send_head(self):
+        if not os.path.exists(os.path.join("app/dist", self.path.split("?")[0].lstrip("/"))) or self.path == "/":
+            self.path = "/index.html"
+        return super().send_head()
+http.server.ThreadingHTTPServer(("", 8081), H).serve_forever()
+"""
+srv = subprocess.Popen([sys.executable, "-c", SPA])
 time.sleep(1.5)
 
 async def main():
@@ -41,5 +51,10 @@ async def main():
                 await pg.screenshot(path=str(OUT / "episode_words.png"))
         (OUT / "errors.json").write_text(json.dumps(errs[:40], ensure_ascii=False, indent=1))
         await b.close()
-asyncio.run(main())
+try:
+    asyncio.run(main())
+except Exception as e:  # noqa: BLE001
+    import traceback
+    (OUT / 'crash.txt').write_text(traceback.format_exc())
+    print(traceback.format_exc())
 srv.terminate()

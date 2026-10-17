@@ -20,7 +20,8 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install requests playwright && python -m playwright install --with-deps chromium
-      - run: python tools/app_ui_check.py
-      - run: |
+      - run: python tools/app_ui_check.py 2>&1 | tee tools/app_ui/run.log
+      - if: always()
+        run: |
           git config user.name "podcast-study bot"; git config user.email "actions@users.noreply.github.com"
-          git add tools/app_ui && git commit -m "app ui screenshots" && for i in 1 2 3; do git pull --rebase -X theirs origin main && git push && break; sleep 5; done
+          mkdir -p tools/app_ui; git add tools/app_ui && git commit -m "app ui screenshots" && for i in 1 2 3; do git pull --rebase -X theirs origin main && git push && break; sleep 5; done
