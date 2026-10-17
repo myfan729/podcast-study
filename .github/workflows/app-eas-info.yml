@@ -1,0 +1,25 @@
+name: App — EAS info (builds, channels, updates)
+on:
+  workflow_dispatch:
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+    defaults:
+      run: { working-directory: app }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm install --no-audit --no-fund
+      - run: |
+          set +e
+          E="npx -y eas-cli@latest"
+          $E build:list --platform android --limit 3 --json --non-interactive 2>/dev/null > /tmp/b.json
+          node -e "for (const b of require('/tmp/b.json')) console.log('::notice title=build '+b.buildProfile+'::id='+b.id.slice(0,8)+' status='+b.status+' channel='+b.channel+' runtime='+b.runtimeVersion+' appVersion='+b.appVersion+' commit='+(b.gitCommitHash||'').slice(0,7)+' sdk='+b.sdkVersion)"
+          $E channel:list --json --non-interactive 2>/dev/null > /tmp/c.json
+          node -e "const c=require('/tmp/c.json'); for (const x of (c.currentPage||c)) console.log('::notice title=channel '+x.name+'::'+JSON.stringify(x.updateBranches?x.updateBranches.map(b=>({b:b.name,u:(b.updates||[]).slice(0,2).map(u=>u.runtimeVersion+' '+u.platform+' '+(u.message||'')+' '+u.createdAt)})):x).slice(0,600))"
+          $E update:list --branch preview --limit 3 --json --non-interactive 2>/dev/null > /tmp/u.json
+          node -e "const u=require('/tmp/u.json'); console.log('::notice title=preview updates::'+JSON.stringify(u.currentPage||u).slice(0,800))"
