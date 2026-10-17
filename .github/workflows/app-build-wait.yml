@@ -16,9 +16,12 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: |
+          set +e; miss=0
           for i in $(seq 1 85); do
-            npx -y eas-cli@latest build:view ${{ inputs.build_id }} --json > /tmp/b.json 2>/dev/null
-            st=$(node -e "console.log(require('/tmp/b.json').status||'')")
+            npx -y eas-cli@latest build:view ${{ inputs.build_id }} --json > /tmp/b.json 2>/tmp/b.err
+            st=$(node -e "try{console.log(require('/tmp/b.json').status||'')}catch(e){console.log('')}")
+            if [ -z "$st" ]; then miss=$((miss+1)); [ $miss -ge 3 ] && exit 1; fi
+            [ -n "$st" ] || echo "::warning::build:view: $(grep -v '^npm' /tmp/b.err | tail -c 300 | tr '\n' ' ')"
             echo "status: $st"
             case "$st" in FINISHED|ERRORED|CANCELED) break;; esac
             sleep 60
