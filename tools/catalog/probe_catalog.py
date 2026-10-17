@@ -76,7 +76,8 @@ def main():
                 if d:
                     durs.append(d)
                 try:
-                    dates.append(parsedate_to_datetime(it.findtext("pubDate")))
+                    dt = parsedate_to_datetime(it.findtext("pubDate"))
+                    dates.append(dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc))
                 except Exception:  # noqa: BLE001
                     pass
                 links.append(it.findtext("link") or "")
