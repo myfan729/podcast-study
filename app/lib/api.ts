@@ -38,9 +38,12 @@ export async function requestEpisode(id: string): Promise<RequestResult> {
   return ok(await supabase.rpc('request_episode', { ep: id })) as RequestResult;
 }
 async function download<T>(path: string): Promise<T> {
-  const r = await supabase.storage.from('episodes').download(path);
-  if (r.error || !r.data) throw new Error(r.error?.message ?? '내려받기 실패');
-  return JSON.parse(await r.data.text()) as T;
+  // Blob.text() doesn't exist in React Native: fetch through a short-lived signed URL instead
+  const r = await supabase.storage.from('episodes').createSignedUrl(path, 120);
+  if (r.error || !r.data?.signedUrl) throw new Error(r.error?.message ?? '내려받기 실패');
+  const res = await fetch(r.data.signedUrl);
+  if (!res.ok) throw new Error(`내려받기 실패 (${res.status})`);
+  return (await res.json()) as T;
 }
 export const pack = (path: string) => download<Pack>(path);
 export const syncData = (path: string) => download<any>(path);
