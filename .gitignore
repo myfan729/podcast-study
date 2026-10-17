@@ -5,3 +5,4 @@ __pycache__/
 .env
 docs/data/episodes/*.json.tmp
 tools/npr_samples/
+app/dist/

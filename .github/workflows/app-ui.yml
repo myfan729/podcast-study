@@ -1,0 +1,26 @@
+name: App UI check (web build + real backend)
+on:
+  workflow_dispatch:
+  push:
+    paths: ["app/**", "tools/app_ui_check.py"]
+permissions:
+  contents: write
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: cd app && npm install --no-audit --no-fund && npx expo export -p web
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install requests playwright && python -m playwright install --with-deps chromium
+      - run: python tools/app_ui_check.py
+      - run: |
+          git config user.name "podcast-study bot"; git config user.email "actions@users.noreply.github.com"
+          git add tools/app_ui && git commit -m "app ui screenshots" && for i in 1 2 3; do git pull --rebase -X theirs origin main && git push && break; sleep 5; done
