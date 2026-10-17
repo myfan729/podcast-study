@@ -16,7 +16,7 @@ import argparse
 import json
 import os
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import requests
@@ -27,7 +27,8 @@ from .main import process_episode, show_filter, web_transcript_ready
 from .util import http_get_text, http_session, log, setup_logging, utcnow_iso
 
 KEEP_PER_SHOW = 30            # newest episodes listed per show
-NPR_CHECK = 4                 # newest NPR episodes whose transcript page is checked on every refresh
+RECHECK_DAYS = 10             # NPR: keep looking for a late transcript this long after publication
+RECHECK_EVERY = timedelta(hours=3)
 
 
 class Supa:
@@ -88,6 +89,28 @@ def episode_row(show: dict, ep: Episode, path: str) -> dict:
             "has_transcript": bool(ep.best_transcript) or path == "npr"}
 
 
+def mark_npr_transcripts(db: Supa, session, sh: dict, cfg: dict, kept: list, rows: list[dict]) -> None:
+    """NPR posts transcripts hours to a day after the audio — and for some episodes never. Show an episode in
+    the app only once its transcript page really has one. Checks are cached in transcript_checked_at:
+    re-checked every few hours while the episode is new, given up after RECHECK_DAYS."""
+    known = {r["guid"]: r for r in db.select("episodes", f"select=guid,status,has_transcript,transcript_checked_at&show_id=eq.{sh['id']}")}
+    now = datetime.now(timezone.utc)
+    for e, row in zip(kept, rows):
+        k = known.get(e.guid) or {}
+        if k.get("status") == "ready":
+            row["has_transcript"] = True; row["transcript_checked_at"] = k.get("transcript_checked_at"); continue
+        checked = k.get("transcript_checked_at")
+        checked = datetime.fromisoformat(checked.replace("Z", "+00:00")) if checked else None
+        age = now - e.published_at if e.published_at else timedelta(days=0)
+        stale = checked is None or (age < timedelta(days=RECHECK_DAYS) and now - checked > RECHECK_EVERY)
+        if not stale:
+            row["has_transcript"] = bool(k.get("has_transcript")); row["transcript_checked_at"] = k.get("transcript_checked_at"); continue
+        row["has_transcript"] = web_transcript_ready(session, cfg, e)
+        row["transcript_checked_at"] = utcnow_iso()
+        if not row["has_transcript"] and k.get("status") == "prefetch":
+            db.update("episodes", f"show_id=eq.{sh['id']}&guid=eq.{requests.utils.quote(e.guid, safe='')}", {"status": "none"})
+
+
 def refresh(db: Supa, only: str | None = None) -> int:
     session = http_session()
     shows = db.select("shows", "select=*" + (f"&id=eq.{only}" if only else ""))
@@ -103,10 +126,7 @@ def refresh(db: Supa, only: str | None = None) -> int:
         kept = [e for e in eps if ok(e)][:KEEP_PER_SHOW]
         rows = [episode_row(sh, e, sh["path"]) for e in kept]
         if sh["path"] == "npr":
-            # NPR posts the transcript hours (sometimes a day) after the audio: keep the newest episodes
-            # hidden in the app (has_transcript=false) until their transcript page actually exists
-            for e, row in zip(kept[:NPR_CHECK], rows[:NPR_CHECK]):
-                row["has_transcript"] = web_transcript_ready(session, cfg, e)
+            mark_npr_transcripts(db, session, sh, cfg, kept, rows)
         # don't overwrite worker-owned columns (status, pack paths) on existing rows: upsert only listing fields
         db.upsert("episodes", rows, "show_id,guid")
         db.update("shows", f"id=eq.{sh['id']}", {"refreshed_at": utcnow_iso()})

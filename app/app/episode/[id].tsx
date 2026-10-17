@@ -173,8 +173,9 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
     setAuto('working');
     api.syncData(ep.sync_path).then(setSyncRef).catch(() => { setAuto('failed'); player.replace(pack.audio_url); });
   }, [ep.sync_path]);
-  const onAutoDone = useCallback(async (r: SyncResult | null) => {
+  const onAutoDone = useCallback(async (r: SyncResult | null, error?: string) => {
     const ok = !!r?.ok;
+    api.reportSync(ep.id, ok, r?.anchors ?? null, r?.report ?? null, error).catch(() => {});
     const use = ok ? r!.anchors : anchors;
     if (ok) { setAnchors(r!.anchors); AsyncStorage.setItem(key, JSON.stringify(r!.anchors)).catch(() => {}); }
     player.replace(r?.fileUri ? { uri: r.fileUri } : pack.audio_url);   // play exactly the copy that was aligned
