@@ -98,18 +98,18 @@
   },
   "2026-10-18-morning": {
    "post_at": "2026-10-18T07:00:00+09:00",
-   "has": [],
-   "adding": [
-    "the-indicator (new): Supercore inflation, Bumble valuation and Pooh's repatriation"
+   "has": [
+    "the-indicator: Supercore inflation, Bumble valuation and Pooh's repatriation"
    ],
+   "adding": [],
    "waiting_for": [
     "up-first"
    ],
    "expected": [
     "up-first"
    ],
-   "checked_at": "2026-10-17T03:26:00Z"
+   "checked_at": "2026-10-17T03:33:35Z"
   }
  },
- "updated_at": "2026-10-17T03:26:00Z"
+ "updated_at": "2026-10-17T03:33:35Z"
 }
