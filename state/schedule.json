@@ -1,17 +1,5 @@
 {
  "occasions": {
-  "2026-10-14-evening": {
-   "post_at": "2026-10-14T21:00:00+09:00",
-   "has": [
-    "stuff-you-should-know: Short Stuff: Currency Symbols"
-   ],
-   "adding": [],
-   "waiting_for": [],
-   "expected": [
-    "stuff-you-should-know"
-   ],
-   "checked_at": "2026-10-14T11:28:06Z"
-  },
   "2026-10-15-evening": {
    "post_at": "2026-10-15T18:00:00+09:00",
    "has": [
@@ -96,6 +84,14 @@
    ],
    "checked_at": "2026-10-16T22:28:09Z"
   },
+  "2026-10-18-evening": {
+   "post_at": "2026-10-18T18:00:00+09:00",
+   "has": [],
+   "adding": [],
+   "waiting_for": [],
+   "expected": [],
+   "checked_at": "2026-10-17T12:11:10Z"
+  },
   "2026-10-18-morning": {
    "post_at": "2026-10-18T07:00:00+09:00",
    "has": [
@@ -111,5 +107,5 @@
    "checked_at": "2026-10-17T03:33:35Z"
   }
  },
- "updated_at": "2026-10-17T03:33:35Z"
+ "updated_at": "2026-10-17T12:11:10Z"
 }
