@@ -178,7 +178,34 @@ def parse_npr(html: str) -> list[dict]:
     return paras
 
 
-PARSERS = {"bbc_le": parse_bbc_le, "voa_le": parse_voa_le, "npr": parse_npr, "generic": parse_generic}
+def parse_sbs(html: str) -> list[dict]:
+    """SBS (sbs.com.au/language/english …/podcast-episode/…): the page data carries the episode transcript as one
+    JSON string, "spk_0: … \nspk_1: …" (speaker turns from the broadcaster's own transcription)."""
+    import json
+    m = re.search(r'"transcript"\s*:\s*"', html)
+    if not m:
+        raise TranscriptNotReady("no transcript on the page yet")
+    import html as html_lib
+    text, _ = json.JSONDecoder().raw_decode(html, m.end() - 1)
+    text = html_lib.unescape(str(text))
+    paras: list[dict] = []
+    names: dict[str, str] = {}
+    for line in str(text).splitlines():
+        line = _clean(line)
+        mm = re.match(r"^(spk_\d+)\s*:\s*(.*)$", line)
+        if mm:
+            spk = names.setdefault(mm.group(1), f"Speaker {len(names) + 1}")
+            line = mm.group(2)
+        else:
+            spk = paras[-1]["speaker"] if paras else ""
+        if line:
+            paras.append({"speaker": spk, "text": line})
+    if sum(len(x["text"].split()) for x in paras) < 120:
+        raise TranscriptNotReady("transcript too short / not published yet")
+    return paras
+
+
+PARSERS = {"bbc_le": parse_bbc_le, "voa_le": parse_voa_le, "npr": parse_npr, "sbs": parse_sbs, "generic": parse_generic}
 
 
 def fetch_page(session, url: str) -> str:

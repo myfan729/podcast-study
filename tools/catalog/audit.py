@@ -98,7 +98,8 @@ for sh in mine:
     rec = {"title": sh["title"], "path": sh.get("path"), "candidate": bool(sh.get("candidate"))}
     try:
         cfg = show_config(dict(sh, id="00000000-audit"))
-        _, eps = parse_feed(http_get_text(session, sh["feed_url"]))
+        meta, eps = parse_feed(http_get_text(session, sh["feed_url"]))
+        rec["meta"] = {k: (meta.get(k) if isinstance(meta, dict) else getattr(meta, k, None)) for k in ("title", "author", "image", "image_url", "description")}
         ok = show_filter(cfg)
         now = datetime.now(timezone.utc)
         usable = [e for e in eps if ok(e)][:N_RECENT]
