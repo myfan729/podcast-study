@@ -2,12 +2,12 @@
 // straight from the publisher; no study pack, no quota. "학습자료 만들기" turns on the study mode
 // (transcript, translation, words) — that is the part free users get twice a week.
 import { useRouter } from 'expo-router';
-import { useAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Art, Icon, RoundBtn } from '@/components/ui';
 import * as api from '@/lib/api';
+import { useNowPlaying } from '@/lib/nowPlaying';
 import { FREE_PER_WEEK } from '@/lib/config';
 import type { Episode } from '@/lib/types';
 import { C, F, R, fmt } from '@/lib/theme';
@@ -20,33 +20,19 @@ const plain = (html?: string | null) =>
 export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unlocked: boolean; onStudy: () => void }) {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const player = useAudioPlayer(api.secureAudio(ep.audio_url), { updateInterval: 500 });
-  const status = useAudioPlayerStatus(player);
+  // the app-wide player: keeps going when the user leaves this screen (mini player, lock screen)
+  const np = useNowPlaying();
+  const player = np.player;
+  const mine = np.ep?.id === ep.id;
+  const status = mine ? np.status : { ...np.status, playing: false, isLoaded: false, currentTime: 0, duration: 0 };
   const [rate, setRate] = useState(1);
   const [barW, setBarW] = useState(1);
   const [plan, setPlan] = useState<{ free_left: number; pro: boolean } | null>(null);
   const [busy, setBusy] = useState(false);
   const [more, setMore] = useState(false);
-  const started = useRef(false);
 
   useEffect(() => { api.freeLeft().then(setPlan).catch(() => {}); }, []);
-  // start where the user left off, then play right away (that's what tapping an episode means)
-  useEffect(() => {
-    if (started.current || !status.isLoaded) return;
-    started.current = true;
-    player.setActiveForLockScreen?.(true, { title: ep.title, artist: ep.shows?.title ?? '', artworkUrl: ep.image_url ?? ep.shows?.image_url ?? undefined });
-    api.lastPosition(ep.id).then((p) => { if (p > 20) player.seekTo(p); }).catch(() => {}).finally(() => player.play());
-  }, [status.isLoaded]);  // eslint-disable-line react-hooks/exhaustive-deps
-  // remember the position (every 15 s while playing, and on leaving)
-  const lastSaved = useRef(0);
-  useEffect(() => {
-    const t = status.currentTime ?? 0;
-    if (status.playing && Math.abs(t - lastSaved.current) >= 15) {
-      lastSaved.current = t;
-      api.saveProgress(ep.id, t, !!status.duration && t > status.duration - 30).catch(() => {});
-    }
-  }, [status.currentTime, status.playing]);  // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => () => { api.saveProgress(ep.id, player.currentTime ?? 0).catch(() => {}); }, []);  // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { np.load(ep); }, [ep.id]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   const dur = status.duration || ep.duration_sec || 1;
   const pct = Math.min(1, (status.currentTime ?? 0) / dur);
@@ -69,7 +55,7 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
     if (Platform.OS === 'web') { if (globalThis.confirm?.(msg)) go(); return; }
     Alert.alert('학습자료를 만들까요?', msg, [{ text: '취소', style: 'cancel' }, { text: '만들기', onPress: go }]);
   };
-  const leave = () => { api.saveProgress(ep.id, player.currentTime ?? 0).catch(() => {}); player.pause(); onStudy(); };
+  const leave = () => { np.stop(); onStudy(); };   // the study mode plays its own synced copy, from the same position
 
   const desc = plain(ep.description);
   return (

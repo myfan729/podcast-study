@@ -14,6 +14,7 @@ import * as Linking from 'expo-linking';
 import * as Updates from 'expo-updates';
 import { handleAuthUrl } from '@/lib/authLink';
 import { SessionProvider, useSession } from '@/lib/session';
+import { NowPlayingProvider } from '@/lib/nowPlaying';
 import { C } from '@/lib/theme';
 
 export { ErrorBoundary } from 'expo-router';
@@ -61,7 +62,7 @@ export default function RootLayout() {
   return (
     <SessionProvider>
       <StatusBar style="dark" />
-      <Gate fontsReady={fontsLoaded || !!fontError} />
+      <NowPlayingProvider><Gate fontsReady={fontsLoaded || !!fontError} /></NowPlayingProvider>
     </SessionProvider>
   );
 }

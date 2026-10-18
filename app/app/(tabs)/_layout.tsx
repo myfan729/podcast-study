@@ -3,6 +3,7 @@ import type { BottomTabBarProps } from 'expo-router/tabs';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Icon, type IconName } from '@/components/ui';
+import MiniPlayer from '@/components/MiniPlayer';
 import { C, shadow } from '@/lib/theme';
 
 const TABS: Record<string, { label: string; icon: IconName; on: IconName }> = {
@@ -17,6 +18,7 @@ function TabBar({ state, navigateToTab }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
   return (
     <View style={[s.wrap, { paddingBottom: Math.max(insets.bottom, 12) }]}>
+      <MiniPlayer />
       <View style={[s.bar, shadow]}>
         {state.routes.map((r, i) => {
           const t = TABS[r.name]; if (!t) return null;

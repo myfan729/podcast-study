@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import EpisodeRow from '@/components/EpisodeRow';
+import MiniPlayer from '@/components/MiniPlayer';
 import { Art, Icon, RoundBtn } from '@/components/ui';
 import * as api from '@/lib/api';
 import type { Episode, Show } from '@/lib/types';
@@ -21,7 +22,7 @@ export default function ShowScreen() {
   }, [id]);
   const toggle = async () => { setSub(!sub); try { await api.setSubscribed(id, !sub); } catch { setSub(sub); } };
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+    <SafeAreaView edges={['top', 'bottom']} style={{ flex: 1 }}>
       <View style={s.top}><RoundBtn icon="chevron-back" label="뒤로" onPress={() => router.back()} /></View>
       <FlatList contentContainerStyle={{ padding: 16, paddingBottom: 32 }} data={eps} keyExtractor={(e) => e.id}
         ListHeaderComponent={show ? (
@@ -38,6 +39,7 @@ export default function ShowScreen() {
             <Text style={s.sec}>에피소드</Text>
           </View>) : undefined}
         renderItem={({ item }) => <EpisodeRow ep={item} />} />
+      <View style={{ paddingHorizontal: 12, paddingBottom: 6 }}><MiniPlayer /></View>
     </SafeAreaView>
   );
 }

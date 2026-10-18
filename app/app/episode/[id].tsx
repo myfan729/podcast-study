@@ -8,6 +8,7 @@ import { Btn, Icon, RoundBtn } from '@/components/ui';
 import AutoSync, { type SyncResult } from '@/components/AutoSync';
 import Marquee from '@/components/Marquee';
 import ListenView from '@/components/ListenView';
+import { useNowPlaying } from '@/lib/nowPlaying';
 import * as api from '@/lib/api';
 import { addAnchor, toAudio, toContent, type Anchor } from '@/lib/timeline';
 import type { Episode, Expression, Pack, RequestResult } from '@/lib/types';
@@ -159,7 +160,9 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
     return out;
   }, [pack]);
 
+  const np = useNowPlaying();
   useEffect(() => {
+    np.stop();                                                      // only one thing plays: the study copy
     AsyncStorage.getItem(key).then((v) => { if (v) setAnchors(JSON.parse(v)); }).catch(() => {});
     player.setActiveForLockScreen?.(true, { title: pack.title, artist: pack.show.name, artworkUrl: pack.show.image });
     if (!willSync) api.lastPosition(ep.id).then((p) => { if (p > 20) player.seekTo(p); }).catch(() => {});
