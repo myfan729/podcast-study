@@ -23,60 +23,109 @@
   "sync": "ok",
   "refs": 31,
   "listener": {
-   "duration": 3937.6,
+   "duration": 3794.7,
    "refs_ok": 31,
    "refs": 31,
    "offsets": [
-    111.6,
-    313.1,
-    514.4
+    109.3,
+    109.4,
+    241.1,
+    241.2,
+    372.6,
+    372.7
    ]
   },
+  "cue_fix": [
+   [
+    20.5,
+    -0.25
+   ],
+   [
+    301.6,
+    -0.3
+   ],
+   [
+    574.4,
+    -0.35
+   ],
+   [
+    832.6,
+    -0.35
+   ],
+   [
+    1084.7,
+    -0.18
+   ],
+   [
+    1300.8,
+    -0.15
+   ],
+   [
+    1596.9,
+    -0.15
+   ],
+   [
+    1912.0,
+    0.3
+   ],
+   [
+    2251.0,
+    0.3
+   ],
+   [
+    2593.9,
+    0.53
+   ],
+   [
+    2931.8,
+    0.26
+   ]
+  ],
   "points": [
    {
     "c": 31.66,
-    "pred": 143.3,
+    "pred": 140.8,
     "found": false,
     "text": "Hi, everyone. Welcome to the Bloomberg Business Week weekend"
    },
    {
     "c": 652.942,
-    "pred": 764.6,
-    "err": 0.3,
+    "pred": 762.0,
+    "err": 0.63,
     "ok": true,
     "score": 0.857
    },
    {
     "c": 1157.435,
-    "pred": 1269.1,
-    "err": -0.3,
+    "pred": 1266.6,
+    "err": -0.14,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 1793.487,
-    "pred": 2106.6,
-    "err": -0.5,
+    "pred": 2034.8,
+    "err": -0.68,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 2491.394,
-    "pred": 2804.5,
+    "pred": 2733.0,
     "found": false,
     "text": "And Jay Cook and company had then gotten into, after the Civ"
    },
    {
     "c": 3297.489,
-    "pred": 3811.9,
-    "err": -0.13,
+    "pred": 3670.4,
+    "err": -0.39,
     "ok": true,
     "score": 0.857
    }
   ],
   "accuracy": 0.67,
   "verdict": "check",
-  "sec": 117
+  "sec": 177
  },
  "https://feeds.npr.org/510325/podcast.xml": {
   "title": "The Indicator from Planet Money",
@@ -96,67 +145,66 @@
   "newest": "2026-10-16T07:00:00Z",
   "episode": "How did political campaigns get so expensive?",
   "cues": 99,
-  "dai": "detected",
+  "dai": "none",
   "fixed": false,
-  "duration": 481,
+  "duration": 486,
   "sync": "ok",
   "refs": 5,
   "listener": {
-   "duration": 602.5,
+   "duration": 492.3,
    "refs_ok": 5,
    "refs": 5,
    "offsets": [
-    0.0,
-    66.5,
-    66.6
+    0.4
    ]
   },
+  "cue_fix": [],
   "points": [
    {
-    "c": 36.42,
+    "c": 36.0,
     "pred": 36.4,
-    "err": 0.08,
+    "err": 0.19,
     "ok": true,
-    "score": 0.929
+    "score": 0.714
    },
    {
-    "c": 96.62,
-    "pred": 163.2,
-    "err": -0.34,
+    "c": 100.98,
+    "pred": 101.3,
+    "err": -0.33,
     "ok": true,
     "score": 1.0
    },
    {
-    "c": 196.42,
-    "pred": 262.9,
+    "c": 200.81,
+    "pred": 201.2,
     "found": false,
     "text": "So all of those together has resulted in a kind of Wild West"
    },
    {
-    "c": 288.45,
-    "pred": 355.0,
-    "err": -0.07,
+    "c": 292.89,
+    "pred": 293.3,
+    "err": 0.07,
     "ok": true,
     "score": 1.0
    },
    {
-    "c": 371.58,
-    "pred": 438.1,
-    "err": 0.1,
+    "c": 376.0,
+    "pred": 376.4,
+    "err": 0.18,
     "ok": true,
     "score": 1.0
    },
    {
-    "c": 460.29,
-    "pred": 526.8,
-    "err": -0.05,
+    "c": 464.67,
+    "pred": 465.1,
+    "err": 0.06,
     "ok": true,
     "score": 1.0
    }
   ],
   "accuracy": 0.83,
   "verdict": "keep",
-  "sec": 100
+  "sec": 96
  },
  "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques": {
   "title": "Think Fast Talk Smart: Communication Techniques",
@@ -192,53 +240,59 @@
     205.4
    ]
   },
+  "cue_fix": [
+   [
+    0.0,
+    0.32
+   ]
+  ],
   "points": [
    {
     "c": 35.593,
-    "pred": 115.6,
-    "err": 0.11,
+    "pred": 115.9,
+    "err": -0.21,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 394.86,
-    "pred": 474.8,
-    "err": 0.22,
+    "pred": 475.1,
+    "err": -0.09,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 787.652,
-    "pred": 867.6,
-    "err": -0.42,
-    "ok": true,
-    "score": 1.0
-   },
-   {
-    "c": 1233.803,
-    "pred": 1439.1,
-    "err": 0.11,
+    "pred": 867.9,
+    "err": -0.82,
     "ok": true,
     "score": 0.857
    },
    {
-    "c": 1661.506,
-    "pred": 1866.9,
-    "err": 0.36,
+    "c": 1233.803,
+    "pred": 1439.5,
+    "err": -0.2,
     "ok": true,
-    "score": 1.0
+    "score": 0.929
+   },
+   {
+    "c": 1661.506,
+    "pred": 1867.2,
+    "err": -0.0,
+    "ok": true,
+    "score": 0.857
    },
    {
     "c": 2064.257,
-    "pred": 2269.6,
-    "err": 0.28,
+    "pred": 2269.9,
+    "err": -0.04,
     "ok": true,
     "score": 1.0
    }
   ],
   "accuracy": 1.0,
   "verdict": "keep",
-  "sec": 177
+  "sec": 203
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/dca0d8ad-e0b8-4a52-a2a8-ae300188d1e2/fe9400d8-dd2a-489f-82d9-ae300188d1eb/podcast.rss": {
   "title": "Ridiculous History",
@@ -264,59 +318,95 @@
   "sync": "ok",
   "refs": 17,
   "listener": {
-   "duration": 2588.2,
+   "duration": 2388.6,
    "refs_ok": 17,
    "refs": 17,
    "offsets": [
     0.0,
     0.1,
-    453.3,
-    731.2
+    346.6,
+    346.7,
+    544.3
    ]
   },
+  "cue_fix": [
+   [
+    26.4,
+    -0.48
+   ],
+   [
+    717.8,
+    -0.44
+   ],
+   [
+    909.2,
+    -0.13
+   ],
+   [
+    1070.3,
+    -0.13
+   ],
+   [
+    1249.7,
+    -0.13
+   ],
+   [
+    1402.2,
+    0.05
+   ],
+   [
+    1566.2,
+    0.42
+   ],
+   [
+    1662.0,
+    0.58
+   ]
+  ],
   "points": [
    {
     "c": 30.348,
-    "pred": 30.4,
-    "err": -0.43,
+    "pred": 29.9,
+    "err": 0.07,
     "ok": true,
     "score": 0.857
    },
    {
     "c": 292.039,
-    "pred": 292.1,
+    "pred": 291.6,
     "found": false,
     "text": "He also did a movie about, what's it called?"
    },
    {
     "c": 629.975,
-    "pred": 630.0,
+    "pred": 629.6,
     "found": false,
     "text": "Eventually, 19 are fingered for the crime."
    },
    {
     "c": 987.284,
-    "pred": 1440.5,
-    "found": false,
-    "text": "really funny I was in Brooklyn recently and I went to the mo"
+    "pred": 1333.8,
+    "err": 0.25,
+    "ok": true,
+    "score": 0.643
    },
    {
     "c": 1368.447,
-    "pred": 2099.6,
+    "pred": 1912.8,
     "found": false,
     "text": "But, you know, I mean, I'm sure they just kind of adapted an"
    },
    {
     "c": 1658.735,
-    "pred": 2389.9,
-    "err": 0.08,
+    "pred": 2203.6,
+    "err": -0.44,
     "ok": true,
     "score": 0.929
    }
   ],
-  "accuracy": 0.33,
-  "verdict": "drop",
-  "sec": 212
+  "accuracy": 0.5,
+  "verdict": "check",
+  "sec": 199
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/53726b04-3b06-43b5-b265-ae3300346e4e/add8ee8b-ff73-4b72-a3ee-ae3300346e5c/podcast.rss": {
   "title": "Here's The Thing with Alec Baldwin",
@@ -342,63 +432,113 @@
   "sync": "ok",
   "refs": 22,
   "listener": {
-   "duration": 3227.5,
+   "duration": 3118.2,
    "refs_ok": 22,
    "refs": 22,
    "offsets": [
-    163.0,
-    455.9,
-    746.9,
-    747.0
+    232.1,
+    232.2,
+    413.6,
+    595.1
    ]
   },
+  "cue_fix": [
+   [
+    21.5,
+    -0.27
+   ],
+   [
+    231.8,
+    -0.25
+   ],
+   [
+    429.4,
+    0.16
+   ],
+   [
+    634.6,
+    0.16
+   ],
+   [
+    851.6,
+    0.01
+   ],
+   [
+    1058.7,
+    -0.02
+   ],
+   [
+    1321.7,
+    -0.05
+   ],
+   [
+    1509.8,
+    -0.05
+   ],
+   [
+    1735.6,
+    -0.12
+   ],
+   [
+    1898.0,
+    0.29
+   ],
+   [
+    2096.6,
+    0.23
+   ],
+   [
+    2279.6,
+    0.26
+   ]
+  ],
   "points": [
    {
     "c": 31.573,
-    "pred": 194.6,
-    "err": -0.5,
+    "pred": 263.4,
+    "err": -0.21,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 467.62,
-    "pred": 630.6,
-    "err": -0.05,
+    "pred": 699.9,
+    "err": -0.22,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 955.28,
-    "pred": 1118.3,
-    "err": -0.51,
+    "pred": 1187.4,
+    "err": -0.48,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 1431.588,
-    "pred": 1887.5,
-    "err": -0.27,
+    "pred": 1845.1,
+    "err": -0.2,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 1873.824,
-    "pred": 2329.7,
-    "err": -0.05,
+    "pred": 2287.7,
+    "err": -0.24,
     "ok": true,
-    "score": 1.0
+    "score": 0.929
    },
    {
     "c": 2279.62,
-    "pred": 3026.6,
-    "err": 0.19,
+    "pred": 2875.0,
+    "err": -0.05,
     "ok": true,
     "score": 1.0
    }
   ],
   "accuracy": 1.0,
   "verdict": "keep",
-  "sec": 235
+  "sec": 227
  },
  "https://rss.introcast.io/282795787/www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d02e7811-037c-4b4c-ba2d-ae2b00350ef0/659ad4ad-c26b-48a7-bb34-ae2b00350f07/podcast.rss": {
   "title": "TechStuff",
@@ -424,63 +564,95 @@
   "sync": "ok",
   "refs": 21,
   "listener": {
-   "duration": 2814.1,
+   "duration": 2861.2,
    "refs_ok": 21,
    "refs": 21,
    "offsets": [
-    134.4,
-    134.5,
-    367.5,
-    586.3,
-    586.4
+    164.7,
+    397.8,
+    614.3
    ]
   },
+  "cue_fix": [
+   [
+    29.8,
+    0.73
+   ],
+   [
+    419.9,
+    0.78
+   ],
+   [
+    757.6,
+    0.78
+   ],
+   [
+    1132.9,
+    -6.66
+   ],
+   [
+    1331.2,
+    -6.66
+   ],
+   [
+    1547.1,
+    0.71
+   ],
+   [
+    1921.0,
+    0.71
+   ],
+   [
+    2064.0,
+    1.59
+   ]
+  ],
   "points": [
    {
     "c": 43.03,
-    "pred": 177.5,
-    "err": 0.69,
+    "pred": 208.5,
+    "err": -0.05,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 458.06,
-    "pred": 592.5,
-    "err": 0.68,
+    "pred": 623.6,
+    "err": -0.08,
     "ok": true,
     "score": 0.857
    },
    {
     "c": 836.8,
-    "pred": 971.3,
-    "err": 0.53,
+    "pred": 1000.7,
+    "err": 1.3,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 1269.756,
-    "pred": 1637.3,
-    "err": -6.77,
-    "ok": false,
+    "pred": 1660.9,
+    "err": -0.24,
+    "ok": true,
     "score": 0.786
    },
    {
     "c": 1699.26,
-    "pred": 2285.6,
-    "err": 0.54,
+    "pred": 2314.3,
+    "err": -0.57,
     "ok": true,
-    "score": 1.0
+    "score": 0.857
    },
    {
     "c": 2064.0,
-    "pred": 2650.4,
-    "err": 1.57,
-    "ok": false,
-    "score": 0.571
+    "pred": 2679.9,
+    "err": 0.38,
+    "ok": true,
+    "score": 0.643
    }
   ],
-  "accuracy": 0.67,
-  "verdict": "check",
-  "sec": 181
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 223
  }
 }

@@ -23,61 +23,66 @@
   "sync": "ok",
   "refs": 6,
   "listener": {
-   "duration": 529.7,
+   "duration": 563.1,
    "refs_ok": 6,
    "refs": 6,
    "offsets": [
-    14.8,
-    14.9,
-    15.0
+    22.6,
+    22.7
    ]
   },
+  "cue_fix": [
+   [
+    0.0,
+    -0.26
+   ]
+  ],
   "points": [
    {
     "c": 33.378,
-    "pred": 48.4,
+    "pred": 55.8,
     "found": false,
     "text": "Joining us now for more is Suzanne Clark, president and CEO "
    },
    {
     "c": 110.16,
-    "pred": 125.1,
-    "err": -0.26,
+    "pred": 132.6,
+    "err": 0.04,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 180.417,
-    "pred": 195.4,
-    "err": -0.46,
+    "pred": 202.8,
+    "err": -0.13,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 287.268,
-    "pred": 302.2,
-    "err": -0.38,
+    "pred": 309.7,
+    "err": -0.1,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 368.843,
-    "pred": 383.8,
-    "err": -0.49,
+    "pred": 391.3,
+    "err": -0.21,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 450.18,
-    "pred": 465.2,
-    "err": -0.18,
+    "pred": 472.6,
+    "err": 0.1,
     "ok": true,
     "score": 0.857
    }
   ],
   "accuracy": 0.83,
   "verdict": "keep",
-  "sec": 57
+  "sec": 86
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/37c6caa7-d377-4c08-b479-af9d012ed5ad/a7faefb0-28ec-4b1d-85f3-af9d012ed5c9/podcast.rss": {
   "title": "Zero: The Climate Race",
@@ -112,53 +117,98 @@
     126.8
    ]
   },
+  "cue_fix": [
+   [
+    24.2,
+    0.25
+   ],
+   [
+    242.2,
+    0.42
+   ],
+   [
+    518.8,
+    0.58
+   ],
+   [
+    868.7,
+    0.58
+   ],
+   [
+    1220.5,
+    -0.93
+   ],
+   [
+    1530.0,
+    -0.93
+   ],
+   [
+    2196.6,
+    0.04
+   ],
+   [
+    2549.1,
+    0.04
+   ],
+   [
+    2865.9,
+    0.03
+   ],
+   [
+    3138.2,
+    -0.09
+   ],
+   [
+    3344.2,
+    -0.11
+   ]
+  ],
   "points": [
    {
     "c": 32.12,
-    "pred": 74.1,
-    "err": -0.13,
+    "pred": 74.4,
+    "err": -0.38,
     "ok": true,
-    "score": 0.929
+    "score": 0.857
    },
    {
     "c": 572.98,
-    "pred": 615.0,
-    "err": -0.47,
+    "pred": 615.5,
+    "err": -1.06,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 1343.62,
-    "pred": 1429.0,
-    "err": -1.21,
+    "pred": 1428.1,
+    "err": -0.29,
     "ok": true,
     "score": 0.857
    },
    {
     "c": 2053.44,
-    "pred": 2180.2,
-    "err": 0.18,
+    "pred": 2180.0,
+    "err": 0.34,
     "ok": true,
-    "score": 0.929
+    "score": 1.0
    },
    {
     "c": 2810.45,
     "pred": 2937.2,
-    "err": -0.18,
+    "err": -0.2,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 3337.79,
-    "pred": 3464.6,
-    "err": -0.27,
-    "ok": true,
-    "score": 0.857
+    "pred": 3464.4,
+    "found": false,
+    "text": "And if you enjoy Oddlots, if you like it when we talk about "
    }
   ],
-  "accuracy": 1.0,
+  "accuracy": 0.83,
   "verdict": "keep",
-  "sec": 135
+  "sec": 157
  },
  "https://feeds.npr.org/510317/podcast.xml": {
   "title": "It's Been a Minute",
@@ -184,63 +234,62 @@
   "sync": "ok",
   "refs": 17,
   "listener": {
-   "duration": 1818.9,
+   "duration": 1829.9,
    "refs_ok": 17,
    "refs": 17,
    "offsets": [
-    23.3,
-    23.4,
-    85.3,
-    85.4
+    16.7,
+    105.3
    ]
   },
+  "cue_fix": [],
   "points": [
    {
-    "c": 39.7,
-    "pred": 63.1,
-    "err": -0.12,
+    "c": 38.86,
+    "pred": 55.6,
+    "err": -0.04,
     "ok": true,
     "score": 0.929
    },
    {
-    "c": 281.22,
-    "pred": 304.6,
-    "err": -0.04,
+    "c": 280.4,
+    "pred": 297.1,
+    "err": 0.09,
     "ok": true,
     "score": 1.0
    },
    {
-    "c": 617.24,
-    "pred": 640.6,
-    "err": -0.04,
+    "c": 616.36,
+    "pred": 633.1,
+    "err": 0.11,
     "ok": true,
     "score": 0.929
    },
    {
-    "c": 969.08,
-    "pred": 1054.4,
-    "err": -0.6,
+    "c": 968.35,
+    "pred": 1073.6,
+    "err": -0.54,
     "ok": true,
     "score": 0.929
    },
    {
-    "c": 1314.06,
-    "pred": 1399.4,
+    "c": 1313.37,
+    "pred": 1418.6,
     "err": -0.22,
     "ok": true,
-    "score": 1.0
+    "score": 0.786
    },
    {
-    "c": 1643.38,
-    "pred": 1728.7,
-    "err": -0.14,
+    "c": 1642.63,
+    "pred": 1747.9,
+    "err": -0.08,
     "ok": true,
     "score": 1.0
    }
   ],
   "accuracy": 1.0,
   "verdict": "keep",
-  "sec": 185
+  "sec": 207
  },
  "https://feeds.npr.org/510333/podcast.xml": {
   "title": "Throughline",
@@ -266,57 +315,58 @@
   "sync": "ok",
   "refs": 10,
   "listener": {
-   "duration": 1128.0,
+   "duration": 1147.0,
    "refs_ok": 10,
    "refs": 10,
    "offsets": [
-    23.4,
-    23.9,
-    24.0
+    16.0,
+    16.6,
+    16.7
    ]
   },
+  "cue_fix": [],
   "points": [
    {
     "c": 35.64,
-    "pred": 59.0,
-    "err": 0.59,
+    "pred": 51.6,
+    "err": 0.62,
     "ok": true,
     "score": 0.857
    },
    {
-    "c": 203.16,
-    "pred": 227.2,
+    "c": 203.12,
+    "pred": 219.8,
     "found": false,
     "text": "You know, it's a little weird when I've just said, OK, pleas"
    },
    {
-    "c": 395.55,
-    "pred": 419.6,
+    "c": 395.39,
+    "pred": 412.1,
     "found": false,
     "text": "So in the '50s, there were, like, these classic '50s musical"
    },
    {
-    "c": 561.91,
-    "pred": 585.9,
+    "c": 561.87,
+    "pred": 578.5,
     "found": false,
     "text": "He says supersized standing ovations are now the trademark o"
    },
    {
-    "c": 735.35,
-    "pred": 759.4,
+    "c": 735.29,
+    "pred": 752.0,
     "found": false,
     "text": "So a lot of people didn't get to see it."
    },
    {
-    "c": 934.01,
-    "pred": 958.0,
+    "c": 934.05,
+    "pred": 950.7,
     "found": false,
     "text": "This episode was produced by me and..."
    }
   ],
   "accuracy": 0.17,
   "verdict": "drop",
-  "sec": 153
+  "sec": 158
  },
  "https://feeds.npr.org/510379/podcast.xml": {
   "title": "Wild Card with Rachel Martin",
@@ -338,66 +388,110 @@
   "cues": 1190,
   "dai": "detected",
   "fixed": false,
-  "duration": 3692,
+  "duration": 3693,
   "sync": "ok",
-  "refs": 35,
+  "refs": 36,
   "listener": {
-   "duration": 3903.3,
-   "refs_ok": 35,
-   "refs": 35,
+   "duration": 3933.8,
+   "refs_ok": 36,
+   "refs": 36,
    "offsets": [
-    14.4,
-    65.9,
-    143.1
+    15.8,
+    15.9,
+    95.6,
+    169.5,
+    169.6
    ]
   },
+  "cue_fix": [
+   [
+    21.2,
+    -0.15
+   ],
+   [
+    331.6,
+    0.22
+   ],
+   [
+    944.3,
+    0.22
+   ],
+   [
+    1301.7,
+    0.26
+   ],
+   [
+    1593.4,
+    0.22
+   ],
+   [
+    1922.8,
+    0.26
+   ],
+   [
+    2540.9,
+    -0.07
+   ],
+   [
+    2870.7,
+    -1.33
+   ],
+   [
+    3229.1,
+    -1.35
+   ],
+   [
+    3674.2,
+    -1.64
+   ]
+  ],
   "points": [
    {
-    "c": 33.66,
-    "pred": 48.1,
-    "err": 0.64,
+    "c": 33.36,
+    "pred": 49.1,
+    "err": 0.93,
     "ok": true,
     "score": 0.929
    },
    {
-    "c": 719.44,
-    "pred": 733.8,
-    "err": -0.02,
+    "c": 719.34,
+    "pred": 735.4,
+    "err": -0.18,
     "ok": true,
     "score": 1.0
    },
    {
-    "c": 1447.578,
-    "pred": 1513.4,
-    "err": 0.28,
+    "c": 1447.31,
+    "pred": 1543.2,
+    "err": -0.22,
     "ok": true,
     "score": 0.929
    },
    {
-    "c": 2123.0,
-    "pred": 2188.9,
-    "err": -0.45,
+    "c": 2122.9,
+    "pred": 2218.7,
+    "err": -0.71,
     "ok": true,
     "score": 0.786
    },
    {
-    "c": 2803.67,
-    "pred": 2946.8,
-    "err": 0.39,
+    "c": 2807.02,
+    "pred": 2975.4,
+    "err": -0.14,
     "ok": true,
     "score": 1.0
    },
    {
-    "c": 3666.95,
-    "pred": 3810.0,
-    "err": -0.63,
+    "c": 3667.8,
+    "pred": 3835.7,
+    "err": -0.28,
     "ok": true,
     "score": 1.0
    }
   ],
   "accuracy": 1.0,
   "verdict": "keep",
-  "sec": 362
+  "sec": 386
  },
  "https://sbs-ondemand.streamguys1.com/sbs-learn-english/": {
   "title": "SBS Learn English",
@@ -419,67 +513,66 @@
   "cues": 118,
   "dai": "detected",
   "fixed": false,
-  "duration": 519,
+  "duration": 526,
   "sync": "ok",
-  "refs": 9,
+  "refs": 7,
   "listener": {
-   "duration": 663.5,
-   "refs_ok": 9,
-   "refs": 9,
+   "duration": 633.5,
+   "refs_ok": 7,
+   "refs": 7,
    "offsets": [
-    38.1,
-    38.2,
-    38.3,
-    43.6,
-    102.3
+    37.9,
+    86.3,
+    95.6
    ]
   },
+  "cue_fix": [],
   "points": [
    {
-    "c": 34.67,
-    "pred": 73.0,
-    "err": 6.31,
-    "ok": false,
-    "score": 0.929
-   },
-   {
-    "c": 126.0,
-    "pred": 164.3,
-    "err": 5.89,
-    "ok": false,
+    "c": 33.26,
+    "pred": 71.1,
+    "err": -0.16,
+    "ok": true,
     "score": 1.0
    },
    {
-    "c": 206.09,
-    "pred": 244.4,
-    "err": 6.0,
-    "ok": false,
+    "c": 128.87,
+    "pred": 166.8,
+    "err": 0.13,
+    "ok": true,
     "score": 1.0
    },
    {
-    "c": 293.05,
-    "pred": 331.4,
-    "err": 5.88,
-    "ok": false,
-    "score": 0.857
-   },
-   {
-    "c": 391.82,
-    "pred": 430.1,
-    "err": 5.49,
-    "ok": false,
+    "c": 211.83,
+    "pred": 249.7,
+    "err": -0.41,
+    "ok": true,
     "score": 1.0
    },
    {
-    "c": 492.34,
+    "c": 292.09,
+    "pred": 330.0,
+    "err": -0.04,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 397.86,
+    "pred": 435.7,
+    "err": -0.4,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 498.97,
     "pred": 594.6,
-    "err": 0.21,
+    "err": 0.2,
     "ok": true,
     "score": 1.0
    }
   ],
-  "accuracy": 0.17,
-  "verdict": "drop",
-  "sec": 138
+  "accuracy": 1.0,
+  "verdict": "keep",
+  "sec": 134
  }
 }

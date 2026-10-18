@@ -23,61 +23,63 @@
   "sync": "ok",
   "refs": 24,
   "listener": {
-   "duration": 3113.2,
+   "duration": 2897.0,
    "refs_ok": 24,
    "refs": 24,
    "offsets": [
-    74.4,
-    275.7,
-    477.0
+    72.2,
+    168.9,
+    265.7,
+    265.8
    ]
   },
+  "cue_fix": [],
   "points": [
    {
     "c": 30.174,
-    "pred": 104.6,
-    "err": -0.24,
+    "pred": 102.4,
+    "err": -0.13,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 455.0,
-    "pred": 529.4,
-    "err": -0.01,
+    "pred": 527.2,
+    "err": 0.1,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 983.45,
-    "pred": 1057.9,
+    "pred": 1055.6,
     "found": false,
     "text": "Merger Madness. With a little game we call Merger Madness."
    },
    {
     "c": 1384.273,
-    "pred": 1660.0,
-    "err": 0.56,
+    "pred": 1553.2,
+    "err": 0.59,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 1827.21,
-    "pred": 2304.2,
-    "err": -0.01,
+    "pred": 2093.0,
+    "err": -0.02,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 2513.946,
-    "pred": 2990.9,
+    "pred": 2779.7,
     "err": 0.24,
     "ok": true,
-    "score": 0.929
+    "score": 0.857
    }
   ],
   "accuracy": 0.83,
   "verdict": "keep",
-  "sec": 108
+  "sec": 182
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/58e85be7-dbb5-4043-afed-af80014dc0b3/27143354-63aa-4ac5-965d-af80014dc0d3/podcast.rss": {
   "title": "Bloomberg Daybreak: Asia Edition",
@@ -103,62 +105,69 @@
   "sync": "ok",
   "refs": 23,
   "listener": {
-   "duration": 2981.0,
+   "duration": 3035.7,
    "refs_ok": 23,
    "refs": 23,
    "offsets": [
-    110.1,
-    110.2,
-    305.5,
-    501.0
+    113.9,
+    336.1,
+    336.2,
+    558.6,
+    558.7
    ]
   },
+  "cue_fix": [
+   [
+    0.0,
+    -0.37
+   ]
+  ],
   "points": [
    {
     "c": 31.46,
-    "pred": 141.6,
-    "err": -0.13,
+    "pred": 144.9,
+    "err": 0.17,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 516.99,
-    "pred": 627.1,
-    "err": -0.08,
+    "pred": 630.5,
+    "err": 0.19,
     "ok": true,
-    "score": 1.0
+    "score": 0.714
    },
    {
     "c": 976.74,
-    "pred": 1282.2,
-    "err": 0.06,
+    "pred": 1312.5,
+    "err": 0.42,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 1393.684,
-    "pred": 1699.2,
+    "pred": 1729.5,
     "found": false,
     "text": "And it's also close relationship with China in terms of its "
    },
    {
     "c": 1808.863,
-    "pred": 2309.9,
-    "err": -0.08,
+    "pred": 2367.1,
+    "err": 0.34,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 2316.286,
-    "pred": 2817.3,
-    "err": -0.39,
+    "pred": 2874.6,
+    "err": 0.03,
     "ok": true,
     "score": 0.929
    }
   ],
   "accuracy": 0.83,
   "verdict": "keep",
-  "sec": 109
+  "sec": 201
  },
  "https://feeds.npr.org/510282/podcast.xml": {
   "title": "Pop Culture Happy Hour",
@@ -184,61 +193,103 @@
   "sync": "ok",
   "refs": 12,
   "listener": {
-   "duration": 1257.9,
+   "duration": 1270.2,
    "refs_ok": 12,
    "refs": 12,
    "offsets": [
     14.4,
-    91.3
+    97.2
    ]
   },
+  "cue_fix": [
+   [
+    25.9,
+    0.26
+   ],
+   [
+    117.6,
+    0.34
+   ],
+   [
+    222.0,
+    0.34
+   ],
+   [
+    328.4,
+    0.26
+   ],
+   [
+    428.0,
+    0.23
+   ],
+   [
+    496.3,
+    0.12
+   ],
+   [
+    711.5,
+    -0.04
+   ],
+   [
+    814.0,
+    -0.04
+   ],
+   [
+    908.5,
+    0.05
+   ],
+   [
+    1004.7,
+    0.1
+   ]
+  ],
   "points": [
    {
-    "c": 38.38,
-    "pred": 52.8,
-    "err": 0.32,
+    "c": 38.34,
+    "pred": 53.0,
+    "err": 0.08,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 240.56,
-    "pred": 255.0,
-    "err": 0.36,
+    "pred": 255.3,
+    "err": 0.03,
     "ok": true,
     "score": 1.0
    },
    {
-    "c": 460.38,
-    "pred": 474.8,
-    "err": 0.21,
+    "c": 460.36,
+    "pred": 474.9,
+    "err": 0.04,
     "ok": true,
     "score": 0.929
    },
    {
-    "c": 680.08,
-    "pred": 771.4,
-    "err": 0.14,
+    "c": 681.82,
+    "pred": 779.0,
+    "err": -0.21,
+    "ok": true,
+    "score": 0.857
+   },
+   {
+    "c": 892.34,
+    "pred": 989.6,
+    "err": 0.19,
     "ok": true,
     "score": 0.929
    },
    {
-    "c": 892.35,
-    "pred": 983.6,
-    "err": 0.51,
+    "c": 1085.34,
+    "pred": 1182.6,
+    "err": -0.27,
     "ok": true,
-    "score": 0.929
-   },
-   {
-    "c": 1085.32,
-    "pred": 1176.6,
-    "err": -0.09,
-    "ok": true,
-    "score": 0.714
+    "score": 0.786
    }
   ],
   "accuracy": 1.0,
   "verdict": "keep",
-  "sec": 98
+  "sec": 176
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/f4e26994-3ddb-4ec7-b855-ae32006cd5de/ea4fae0c-3282-4cfd-b315-ae32006cd5ec/podcast.rss": {
   "title": "Against the Rules with Michael Lewis",
@@ -264,59 +315,110 @@
   "sync": "ok",
   "refs": 4,
   "listener": {
-   "duration": 705.3,
+   "duration": 722.4,
    "refs_ok": 4,
    "refs": 4,
    "offsets": [
-    189.8
+    117.9,
+    118.0
    ]
   },
+  "cue_fix": [
+   [
+    23.6,
+    0.44
+   ],
+   [
+    55.0,
+    0.1
+   ],
+   [
+    107.9,
+    -0.52
+   ],
+   [
+    158.5,
+    -0.18
+   ],
+   [
+    178.6,
+    -0.46
+   ],
+   [
+    205.3,
+    -0.46
+   ],
+   [
+    240.5,
+    -0.62
+   ],
+   [
+    262.1,
+    -0.62
+   ],
+   [
+    288.0,
+    -0.64
+   ],
+   [
+    317.7,
+    -0.62
+   ],
+   [
+    351.3,
+    -0.62
+   ],
+   [
+    377.1,
+    -0.53
+   ]
+  ],
   "points": [
    {
     "c": 33.562,
-    "pred": 223.3,
-    "err": -0.39,
+    "pred": 151.8,
+    "err": -0.89,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 147.559,
-    "pred": 337.3,
+    "pred": 265.3,
     "found": false,
     "text": "All of this was obviously kind of weird."
    },
    {
     "c": 197.356,
-    "pred": 387.1,
-    "err": -0.61,
+    "pred": 314.8,
+    "err": -0.3,
     "ok": true,
-    "score": 0.857
+    "score": 1.0
    },
    {
     "c": 254.626,
-    "pred": 444.4,
-    "err": -0.65,
+    "pred": 372.0,
+    "err": -0.19,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 315.516,
-    "pred": 505.3,
-    "err": -0.5,
+    "pred": 432.8,
+    "err": -0.04,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 377.126,
-    "pred": 566.9,
-    "err": -0.23,
+    "pred": 494.5,
+    "err": 0.14,
     "ok": true,
     "score": 1.0
    }
   ],
   "accuracy": 0.83,
   "verdict": "keep",
-  "sec": 51
+  "sec": 108
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/91c26f87-aa4e-4e61-816b-ae320005be01/5ca66d21-7139-45ee-8d4e-ae320005be14/podcast.rss": {
   "title": "BrainStuff",
@@ -342,61 +444,106 @@
   "sync": "ok",
   "refs": 5,
   "listener": {
-   "duration": 838.6,
+   "duration": 849.3,
    "refs_ok": 5,
    "refs": 5,
    "offsets": [
-    169.2,
-    169.3
+    175.2
    ]
   },
+  "cue_fix": [
+   [
+    26.5,
+    0.33
+   ],
+   [
+    71.4,
+    0.31
+   ],
+   [
+    117.8,
+    0.35
+   ],
+   [
+    178.1,
+    0.27
+   ],
+   [
+    206.1,
+    0.26
+   ],
+   [
+    253.8,
+    0.13
+   ],
+   [
+    287.4,
+    0.22
+   ],
+   [
+    318.2,
+    0.22
+   ],
+   [
+    361.3,
+    0.22
+   ],
+   [
+    391.3,
+    -0.27
+   ],
+   [
+    435.6,
+    -0.34
+   ]
+  ],
   "points": [
    {
     "c": 31.158,
-    "pred": 200.4,
-    "err": 0.27,
+    "pred": 206.7,
+    "err": -0.02,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 134.301,
-    "pred": 303.6,
-    "err": 0.22,
+    "pred": 309.8,
+    "err": -0.06,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 201.44,
-    "pred": 370.7,
-    "err": 0.11,
+    "pred": 376.9,
+    "err": -0.12,
     "ok": true,
     "score": 0.857
    },
    {
     "c": 276.41,
-    "pred": 445.7,
-    "err": -0.66,
+    "pred": 451.8,
+    "err": -0.79,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 361.304,
-    "pred": 530.6,
-    "err": 0.43,
+    "pred": 536.7,
+    "err": 0.26,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 435.595,
-    "pred": 604.9,
-    "err": -0.43,
+    "pred": 610.4,
+    "err": -0.05,
     "ok": true,
     "score": 1.0
    }
   ],
   "accuracy": 1.0,
   "verdict": "keep",
-  "sec": 50
+  "sec": 115
  },
  "https://www.abc.net.au/feeds/106452508/podcast.xml": {
   "title": "ABC Business Daily",
@@ -418,6 +565,6 @@
   "error": "ValueError: alignment too weak (32% of transcript tokens matched)",
   "trace": "ome/runner/work/podcast-study/podcast-study/pipeline/main.py\", line 212, in web_transcript_cues\n    cues, info = A.align_paragraphs(paras, words, dur, ad_free=ad_free)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/podcast-study/podcast-study/pipeline/align.py\", line 150, in align_paragraphs\n    raise ValueError(f\"alignment too weak ({coverage:.0%} of transcript tokens matched)\")\nValueError: alignment too weak (32% of transcript tokens matched)\n",
   "verdict": "drop",
-  "sec": 73
+  "sec": 137
  }
 }

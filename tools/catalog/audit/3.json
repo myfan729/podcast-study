@@ -23,64 +23,114 @@
   "sync": "ok",
   "refs": 26,
   "listener": {
-   "duration": 3331.1,
+   "duration": 3003.1,
    "refs_ok": 26,
    "refs": 26,
    "offsets": [
-    111.4,
-    111.5,
-    312.8,
-    514.5,
-    716.0
+    102.0,
+    201.9,
+    202.0,
+    296.2,
+    393.2
    ]
   },
+  "cue_fix": [
+   [
+    25.9,
+    -0.33
+   ],
+   [
+    220.4,
+    -0.05
+   ],
+   [
+    441.3,
+    -0.05
+   ],
+   [
+    670.0,
+    -2.91
+   ],
+   [
+    922.9,
+    -2.91
+   ],
+   [
+    1143.2,
+    -2.91
+   ],
+   [
+    1356.9,
+    -0.14
+   ],
+   [
+    1642.2,
+    -0.05
+   ],
+   [
+    1883.1,
+    -0.14
+   ],
+   [
+    2109.8,
+    -0.05
+   ],
+   [
+    2329.0,
+    -0.11
+   ],
+   [
+    2497.3,
+    -0.07
+   ]
+  ],
   "points": [
    {
     "c": 30.728,
-    "pred": 142.2,
-    "err": -0.11,
+    "pred": 132.4,
+    "err": 0.22,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 485.77,
-    "pred": 597.2,
-    "err": 0.45,
+    "pred": 587.2,
+    "err": 1.01,
     "ok": true,
-    "score": 0.786
+    "score": 0.857
    },
    {
     "c": 1015.939,
-    "pred": 1328.7,
-    "err": 0.07,
+    "pred": 1215.0,
+    "err": -0.07,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 1536.609,
-    "pred": 2051.2,
-    "err": -0.17,
+    "pred": 1832.7,
+    "err": -0.04,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 2063.454,
-    "pred": 2578.0,
-    "err": -0.23,
+    "pred": 2359.6,
+    "err": -0.06,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 2495.184,
-    "pred": 3211.1,
-    "err": -0.42,
+    "pred": 2888.3,
+    "err": -0.36,
     "ok": true,
     "score": 1.0
    }
   ],
   "accuracy": 1.0,
   "verdict": "keep",
-  "sec": 134
+  "sec": 206
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/84f3c095-964f-4994-9d24-ae2b00130029/c9553948-bc39-4871-8989-ae2b00130032/podcast.rss": {
   "title": "Trumponomics",
@@ -106,63 +156,112 @@
   "sync": "ok",
   "refs": 20,
   "listener": {
-   "duration": 2734.2,
+   "duration": 2788.9,
    "refs_ok": 20,
    "refs": 20,
    "offsets": [
-    110.5,
-    305.5,
-    500.0,
-    500.1
+    114.1,
+    336.1,
+    557.7
    ]
   },
+  "cue_fix": [
+   [
+    20.5,
+    -0.49
+   ],
+   [
+    237.5,
+    -0.57
+   ],
+   [
+    465.9,
+    -0.58
+   ],
+   [
+    692.3,
+    -0.57
+   ],
+   [
+    883.2,
+    -0.18
+   ],
+   [
+    1042.1,
+    0.12
+   ],
+   [
+    1182.4,
+    -0.12
+   ],
+   [
+    1364.8,
+    0.12
+   ],
+   [
+    1541.8,
+    0.35
+   ],
+   [
+    1744.5,
+    0.56
+   ],
+   [
+    1924.2,
+    0.56
+   ],
+   [
+    2080.8,
+    0.36
+   ]
+  ],
   "points": [
    {
     "c": 42.729,
-    "pred": 153.3,
-    "err": -0.49,
+    "pred": 156.3,
+    "err": 0.01,
     "ok": true,
-    "score": 0.714
+    "score": 1.0
    },
    {
     "c": 518.12,
-    "pred": 628.6,
-    "err": -0.74,
+    "pred": 631.7,
+    "err": -0.12,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 927.356,
-    "pred": 1232.8,
-    "err": -0.04,
+    "pred": 1263.4,
+    "err": 0.04,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 1303.091,
-    "pred": 1608.6,
-    "err": -0.18,
+    "pred": 1639.3,
+    "err": -0.24,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 1692.499,
-    "pred": 2192.5,
-    "err": 1.59,
-    "ok": false,
+    "pred": 2250.8,
+    "err": 1.01,
+    "ok": true,
     "score": 0.929
    },
    {
     "c": 2070.858,
-    "pred": 2570.9,
-    "err": 0.45,
+    "pred": 2628.9,
+    "err": 0.08,
     "ok": true,
     "score": 1.0
    }
   ],
-  "accuracy": 0.83,
+  "accuracy": 1.0,
   "verdict": "keep",
-  "sec": 94
+  "sec": 206
  },
  "https://feeds.npr.org/510312/podcast.xml": {
   "title": "Code Switch",
@@ -184,67 +283,113 @@
   "cues": 370,
   "dai": "detected",
   "fixed": false,
-  "duration": 1669,
-  "sync": "partial",
-  "refs": 17,
+  "duration": 1655,
+  "sync": "ok",
+  "refs": 18,
   "listener": {
-   "duration": 1901.2,
-   "refs_ok": 17,
-   "refs": 17,
+   "duration": 1849.4,
+   "refs_ok": 18,
+   "refs": 18,
    "offsets": [
-    10.5,
-    102.9,
-    103.0,
-    165.6
+    17.9,
+    106.3,
+    157.7,
+    159.7
    ]
   },
+  "cue_fix": [
+   [
+    173.6,
+    -0.71
+   ],
+   [
+    319.3,
+    -1.13
+   ],
+   [
+    473.4,
+    -1.13
+   ],
+   [
+    652.2,
+    -0.37
+   ],
+   [
+    808.2,
+    -0.11
+   ],
+   [
+    975.4,
+    -0.07
+   ],
+   [
+    1099.2,
+    -0.07
+   ],
+   [
+    1222.2,
+    -0.15
+   ],
+   [
+    1354.4,
+    -0.24
+   ],
+   [
+    1509.8,
+    -0.28
+   ],
+   [
+    1636.0,
+    -0.26
+   ]
+  ],
   "points": [
    {
-    "c": 41.1,
+    "c": 34.4,
     "pred": 51.6,
-    "err": -0.8,
+    "err": 0.66,
     "ok": true,
-    "score": 0.929
+    "score": 1.0
    },
    {
-    "c": 376.16,
-    "pred": 479.1,
-    "err": -0.2,
+    "c": 366.5,
+    "pred": 471.6,
+    "err": 1.14,
     "ok": true,
     "score": 0.857
    },
    {
-    "c": 731.84,
-    "pred": 834.8,
-    "err": -0.0,
+    "c": 717.1,
+    "pred": 823.1,
+    "err": 0.35,
     "ok": true,
     "score": 0.929
    },
    {
-    "c": 1058.13,
-    "pred": 1223.7,
-    "err": -0.05,
+    "c": 1048.2,
+    "pred": 1205.8,
+    "err": -1.59,
+    "ok": false,
+    "score": 1.0
+   },
+   {
+    "c": 1327.84,
+    "pred": 1485.3,
+    "err": -0.02,
     "ok": true,
     "score": 1.0
    },
    {
-    "c": 1341.56,
-    "pred": 1507.1,
-    "err": -0.25,
-    "ok": true,
-    "score": 0.929
-   },
-   {
-    "c": 1646.46,
-    "pred": 1812.0,
-    "err": -0.18,
+    "c": 1632.67,
+    "pred": 1790.1,
+    "err": 0.14,
     "ok": true,
     "score": 1.0
    }
   ],
-  "accuracy": 1.0,
+  "accuracy": 0.83,
   "verdict": "keep",
-  "sec": 225
+  "sec": 228
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/cfb428ef-eafc-44d0-9d09-ae2701747e6f/fb626e1f-112c-4246-a40d-ae2701747e7d/podcast.rss": {
   "title": "Stuff You Missed in History Class",
@@ -270,61 +415,105 @@
   "sync": "ok",
   "refs": 17,
   "listener": {
-   "duration": 2559.2,
+   "duration": 2642.6,
    "refs_ok": 17,
    "refs": 17,
    "offsets": [
-    189.9,
-    474.4,
-    754.8
+    220.6,
+    220.7,
+    549.5,
+    872.8,
+    872.9
    ]
   },
+  "cue_fix": [
+   [
+    21.6,
+    -0.05
+   ],
+   [
+    147.8,
+    -0.11
+   ],
+   [
+    283.6,
+    0.14
+   ],
+   [
+    433.8,
+    -0.11
+   ],
+   [
+    726.2,
+    -3.56
+   ],
+   [
+    965.4,
+    -4.43
+   ],
+   [
+    1098.6,
+    -3.56
+   ],
+   [
+    1221.3,
+    -0.57
+   ],
+   [
+    1373.5,
+    -0.4
+   ],
+   [
+    1585.7,
+    -0.32
+   ]
+  ],
   "points": [
    {
     "c": 30.82,
-    "pred": 220.7,
-    "err": -0.37,
+    "pred": 251.4,
+    "err": -0.29,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 324.65,
-    "pred": 514.5,
-    "err": 0.07,
+    "pred": 545.4,
+    "err": 0.02,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 648.862,
-    "pred": 1123.3,
+    "pred": 1195.7,
     "found": false,
     "text": "And that is by George M. Gould and Walter L. Pyle, and that "
    },
    {
     "c": 927.42,
-    "pred": 1401.8,
-    "err": -4.07,
-    "ok": false,
-    "score": 0.857
+    "pred": 1472.7,
+    "err": 0.17,
+    "ok": true,
+    "score": 1.0
    },
    {
     "c": 1187.669,
-    "pred": 1942.5,
-    "err": -0.38,
+    "pred": 2059.1,
+    "err": 1.06,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 1575.469,
-    "pred": 2330.3,
-    "err": 0.24,
+    "pred": 2448.0,
+    "err": 0.84,
     "ok": true,
     "score": 0.929
    }
   ],
-  "accuracy": 0.67,
-  "verdict": "check",
-  "sec": 200
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 258
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/3329f452-8e18-4801-8c62-aef2010eef8c/5c38870a-227f-4e4f-a7dd-aef2010eefa3/podcast.rss": {
   "title": "Leaders with Francine Lacqua",
@@ -350,63 +539,63 @@
   "sync": "ok",
   "refs": 13,
   "listener": {
-   "duration": 1605.8,
+   "duration": 1596.3,
    "refs_ok": 13,
    "refs": 13,
    "offsets": [
-    108.6,
-    108.7,
-    260.5,
-    260.6
+    107.9,
+    108.0,
+    236.5
    ]
   },
+  "cue_fix": [],
   "points": [
    {
     "c": 33.6,
-    "pred": 142.3,
-    "err": -0.17,
+    "pred": 141.6,
+    "err": -0.45,
     "ok": true,
-    "score": 0.857
+    "score": 0.786
    },
    {
     "c": 292.57,
-    "pred": 401.2,
-    "err": 0.08,
+    "pred": 400.5,
+    "err": -0.04,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 533.232,
-    "pred": 641.9,
-    "err": 0.28,
+    "pred": 641.2,
+    "err": 0.17,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 761.2,
-    "pred": 1021.7,
-    "err": 0.21,
+    "pred": 997.7,
+    "err": 0.11,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 988.04,
-    "pred": 1248.6,
-    "err": 0.36,
+    "pred": 1224.6,
+    "err": 0.28,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 1227.139,
-    "pred": 1487.7,
-    "err": -0.22,
+    "pred": 1463.7,
+    "err": -0.32,
     "ok": true,
     "score": 0.929
    }
   ],
   "accuracy": 1.0,
   "verdict": "keep",
-  "sec": 97
+  "sec": 119
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/32c25e85-1667-4acb-99fd-ae3c0021f33e/beacef48-19d2-4f52-b9e8-ae3c0021f347/podcast.rss": {
   "title": "What's Your Problem?",
@@ -432,62 +621,63 @@
   "sync": "ok",
   "refs": 28,
   "listener": {
-   "duration": 3259.2,
+   "duration": 3614.2,
    "refs_ok": 28,
    "refs": 28,
    "offsets": [
-    103.4,
-    103.5,
-    103.8,
-    103.9
+    103.1,
+    278.9,
+    279.0,
+    455.3
    ]
   },
+  "cue_fix": [],
   "points": [
    {
     "c": 33.606,
-    "pred": 137.5,
-    "err": -0.38,
+    "pred": 136.7,
+    "err": -0.32,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 619.226,
-    "pred": 723.1,
-    "err": -0.36,
+    "pred": 722.3,
+    "err": -0.3,
     "ok": true,
     "score": 0.857
    },
    {
     "c": 1166.069,
-    "pred": 1269.9,
-    "err": -0.33,
+    "pred": 1269.2,
+    "err": -0.28,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 1742.531,
-    "pred": 1845.9,
-    "err": 0.64,
+    "pred": 2021.5,
+    "err": 0.55,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 2396.026,
-    "pred": 2499.4,
-    "err": 0.13,
+    "pred": 2675.0,
+    "err": 0.05,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 3002.75,
-    "pred": 3106.3,
-    "err": 0.08,
+    "pred": 3458.0,
+    "err": 0.1,
     "ok": true,
-    "score": 0.786
+    "score": 0.929
    }
   ],
   "accuracy": 1.0,
   "verdict": "keep",
-  "sec": 137
+  "sec": 221
  }
 }

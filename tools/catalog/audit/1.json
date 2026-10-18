@@ -23,62 +23,102 @@
   "sync": "ok",
   "refs": 11,
   "listener": {
-   "duration": 1460.6,
+   "duration": 1369.6,
    "refs_ok": 11,
    "refs": 11,
    "offsets": [
-    111.6,
-    111.7,
-    313.1,
-    313.2
+    102.6,
+    227.3
    ]
   },
+  "cue_fix": [
+   [
+    20.1,
+    -0.45
+   ],
+   [
+    103.6,
+    -0.33
+   ],
+   [
+    200.4,
+    -0.33
+   ],
+   [
+    277.4,
+    -0.44
+   ],
+   [
+    338.7,
+    -0.57
+   ],
+   [
+    537.3,
+    -0.57
+   ],
+   [
+    640.0,
+    -0.1
+   ],
+   [
+    714.9,
+    0.02
+   ],
+   [
+    827.9,
+    -0.1
+   ],
+   [
+    916.3,
+    -0.41
+   ]
+  ],
   "points": [
    {
     "c": 31.43,
-    "pred": 143.1,
-    "err": 0.32,
+    "pred": 133.6,
+    "err": 0.37,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 224.57,
-    "pred": 336.2,
-    "err": 0.55,
+    "pred": 326.8,
+    "err": 0.56,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 388.66,
-    "pred": 500.3,
-    "err": -0.3,
+    "pred": 490.7,
+    "err": -0.18,
     "ok": true,
-    "score": 0.786
+    "score": 0.857
    },
    {
     "c": 579.179,
-    "pred": 690.9,
-    "err": -0.1,
+    "pred": 681.4,
+    "err": -0.08,
     "ok": true,
-    "score": 0.929
+    "score": 1.0
    },
    {
     "c": 796.89,
-    "pred": 1110.0,
-    "err": -0.81,
+    "pred": 1024.1,
+    "err": -0.71,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 1016.74,
-    "pred": 1329.9,
+    "pred": 1243.7,
     "found": false,
     "text": "This is The Big Take Asia from Bloomberg News."
    }
   ],
   "accuracy": 0.83,
   "verdict": "keep",
-  "sec": 103
+  "sec": 118
  },
  "https://feeds.npr.org/510289/podcast.xml": {
   "title": "Planet Money",
@@ -100,66 +140,115 @@
   "cues": 375,
   "dai": "detected",
   "fixed": false,
-  "duration": 1727,
+  "duration": 1719,
   "sync": "ok",
   "refs": 18,
   "listener": {
-   "duration": 1981.5,
+   "duration": 1954.4,
    "refs_ok": 18,
    "refs": 18,
    "offsets": [
-    24.4,
-    96.7,
-    190.1
+    15.6,
+    15.7,
+    85.1,
+    176.3
    ]
   },
+  "cue_fix": [
+   [
+    29.1,
+    -0.08
+   ],
+   [
+    204.2,
+    0.04
+   ],
+   [
+    343.0,
+    0.04
+   ],
+   [
+    475.8,
+    -0.09
+   ],
+   [
+    614.3,
+    -0.14
+   ],
+   [
+    743.3,
+    -0.09
+   ],
+   [
+    900.0,
+    -0.14
+   ],
+   [
+    1047.6,
+    -0.15
+   ],
+   [
+    1222.0,
+    -0.15
+   ],
+   [
+    1382.2,
+    -0.17
+   ],
+   [
+    1544.4,
+    -0.13
+   ],
+   [
+    1699.6,
+    -0.68
+   ]
+  ],
   "points": [
    {
-    "c": 40.92,
-    "pred": 65.3,
-    "err": -0.78,
+    "c": 40.83,
+    "pred": 56.4,
+    "found": false,
+    "text": "But at the same time, none of them are taking any meaningful"
+   },
+   {
+    "c": 373.12,
+    "pred": 458.2,
+    "err": -0.39,
     "ok": true,
     "score": 1.0
    },
    {
-    "c": 372.86,
-    "pred": 469.5,
-    "err": -0.35,
-    "ok": true,
-    "score": 1.0
-   },
-   {
-    "c": 686.02,
-    "pred": 782.7,
-    "err": -0.3,
+    "c": 681.94,
+    "pred": 766.9,
+    "err": -0.02,
     "ok": true,
     "score": 0.929
    },
    {
-    "c": 1000.36,
-    "pred": 1097.0,
-    "err": -0.21,
+    "c": 996.67,
+    "pred": 1081.6,
+    "err": 0.11,
     "ok": true,
     "score": 1.0
    },
    {
-    "c": 1364.77,
-    "pred": 1554.9,
-    "err": 0.05,
-    "ok": true,
-    "score": 0.857
-   },
-   {
-    "c": 1704.99,
-    "pred": 1895.1,
+    "c": 1352.02,
+    "pred": 1528.1,
     "err": 0.11,
     "ok": true,
-    "score": 0.786
+    "score": 1.0
+   },
+   {
+    "c": 1697.62,
+    "pred": 1873.2,
+    "found": false,
+    "text": "Alex Goldmark is our executive producer."
    }
   ],
-  "accuracy": 1.0,
-  "verdict": "keep",
-  "sec": 230
+  "accuracy": 0.67,
+  "verdict": "check",
+  "sec": 239
  },
  "https://rss2.flightcast.com/xmsftuzjjykcmqwolaqn6mdn": {
   "title": "The Diary Of A CEO with Steven Bartlett",
@@ -192,6 +281,7 @@
     64.5
    ]
   },
+  "cue_fix": [],
   "points": [
    {
     "c": 32.507,
@@ -238,7 +328,7 @@
   ],
   "accuracy": 1.0,
   "verdict": "keep",
-  "sec": 169
+  "sec": 197
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/e5f91208-cc7e-4726-a312-ae280140ad11/d64f756d-6d5e-4fae-b24f-ae280140ad36/podcast.rss": {
   "title": "Behind the Bastards",
@@ -264,62 +354,96 @@
   "sync": "ok",
   "refs": 41,
   "listener": {
-   "duration": 5631.1,
+   "duration": 5444.7,
    "refs_ok": 41,
    "refs": 41,
    "offsets": [
     -0.3,
     0.0,
-    510.6,
-    834.3
+    398.5,
+    634.7
    ]
   },
+  "cue_fix": [
+   [
+    20.2,
+    -0.57
+   ],
+   [
+    2138.2,
+    -0.64
+   ],
+   [
+    2519.0,
+    -1.14
+   ],
+   [
+    2882.7,
+    -0.64
+   ],
+   [
+    3412.3,
+    0.07
+   ],
+   [
+    3829.8,
+    0.07
+   ],
+   [
+    4232.2,
+    -0.26
+   ],
+   [
+    4596.5,
+    -0.3
+   ]
+  ],
   "points": [
    {
     "c": 34.953,
-    "pred": 35.0,
-    "err": -0.24,
+    "pred": 34.4,
+    "err": 0.35,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 1090.26,
-    "pred": 1090.0,
+    "pred": 1089.4,
     "found": false,
     "text": "A lot of Ackmans in there."
    },
    {
     "c": 1866.467,
-    "pred": 2377.1,
-    "err": -0.94,
+    "pred": 2264.4,
+    "err": -0.37,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 2738.63,
-    "pred": 3249.2,
-    "err": -0.32,
+    "pred": 3136.3,
+    "err": 0.46,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 3718.075,
-    "pred": 4552.4,
-    "err": -0.18,
+    "pred": 4352.8,
+    "err": -0.24,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 4591.53,
-    "pred": 5425.8,
-    "err": -0.34,
+    "pred": 5225.9,
+    "err": -0.03,
     "ok": true,
     "score": 0.929
    }
   ],
   "accuracy": 0.83,
   "verdict": "keep",
-  "sec": 274
+  "sec": 265
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d3d3abca-191a-4010-8160-b3530112d393/c639b22c-ee8c-43dd-86c1-b3530112d3a3/podcast.rss": {
   "title": "Shell Game",
@@ -345,62 +469,108 @@
   "sync": "ok",
   "refs": 29,
   "listener": {
-   "duration": 3845.5,
+   "duration": 3614.1,
    "refs_ok": 29,
    "refs": 29,
    "offsets": [
-    142.3,
-    380.9,
-    623.0,
-    623.1
+    127.1,
+    127.2,
+    250.0,
+    397.7
    ]
   },
+  "cue_fix": [
+   [
+    27.3,
+    -0.53
+   ],
+   [
+    261.2,
+    -0.66
+   ],
+   [
+    563.0,
+    -0.79
+   ],
+   [
+    795.4,
+    -0.66
+   ],
+   [
+    1106.6,
+    -0.51
+   ],
+   [
+    1644.2,
+    0.26
+   ],
+   [
+    1954.9,
+    0.39
+   ],
+   [
+    2230.2,
+    0.39
+   ],
+   [
+    2434.4,
+    0.39
+   ],
+   [
+    2798.5,
+    -1.06
+   ],
+   [
+    3051.9,
+    -1.2
+   ]
+  ],
   "points": [
    {
     "c": 55.975,
-    "pred": 198.3,
+    "pred": 182.6,
     "found": false,
     "text": "I'm mongaish and I am so happy here."
    },
    {
     "c": 631.8,
-    "pred": 774.1,
-    "err": -0.93,
+    "pred": 758.2,
+    "err": -0.31,
     "ok": true,
-    "score": 1.0
+    "score": 0.929
    },
    {
     "c": 1186.336,
-    "pred": 1328.7,
-    "err": -0.38,
+    "pred": 1313.1,
+    "err": -0.1,
     "ok": true,
     "score": 0.786
    },
    {
     "c": 1817.32,
-    "pred": 2198.2,
-    "err": 0.72,
+    "pred": 2067.6,
+    "err": -0.12,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 2385.68,
-    "pred": 2766.6,
-    "err": 0.79,
+    "pred": 2636.1,
+    "err": -0.13,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 3044.434,
-    "pred": 3667.5,
-    "err": -0.79,
+    "pred": 3440.9,
+    "err": 0.33,
     "ok": true,
-    "score": 1.0
+    "score": 0.929
    }
   ],
   "accuracy": 0.83,
   "verdict": "keep",
-  "sec": 229
+  "sec": 178
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/41764a4f-fc64-4e11-89ba-ae7c0030ab5e/9caafc41-289c-4115-995d-ae7c0030ab75/podcast.rss": {
   "title": "Bloomberg Tech",
@@ -426,62 +596,102 @@
   "sync": "ok",
   "refs": 25,
   "listener": {
-   "duration": 3183.0,
+   "duration": 3222.3,
    "refs_ok": 25,
    "refs": 25,
    "offsets": [
-    101.1,
-    101.2,
-    329.1,
-    329.2,
-    558.2
+    107.2,
+    303.1,
+    500.6
    ]
   },
+  "cue_fix": [
+   [
+    23.1,
+    -0.04
+   ],
+   [
+    243.9,
+    0.07
+   ],
+   [
+    469.9,
+    0.07
+   ],
+   [
+    678.2,
+    -0.71
+   ],
+   [
+    964.5,
+    -1.09
+   ],
+   [
+    1177.2,
+    -1.09
+   ],
+   [
+    1430.0,
+    -1.09
+   ],
+   [
+    1673.9,
+    -1.2
+   ],
+   [
+    2375.6,
+    -3.42
+   ],
+   [
+    2578.1,
+    -3.56
+   ]
+  ],
   "points": [
    {
     "c": 37.823,
-    "pred": 138.9,
-    "err": 0.21,
+    "pred": 145.0,
+    "err": 0.33,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 515.562,
-    "pred": 616.7,
+    "pred": 622.7,
     "found": false,
     "text": "In my opinion, their ability to gather assets and generate c"
    },
    {
     "c": 1064.13,
-    "pred": 1393.3,
-    "err": -1.21,
+    "pred": 1366.1,
+    "err": 0.19,
     "ok": true,
     "score": 0.857
    },
    {
     "c": 1559.52,
-    "pred": 1888.7,
-    "err": -1.41,
+    "pred": 1861.4,
+    "err": 0.07,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 2097.446,
-    "pred": 2655.6,
-    "err": -3.5,
-    "ok": false,
-    "score": 0.857
+    "pred": 2595.5,
+    "err": -1.09,
+    "ok": true,
+    "score": 0.929
    },
    {
     "c": 2567.795,
-    "pred": 3126.0,
-    "err": -3.12,
-    "ok": false,
+    "pred": 3064.8,
+    "err": 0.31,
+    "ok": true,
     "score": 0.929
    }
   ],
-  "accuracy": 0.5,
-  "verdict": "check",
-  "sec": 168
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 224
  }
 }

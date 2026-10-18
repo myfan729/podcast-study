@@ -23,59 +23,97 @@
   "sync": "ok",
   "refs": 7,
   "listener": {
-   "duration": 928.1,
+   "duration": 916.4,
    "refs_ok": 7,
    "refs": 7,
    "offsets": [
-    112.7,
-    112.8
+    103.2
    ]
   },
+  "cue_fix": [
+   [
+    79.5,
+    -1.29
+   ],
+   [
+    232.0,
+    -1.38
+   ],
+   [
+    316.8,
+    -1.18
+   ],
+   [
+    384.2,
+    -1.38
+   ],
+   [
+    443.1,
+    -1.09
+   ],
+   [
+    519.0,
+    -1.09
+   ],
+   [
+    569.4,
+    -1.09
+   ],
+   [
+    615.4,
+    -1.17
+   ],
+   [
+    667.0,
+    -1.26
+   ]
+  ],
   "points": [
    {
     "c": 32.1,
-    "pred": 144.9,
-    "err": -1.43,
+    "pred": 134.0,
+    "err": -0.07,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 178.682,
-    "pred": 291.4,
-    "err": -1.42,
+    "pred": 280.6,
+    "err": 0.05,
     "ok": true,
     "score": 0.857
    },
    {
     "c": 279.965,
-    "pred": 392.7,
-    "err": -1.2,
-    "ok": true,
-    "score": 1.0
-   },
-   {
-    "c": 425.33,
-    "pred": 538.1,
-    "found": false,
-    "text": "And even at the time, HMRC was treating it as a grey area."
-   },
-   {
-    "c": 556.435,
-    "pred": 669.2,
-    "err": -1.35,
+    "pred": 381.9,
+    "err": 0.13,
     "ok": true,
     "score": 0.929
    },
    {
+    "c": 425.33,
+    "pred": 527.4,
+    "err": -0.3,
+    "ok": true,
+    "score": 0.571
+   },
+   {
+    "c": 556.435,
+    "pred": 658.6,
+    "err": -0.23,
+    "ok": true,
+    "score": 0.857
+   },
+   {
     "c": 663.534,
-    "pred": 776.3,
+    "pred": 765.5,
     "found": false,
     "text": "If you like our show, rate, review and subscribe wherever yo"
    }
   ],
-  "accuracy": 0.67,
-  "verdict": "check",
-  "sec": 71
+  "accuracy": 0.83,
+  "verdict": "keep",
+  "sec": 99
  },
  "https://feeds.npr.org/510355/podcast.xml": {
   "title": "Consider This from NPR",
@@ -101,61 +139,112 @@
   "sync": "ok",
   "refs": 12,
   "listener": {
-   "duration": 1370.9,
+   "duration": 1270.5,
    "refs_ok": 12,
    "refs": 12,
    "offsets": [
     0.0,
-    75.0
+    8.9,
+    9.0
    ]
   },
+  "cue_fix": [
+   [
+    26.3,
+    0.0
+   ],
+   [
+    92.2,
+    -0.08
+   ],
+   [
+    240.2,
+    0.13
+   ],
+   [
+    362.0,
+    0.08
+   ],
+   [
+    493.1,
+    0.08
+   ],
+   [
+    597.2,
+    0.08
+   ],
+   [
+    689.5,
+    0.04
+   ],
+   [
+    816.8,
+    0.18
+   ],
+   [
+    933.0,
+    0.14
+   ],
+   [
+    1011.8,
+    0.14
+   ],
+   [
+    1138.4,
+    0.04
+   ],
+   [
+    1242.1,
+    -0.14
+   ]
+  ],
   "points": [
    {
-    "c": 35.36,
+    "c": 35.38,
     "pred": 35.4,
-    "err": -0.21,
-    "ok": true,
-    "score": 1.0
-   },
-   {
-    "c": 278.69,
-    "pred": 353.7,
-    "err": 0.09,
-    "ok": true,
-    "score": 1.0
-   },
-   {
-    "c": 540.85,
-    "pred": 615.8,
-    "err": 0.05,
-    "ok": true,
-    "score": 1.0
-   },
-   {
-    "c": 773.07,
-    "pred": 848.0,
-    "err": 0.12,
-    "ok": true,
-    "score": 0.929
-   },
-   {
-    "c": 997.43,
-    "pred": 1072.4,
     "err": -0.2,
     "ok": true,
     "score": 1.0
    },
    {
-    "c": 1237.43,
-    "pred": 1312.4,
-    "err": 0.05,
+    "c": 278.65,
+    "pred": 287.7,
+    "err": 0.16,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 541.05,
+    "pred": 550.1,
+    "err": -0.3,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 773.09,
+    "pred": 782.2,
+    "err": 0.03,
     "ok": true,
     "score": 0.929
+   },
+   {
+    "c": 997.35,
+    "pred": 1006.5,
+    "err": -0.13,
+    "ok": true,
+    "score": 1.0
+   },
+   {
+    "c": 1237.55,
+    "pred": 1246.4,
+    "err": 0.16,
+    "ok": true,
+    "score": 0.857
    }
   ],
   "accuracy": 1.0,
   "verdict": "keep",
-  "sec": 147
+  "sec": 153
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/39e934d7-2ddc-4b3e-bc73-ae2b00156363/ab6037f4-9a9a-449b-915d-ae2b00156375/podcast.rss": {
   "title": "The Daily Zeitgeist",
@@ -181,16 +270,18 @@
   "sync": "ok",
   "refs": 39,
   "listener": {
-   "duration": 5295.4,
+   "duration": 5217.9,
    "refs_ok": 39,
    "refs": 39,
    "offsets": [
     -0.3,
     0.0,
     210.6,
-    838.7
+    781.4,
+    781.5
    ]
   },
+  "cue_fix": [],
   "points": [
    {
     "c": 33.216,
@@ -207,34 +298,34 @@
    },
    {
     "c": 1610.74,
-    "pred": 1821.3,
+    "pred": 1821.4,
     "found": false,
     "text": "I got mine right here at the desk."
    },
    {
     "c": 2419.235,
-    "pred": 2629.8,
+    "pred": 2629.9,
     "found": false,
     "text": "I think is moot, yeah, because precisely..."
    },
    {
     "c": 3352.685,
-    "pred": 4191.3,
-    "err": 0.13,
+    "pred": 4134.1,
+    "err": 0.22,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 4227.22,
-    "pred": 5065.9,
-    "err": 0.07,
+    "pred": 5008.7,
+    "err": 0.16,
     "ok": true,
     "score": 0.857
    }
   ],
   "accuracy": 0.5,
   "verdict": "check",
-  "sec": 285
+  "sec": 280
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/afbd76b8-eff2-442a-b938-b28e0126edad/d08826cd-f888-4cd3-b700-b28e0126edbb/podcast.rss": {
   "title": "Heavyweight",
@@ -260,60 +351,90 @@
   "sync": "ok",
   "refs": 19,
   "listener": {
-   "duration": 2499.6,
+   "duration": 2507.2,
    "refs_ok": 19,
    "refs": 19,
    "offsets": [
-    112.0,
-    113.1,
-    113.2
+    122.9,
+    124.0,
+    124.1
    ]
   },
+  "cue_fix": [
+   [
+    23.4,
+    -0.15
+   ],
+   [
+    229.6,
+    -0.28
+   ],
+   [
+    407.5,
+    -0.28
+   ],
+   [
+    591.2,
+    -0.17
+   ],
+   [
+    763.8,
+    -0.15
+   ],
+   [
+    950.8,
+    -0.04
+   ],
+   [
+    1132.2,
+    0.02
+   ]
+  ],
   "points": [
    {
     "c": 31.14,
-    "pred": 144.3,
-    "err": -0.8,
+    "pred": 155.0,
+    "err": -0.64,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 459.531,
-    "pred": 572.7,
-    "err": -0.41,
+    "pred": 583.3,
+    "err": -0.24,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 833.897,
-    "pred": 947.0,
-    "err": 0.04,
+    "pred": 957.8,
+    "err": 0.16,
     "ok": true,
     "score": 0.714
    },
    {
     "c": 1229.24,
-    "pred": 1342.4,
+    "pred": 1353.3,
     "err": -1.32,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 1588.52,
-    "pred": 1700.6,
+    "pred": 1711.5,
     "found": false,
     "text": "But then at the last minute, I was like, I could just call u"
    },
    {
     "c": 2023.242,
-    "pred": 2135.3,
+    "pred": 2146.2,
     "found": false,
     "text": "Thank you. Thank you so much."
    }
   ],
   "accuracy": 0.67,
   "verdict": "check",
-  "sec": 120
+  "sec": 161
  },
  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/2e824128-fbd5-4c9e-9a57-ae2f0056b0c4/66d98a23-900c-44b0-a40b-ae2f0056b0db/podcast.rss": {
   "title": "Stuff They Don't Want You To Know",
@@ -339,61 +460,112 @@
   "sync": "ok",
   "refs": 20,
   "listener": {
-   "duration": 2518.4,
+   "duration": 2532.3,
    "refs_ok": 20,
    "refs": 20,
    "offsets": [
-    163.2,
-    165.0,
-    358.6
+    203.3,
+    203.4,
+    205.2,
+    389.4
    ]
   },
+  "cue_fix": [
+   [
+    33.1,
+    0.06
+   ],
+   [
+    214.0,
+    -0.3
+   ],
+   [
+    385.7,
+    -0.49
+   ],
+   [
+    573.1,
+    -0.65
+   ],
+   [
+    760.5,
+    -0.65
+   ],
+   [
+    888.4,
+    -0.11
+   ],
+   [
+    1040.1,
+    -0.07
+   ],
+   [
+    1285.8,
+    -0.04
+   ],
+   [
+    1406.6,
+    -0.04
+   ],
+   [
+    1584.2,
+    -0.04
+   ],
+   [
+    1734.1,
+    0.41
+   ],
+   [
+    1936.7,
+    0.19
+   ]
+  ],
   "points": [
    {
     "c": 33.074,
-    "pred": 196.3,
-    "err": 0.44,
+    "pred": 236.5,
+    "err": 0.38,
     "ok": true,
     "score": 0.929
    },
    {
     "c": 408.37,
-    "pred": 573.4,
-    "err": -0.37,
+    "pred": 613.1,
+    "err": 0.08,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 805.332,
-    "pred": 970.3,
-    "err": -0.34,
+    "pred": 1010.1,
+    "err": -0.01,
     "ok": true,
-    "score": 0.857
+    "score": 1.0
    },
    {
     "c": 1162.192,
-    "pred": 1520.7,
-    "err": 0.71,
+    "pred": 1551.5,
+    "err": 0.78,
     "ok": true,
     "score": 1.0
    },
    {
     "c": 1546.884,
-    "pred": 1905.4,
-    "err": 0.7,
+    "pred": 1936.2,
+    "err": 0.67,
     "ok": true,
-    "score": 0.929
+    "score": 1.0
    },
    {
     "c": 1936.67,
-    "pred": 2295.2,
-    "err": 0.39,
+    "pred": 2326.3,
+    "err": 0.21,
     "ok": true,
     "score": 0.741
    }
   ],
   "accuracy": 1.0,
   "verdict": "keep",
-  "sec": 163
+  "sec": 188
  }
 }
