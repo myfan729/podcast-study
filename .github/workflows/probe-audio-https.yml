@@ -17,15 +17,15 @@ jobs:
           s = http_session()
           for f in json.load(open("tools/catalog/catalog.json"))["shows"]:
               try:
-                  _, eps = parse_feed(http_get_text(s, f["feed_url"]))
-                  raw = next(e for e in eps if e.audio_url).audio_url
+                  import re
+                  raw = re.search(r'<enclosure[^>]*url="([^"]+)"', http_get_text(s, f["feed_url"])).group(1).replace("&amp;", "&")
               except Exception as e:
                   print(f"::notice::{f['title']} | feed error {e}"[:300]); continue
-              if not raw.lower().startswith("http://") and raw == secure_audio(raw):
+              if raw == secure_audio(raw):
                   continue
               try:
-                  r = s.get(raw, stream=True, timeout=30); chain = [h.url[:60] for h in r.history] + [r.url[:90]]
-                  print(f"::notice::{f['title']} | {r.status_code} {r.headers.get('content-type')} | {' > '.join(chain)}"[:500])
+                  r = s.get(secure_audio(raw), stream=True, timeout=30); chain = [h.url[:60] for h in r.history] + [r.url[:90]]
+                  print(f"::notice::{f['title']} | {r.status_code} {r.headers.get('content-type')} | raw={raw[:70]} | {' > '.join(chain)}"[:500])
               except Exception as e:
                   print(f"::notice::{f['title']} | ERR {e}"[:300])
           PY
