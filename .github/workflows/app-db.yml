@@ -34,4 +34,7 @@ jobs:
         with: { python-version: "3.12" }
       - name: Seed the verified show catalog
         if: env.SUPABASE_URL != '' && env.SUPABASE_SERVICE_KEY != '' && hashFiles('tools/catalog/catalog.json') != ''
-        run: pip install -r requirements.txt && python -m pipeline.app_worker seed tools/catalog/catalog.json
+        run: |
+          pip install -q -r requirements.txt
+          python -m pipeline.app_worker seed tools/catalog/catalog.json 2> /tmp/seed.log || { echo "::error::$(tail -c 900 /tmp/seed.log | tr '\n' ' ')"; exit 1; }
+          echo "::notice::$(grep -E 'seeded|dropped' /tmp/seed.log | tr '\n' ' ' | tail -c 900)"
