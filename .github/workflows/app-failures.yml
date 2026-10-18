@@ -27,5 +27,5 @@ jobs:
               count(*) filter (where e.status='ready') as ready, count(*) filter (where e.status='failed') as failed, count(*) filter (where e.status in ('queued','prefetch','processing')) as pending,
               count(*) filter (where e.status='ready' and e.sync_path is null) as ready_nosync
             from public.episodes e join public.shows s on s.id=e.show_id
-            where s.title ilike any (array['%life kit%','%indicator%','%big take%','%up first%'])
+            where s.title ilike any (array['%6 minute%','%sbs learn%','%big take%','%up first%'])
             group by s.title" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g" | while IFS= read -r l; do echo "::notice title=show stats (title|with transcript|no transcript|ready|failed|pending|ready w/o sync)::$l"; done
