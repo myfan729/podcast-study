@@ -58,7 +58,12 @@ export default function Home() {
           </View>
         ) : (
           <>
-            {fresh.length > 0 && <Text style={s.sec}>새로 올라온 에피소드</Text>}
+            {fresh.length > 0 && <View style={s.secRow}>
+              <Text style={[s.sec, { paddingHorizontal: 0, marginTop: 0, marginBottom: 0 }]}>새로 올라온 에피소드</Text>
+              <Link href={{ pathname: '/discover', params: { tab: 'subs' } }} asChild>
+                <Pressable hitSlop={8} accessibilityRole="button"><Text style={s.manage}>구독 {subs?.length ?? 0}개 관리 ›</Text></Pressable>
+              </Link>
+            </View>}
             <FlatList horizontal data={fresh} keyExtractor={(e) => e.id} showsHorizontalScrollIndicator={false}
               contentContainerStyle={{ paddingHorizontal: 22, gap: 12 }}
               renderItem={({ item }) => (
@@ -91,6 +96,8 @@ const s = StyleSheet.create({
   play: { width: 56, height: 56, borderRadius: 28, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', paddingLeft: 3 },
   track: { height: 5, borderRadius: 3, backgroundColor: 'rgba(255,255,255,0.3)', marginTop: 10 },
   fill: { height: 5, borderRadius: 3, backgroundColor: '#fff' },
+  secRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 22, marginTop: 26, marginBottom: 12 },
+  manage: { color: C.accent, fontSize: 13, fontWeight: '700' },
   sec: { fontSize: 16, fontWeight: '700', color: C.ink, paddingHorizontal: 22, marginTop: 26, marginBottom: 12 },
   tile: { width: 150, padding: 12, borderRadius: R.tile, backgroundColor: C.sheet, gap: 6 },
   tileShow: { color: C.ink3, fontSize: 11.5, marginTop: 4 },

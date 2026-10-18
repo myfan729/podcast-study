@@ -1,5 +1,5 @@
-import { Link, useFocusEffect } from 'expo-router';
-import { useCallback, useMemo, useState } from 'react';
+import { Link, useFocusEffect, useLocalSearchParams } from 'expo-router';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Art, Chip, Icon, PageTitle } from '@/components/ui';
@@ -7,6 +7,7 @@ import * as api from '@/lib/api';
 import type { Show } from '@/lib/types';
 import { C, F, R } from '@/lib/theme';
 
+const MY = '구독 중';
 const LEVELS = ['초급', '초중', '중', '중상', '상'];                 // easy → hard
 const rank = (lv?: string | null) => { const i = LEVELS.indexOf(lv ?? ''); return i < 0 ? 99 : i; };
 type Sort = 'name' | 'easy' | 'hard';
@@ -16,19 +17,23 @@ export default function Discover() {
   const [shows, setShows] = useState<Show[]>([]);
   const [subs, setSubs] = useState<Set<string>>(new Set());
   const [q, setQ] = useState('');
-  const [cat, setCat] = useState('전체');
+  const params = useLocalSearchParams<{ tab?: string }>();
+  const [cat, setCat] = useState(params.tab === 'subs' ? MY : '전체');
+  useEffect(() => { if (params.tab === 'subs') setCat(MY); }, [params.tab]);
+  const [dropped, setDropped] = useState<Set<string>>(new Set());   // unsubscribed while looking at "구독 중": stay listed (undo)
   const [sort, setSort] = useState<Sort>('name');
   useFocusEffect(useCallback(() => {
     api.catalog().then(setShows).catch(() => {});
     api.mySubscriptions().then((ids) => setSubs(new Set(ids))).catch(() => {});
   }, []));
-  const cats = useMemo(() => ['전체', ...Array.from(new Set(shows.map((x) => x.category).filter(Boolean) as string[]))], [shows]);
-  const list = shows.filter((x) => (cat === '전체' || x.category === cat) &&
+  const cats = useMemo(() => ['전체', MY, ...Array.from(new Set(shows.map((x) => x.category).filter(Boolean) as string[]))], [shows]);
+  const list = shows.filter((x) => (cat === '전체' || x.category === cat || (cat === MY && (subs.has(x.id) || dropped.has(x.id)))) &&
     (!q || (x.title + ' ' + (x.author ?? '')).toLowerCase().includes(q.toLowerCase())))
     .sort((a, b) => sort === 'name' ? a.title.localeCompare(b.title)
       : (sort === 'easy' ? rank(a.level) - rank(b.level) : (rank(b.level) % 99) - (rank(a.level) % 99)) || a.title.localeCompare(b.title));
   const toggle = async (id: string) => {
     const on = !subs.has(id);
+    if (cat === MY) setDropped((d) => { const n = new Set(d); on ? n.delete(id) : n.add(id); return n; });
     const next = new Set(subs); on ? next.add(id) : next.delete(id); setSubs(next);
     try { await api.setSubscribed(id, on); } catch { setSubs(subs); }
   };
@@ -42,7 +47,7 @@ export default function Discover() {
       </View>
       <FlatList horizontal data={cats} keyExtractor={(c) => c} style={{ flexGrow: 0, minHeight: 50 }}
         contentContainerStyle={{ paddingHorizontal: 22, gap: 8, alignItems: 'center' }} showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => <Chip label={item} on={cat === item} onPress={() => setCat(item)} />} />
+        renderItem={({ item }) => <Chip label={item === MY ? `구독 중 ${subs.size}` : item} on={cat === item} onPress={() => { setCat(item); setDropped(new Set()); }} />} />
       <View style={s.sortRow}>
         <Icon name="swap-vertical" size={15} color={C.ink3} />
         {SORTS.map((o) => (
@@ -52,7 +57,7 @@ export default function Discover() {
           </Pressable>))}
       </View>
       <FlatList contentContainerStyle={{ padding: 16, paddingTop: 8 }} data={list} keyExtractor={(x) => x.id}
-        ListEmptyComponent={<Text style={s.none}>{shows.length ? '찾는 쇼가 없어요.' : '불러오는 중…'}</Text>}
+        ListEmptyComponent={<Text style={s.none}>{!shows.length ? '불러오는 중…' : cat === MY ? '구독한 쇼가 없어요.' : '찾는 쇼가 없어요.'}</Text>}
         renderItem={({ item }) => {
           const on = subs.has(item.id);
           return (
@@ -67,11 +72,16 @@ export default function Discover() {
                   </View>
                   {item.intro_ko ? <Text style={s.intro} numberOfLines={2}>{item.intro_ko}</Text> : null}
                 </View>
-                <Pressable onPress={() => toggle(item.id)} accessibilityLabel={on ? '구독 취소' : '구독'} hitSlop={6}
-                  style={[s.sub, on && { backgroundColor: C.accent }]}>
-                  <Icon name={on ? 'checkmark' : 'add'} size={16} color={on ? '#fff' : C.accent} />
-                  <Text style={[s.subT, on && { color: '#fff' }]}>{on ? '구독 중' : '구독'}</Text>
-                </Pressable>
+                {cat === MY && on ? (
+                  <Pressable onPress={() => toggle(item.id)} accessibilityLabel={`${item.title} 구독 취소`} hitSlop={6} style={s.cancel}>
+                    <Text style={s.cancelT}>구독 취소</Text>
+                  </Pressable>
+                ) : (
+                  <Pressable onPress={() => toggle(item.id)} accessibilityLabel={on ? '구독 취소' : '구독'} hitSlop={6}
+                    style={[s.sub, on && { backgroundColor: C.accent }]}>
+                    <Icon name={on ? 'checkmark' : 'add'} size={16} color={on ? '#fff' : C.accent} />
+                    <Text style={[s.subT, on && { color: '#fff' }]}>{on ? '구독 중' : cat === MY ? '다시 구독' : '구독'}</Text>
+                  </Pressable>)}
               </Pressable>
             </Link>);
         }} />
@@ -92,6 +102,8 @@ const s = StyleSheet.create({
   title: { color: C.ink, fontFamily: F.enB, fontSize: 15.5 },
   meta: { color: C.ink3, fontSize: 12.5, marginTop: 3 },
   intro: { color: C.ink2, fontSize: 12, marginTop: 4, lineHeight: 16 },
+  cancel: { borderWidth: 1.5, borderColor: C.warn, borderRadius: R.pill, paddingHorizontal: 12, minHeight: 38, justifyContent: 'center' },
+  cancelT: { color: C.warn, fontWeight: '700', fontSize: 13 },
   sub: { flexDirection: 'row', alignItems: 'center', gap: 3, backgroundColor: C.accentSoft, borderRadius: R.pill, paddingHorizontal: 12, minHeight: 38 },
   subT: { color: C.accent, fontWeight: '700', fontSize: 13 },
   none: { color: C.ink3, textAlign: 'center', marginTop: 40 },

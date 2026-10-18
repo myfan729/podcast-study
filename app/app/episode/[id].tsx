@@ -11,7 +11,7 @@ import SeekBar from '@/components/SeekBar';
 import ListenView from '@/components/ListenView';
 import { useNowPlaying } from '@/lib/nowPlaying';
 import * as api from '@/lib/api';
-import { addAnchor, toAudio, toContent, type Anchor } from '@/lib/timeline';
+import { addAnchor, inAd, toAudio, toContent, type Anchor } from '@/lib/timeline';
 import type { Episode, Expression, Pack, RequestResult } from '@/lib/types';
 import { C, F, R, fmt, shadow } from '@/lib/theme';
 
@@ -295,6 +295,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
       {peek && <PeekCard pack={pack} peek={peek} episodeId={ep.id} onClose={() => setPeek(null)} />}
       {auto === 'working' && <View style={st.syncHint}><ActivityIndicator size="small" color={C.accent} /><Text style={st.syncT}>{autoMsg || '자동 싱크 준비 중…'} 끝나면 재생할 수 있어요</Text></View>}
       {auto === 'off' && !ep.sync_path && Platform.OS !== 'web' && !syncMode && !anchors.length && <View style={st.syncHint}><ActivityIndicator size="small" color={C.accent} /><Text style={st.syncT}>싱크 데이터 준비 중 · 그동안은 문장이 조금 어긋날 수 있어요</Text></View>}
+      {anchors.length > 0 && !syncMode && inAd(status.currentTime ?? 0, anchors) && <View style={st.syncHint}><Icon name="megaphone-outline" size={16} color={C.accent} /><Text style={st.syncT}>광고 중 · 끝나면 다시 따라가요</Text></View>}
       {auto === 'failed' && !syncMode && !anchors.length && <View style={st.syncHint}><Icon name="information-circle-outline" size={16} color={C.accent} /><Text style={st.syncT}>자동 싱크 실패 · 싱크를 누르고 들리는 문장을 눌러 주세요</Text></View>}
       {syncMode && <View style={st.syncHint}><Icon name="hand-left-outline" size={16} color={C.accent} /><Text style={st.syncT}>지금 들리는 문장을 눌러 주세요</Text></View>}
       <View style={[st.bar, { marginBottom: Math.max(insets.bottom, 0) + 12 }]}>

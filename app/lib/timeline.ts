@@ -10,8 +10,18 @@ export function toAudio(c: number, anchors: Anchor[]): number {
 }
 export function toContent(a: number, anchors: Anchor[]): number {
   let off = anchors.length ? anchors[0].a - anchors[0].c : 0;
-  for (const an of anchors) { if (an.a <= a + 0.01) off = an.a - an.c; else break; }
+  let next: Anchor | undefined;
+  for (const an of anchors) { if (an.a <= a + 0.01) off = an.a - an.c; else { next = an; break; } }
+  // inside an ad break: the transcript clock stops at the break (holds the sentence before it)
+  // instead of running on into the next stretch, which would highlight sentences nobody is saying
+  if (next && a - off >= next.c) return next.c - 0.05;
   return a - off;
+}
+/** Is this audio position inside an inserted ad (between the end of one stretch and the next anchor)? */
+export function inAd(a: number, anchors: Anchor[]): boolean {
+  let off = anchors.length ? anchors[0].a - anchors[0].c : 0;
+  for (const an of anchors) { if (an.a <= a + 0.01) off = an.a - an.c; else return a - off >= an.c; }
+  return false;
 }
 export function addAnchor(anchors: Anchor[], c: number, a: number): Anchor[] {
   // replace anchors in the same stretch (within 20 s of content time) and keep them sorted
