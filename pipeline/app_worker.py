@@ -191,12 +191,16 @@ def refresh(db: Supa, only: str | None = None) -> int:
     return n
 
 
+MAX_STUDY_SEC = 3600   # study packs only for episodes up to 60 min (same limit in request_episode)
+
+
 def prefetch(db: Supa, per_show: int = 1) -> int:
     """Mark the newest unbuilt episode(s) of every show someone follows, so it is ready before anyone opens it."""
     followed = {r["show_id"] for r in db.select("subscriptions", "select=show_id")}
     n = 0
     for sid in followed:
         eps = db.select("episodes", f"select=id,status,published_at&show_id=eq.{sid}&has_transcript=eq.true"
+                                     f"&or=(duration_sec.is.null,duration_sec.lte.{MAX_STUDY_SEC})"   # longer ones: listen only
                                      f"&order=published_at.desc&limit={per_show}")
         for e in eps:
             if e["status"] == "none":

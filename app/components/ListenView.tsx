@@ -9,7 +9,7 @@ import { Art, Icon, RoundBtn } from '@/components/ui';
 import SeekBar from '@/components/SeekBar';
 import * as api from '@/lib/api';
 import { useNowPlaying } from '@/lib/nowPlaying';
-import { FREE_PER_WEEK } from '@/lib/config';
+import { FREE_PER_WEEK, MAX_STUDY_SEC } from '@/lib/config';
 import type { Episode } from '@/lib/types';
 import { C, F, R, fmt } from '@/lib/theme';
 
@@ -38,7 +38,8 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
   const dur = status.duration || ep.duration_sec || 1;
   const pct = Math.min(1, (status.currentTime ?? 0) / dur);
   const left = plan?.free_left ?? 0;
-  const canMake = ep.has_transcript && (unlocked || plan?.pro || left > 0);
+  const tooLong = !unlocked && (ep.duration_sec ?? 0) > MAX_STUDY_SEC;     // study material: episodes up to 60 min
+  const canMake = ep.has_transcript && !tooLong && (unlocked || plan?.pro || left > 0);
 
   const study = async () => {
     if (unlocked) { leave(); return; }
@@ -48,7 +49,8 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
         const r = await api.requestEpisode(ep.id);
         if (r.unlocked) leave();
         else Alert.alert(r.reason === 'quota' ? '이번 주 무료 학습자료를 다 썼어요' : '학습자료를 만들 수 없어요',
-          r.reason === 'quota' ? '무료는 일주일에 2편까지예요. 듣기는 계속 무제한이에요.' : '방송사 대본이 아직 없어요. 나중에 다시 시도해 주세요.');
+          r.reason === 'quota' ? '무료는 일주일에 2편까지예요. 듣기는 계속 무제한이에요.'
+            : r.reason === 'too_long' ? '학습자료는 60분 이하 에피소드만 만들 수 있어요.' : '방송사 대본이 아직 없어요. 나중에 다시 시도해 주세요.');
       } catch (e: any) { Alert.alert('문제가 생겼어요', String(e?.message ?? e)); } finally { setBusy(false); }
     };
     if (plan?.pro) { go(); return; }
@@ -80,13 +82,15 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
           <Text style={s.studyP}>대본을 문장별로 따라가며 듣고, 한국어 번역과 단어·표현 정리를 볼 수 있어요.</Text>
           {!ep.has_transcript
             ? <Text style={s.note}>이 에피소드는 방송사 대본이 없어 학습자료를 만들 수 없어요.</Text>
+            : tooLong
+            ? <Text style={s.note}>학습자료는 60분 이하 에피소드만 만들 수 있어요. 이 에피소드는 듣기만 할 수 있어요.</Text>
             : (
               <Pressable onPress={study} disabled={busy || !canMake} accessibilityRole="button"
                 style={[s.studyBtn, (!canMake) && { opacity: 0.45 }]}>
                 {busy ? <ActivityIndicator color="#fff" /> : <Text style={s.studyBtnT}>
                   {unlocked ? '학습 모드로 보기' : canMake ? '학습자료 만들기' : '이번 주 무료 횟수를 다 썼어요'}</Text>}
               </Pressable>)}
-          {!unlocked && plan && !plan.pro && !canMake && ep.has_transcript
+          {!unlocked && plan && !plan.pro && !canMake && ep.has_transcript && !tooLong
             ? <Text style={s.note}>프로는 무제한이에요. 듣기는 계속 무료예요.</Text> : null}
         </View>
 

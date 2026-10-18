@@ -10,3 +10,4 @@ export const PRIVACY_URL = SITE_URL + 'privacy.html';
 export const TERMS_URL = SITE_URL + 'terms.html';
 export const TERMS_VERSION = '2026-10-18';      // bump with docs/terms.html; users re-agree when it changes
 export const PRIVACY_VERSION = '2026-10-18';    // bump with docs/privacy.html
+export const MAX_STUDY_SEC = 3600;            // study material only for episodes up to 60 min (server enforces it too)

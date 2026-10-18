@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { Episode } from '@/lib/types';
 import { C, F, dateKo, mins } from '@/lib/theme';
 import { Art } from './ui';
+import { MAX_STUDY_SEC } from '@/lib/config';
 
 // every episode can be listened to; the badge only says where its study material stands
 const BADGE: Record<string, { t: string; bg: string; fg: string }> = {
@@ -13,7 +14,8 @@ const BADGE: Record<string, { t: string; bg: string; fg: string }> = {
 };
 
 export default function EpisodeRow({ ep, showTitle }: { ep: Episode; showTitle?: boolean }) {
-  const b = !ep.has_transcript || ep.status === 'no_transcript' ? BADGE.listen : BADGE[ep.status];
+  const listenOnly = !ep.has_transcript || ep.status === 'no_transcript' || ((ep.duration_sec ?? 0) > MAX_STUDY_SEC && ep.status !== 'ready');
+  const b = listenOnly ? BADGE.listen : BADGE[ep.status];
   return (
     <Link href={{ pathname: '/episode/[id]', params: { id: ep.id } }} asChild>
       <Pressable style={s.row}>

@@ -9,7 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    concurrency: { group: app-worker, cancel-in-progress: false }   # only the build waits in line; sync runs beside the next build
+    # no queue: every user request starts its own run at once; episodes are claimed atomically (queued → processing),
+    # so parallel runs never build the same one
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
@@ -35,7 +36,7 @@ jobs:
           pip install -r requirements.txt -r requirements-sync.txt   # web/NPR packs use speech recognition too
       - if: steps.cfg.outputs.on == 'true'
         name: Build requested episodes (study pack → ready)
-        run: python -m pipeline.app_worker process --max 6
+        run: python -m pipeline.app_worker process --max 3
   sync:
     runs-on: ubuntu-latest
     timeout-minutes: 60
