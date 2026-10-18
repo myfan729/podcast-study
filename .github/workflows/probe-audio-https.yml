@@ -1,0 +1,31 @@
+name: Probe — feed audio over https
+on: { workflow_dispatch: {} }
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -q -r requirements.txt
+      - run: |
+          python - <<'PY'
+          import json
+          from pipeline.util import http_session, http_get_text
+          from pipeline.feeds import parse_feed, secure_audio
+          s = http_session()
+          for f in json.load(open("tools/catalog/catalog.json"))["shows"]:
+              try:
+                  _, eps = parse_feed(http_get_text(s, f["feed_url"]))
+                  raw = next(e for e in eps if e.audio_url).audio_url
+              except Exception as e:
+                  print(f"::notice::{f['title']} | feed error {e}"[:300]); continue
+              if not raw.lower().startswith("http://") and raw == secure_audio(raw):
+                  continue
+              try:
+                  r = s.get(raw, stream=True, timeout=30); chain = [h.url[:60] for h in r.history] + [r.url[:90]]
+                  print(f"::notice::{f['title']} | {r.status_code} {r.headers.get('content-type')} | {' > '.join(chain)}"[:500])
+              except Exception as e:
+                  print(f"::notice::{f['title']} | ERR {e}"[:300])
+          PY
