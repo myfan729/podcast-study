@@ -449,6 +449,32 @@
    "title": "Supercore inflation, Bumble valuation and Pooh's repatriation",
    "published_at": "2026-10-16T07:00:00Z",
    "done_at": "2026-10-17T03:28:35Z"
+  },
+  "planet-money:3c36a76656a5": {
+   "first_seen": "2026-10-18T09:35:44Z",
+   "attempts": 1,
+   "occasion": "2026-10-19-morning",
+   "slot": "morning",
+   "pick": "fallback",
+   "assigned_at": "2026-10-18T09:35:44Z",
+   "status": "done",
+   "id": "planet-money-2026-10-16-anatomy-of-a-movie-market",
+   "title": "Anatomy of a movie market",
+   "published_at": "2026-10-16T21:30:00Z",
+   "done_at": "2026-10-18T09:38:21Z"
+  },
+  "cautionary-tales:8c6f025585d6": {
+   "first_seen": "2026-10-18T09:38:21Z",
+   "attempts": 1,
+   "occasion": "2026-10-18-evening",
+   "slot": "evening",
+   "pick": "fallback",
+   "assigned_at": "2026-10-18T09:38:21Z",
+   "status": "done",
+   "id": "cautionary-tales-2026-10-16-a-tale-of-blood-and-ashes-the-exeter-vampires-halloween",
+   "title": "A Tale of Blood and Ashes: The Exeter Vampires | Halloween Season",
+   "published_at": "2026-10-16T04:01:00Z",
+   "done_at": "2026-10-18T09:40:02Z"
   }
  }
 }

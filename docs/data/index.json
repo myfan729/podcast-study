@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-17T03:28:35Z",
+ "generated_at": "2026-10-18T09:40:02Z",
  "shows": [
   {
    "slug": "big-take",
@@ -56,9 +56,66 @@
    "publisher": "Bloomberg",
    "color": "#1e7f8c",
    "homepage": ""
+  },
+  {
+   "slug": "planet-money",
+   "name": "Planet Money",
+   "publisher": "NPR",
+   "color": "#2b7bd6",
+   "homepage": ""
+  },
+  {
+   "slug": "short-wave",
+   "name": "Short Wave",
+   "publisher": "NPR",
+   "color": "#3a9d5d",
+   "homepage": ""
+  },
+  {
+   "slug": "cautionary-tales",
+   "name": "Cautionary Tales",
+   "publisher": "Pushkin Industries",
+   "color": "#b5482b",
+   "homepage": ""
+  },
+  {
+   "slug": "odd-lots",
+   "name": "Odd Lots",
+   "publisher": "Bloomberg",
+   "color": "#7a3fd1",
+   "homepage": ""
+  },
+  {
+   "slug": "heres-the-thing",
+   "name": "Here's The Thing",
+   "publisher": "iHeartPodcasts",
+   "color": "#c47d12",
+   "homepage": ""
   }
  ],
  "episodes": [
+  {
+   "id": "planet-money-2026-10-16-anatomy-of-a-movie-market",
+   "show": "planet-money",
+   "title": "Anatomy of a movie market",
+   "published_at": "2026-10-16T21:30:00Z",
+   "duration_sec": 1900,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F2b%2Fb9%2F03db88d849f1b282104964fb7f92%2Fc3b2dfd5-c154-4e7c-b8ea-be8b749824b0.jpg",
+   "one_liner_ko": "인디 영화가 선댄스에서 어떻게 팔리는지, 세일즈 에이전트 존 슬로스와 에릭 슬로스를 따라가며 보여주는 영화 시장의 해부 이야기.",
+   "tags": [
+    "film industry",
+    "Sundance",
+    "negotiation",
+    "streaming",
+    "deal-making"
+   ],
+   "cefr": "C1",
+   "expressions": 18,
+   "words": 5921,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
   {
    "id": "big-take-2026-10-16-the-diamond-industrys-battle-for-your-ring-finger",
    "show": "big-take",
@@ -123,6 +180,29 @@
    "cefr": "C1",
    "expressions": 12,
    "words": 1653,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "cautionary-tales-2026-10-16-a-tale-of-blood-and-ashes-the-exeter-vampires-halloween",
+   "show": "cautionary-tales",
+   "title": "A Tale of Blood and Ashes: The Exeter Vampires | Halloween Season",
+   "published_at": "2026-10-16T04:01:00Z",
+   "duration_sec": 2264,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/c0ae8c6e-22f0-4e9b-ac1c-ae390037ac53/439146c5-6a95-4295-99bc-b4e3011ace0a/image.jpg?t=1791998502&size=Large",
+   "one_liner_ko": "1890년대 로드아일랜드 엑시터에서 결핵으로 가족을 잃어가던 조지 브라운이 왜 '흡혈귀 의식'에 동의했는지를, 과학과 미신의 이분법이 아니라 '치료 충동(treatment imperative)'으로 설명하는 에피소드.",
+   "tags": [
+    "history of medicine",
+    "tuberculosis",
+    "folklore",
+    "action bias",
+    "decision-making",
+    "science vs superstition"
+   ],
+   "cefr": "C1",
+   "expressions": 19,
+   "words": 4327,
    "has_translation": true,
    "mock": false,
    "demo": false

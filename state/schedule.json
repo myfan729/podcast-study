@@ -74,10 +74,12 @@
   "2026-10-18-evening": {
    "post_at": "2026-10-18T18:00:00+09:00",
    "has": [],
-   "adding": [],
+   "adding": [
+    "cautionary-tales (fallback): A Tale of Blood and Ashes: The Exeter Vampires | Halloween Season"
+   ],
    "waiting_for": [],
    "expected": [],
-   "checked_at": "2026-10-17T12:11:10Z"
+   "checked_at": "2026-10-18T09:38:21Z"
   },
   "2026-10-18-morning": {
    "post_at": "2026-10-18T07:00:00+09:00",
@@ -96,7 +98,9 @@
   "2026-10-19-morning": {
    "post_at": "2026-10-19T07:00:00+09:00",
    "has": [],
-   "adding": [],
+   "adding": [
+    "planet-money (fallback): Anatomy of a movie market"
+   ],
    "waiting_for": [
     "up-first",
     "big-take"
@@ -104,8 +108,8 @@
    "expected": [
     "big-take"
    ],
-   "checked_at": "2026-10-18T01:00:32Z"
+   "checked_at": "2026-10-18T09:35:44Z"
   }
  },
- "updated_at": "2026-10-18T01:00:32Z"
+ "updated_at": "2026-10-18T09:38:21Z"
 }
