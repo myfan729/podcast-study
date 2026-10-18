@@ -81,15 +81,15 @@
   },
   "2026-10-19-evening": {
    "post_at": "2026-10-19T18:00:00+09:00",
-   "has": [],
-   "adding": [
-    "odd-lots (fallback): The French Political Crisis That's Turning Into a Debt Crisis"
+   "has": [
+    "odd-lots: The French Political Crisis That's Turning Into a Debt Crisis"
    ],
+   "adding": [],
    "waiting_for": [],
    "expected": [
     "odd-lots"
    ],
-   "checked_at": "2026-10-18T12:01:12Z"
+   "checked_at": "2026-10-18T12:17:43Z"
   },
   "2026-10-19-morning": {
    "post_at": "2026-10-19T07:00:00+09:00",
@@ -107,5 +107,5 @@
    "checked_at": "2026-10-18T10:17:56Z"
   }
  },
- "updated_at": "2026-10-18T12:01:12Z"
+ "updated_at": "2026-10-18T12:17:43Z"
 }
