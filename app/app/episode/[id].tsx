@@ -42,16 +42,23 @@ function StudyFlow({ id }: { id: string }) {
   const [req, setReq] = useState<RequestResult | null>(null);
   const [pack, setPack] = useState<Pack | null>(null);
   const [err, setErr] = useState('');
+  const packLoaded = useRef(false);
 
   // 1) unlock + queue, 2) poll until ready, 3) load the pack
   useEffect(() => {
     let alive = true, timer: ReturnType<typeof setTimeout> | undefined;
+    const started = Date.now();
     const tick = async () => {
       try {
         const e = await api.episode(id);
         if (!alive) return;
         setEp(e);
-        if (e.status === 'ready' && e.pack_path) { setPack(await api.pack(e.pack_path)); return; }
+        if (e.status === 'ready' && e.pack_path) {
+          if (!packLoaded.current) { packLoaded.current = true; setPack(await api.pack(e.pack_path)); }
+          // the sync data (ad-aware timing) is built a few minutes after the pack: keep checking until it exists
+          if (!e.sync_path && Date.now() - started < 20 * 60_000) timer = setTimeout(tick, 15000);
+          return;
+        }
         if (e.status === 'failed' || e.status === 'no_transcript') return;
         timer = setTimeout(tick, 8000);
       } catch (x: any) { setErr(x.message); }
@@ -85,7 +92,8 @@ function StudyFlow({ id }: { id: string }) {
       ? <Center icon="alert-circle-outline" title="준비하지 못했어요" text="이 에피소드는 대본을 만들 수 없었어요. 다른 에피소드를 골라 주세요." />
       : <Center spin title="학습자료를 만들고 있어요" text={'대본·번역·표현을 만드는 중이에요.\n보통 1~3분 걸려요.\n이 화면을 나가도 계속 만들어져요.'} />;
   }
-  return <Player pack={pack} ep={ep!} />;
+  // remount when the sync data arrives, so the player switches to the aligned copy (from the same position)
+  return <Player key={ep!.sync_path ? 'synced' : 'plain'} pack={pack} ep={ep!} />;
 }
 
 function Center({ text, title, spin, icon, children }: { text?: string; title?: string; spin?: boolean; icon?: 'lock-closed' | 'document-text-outline' | 'alert-circle-outline' | 'time-outline'; children?: ReactNode }) {
@@ -273,7 +281,11 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
           ListFooterComponent={<Credit pack={pack} ep={ep} />}
           CellRendererComponent={Cell}
           onScrollBeginDrag={() => { userScroll.current = Date.now(); pinned.current = -1; }}
-          onScrollToIndexFailed={() => {}}
+          onScrollToIndexFailed={(info) => {
+            listRef.current?.scrollToOffset({ offset: Math.max(0, info.averageItemLength * info.index - 40), animated: false });
+            setTimeout(() => alignCur(false), 150);
+          }}
+          windowSize={31}
           renderItem={({ item, index }) => <SentRow sn={item} state={index === cur ? 'cur' : index < cur ? 'past' : 'next'} ko={ko} onPress={onSentence} onMark={setPeek} />} />
         </View>
       ) : (
@@ -281,6 +293,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
       )}
       {peek && <PeekCard pack={pack} peek={peek} episodeId={ep.id} onClose={() => setPeek(null)} />}
       {auto === 'working' && <View style={st.syncHint}><ActivityIndicator size="small" color={C.accent} /><Text style={st.syncT}>{autoMsg || '자동 싱크 준비 중…'} 끝나면 재생할 수 있어요</Text></View>}
+      {auto === 'off' && !ep.sync_path && Platform.OS !== 'web' && !syncMode && !anchors.length && <View style={st.syncHint}><ActivityIndicator size="small" color={C.accent} /><Text style={st.syncT}>싱크 데이터 준비 중 · 그동안은 문장이 조금 어긋날 수 있어요</Text></View>}
       {auto === 'failed' && !syncMode && !anchors.length && <View style={st.syncHint}><Icon name="information-circle-outline" size={16} color={C.accent} /><Text style={st.syncT}>자동 싱크 실패 · 싱크를 누르고 들리는 문장을 눌러 주세요</Text></View>}
       {syncMode && <View style={st.syncHint}><Icon name="hand-left-outline" size={16} color={C.accent} /><Text style={st.syncT}>지금 들리는 문장을 눌러 주세요</Text></View>}
       <View style={[st.bar, { marginBottom: Math.max(insets.bottom, 0) + 12 }]}>
@@ -456,7 +469,7 @@ const st = StyleSheet.create({
   oneBox: { flexDirection: 'row', gap: 8, backgroundColor: C.accentSoft, borderRadius: 20, padding: 14, marginBottom: 14 },
   one: { flex: 1, color: C.ink2, fontSize: 13.5, lineHeight: 20 },
   sent: { paddingVertical: 9, paddingHorizontal: 10, marginHorizontal: -6, borderRadius: 14 },
-  sentCur: { backgroundColor: C.sheet },
+  sentCur: { backgroundColor: C.accentSoft, borderLeftWidth: 4, borderLeftColor: C.accent, paddingLeft: 6 },
   spkSmall: { color: C.ink3, fontSize: 12, marginTop: 8, marginBottom: 2 },
   en: { color: C.ink2, fontFamily: F.en, fontSize: 15, lineHeight: 23 },
   ko: { color: C.ink3, fontSize: 12.5, lineHeight: 18, marginTop: 3 },
