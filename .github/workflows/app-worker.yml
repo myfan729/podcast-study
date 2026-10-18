@@ -34,12 +34,11 @@ jobs:
         name: Install (ffmpeg is needed for the pack too - audio checks, ad markers)
         run: |
           sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null 2>&1 || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null; }
-          pip install -r requirements.txt
+          pip install -r requirements.txt -r requirements-sync.txt   # web/NPR packs use speech recognition too
       - if: steps.cfg.outputs.on == 'true'
         name: Build requested episodes (study pack → ready)
         run: python -m pipeline.app_worker process --max 6
       - if: steps.cfg.outputs.on == 'true'
         name: Audio sync for new packs (after they are already usable)
         run: |
-          pip install -r requirements-sync.txt
           python -m pipeline.app_worker sync --max 6

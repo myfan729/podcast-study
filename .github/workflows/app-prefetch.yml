@@ -24,7 +24,7 @@ jobs:
         with: { path: ~/.cache/huggingface, key: whisper-base.en-v1 }
       - run: |
           sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null 2>&1 || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null; }
-          pip install -r requirements.txt
+          pip install -r requirements.txt -r requirements-sync.txt   # web/NPR packs use speech recognition too
       - name: Refresh show feeds
         run: python -m pipeline.app_worker refresh
       - name: Korean one-line intros for shows and new episodes
@@ -36,5 +36,4 @@ jobs:
         run: python -m pipeline.app_worker process --status prefetch --max 20
       - name: Audio sync
         run: |
-          pip install -r requirements-sync.txt
           python -m pipeline.app_worker sync --max 20
