@@ -24,7 +24,7 @@ from pipeline.main import process_episode, show_filter, web_transcript_ready  # 
 from pipeline.util import http_get_text, http_session  # noqa: E402
 
 N_RECENT, N_POINTS, TOL = 8, 6, 1.5
-FIX: list = []
+FIX = []
 shard, nsh = int(sys.argv[1]), int(sys.argv[2])
 shows = json.loads(Path("tools/catalog/catalog.json").read_text())["shows"]
 extra = Path("tools/catalog/new_candidates.json")
@@ -140,7 +140,6 @@ for sh in mine:
         matches = client_match(sync, pcm8, content_dur)
         rec["listener"] = {"duration": round(len(pcm8) / F.SR, 1), "refs_ok": sum(m["ok"] for m in matches), "refs": len(matches),
                            "offsets": sorted({round(m["a"] - m["c"], 1) for m in matches if m["ok"]})[:8]}
-        global FIX
         FIX = sync.get("cue_fix") or []
         rec["cue_fix"] = FIX[:12]
         pts = check_points(doc, matches, pcm16)
