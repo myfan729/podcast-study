@@ -83,7 +83,7 @@ STUDY_SCHEMA: dict[str, Any] = {
         },
         "expressions": {
             "type": "array",
-            "description": "10-14 high-value spoken expressions actually used in the episode",
+            "description": "high-value spoken expressions actually used in the episode (how many: see the instructions)",
             "items": {
                 "type": "object",
                 "additionalProperties": False,
@@ -111,7 +111,7 @@ STUDY_SCHEMA: dict[str, Any] = {
         },
         "vocab": {
             "type": "array",
-            "description": "6-10 single words worth learning (C1+), not already covered in expressions",
+            "description": "single words worth learning (C1+), not already covered in expressions (how many: see the instructions)",
             "items": {
                 "type": "object",
                 "additionalProperties": False,
@@ -252,8 +252,16 @@ def render_transcript(segments: list[Segment]) -> str:
     return "\n".join(lines)
 
 
+def study_counts(duration_sec: float | None) -> tuple[int, int]:
+    """How many expressions and words to pick: grows gently with the episode's length, 30 at most.
+    6 min → 10/7, 20 min → 14/11, 30 → 17/14, 45 → 22/18, 60 → 26/23, 70+ → 29/26."""
+    m = max(0.0, (duration_sec or 0) / 60)
+    return min(30, max(8, round(8 + 0.3 * m))), min(30, max(6, round(5 + 0.3 * m)))
+
+
 def build_study_prompt(meta: dict, show: dict, segments: list[Segment], speaker_mode: str) -> str:
     desc = (meta.get("description_text") or "").strip()
+    n_expr, n_vocab = study_counts(meta.get("duration_sec") or (segments[-1].end if segments else 0))
     level_line = (f" Target level of the show: {show['level']} — still pick the most useful natural expressions "
                   f"for an advanced learner, and say in difficulty.note_ko who this episode suits." if show.get("level") else "")
     return (
@@ -265,7 +273,7 @@ def build_study_prompt(meta: dict, show: dict, segments: list[Segment], speaker_
         "-----\n"
         f"{render_transcript(segments)}\n"
         "-----\n\n"
-        "Produce the study pack JSON now. Aim for 12 expressions, 8 vocab, 4-7 chapters, 3 shadowing picks.\n\n"
+        f"Produce the study pack JSON now. Aim for {n_expr} expressions and {n_vocab} vocab (spread across the whole episode), 4-7 chapters, 3 shadowing picks.\n\n"
         "Return ONE JSON object with exactly this shape (keys and types; strings in <> describe the content):\n"
         f"{schema_skeleton(STUDY_SCHEMA)}\n"
         "No markdown fences, no commentary before or after the JSON."
@@ -335,7 +343,7 @@ class StudyGenerator:
         prompt = build_study_prompt(meta, show, segments, speaker_mode)
         # The study-pack schema is too large for the API's constrained-decoding grammar, so this call
         # asks for plain JSON (shape given in the prompt) and validates/repairs the result itself.
-        data = self._call_json(self.model, SYSTEM_STUDY, prompt, STUDY_SCHEMA, max_tokens=18000, strict=False)
+        data = self._call_json(self.model, SYSTEM_STUDY, prompt, STUDY_SCHEMA, max_tokens=21000, strict=False)   # up to 30+30 items (above ~21k the SDK insists on streaming)
         return postprocess_study_pack(data, segments)
 
     def translate_items(self, items: list[tuple[str, str]], chunk: int = 40) -> dict[str, str]:
