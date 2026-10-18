@@ -23,7 +23,7 @@ export default function ShowScreen() {
   return (
     <SafeAreaView edges={['top']} style={{ flex: 1 }}>
       <View style={s.top}><RoundBtn icon="chevron-back" label="뒤로" onPress={() => router.back()} /></View>
-      <FlatList contentContainerStyle={{ padding: 16, paddingBottom: 32 }} data={eps.filter((e) => e.has_transcript)} keyExtractor={(e) => e.id}
+      <FlatList contentContainerStyle={{ padding: 16, paddingBottom: 32 }} data={eps} keyExtractor={(e) => e.id}
         ListHeaderComponent={show ? (
           <View style={s.head}>
             <Art uri={show.image_url} id={show.id} size={120} radius={28} />

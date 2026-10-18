@@ -7,6 +7,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Btn, Icon, RoundBtn } from '@/components/ui';
 import AutoSync, { type SyncResult } from '@/components/AutoSync';
 import Marquee from '@/components/Marquee';
+import ListenView from '@/components/ListenView';
 import * as api from '@/lib/api';
 import { addAnchor, toAudio, toContent, type Anchor } from '@/lib/timeline';
 import type { Episode, Expression, Pack, RequestResult } from '@/lib/types';
@@ -19,6 +20,22 @@ const RATES = [0.8, 1, 1.2];
 
 export default function EpisodeScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  // opening an episode just plays it; the study mode is one tap away ("학습자료 만들기")
+  const [mode, setMode] = useState<'listen' | 'study'>('listen');
+  const [ep, setEp] = useState<Episode | null>(null);
+  const [unlocked, setUnlocked] = useState<boolean | null>(null);
+  const [err, setErr] = useState('');
+  useEffect(() => {
+    setMode('listen'); setEp(null); setUnlocked(null);
+    Promise.all([api.episode(id), api.isUnlocked(id)]).then(([e, u]) => { setEp(e); setUnlocked(u); }).catch((x) => setErr(x.message));
+  }, [id]);
+  if (err) return <Center text={'문제가 생겼어요: ' + err} />;
+  if (!ep || unlocked === null) return <Center spin />;
+  if (mode === 'listen') return <ListenView ep={ep} unlocked={unlocked} onStudy={() => setMode('study')} />;
+  return <StudyFlow id={id} />;
+}
+
+function StudyFlow({ id }: { id: string }) {
   const router = useRouter();
   const [ep, setEp] = useState<Episode | null>(null);
   const [req, setReq] = useState<RequestResult | null>(null);
@@ -51,8 +68,8 @@ export default function EpisodeScreen() {
   if (!req.unlocked) {
     return (
       <Center icon={req.reason === 'quota' ? 'lock-closed' : 'document-text-outline'}
-        title={req.reason === 'quota' ? '이번 주 무료 에피소드를 다 썼어요' : '대본이 아직 안 올라왔어요'}
-        text={req.reason === 'quota' ? '무료는 일주일에 2편까지예요. 프로로 업그레이드하면 무제한으로 들을 수 있어요.' : '방송사가 대본을 올리면 목록에 다시 나타나요. 조금 뒤에 확인해 주세요.'}>
+        title={req.reason === 'quota' ? '이번 주 무료 학습자료를 다 썼어요' : '대본이 아직 안 올라왔어요'}
+        text={req.reason === 'quota' ? '무료는 일주일에 2편까지예요. 프로는 무제한이에요. 듣기는 계속 무료예요.' : '방송사가 대본을 올리면 목록에 다시 나타나요. 조금 뒤에 확인해 주세요.'}>
         {req.reason === 'quota' && <Btn label="프로 알아보기" onPress={() => router.push('/settings')} style={{ alignSelf: 'stretch', marginTop: 20 }} />}
       </Center>
     );
@@ -65,7 +82,7 @@ export default function EpisodeScreen() {
     }
     return failed
       ? <Center icon="alert-circle-outline" title="준비하지 못했어요" text="이 에피소드는 대본을 만들 수 없었어요. 다른 에피소드를 골라 주세요." />
-      : <Center spin title="에피소드를 준비하고 있어요" text={'대본·번역·표현을 만드는 중이에요.\n처음 여는 에피소드는 1~2분 정도 걸려요.\n이 화면을 나가도 계속 준비돼요.'} />;
+      : <Center spin title="학습자료를 만들고 있어요" text={'대본·번역·표현을 만드는 중이에요.\n보통 1~3분 걸려요.\n이 화면을 나가도 계속 만들어져요.'} />;
   }
   return <Player pack={pack} ep={ep!} />;
 }
@@ -352,6 +369,7 @@ function PeekCard({ pack, peek, episodeId, onClose }: { pack: Pack; peek: NonNul
         <View style={{ flex: 1, minWidth: 0 }}>
           <Text style={st.peekKind}>{ex ? '표현' : '단어'}</Text>
           <Text style={st.exprT}>{text}</Text>
+          {v?.ipa ? <Text style={st.ipa}>{v.ipa}</Text> : null}
         </View>
         <SaveBtn on={saved} onPress={save} />
         <RoundBtn icon="close" label="닫기" size={38} bg={C.bg} onPress={onClose} />
@@ -382,6 +400,7 @@ function Words({ pack, episodeId, onJump }: { pack: Pack; episodeId: string; onJ
               <View key={v.word} style={[st.vrow, i > 0 && st.vrowLine]}>
                 <View style={{ flex: 1, minWidth: 0 }}>
                   <Text style={st.word}>{v.word} {v.pos ? <Text style={st.pos}>{v.pos}</Text> : null}</Text>
+                  {v.ipa ? <Text style={st.ipa}>{v.ipa}</Text> : null}
                   <Text style={st.mean}>{v.meaning_ko}</Text>
                   {v.example ? <Text style={st.ex}>{v.example}</Text> : null}
                 </View>
@@ -464,6 +483,7 @@ const st = StyleSheet.create({
   vrow: { flexDirection: 'row', gap: 10, paddingVertical: 10 },
   vrowLine: { borderTopWidth: 1, borderColor: C.line },
   word: { fontFamily: F.enB, color: C.ink, fontSize: 16 },
+  ipa: { color: C.ink3, fontSize: 13, marginTop: 1 },        // system font: it has the IPA glyphs Nunito lacks
   pos: { fontFamily: F.en, color: C.ink3, fontSize: 12.5 },
   exprT: { fontFamily: F.enX, color: C.ink, fontSize: 18, lineHeight: 24 },
   mean: { color: C.ink, marginTop: 4, fontSize: 14.5, lineHeight: 21 },

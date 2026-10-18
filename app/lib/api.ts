@@ -23,16 +23,22 @@ export async function setSubscribed(showId: string, on: boolean) {
   else ok(await supabase.from('subscriptions').delete().eq('show_id', showId));
 }
 const EP_COLS = 'id,show_id,title,published_at,duration_sec,audio_url,image_url,status,one_liner_ko,has_transcript,pack_path,sync_path,error,intro_ko,episode_url';
+const EP_ONE = EP_COLS + ',description';
 export async function showEpisodes(showId: string): Promise<Episode[]> {
   return ok(await supabase.from('episodes').select(EP_COLS).eq('show_id', showId).order('published_at', { ascending: false }).limit(30));
 }
 export async function feed(showIds: string[]): Promise<Episode[]> {
   if (!showIds.length) return [];
-  return ok(await supabase.from('episodes').select(EP_COLS + ',shows(title,image_url)').in('show_id', showIds).eq('has_transcript', true)
+  return ok(await supabase.from('episodes').select(EP_COLS + ',shows(title,image_url)').in('show_id', showIds)
     .order('published_at', { ascending: false }).limit(40)) as unknown as Episode[];
 }
 export async function episode(id: string): Promise<Episode> {
-  return ok(await supabase.from('episodes').select(EP_COLS + ',shows(title,image_url)').eq('id', id).single()) as unknown as Episode;
+  return ok(await supabase.from('episodes').select(EP_ONE + ',shows(title,image_url)').eq('id', id).single()) as unknown as Episode;
+}
+/** Has this user already made (unlocked) the study pack for this episode? Free to reopen. */
+export async function isUnlocked(id: string): Promise<boolean> {
+  const r = await supabase.from('unlocks').select('episode_id').eq('episode_id', id).maybeSingle();
+  return !!r.data;
 }
 export async function requestEpisode(id: string): Promise<RequestResult> {
   return ok(await supabase.rpc('request_episode', { ep: id })) as RequestResult;
@@ -49,17 +55,21 @@ export const pack = (path: string) => download<Pack>(path);
 export const syncData = (path: string) => download<any>(path);
 
 export async function saveProgress(episodeId: string, position: number, finished = false) {
-  await supabase.from('unlocks').update({ position_sec: position, finished, played_at: new Date().toISOString() }).eq('episode_id', episodeId);
+  const { data } = await supabase.auth.getUser();
+  if (!data.user) return;
+  const now = new Date().toISOString();
+  await supabase.from('listens').upsert({ user_id: data.user.id, episode_id: episodeId, position_sec: position, finished, played_at: now });
+  await supabase.from('unlocks').update({ position_sec: position, finished, played_at: now }).eq('episode_id', episodeId);   // no row → no-op
 }
-/** The episode the user was last in the middle of (for "이어 듣기"). */
+/** The episode the user was last in the middle of (for "이어 듣기"), listened to or studied. */
 export async function continueListening(): Promise<{ position: number; ep: Episode } | null> {
-  const r = await supabase.from('unlocks').select('position_sec,episodes(' + EP_COLS + ',shows(title,image_url))')
-    .eq('finished', false).gt('position_sec', 20).not('played_at', 'is', null).order('played_at', { ascending: false }).limit(1);
+  const r = await supabase.from('listens').select('position_sec,episodes(' + EP_COLS + ',shows(title,image_url))')
+    .eq('finished', false).gt('position_sec', 20).order('played_at', { ascending: false }).limit(1);
   const row = (r.data as unknown as { position_sec: number; episodes: Episode | null }[] | null)?.[0];
   return row?.episodes ? { position: row.position_sec, ep: row.episodes } : null;
 }
 export async function lastPosition(episodeId: string): Promise<number> {
-  const r = await supabase.from('unlocks').select('position_sec').eq('episode_id', episodeId).maybeSingle();
+  const r = await supabase.from('listens').select('position_sec').eq('episode_id', episodeId).maybeSingle();
   return (r.data as { position_sec: number } | null)?.position_sec ?? 0;
 }
 export async function freeLeft(): Promise<{ free_left: number; pro: boolean }> {

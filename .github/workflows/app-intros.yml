@@ -15,3 +15,5 @@ jobs:
         with: { python-version: "3.12", cache: pip }
       - run: pip install -r requirements.txt
       - run: python -m pipeline.app_worker intros > /tmp/i.log 2>&1 || { echo "::error::$(tail -c 900 /tmp/i.log | tr '\n' ' ')"; exit 1; }; tail -3 /tmp/i.log
+      - name: Pronunciation (IPA) for words in packs made before it existed
+        run: python -m pipeline.app_worker ipa > /tmp/p.log 2>&1 || { echo "::error::$(tail -c 900 /tmp/p.log | tr '\n' ' ')"; exit 1; }; tail -2 /tmp/p.log

@@ -6,12 +6,12 @@ export type EpisodeStatus = 'none' | 'queued' | 'processing' | 'ready' | 'failed
 export type Episode = {
   id: string; show_id: string; title: string; published_at: string; duration_sec: number | null;
   audio_url: string | null; image_url: string | null; status: EpisodeStatus; one_liner_ko: string | null;
-  has_transcript: boolean; pack_path: string | null; sync_path: string | null; error?: string | null; intro_ko?: string | null; episode_url?: string | null;
+  has_transcript: boolean; pack_path: string | null; sync_path: string | null; error?: string | null; intro_ko?: string | null; episode_url?: string | null; description?: string | null;
   shows?: Pick<Show, 'title' | 'image_url'>;
 };
 export type Cue = { s: number; e: number; t: string; spk?: string | null };
 export type Segment = { id: string; cue_from: number; cue_to: number; start: number; end: number; display_speaker?: string };
-export type Vocab = { word: string; pos?: string; meaning_ko: string; example?: string };
+export type Vocab = { word: string; ipa?: string; pos?: string; meaning_ko: string; example?: string };
 export type Expression = {
   expression: string; type?: string; meaning_ko: string; nuance_ko?: string; quote?: string; segment_id?: string;
   examples?: string[]; similar?: { expression: string; example: string }[];

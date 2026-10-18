@@ -41,7 +41,7 @@ export default function Settings() {
               {Array.from({ length: FREE_PER_WEEK }).map((_, i) => (
                 <View key={i} style={[s.dot, i < (plan?.free_left ?? 0) && { backgroundColor: C.accent }]} />))}
             </View>
-            <Text style={s.planP}>이번 주 새 에피소드 {plan?.free_left ?? '-'} / {FREE_PER_WEEK}편 남았어요. 한 번 연 에피소드는 계속 들을 수 있어요.</Text>
+            <Text style={s.planP}>이번 주 학습자료 만들기 {plan?.free_left ?? '-'} / {FREE_PER_WEEK}회 남았어요. 듣기는 무제한이고, 한 번 만든 학습자료는 계속 볼 수 있어요.</Text>
             <View style={s.soon}><Icon name="time-outline" size={15} color={C.ink2} /><Text style={s.soonT}>프로 구독은 다음 업데이트에서 열려요</Text></View>
           </>}
         </View>

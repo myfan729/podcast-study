@@ -120,6 +120,48 @@ def mark_npr_transcripts(db: Supa, session, sh: dict, cfg: dict, kept: list, row
             db.update("episodes", f"show_id=eq.{sh['id']}&guid=eq.{requests.utils.quote(e.guid, safe='')}", {"status": "none"})
 
 
+def page_audio(db: Supa, session, sh: dict, cfg: dict, kept: list, rows: list[dict]) -> None:
+    """Shows whose feed audio doesn't play on phones abroad (BBC's tracking redirect): store the episode
+    page's own download instead, so plain listening works too. Found once per episode, then kept."""
+    from . import webtranscript as W
+    known = {r["guid"]: r.get("audio_url") for r in db.select("episodes", f"select=guid,audio_url&show_id=eq.{sh['id']}")}
+    for e, row in zip(kept, rows):
+        had = known.get(e.guid)
+        if had and had != e.audio_url:
+            row["audio_url"] = had; continue
+        try:
+            page = W.resolve_page_url(session, cfg, e)
+            link = W.find_audio_link(W.fetch_page(session, page), page)
+            if link:
+                row["audio_url"] = link
+        except Exception as x:  # noqa: BLE001
+            log.info("no page audio yet for %s: %s", e.title, x)
+
+
+def backfill_ipa(db: Supa, max_n: int = 200) -> int:
+    """Packs made before vocab carried IPA: add it (one cheap call per pack)."""
+    gen, n = StudyGenerator(), 0
+    for row in db.select("episodes", f"select=id,title,pack_path&status=eq.ready&pack_path=not.is.null&order=ready_at.desc&limit={max_n}"):
+        try:
+            r = db.s.get(f"{db.url}/storage/v1/object/episodes/{row['pack_path']}", headers=db.h, timeout=120)
+            r.raise_for_status()
+            pack = r.json()
+            vocab = (pack.get("study") or {}).get("vocab") or []
+            need = [v["word"] for v in vocab if v.get("word") and not v.get("ipa")]
+            if not need:
+                continue
+            got = gen.ipa(need)
+            for v in vocab:
+                if not v.get("ipa") and got.get(v.get("word")):
+                    v["ipa"] = got[v["word"]]
+            db.put_object("episodes", row["pack_path"], json.dumps(pack, ensure_ascii=False).encode())
+            n += 1
+        except Exception as e:  # noqa: BLE001
+            log.error("ipa failed for %s: %s", row["title"], e)
+    log.info("ipa: updated %d packs", n)
+    return n
+
+
 def refresh(db: Supa, only: str | None = None) -> int:
     session = http_session()
     shows = db.select("shows", "select=*" + (f"&id=eq.{only}" if only else ""))
@@ -139,6 +181,8 @@ def refresh(db: Supa, only: str | None = None) -> int:
         rows = [episode_row(sh, e, sh["path"]) for e in kept]
         if sh["path"] in ("npr", "web"):
             mark_npr_transcripts(db, session, sh, cfg, kept, rows)
+        if cfg.get("audio_from_page"):
+            page_audio(db, session, sh, cfg, kept, rows)
         # don't overwrite worker-owned columns (status, pack paths) on existing rows: upsert only listing fields
         db.upsert("episodes", rows, "show_id,guid")
         db.update("shows", f"id=eq.{sh['id']}", {"refreshed_at": utcnow_iso()})
@@ -279,7 +323,7 @@ def seed(db: Supa, path: Path) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", choices=["refresh", "process", "prefetch", "sync", "resync", "intros", "seed"])
+    ap.add_argument("cmd", choices=["refresh", "process", "prefetch", "sync", "resync", "intros", "ipa", "seed"])
     ap.add_argument("arg", nargs="?")
     ap.add_argument("--max", type=int, default=4)
     ap.add_argument("--mock", action="store_true")
@@ -301,6 +345,8 @@ def main(argv: list[str] | None = None) -> int:
         sync_pending(db, a.max)
     elif a.cmd == "intros":
         write_intros(db)
+    elif a.cmd == "ipa":
+        backfill_ipa(db)
     else:
         seed(db, Path(a.arg or "tools/catalog/catalog.json"))
     return 0

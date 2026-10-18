@@ -4,16 +4,16 @@ import type { Episode } from '@/lib/types';
 import { C, F, dateKo, mins } from '@/lib/theme';
 import { Art } from './ui';
 
+// every episode can be listened to; the badge only says where its study material stands
 const BADGE: Record<string, { t: string; bg: string; fg: string }> = {
-  ready: { t: '바로 듣기', bg: C.mint, fg: C.mintInk },
-  queued: { t: '준비 중', bg: C.accentSoft, fg: C.accent },
-  processing: { t: '준비 중', bg: C.accentSoft, fg: C.accent },
-  failed: { t: '오류', bg: C.warnBg, fg: C.warn },
-  no_transcript: { t: '대본 없음', bg: C.line, fg: C.ink3 },
+  ready: { t: '학습자료 바로 열림', bg: C.mint, fg: C.mintInk },
+  queued: { t: '학습자료 만드는 중', bg: C.accentSoft, fg: C.accent },
+  processing: { t: '학습자료 만드는 중', bg: C.accentSoft, fg: C.accent },
+  listen: { t: '듣기만 가능', bg: C.line, fg: C.ink3 },
 };
 
 export default function EpisodeRow({ ep, showTitle }: { ep: Episode; showTitle?: boolean }) {
-  const b = BADGE[ep.status];
+  const b = !ep.has_transcript || ep.status === 'no_transcript' ? BADGE.listen : BADGE[ep.status];
   return (
     <Link href={{ pathname: '/episode/[id]', params: { id: ep.id } }} asChild>
       <Pressable style={s.row}>

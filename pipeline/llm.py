@@ -115,9 +115,10 @@ STUDY_SCHEMA: dict[str, Any] = {
             "items": {
                 "type": "object",
                 "additionalProperties": False,
-                "required": ["word", "pos", "meaning_ko", "example"],
+                "required": ["word", "ipa", "pos", "meaning_ko", "example"],
                 "properties": {
                     "word": {"type": "string"},
+                    "ipa": {"type": "string", "description": "pronunciation in IPA between slashes, General American, e.g. /ˈɪn.də.ɡoʊ/"},
                     "pos": {"type": "string", "description": "part of speech, e.g. n., v., adj."},
                     "meaning_ko": {"type": "string"},
                     "example": {"type": "string"},
@@ -372,6 +373,17 @@ class StudyGenerator:
                                  "required": ["id", "ko"], "properties": {"id": {"type": "string"}, "ko": {"type": "string"}}}}}}
         data = self._call_json(INTRO_MODEL, system, user, schema, max_tokens=8000)
         return {str(r["id"]): r["ko"].strip() for r in data.get("items", []) if r.get("id") and r.get("ko")}
+
+    def ipa(self, words: list[str]) -> dict[str, str]:
+        """IPA (General American, between slashes) for words in packs made before vocab had it."""
+        if self.mock or not words:
+            return {w: "/…/" for w in words}
+        schema = {"type": "object", "additionalProperties": False, "required": ["items"],
+                  "properties": {"items": {"type": "array", "items": {"type": "object", "additionalProperties": False,
+                                 "required": ["word", "ipa"], "properties": {"word": {"type": "string"}, "ipa": {"type": "string"}}}}}}
+        data = self._call_json(INTRO_MODEL, "Give the IPA pronunciation (General American, between slashes, with stress marks) "
+                               "of each English word.", "\n".join(words), schema, max_tokens=4000)
+        return {r["word"]: r["ipa"].strip() for r in data.get("items", []) if r.get("word") and r.get("ipa")}
 
     def translate_segments(self, segments: list[Segment]) -> dict[str, str]:
         return self.translate_items([(s.id, s.text) for s in segments])
