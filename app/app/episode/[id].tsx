@@ -163,10 +163,29 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
   }, [syncRef]);
   const c = toContent(status.currentTime ?? 0, anchors);
   const cur = useMemo(() => { let i = 0; for (let k = 0; k < sents.length; k++) { if (fix(sents[k].s) <= c + 0.15) i = k; else break; } return i; }, [c, sents, fix]);
+  // Keep the current card's top edge just under the tabs. Cards above it change height when the
+  // highlight moves (the old card shrinks), so we scroll to the cell's *measured* position and
+  // re-align whenever that position changes after layout.
+  const cellY = useRef<Record<number, number>>({});
+  const curRef = useRef(0); curRef.current = cur;
+  const pinned = useRef(-1);                                          // index whose card we hold at the top (-1: none)
+  const alignCur = useCallback((animated: boolean) => {
+    const y = cellY.current[curRef.current];
+    if (y == null) listRef.current?.scrollToIndex({ index: curRef.current, viewPosition: 0, viewOffset: 10, animated });
+    else listRef.current?.scrollToOffset({ offset: Math.max(0, y - 10), animated });
+  }, []);
+  const Cell = useMemo(() => function Cell({ index, onLayout, ...rest }: any) {
+    return <View {...rest} onLayout={(e) => {
+      onLayout?.(e);
+      const y = e.nativeEvent.layout.y, old = cellY.current[index];
+      cellY.current[index] = y;
+      if (index === pinned.current && index === curRef.current && old !== y) alignCur(false);
+    }} />;
+  }, [alignCur]);
   useEffect(() => {
     if (!follow || tab !== 'script' || !status.playing || Date.now() - userScroll.current < 4000) return;
-    listRef.current?.scrollToIndex({ index: cur, viewPosition: 0, viewOffset: 14, animated: true });
-  }, [cur, tab, status.playing, follow]);
+    pinned.current = cur; alignCur(true);
+  }, [cur, tab, status.playing, follow, alignCur]);
 
   const onSentence = useCallback((sn: Sent) => {
     if (syncMode) {
@@ -177,8 +196,8 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
     if (auto === 'working') return;                                 // not playable until the sync is done
     player.seekTo(toAudio(fix(sn.s), anchors)); if (!status.playing) player.play();
     const i = sents.indexOf(sn);
-    if (i >= 0) { userScroll.current = 0; listRef.current?.scrollToIndex({ index: i, viewPosition: 0, viewOffset: 14, animated: true }); }
-  }, [syncMode, anchors, player, status.playing, key, sents, auto, fix]);  // eslint-disable-line react-hooks/exhaustive-deps
+    if (i >= 0) { userScroll.current = 0; pinned.current = i; curRef.current = i; alignCur(true); }
+  }, [syncMode, anchors, player, status.playing, key, sents, auto, fix, alignCur]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   // automatic ad-aware sync (needs the server's reference fingerprints for this episode)
   useEffect(() => {
@@ -231,7 +250,8 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
           style={{ flex: 1 }} removeClippedSubviews={false}
           ListHeaderComponent={pack.study.one_liner_ko ? <View style={st.oneBox}><Icon name="bulb-outline" size={16} color={C.accent} /><Text style={st.one}>{pack.study.one_liner_ko}</Text></View> : undefined}
           ListFooterComponent={<Credit pack={pack} ep={ep} />}
-          onScrollBeginDrag={() => { userScroll.current = Date.now(); }}
+          CellRendererComponent={Cell}
+          onScrollBeginDrag={() => { userScroll.current = Date.now(); pinned.current = -1; }}
           onScrollToIndexFailed={() => {}}
           renderItem={({ item, index }) => <SentRow sn={item} state={index === cur ? 'cur' : index < cur ? 'past' : 'next'} ko={ko} onPress={onSentence} onMark={setPeek} />} />
         </View>
