@@ -3,18 +3,24 @@ on:
   workflow_dispatch:
     inputs:
       retry: { description: "re-queue failed episodes (attempts reset)", type: boolean, default: false }
+      rebuild_show: { description: "rebuild all built episodes of the show with this exact title", type: string, default: "" }
 jobs:
   show:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
       SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+      REBUILD: ${{ inputs.rebuild_show }}
     steps:
       - run: |
           sudo apt-get install -y -qq postgresql-client > /dev/null
           if [ "${{ inputs.retry }}" = "true" ]; then
             n=$(psql "$SUPABASE_DB_URL" -tA -c "with u as (update public.episodes set status='queued', attempts=0, error=null, requested_at=now() where status='failed' returning 1) select count(*) from u" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g")
             echo "::notice title=re-queued::$n"
+          fi
+          if [ -n "$REBUILD" ]; then
+            n=$(echo "with u as (update public.episodes e set status='queued', attempts=0, error=null, requested_at=now(), sync_path=null from public.shows s where s.id=e.show_id and s.title = :'t' and e.status in ('ready','failed','processing') returning 1) select count(*) from u;" | psql "$SUPABASE_DB_URL" -tA -v t="$REBUILD" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g")
+            echo "::notice title=rebuild queued::$n"
           fi
           psql "$SUPABASE_DB_URL" -tA -F ' | ' -c "select s.title, e.title, e.status, e.attempts, left(coalesce(e.error,''), 400)
             from public.episodes e join public.shows s on s.id = e.show_id
