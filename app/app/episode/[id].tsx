@@ -7,6 +7,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Btn, Icon, RoundBtn } from '@/components/ui';
 import AutoSync, { type SyncResult } from '@/components/AutoSync';
 import Marquee from '@/components/Marquee';
+import SeekBar from '@/components/SeekBar';
 import ListenView from '@/components/ListenView';
 import { useNowPlaying } from '@/lib/nowPlaying';
 import * as api from '@/lib/api';
@@ -251,7 +252,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
 
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const [barW, setBarW] = useState(1);
+  const [dragSec, setDragSec] = useState<number | null>(null);    // time under the finger while dragging the bar
   const dur = status.duration || pack.duration_sec || 1;
   const pct = Math.min(1, (status.currentTime ?? 0) / dur);
 
@@ -298,7 +299,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
       {syncMode && <View style={st.syncHint}><Icon name="hand-left-outline" size={16} color={C.accent} /><Text style={st.syncT}>지금 들리는 문장을 눌러 주세요</Text></View>}
       <View style={[st.bar, { marginBottom: Math.max(insets.bottom, 0) + 12 }]}>
         <View style={st.timeRow}>
-          <Text style={st.time}>{fmt(status.currentTime)} / {fmt(status.duration)}</Text>
+          <Text style={st.time}>{fmt(dragSec ?? status.currentTime)} / {fmt(status.duration)}</Text>
           <Pressable onPress={toggleFollow} style={[st.sync, { marginLeft: 'auto', marginRight: 8, flexDirection: 'row', gap: 4 }, follow && { backgroundColor: C.progress }]} hitSlop={6}
             accessibilityRole="switch" accessibilityState={{ checked: follow }} accessibilityLabel="문장 자동 따라가기">
             <Icon name={follow ? 'checkmark' : 'close'} size={13} color={follow ? C.dark : '#fff'} />
@@ -309,10 +310,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
             <Text style={[st.syncBtnT, syncMode && { color: C.dark }]}>{syncMode ? '취소' : auto === 'working' ? '맞추는 중…' : auto === 'auto' ? '자동 싱크' : offset ? `싱크 ${offset > 0 ? '+' : ''}${offset}s` : '싱크'}</Text>
           </Pressable>
         </View>
-        <Pressable onLayout={(e) => setBarW(e.nativeEvent.layout.width || 1)} hitSlop={{ top: 12, bottom: 12 }} accessibilityLabel="재생 위치"
-          onPress={(e) => player.seekTo((e.nativeEvent.locationX / barW) * dur)} style={st.track}>
-          <View style={[st.fill, { width: `${pct * 100}%` }]} />
-        </Pressable>
+        <SeekBar position={status.currentTime ?? 0} duration={dur} onDrag={setDragSec} onSeek={(sec) => player.seekTo(sec)} />
         <View style={st.ctrls}>
           <Pressable onPress={setSpeed} style={st.side} accessibilityLabel="재생 속도"><Text style={st.sideT}>{rate.toFixed(1)}x</Text></Pressable>
           <RoundBtn icon="play-back" label="5초 뒤로" size={48} bg="transparent" color="#fff"

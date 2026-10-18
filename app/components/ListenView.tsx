@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Art, Icon, RoundBtn } from '@/components/ui';
+import SeekBar from '@/components/SeekBar';
 import * as api from '@/lib/api';
 import { useNowPlaying } from '@/lib/nowPlaying';
 import { FREE_PER_WEEK } from '@/lib/config';
@@ -26,7 +27,7 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
   const mine = np.ep?.id === ep.id;
   const status = mine ? np.status : { ...np.status, playing: false, isLoaded: false, currentTime: 0, duration: 0 };
   const [rate, setRate] = useState(1);
-  const [barW, setBarW] = useState(1);
+  const [dragSec, setDragSec] = useState<number | null>(null);    // time under the finger while dragging the bar
   const [plan, setPlan] = useState<{ free_left: number; pro: boolean } | null>(null);
   const [busy, setBusy] = useState(false);
   const [more, setMore] = useState(false);
@@ -97,12 +98,9 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
       </ScrollView>
 
       <View style={[s.bar, { marginBottom: Math.max(insets.bottom, 0) + 12 }]}>
-        <Pressable onLayout={(e) => setBarW(e.nativeEvent.layout.width || 1)} hitSlop={{ top: 12, bottom: 12 }} accessibilityLabel="재생 위치"
-          onPress={(e) => player.seekTo((e.nativeEvent.locationX / barW) * dur)} style={s.track}>
-          <View style={[s.fill, { width: `${pct * 100}%` }]} />
-        </Pressable>
+        <SeekBar position={status.currentTime ?? 0} duration={dur} onDrag={setDragSec} onSeek={(sec) => player.seekTo(sec)} />
         <View style={s.timeRow}>
-          <Text style={s.time}>{fmt(status.currentTime)}</Text>
+          <Text style={s.time}>{fmt(dragSec ?? status.currentTime)}</Text>
           <Text style={s.time}>-{fmt(Math.max(0, dur - (status.currentTime ?? 0)))}</Text>
         </View>
         <View style={s.ctrls}>
