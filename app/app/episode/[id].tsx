@@ -313,23 +313,13 @@ function Marked({ sn, style, onMark }: { sn: Sent; style: object; onMark: (p: Pe
 }
 
 const SentRow = memo(function SentRow({ sn, state, ko, onPress, onMark }: { sn: Sent; state: 'past' | 'cur' | 'next'; ko: boolean; onPress: (s: Sent) => void; onMark: (p: Peek) => void }) {
-  if (state === 'cur') {
-    return (
-      <Pressable onPress={() => onPress(sn)} style={[st.curCard, shadow]}>
-        <View style={st.spkRow}>
-          {sn.speaker ? <View style={st.spkDot}><Text style={st.spkDotT}>{sn.speaker.slice(0, 1).toUpperCase()}</Text></View> : null}
-          <Text style={st.spk}>{sn.speaker ? sn.speaker + ' · ' : ''}{fmt(sn.s)}</Text>
-        </View>
-        <Marked sn={sn} style={st.curEn} onMark={onMark} />
-        {ko && sn.ko ? <View style={st.koBox}><Text style={st.curKo}>{sn.ko}</Text></View> : null}
-      </Pressable>
-    );
-  }
   return (
-    <Pressable onPress={() => onPress(sn)} style={st.sent}>
+    // the current sentence keeps the same font and size as the rest (only a highlight behind it),
+    // so moving the highlight never changes row heights
+    <Pressable onPress={() => onPress(sn)} style={[st.sent, state === 'cur' && st.sentCur]}>
       {sn.showSpk && <Text style={st.spkSmall}>{sn.speaker}</Text>}
-      <Marked sn={sn} style={[st.en, state === 'past' && { color: C.faint }]} onMark={onMark} />
-      {ko && sn.ko ? <Text style={[st.ko, state === 'past' && { color: C.faint }]}>{sn.ko}</Text> : null}
+      <Marked sn={sn} style={[st.en, state === 'past' && { color: C.faint }, state === 'cur' && { color: C.ink }]} onMark={onMark} />
+      {ko && sn.ko ? <Text style={[st.ko, state === 'past' && { color: C.faint }, state === 'cur' && { color: C.ink2 }]}>{sn.ko}</Text> : null}
     </Pressable>
   );
 });
@@ -443,7 +433,8 @@ const st = StyleSheet.create({
   segT: { color: C.ink3, fontSize: 14 },
   oneBox: { flexDirection: 'row', gap: 8, backgroundColor: C.accentSoft, borderRadius: 20, padding: 14, marginBottom: 14 },
   one: { flex: 1, color: C.ink2, fontSize: 13.5, lineHeight: 20 },
-  sent: { paddingVertical: 9, paddingHorizontal: 4 },
+  sent: { paddingVertical: 9, paddingHorizontal: 10, marginHorizontal: -6, borderRadius: 14 },
+  sentCur: { backgroundColor: C.sheet },
   spkSmall: { color: C.ink3, fontSize: 12, marginTop: 8, marginBottom: 2 },
   en: { color: C.ink2, fontFamily: F.en, fontSize: 15, lineHeight: 23 },
   ko: { color: C.ink3, fontSize: 12.5, lineHeight: 18, marginTop: 3 },
