@@ -141,3 +141,18 @@ export async function setNickname(nickname: string) {
   if (!data.user) return;
   ok(await supabase.from('profiles').update({ nickname, updated_at: new Date().toISOString() }).eq('user_id', data.user.id));
 }
+
+// ---------- "학습자료가 준비됐어요" on the home screen ----------
+export type InboxItem = { episode_id: string; ep: Episode };
+/** Study materials the user asked for (last 3 days) and hasn't opened yet: being made, or ready. */
+export async function studyInbox(): Promise<InboxItem[]> {
+  const since = new Date(Date.now() - 3 * 86400_000).toISOString();
+  const r = await supabase.from('unlocks').select('episode_id,episodes(' + EP_COLS + ',shows(title,image_url))')
+    .is('opened_at', null).gt('unlocked_at', since).order('unlocked_at', { ascending: false }).limit(5);
+  const rows = (r.data as unknown as { episode_id: string; episodes: Episode | null }[] | null) ?? [];
+  return rows.filter((x) => x.episodes && ['queued', 'processing', 'prefetch', 'ready'].includes(x.episodes.status))
+    .map((x) => ({ episode_id: x.episode_id, ep: x.episodes! }));
+}
+export async function markOpened(episodeId: string) {
+  await supabase.from('unlocks').update({ opened_at: new Date().toISOString() }).eq('episode_id', episodeId).is('opened_at', null);
+}

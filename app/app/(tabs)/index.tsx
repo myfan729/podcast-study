@@ -1,6 +1,6 @@
 import { Link, useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { FlatList, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import EpisodeRow from '@/components/EpisodeRow';
 import { Art, Btn, Icon, Logo } from '@/components/ui';
@@ -17,15 +17,24 @@ export default function Home() {
   const [cont, setCont] = useState<Cont>(null);
   const [plan, setPlan] = useState<{ free_left: number; pro: boolean } | null>(null);
   const [busy, setBusy] = useState(false);
+  const [inbox, setInbox] = useState<api.InboxItem[]>([]);
   const load = useCallback(async () => {
     setBusy(true);
     try {
       const ids = await api.mySubscriptions(); setSubs(ids);
-      const [f, c, p] = await Promise.all([api.feed(ids), api.continueListening().catch(() => null), api.freeLeft().catch(() => null)]);
-      setEps(f); setCont(c); setPlan(p);
+      const [f, c, p, ib] = await Promise.all([api.feed(ids), api.continueListening().catch(() => null), api.freeLeft().catch(() => null),
+        api.studyInbox().catch(() => [])]);
+      setEps(f); setCont(c); setPlan(p); setInbox(ib);
     } finally { setBusy(false); }
   }, []);
   useFocusEffect(useCallback(() => { load(); }, [load]));
+  // while something is being made, check again every 15 s so the notice turns into "준비됐어요" by itself
+  const making = inbox.some((x) => x.ep.status !== 'ready');
+  useFocusEffect(useCallback(() => {
+    if (!making) return;
+    const t = setInterval(() => { api.studyInbox().then(setInbox).catch(() => {}); }, 15000);
+    return () => clearInterval(t);
+  }, [making]));
 
   const fresh = eps.slice(0, 6), rest = eps.slice(6);
   return (
@@ -36,6 +45,22 @@ export default function Home() {
           {plan && <View style={s.plan}><Text style={s.planT}>{plan.pro ? '프로' : `학습자료 ${plan.free_left}회 남음`}</Text></View>}
         </View>
         <Text style={s.hello}>{cont ? '어제 듣던 거,\n마저 들어볼까요?' : '오늘은 뭘\n들어볼까요?'}</Text>
+
+        {inbox.map(({ ep: e }) => {
+          const ready = e.status === 'ready';
+          return (
+            <Pressable key={e.id} style={[s.note, ready && s.noteReady]} accessibilityRole="button"
+              onPress={() => router.push({ pathname: '/episode/[id]', params: ready ? { id: e.id, study: '1' } : { id: e.id } })}>
+              <View style={[s.noteIcon, ready && { backgroundColor: '#fff' }]}>
+                {ready ? <Icon name="sparkles" size={18} color={C.accent} /> : <ActivityIndicator size="small" color={C.accent} />}
+              </View>
+              <View style={{ flex: 1, minWidth: 0 }}>
+                <Text style={[s.noteH, ready && { color: '#fff' }]}>{ready ? '학습자료가 준비됐어요' : '학습자료 만드는 중…'}</Text>
+                <Text style={[s.noteT, ready && { color: '#E6E0FF' }]} numberOfLines={1}>{e.title}</Text>
+              </View>
+              {ready ? <Text style={s.noteGo}>열기 ›</Text> : null}
+            </Pressable>);
+        })}
 
         {cont && (
           <Pressable style={s.cont}
@@ -90,6 +115,12 @@ const s = StyleSheet.create({
   plan: { backgroundColor: C.sheet, borderRadius: R.pill, paddingHorizontal: 12, paddingVertical: 7 },
   planT: { color: C.streak, fontSize: 12.5, fontWeight: '700' },
   hello: { fontFamily: F.title, fontSize: 25, lineHeight: 34, color: C.ink, paddingHorizontal: 22, marginTop: 18 },
+  note: { flexDirection: 'row', alignItems: 'center', gap: 12, marginHorizontal: 22, marginTop: 12, padding: 14, borderRadius: R.card, backgroundColor: C.sheet },
+  noteReady: { backgroundColor: C.accent },
+  noteIcon: { width: 38, height: 38, borderRadius: 19, backgroundColor: C.accentSoft, alignItems: 'center', justifyContent: 'center' },
+  noteH: { color: C.ink, fontWeight: '700', fontSize: 14.5 },
+  noteT: { color: C.ink3, fontFamily: F.enB, fontSize: 13, marginTop: 2 },
+  noteGo: { color: '#fff', fontWeight: '700', fontSize: 13.5 },
   cont: { flexDirection: 'row', alignItems: 'center', gap: 14, marginHorizontal: 22, marginTop: 16, padding: 18, borderRadius: R.card, backgroundColor: C.accent },
   contMeta: { color: '#E6E0FF', fontSize: 12 },
   contT: { color: '#fff', fontFamily: F.enB, fontSize: 16, lineHeight: 21, marginTop: 4 },

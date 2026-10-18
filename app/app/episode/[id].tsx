@@ -21,7 +21,7 @@ type Peek = { kind: 'expr' | 'word'; idx: number } | null;
 const RATES = [0.8, 1, 1.2];
 
 export default function EpisodeScreen() {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id, study } = useLocalSearchParams<{ id: string; study?: string }>();
   // opening an episode just plays it; the study mode is one tap away ("학습자료 만들기")
   const [mode, setMode] = useState<'listen' | 'study'>('listen');
   const [ep, setEp] = useState<Episode | null>(null);
@@ -29,7 +29,8 @@ export default function EpisodeScreen() {
   const [err, setErr] = useState('');
   useEffect(() => {
     setMode('listen'); setEp(null); setUnlocked(null);
-    Promise.all([api.episode(id), api.isUnlocked(id)]).then(([e, u]) => { setEp(e); setUnlocked(u); }).catch((x) => setErr(x.message));
+    Promise.all([api.episode(id), api.isUnlocked(id)]).then(([e, u]) => { setEp(e); setUnlocked(u); if (u && study === '1') setMode('study'); })
+      .catch((x) => setErr(x.message));
   }, [id]);
   if (err) return <Center text={'문제가 생겼어요: ' + err} />;
   if (!ep || unlocked === null) return <Center spin />;
@@ -175,6 +176,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
 
   const np = useNowPlaying();
   useEffect(() => {
+    api.markOpened(ep.id).catch(() => {});                         // the home screen stops announcing it
     np.stop();                                                      // only one thing plays: the study copy
     AsyncStorage.getItem(key).then((v) => { if (v) setAnchors(JSON.parse(v)); }).catch(() => {});
     player.setActiveForLockScreen?.(true, { title: pack.title, artist: pack.show.name, artworkUrl: pack.show.image });
@@ -269,11 +271,13 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const [dragSec, setDragSec] = useState<number | null>(null);    // time under the finger while dragging the bar
+  const [rootH, setRootH] = useState(0);
+  const [dockTop, setDockTop] = useState(0);                      // top of the hints + player bar block
   const dur = status.duration || pack.duration_sec || 1;
   const pct = Math.min(1, (status.currentTime ?? 0) / dur);
 
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+    <SafeAreaView edges={['top']} style={{ flex: 1 }} onLayout={(e) => setRootH(e.nativeEvent.layout.height)}>
       {syncRef && bgSync && resumeAt !== null && audioUrl ? (
         <AutoSync episodeId={ep.id} audioUrl={audioUrl} syncRef={syncRef} readyAt={resumeAt} onStatus={setAutoMsg}
           onPartial={onAutoPartial} onDone={onAutoDone} />) : null}
@@ -309,7 +313,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
       ) : (
         <Words pack={pack} episodeId={ep.id} onJump={(sec) => player.seekTo(toAudio(fix(sec), anchors))} />
       )}
-      {peek && <PeekCard pack={pack} peek={peek} episodeId={ep.id} onClose={() => setPeek(null)} />}
+      <View onLayout={(e) => setDockTop(e.nativeEvent.layout.y)}>
       {auto === 'working' && <View style={st.syncHint}><ActivityIndicator size="small" color={C.accent} /><Text style={st.syncT}>{autoMsg || '자동 싱크 준비 중…'} 끝나면 재생할 수 있어요</Text></View>}
       {auto === 'off' && !ep.sync_path && Platform.OS !== 'web' && !syncMode && !anchors.length && <View style={st.syncHint}><ActivityIndicator size="small" color={C.accent} /><Text style={st.syncT}>싱크 데이터 준비 중 · 그동안은 문장이 조금 어긋날 수 있어요</Text></View>}
       {anchors.length > 0 && !syncMode && inAd(status.currentTime ?? 0, anchors) && <View style={st.syncHint}><Icon name="megaphone-outline" size={16} color={C.accent} /><Text style={st.syncT}>광고 중 · 끝나면 다시 따라가요</Text></View>}
@@ -345,6 +349,10 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
           </Pressable>
         </View>
       </View>
+      </View>
+      {/* drawn last, so it sits above the list and right on top of the hints + player bar, never under them */}
+      {peek && <PeekCard pack={pack} peek={peek} episodeId={ep.id} onClose={() => setPeek(null)}
+        bottom={rootH && dockTop ? rootH - dockTop + 8 : 220} />}
     </SafeAreaView>
   );
 }
@@ -384,7 +392,7 @@ function Credit({ pack, ep }: { pack: Pack; ep: Episode }) {
   );
 }
 
-function PeekCard({ pack, peek, episodeId, onClose }: { pack: Pack; peek: NonNullable<Peek>; episodeId: string; onClose: () => void }) {
+function PeekCard({ pack, peek, episodeId, onClose, bottom }: { pack: Pack; peek: NonNullable<Peek>; episodeId: string; onClose: () => void; bottom: number }) {
   const [saved, setSaved] = useState(false);
   const ex = peek.kind === 'expr' ? pack.study.expressions?.[peek.idx] : undefined;
   const v = peek.kind === 'word' ? pack.study.vocab?.[peek.idx] : undefined;
@@ -396,7 +404,7 @@ function PeekCard({ pack, peek, episodeId, onClose }: { pack: Pack; peek: NonNul
     try { await api.saveItem({ kind: ex ? 'expression' : 'word', text, meaning_ko: meaning, example, episode_id: episodeId }); } catch { /* retried on next tap */ }
   };
   return (
-    <View style={[st.peek, shadow]}>
+    <View style={[st.peek, shadow, { bottom }]}>
       <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 10 }}>
         <View style={{ flex: 1, minWidth: 0 }}>
           <Text style={st.peekKind}>{ex ? '표현' : '단어'}</Text>
