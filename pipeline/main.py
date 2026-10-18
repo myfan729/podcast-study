@@ -319,7 +319,7 @@ def retime_stale(session, shows: list[dict], max_n: int = 4, only: str | None = 
     return n
 
 
-def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, translate: bool) -> dict:
+def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, translate: bool, on_sync_ready=None) -> dict:
     tref = ep.best_transcript
     web_meta = None
     if tref is None and show.get("transcript") == "web":
@@ -364,6 +364,10 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
     }
     if audio_meta.get("content_duration"):
         meta["duration_sec"] = int(round(audio_meta["content_duration"]))
+    if on_sync_ready:
+        # everything the audio sync needs is known now: let it run while the study pack is being written
+        on_sync_ready({"audio_url": audio_final or ep.audio_url, "audio_url_original": ep.audio_url, "audio_meta": audio_meta,
+                       "duration_sec": meta["duration_sec"], "transcript": {"cues": cues_to_dicts(cues)}})
     if _overrides["study"]:
         from .llm import postprocess_study_pack
         study = postprocess_study_pack(dict(_overrides["study"]), segments)

@@ -191,6 +191,7 @@ def refresh(db: Supa, only: str | None = None) -> int:
     return n
 
 
+SYNC_WAIT_SEC = 150    # after the pack is done, wait this long for its sync before opening it unsynced
 MAX_STUDY_SEC = 3600   # study packs only for episodes up to 60 min (same limit in request_episode)
 
 
@@ -219,6 +220,18 @@ def process(db: Supa, max_n: int = 4, mock: bool = False, status: str = "queued"
     session = http_session()
     gen = StudyGenerator(mock=mock)
     done = 0
+    # the audio sync runs beside the study pack (one at a time), so the episode opens already synced
+    from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutTimeout
+    sync_pool, sync_asr = ThreadPoolExecutor(max_workers=1), {}
+
+    def do_sync(eid: str, partial: dict) -> str:
+        from . import sync as SY
+        if "asr" not in sync_asr and not (partial.get("audio_meta") or {}).get("fixed"):
+            sync_asr["asr"] = SY.Asr()
+        built = SY.build(partial, sync_asr.get("asr"), http_session())
+        db.put_object("episodes", f"{eid}.sync.json", json.dumps(built, separators=(",", ":")).encode())
+        return f"{eid}.sync.json"
+
     for row in queued:
         claimed = db.update("episodes", f"id=eq.{row['id']}&status=eq.{status}", {"status": "processing"})
         if not claimed:
@@ -234,15 +247,28 @@ def process(db: Supa, max_n: int = 4, mock: bool = False, status: str = "queued"
             if not ep.best_transcript and cfg.get("transcript") != "web":
                 db.update("episodes", f"id=eq.{row['id']}", {"status": "no_transcript", "has_transcript": False})
                 continue
-            doc = process_episode(session, gen, cfg, ep, translate=True)
+            fut: dict = {}
+            doc = process_episode(session, gen, cfg, ep, translate=True,
+                                  on_sync_ready=lambda partial, eid=row["id"]: fut.setdefault("f", sync_pool.submit(do_sync, eid, partial)))
             doc["id"] = row["id"]
             doc["show"].update(slug=str(sh["id"]), name=sh["title"], image=sh.get("image_url"))
             db.put_object("episodes", f"{row['id']}.json", json.dumps(doc, ensure_ascii=False, separators=(",", ":")).encode())
-            # the pack is all the app needs: mark it ready right away, then add the audio sync (slow) afterwards
+            # open it synced from the start: wait (a little) for the sync that ran beside the pack;
+            # if it's slower, mark ready anyway and add sync_path when it lands (the app switches over then)
+            sync_path = None
+            if "f" in fut:
+                try:
+                    sync_path = fut["f"].result(timeout=SYNC_WAIT_SEC)
+                except FutTimeout:
+                    log.info("  sync still running — ready without it for now")
+                    fut["f"].add_done_callback(lambda f, eid=row["id"]: f.exception() is None and
+                                               db.update("episodes", f"id=eq.{eid}", {"sync_path": f.result()}))
+                except Exception as x:  # noqa: BLE001
+                    log.error("  sync failed (the later sync step retries): %s", x)
             db.update("episodes", f"id=eq.{row['id']}", {
                 "status": "ready", "pack_path": f"{row['id']}.json", "error": None,
                 "one_liner_ko": (doc.get("study") or {}).get("one_liner_ko"), "ready_at": utcnow_iso(),
-                "duration_sec": doc.get("duration_sec")})
+                "duration_sec": doc.get("duration_sec"), **({"sync_path": sync_path} if sync_path else {})})
             log.info("  ✓ ready (pack)")
             done += 1
         except Exception as e:  # noqa: BLE001
@@ -253,6 +279,7 @@ def process(db: Supa, max_n: int = 4, mock: bool = False, status: str = "queued"
             db.update("episodes", f"id=eq.{row['id']}", {"status": new, "error": str(e)[:300],
                                                        "attempts": (row.get("attempts") or 0) + (0 if new == "prefetch" else 1)})
             log.error("  ✗ %s", e)
+    sync_pool.shutdown(wait=True)
     return done
 
 
