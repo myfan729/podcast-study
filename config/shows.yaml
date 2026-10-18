@@ -21,14 +21,14 @@ schedule:
     count: 3
     label: "🌅 아침 팟캐스트"
     shows: [up-first, the-indicator, big-take]           # NPR news briefing, NPR economics short, Bloomberg deep dive
-    fallback: [trumponomics, everybodys-business, zero]  # weekends: weekly Bloomberg shows
+    fallback: [trumponomics, everybodys-business, zero, short-wave, planet-money]  # weekends: weekly shows
   evening:
     at: "18:00"
     until: "21:30"
     count: 1
     label: "🌙 하루 마무리 팟캐스트"
     shows: [think-fast-talk-smart, stuff-you-should-know] # new TFTS (Mon/Thu night) → Tue/Fri, Short Stuff (Wed 18:00) → Thu
-    fallback: [zero, everybodys-business, trumponomics]  # other evenings: a new episode (≤7 days) of a weekly show — never an old archive one
+    fallback: [zero, everybodys-business, trumponomics, planet-money, short-wave, cautionary-tales, odd-lots, heres-the-thing]  # other evenings: a new episode (≤7 days) of a weekly show — never an old archive one
 
 defaults:
   max_minutes: 40          # skip episodes longer than this (e.g. Big Take "Weekend Listen")
@@ -163,3 +163,61 @@ shows:
     backfill: 2
     level: "B1-B2"
     style: "Two presenters discuss one topic in clear, simple English for learners; ~6 min; weekly. Scripted, with a vocabulary recap."
+
+  # --- evening/weekend fallbacks (weekly shows, so empty evenings still get a fresh episode) ---
+  - slug: planet-money
+    name: Planet Money
+    publisher: NPR
+    color: "#2b7bd6"
+    feed: https://feeds.npr.org/510289/podcast.xml
+    transcript: web
+    parser: npr
+    speaker_labels: named
+    max_minutes: 40
+    hold: false
+    backfill: 1
+    style: "NPR's Planet Money: hosts tell one surprising economics story with reporting and interviews; ~25-30 min; twice a week."
+
+  - slug: short-wave
+    name: Short Wave
+    publisher: NPR
+    color: "#3a9d5d"
+    feed: https://feeds.npr.org/510351/podcast.xml
+    transcript: web
+    parser: npr
+    speaker_labels: named
+    max_minutes: 20
+    hold: false
+    backfill: 1
+    style: "NPR's science podcast: a host and a reporter or scientist explain one new discovery in plain language; ~13 min; weekdays."
+
+  - slug: cautionary-tales
+    name: Cautionary Tales
+    publisher: Pushkin Industries
+    color: "#b5482b"
+    feed: https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/c0ae8c6e-22f0-4e9b-ac1c-ae390037ac53/7f5a4714-6b10-4ccf-a424-ae390037ac70/podcast.rss
+    speaker_labels: auto
+    max_minutes: 45
+    backfill: 1
+    style: "Tim Harford tells a dramatic true story of things going wrong and what it teaches about thinking and decisions; ~35-40 min; weekly."
+
+  - slug: odd-lots
+    name: Odd Lots
+    publisher: Bloomberg
+    color: "#7a3fd1"
+    feed: https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/8a94442e-5a74-4fa2-8b8d-ae27003a8d6b/982f5071-765c-403d-969d-ae27003a8d83/podcast.rss
+    speaker_labels: generic
+    max_minutes: 60
+    backfill: 1
+    style: "Joe Weisenthal and Tracy Alloway interview an expert about one corner of markets or the economy; ~45-55 min; twice a week."
+
+  - slug: heres-the-thing
+    name: Here's The Thing
+    publisher: iHeartPodcasts
+    color: "#c47d12"
+    feed: https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/53726b04-3b06-43b5-b265-ae3300346e4e/add8ee8b-ff73-4b72-a3ee-ae3300346e5c/podcast.rss
+    speaker_labels: auto
+    max_minutes: 60
+    backfill: 1
+    style: "Alec Baldwin's long-form conversation with an artist, writer or public figure about their life and work; ~40-50 min; weekly."
+
