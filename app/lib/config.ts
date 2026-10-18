@@ -8,3 +8,5 @@ export const FREE_PER_WEEK = 2;
 export const SITE_URL = 'https://myfan729.github.io/podcast-study/';
 export const PRIVACY_URL = SITE_URL + 'privacy.html';
 export const TERMS_URL = SITE_URL + 'terms.html';
+export const TERMS_VERSION = '2026-10-18';      // bump with docs/terms.html; users re-agree when it changes
+export const PRIVACY_VERSION = '2026-10-18';    // bump with docs/privacy.html

@@ -119,3 +119,25 @@ export function secureAudio(url: string | null | undefined): string {
   if (!url) return '';
   return url.replace(/^http:\/\//i, 'https://').replace('/proto/http/', '/proto/https/');
 }
+
+// ---------- sign-up record ----------
+export async function saveProfile(p: { nickname: string; marketing: boolean; terms_version: string; privacy_version: string }) {
+  const { data } = await supabase.auth.getUser();
+  if (!data.user) throw new Error('로그인이 필요해요');
+  const now = new Date().toISOString();
+  ok(await supabase.from('profiles').upsert({
+    user_id: data.user.id, nickname: p.nickname, terms_version: p.terms_version, privacy_version: p.privacy_version,
+    age14_confirmed: true, agreed_at: now, marketing_opt_in: p.marketing, marketing_at: now, updated_at: now,
+  }));
+}
+export async function setMarketing(on: boolean) {
+  const now = new Date().toISOString();
+  const { data } = await supabase.auth.getUser();
+  if (!data.user) return;
+  ok(await supabase.from('profiles').update({ marketing_opt_in: on, marketing_at: now, updated_at: now }).eq('user_id', data.user.id));
+}
+export async function setNickname(nickname: string) {
+  const { data } = await supabase.auth.getUser();
+  if (!data.user) return;
+  ok(await supabase.from('profiles').update({ nickname, updated_at: new Date().toISOString() }).eq('user_id', data.user.id));
+}

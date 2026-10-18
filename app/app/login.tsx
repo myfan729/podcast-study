@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
-import { AUTH_REDIRECT } from '@/lib/authLink';
+import { AUTH_REDIRECT, enabledSocial, signInWith, type Social } from '@/lib/authLink';
 import { C, F, R } from '@/lib/theme';
 
 export default function Login() {
@@ -14,6 +14,12 @@ export default function Login() {
   const [msg, setMsg] = useState('');
   const [usePw, setUsePw] = useState(false);       // password sign-in (store-review account)
   const [pw, setPw] = useState('');
+  const [social, setSocial] = useState<Social[]>([]);
+  useEffect(() => { enabledSocial().then(setSocial); }, []);
+  const go = async (p: Social) => {
+    setBusy(true); setMsg('');
+    try { await signInWith(p); } catch (e: any) { setMsg(String(e?.message ?? e)); } finally { setBusy(false); }
+  };
 
   const send = async () => {
     setBusy(true); setMsg('');
@@ -42,6 +48,18 @@ export default function Login() {
         <View style={s.mark}><Icon name="ear" size={44} color="#fff" /></View>
         <Text style={s.logo}>잉팟</Text>
         <Text style={s.sub}>진짜 영어 팟캐스트를{'\n'}대본·번역·표현과 함께 들어요</Text>
+        {social.length > 0 && !sent && (
+          <View style={{ gap: 10, marginBottom: 14 }}>
+            {social.includes('kakao') && (
+              <Pressable style={[s.soc, { backgroundColor: '#FEE500' }]} onPress={() => go('kakao')} disabled={busy} accessibilityRole="button">
+                <Icon name="chatbubble" size={18} color="#191919" /><Text style={[s.socT, { color: '#191919' }]}>카카오로 계속하기</Text>
+              </Pressable>)}
+            {social.includes('google') && (
+              <Pressable style={[s.soc, { backgroundColor: '#fff', borderWidth: 1, borderColor: C.line }]} onPress={() => go('google')} disabled={busy} accessibilityRole="button">
+                <Icon name="logo-google" size={18} color="#4285F4" /><Text style={[s.socT, { color: C.ink }]}>Google로 계속하기</Text>
+              </Pressable>)}
+            <Text style={s.or}>또는 이메일로</Text>
+          </View>)}
         <View style={s.box}>
           <Text style={s.label} nativeID="emailLabel">이메일</Text>
           <TextInput style={[s.input, sent && { color: C.ink3 }]} placeholder="you@example.com" placeholderTextColor={C.faint}
@@ -75,6 +93,9 @@ const s = StyleSheet.create({
   logo: { fontFamily: F.title, fontSize: 40, color: C.ink, textAlign: 'center', marginTop: 14 },
   sub: { color: C.ink2, textAlign: 'center', lineHeight: 22, marginTop: 6, marginBottom: 28 },
   box: { backgroundColor: C.sheet, borderRadius: 32, padding: 20 },
+  soc: { flexDirection: 'row', gap: 10, alignItems: 'center', justifyContent: 'center', minHeight: 54, borderRadius: R.pill },
+  socT: { fontSize: 15.5, fontWeight: '700' },
+  or: { color: C.ink3, fontSize: 12.5, textAlign: 'center', marginTop: 4 },
   label: { color: C.ink3, fontSize: 12.5, marginBottom: 6, marginLeft: 4 },
   input: { backgroundColor: C.bg, borderRadius: 18, paddingHorizontal: 16, paddingVertical: 14, fontSize: 16, color: C.ink },
   code: { fontFamily: F.enX, fontSize: 22, letterSpacing: 8, textAlign: 'center' },

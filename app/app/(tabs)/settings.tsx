@@ -1,6 +1,6 @@
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Alert, Linking, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Linking, Platform, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon, PageTitle } from '@/components/ui';
 import * as api from '@/lib/api';
@@ -12,10 +12,16 @@ import Constants from 'expo-constants';
 import { C, F, R } from '@/lib/theme';
 
 export default function Settings() {
-  const { session } = useSession();
+  const { session, profile, reloadProfile } = useSession();
   const [plan, setPlan] = useState<{ free_left: number; pro: boolean } | null>(null);
   useFocusEffect(useCallback(() => { api.freeLeft().then(setPlan).catch(() => {}); }, []));
   const email = session?.user.email ?? '';
+  const name = profile?.nickname || email;
+  const via = (session?.user.app_metadata?.provider as string | undefined) ?? 'email';
+  const viaKo = via === 'google' ? 'Google' : via === 'kakao' ? '카카오' : '이메일';
+  const [mkt, setMkt] = useState<boolean | null>(null);
+  const marketing = mkt ?? profile?.marketing_opt_in ?? false;
+  const toggleMkt = async (v: boolean) => { setMkt(v); try { await api.setMarketing(v); reloadProfile(); } catch { setMkt(!v); } };
   const remove = () => {
     const run = () => api.deleteMyAccount().catch((e) => Alert.alert('삭제하지 못했어요', String(e.message ?? e)));
     const msg = '계정과 저장한 단어장, 듣기 기록이 모두 지워지고 되돌릴 수 없어요.';
@@ -27,10 +33,10 @@ export default function Settings() {
       <ScrollView contentContainerStyle={{ paddingBottom: 24 }}>
         <PageTitle>나</PageTitle>
         <View style={s.me}>
-          <View style={s.avatar}><Text style={s.avatarT}>{email.slice(0, 1).toUpperCase() || '?'}</Text></View>
+          <View style={s.avatar}><Text style={s.avatarT}>{name.slice(0, 1).toUpperCase() || '?'}</Text></View>
           <View style={{ flex: 1, minWidth: 0 }}>
-            <Text style={s.label}>로그인 계정</Text>
-            <Text style={s.email} numberOfLines={1}>{email}</Text>
+            <Text style={s.email} numberOfLines={1}>{name}</Text>
+            <Text style={s.label} numberOfLines={1}>{viaKo} 로그인 · {email}</Text>
           </View>
         </View>
         <View style={[s.plan, plan?.pro && { backgroundColor: C.accent }]}>
@@ -44,6 +50,13 @@ export default function Settings() {
             <Text style={s.planP}>이번 주 학습자료 만들기 {plan?.free_left ?? '-'} / {FREE_PER_WEEK}회 남았어요. 듣기는 무제한이고, 한 번 만든 학습자료는 계속 볼 수 있어요.</Text>
             <View style={s.soon}><Icon name="time-outline" size={15} color={C.ink2} /><Text style={s.soonT}>프로 구독은 다음 업데이트에서 열려요</Text></View>
           </>}
+        </View>
+        <View style={s.pref}>
+          <View style={{ flex: 1 }}>
+            <Text style={s.prefT}>새 기능·이벤트 소식 메일</Text>
+            <Text style={s.label}>언제든 끌 수 있어요</Text>
+          </View>
+          <Switch value={marketing} onValueChange={toggleMkt} trackColor={{ true: C.accent, false: C.line }} thumbColor="#fff" accessibilityLabel="소식 메일 받기" />
         </View>
         <Pressable style={s.out} onPress={() => supabase.auth.signOut()} accessibilityRole="button">
           <Icon name="log-out-outline" size={18} color={C.warn} /><Text style={s.outT}>로그아웃</Text>
@@ -74,6 +87,8 @@ const s = StyleSheet.create({
   planP: { color: C.ink2, fontSize: 13.5, lineHeight: 20, marginTop: 12 },
   soon: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 14, backgroundColor: C.bg, borderRadius: 16, padding: 12 },
   soonT: { color: C.ink2, fontSize: 13 },
+  pref: { flexDirection: 'row', alignItems: 'center', gap: 12, marginHorizontal: 22, marginTop: 12, padding: 18, backgroundColor: C.sheet, borderRadius: R.card },
+  prefT: { color: C.ink, fontSize: 15, fontWeight: '600' },
   out: { flexDirection: 'row', gap: 6, alignItems: 'center', justifyContent: 'center', minHeight: 52, marginTop: 18 },
   outT: { color: C.warn, fontWeight: '700' },
   links: { flexDirection: 'row', justifyContent: 'center', gap: 10, marginTop: 4 },

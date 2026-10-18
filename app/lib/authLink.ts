@@ -1,3 +1,5 @@
+import * as WebBrowser from 'expo-web-browser';
+import { SUPABASE_ANON_KEY, SUPABASE_URL } from './config';
 import * as Linking from 'expo-linking';
 import { supabase } from './supabase';
 
@@ -15,4 +17,26 @@ export async function handleAuthUrl(url: string | null) {
   const code = params.get('code');
   if (code) { await supabase.auth.exchangeCodeForSession(code); return true; }
   return false;
+}
+
+// ---------- Google / Kakao ----------
+
+export type Social = 'google' | 'kakao';
+/** Which social logins are switched on in Supabase (so a button only shows once it works). */
+export async function enabledSocial(): Promise<Social[]> {
+  try {
+    const r = await fetch(`${SUPABASE_URL}/auth/v1/settings`, { headers: { apikey: SUPABASE_ANON_KEY } });
+    const ext = ((await r.json()) as { external?: Record<string, boolean> }).external ?? {};
+    return (['google', 'kakao'] as Social[]).filter((p) => ext[p]);
+  } catch { return []; }
+}
+/** Sign in through the provider's page in an in-app browser; it comes back to podcaststudy://login. */
+export async function signInWith(provider: Social) {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider, options: { redirectTo: AUTH_REDIRECT, skipBrowserRedirect: true,
+      ...(provider === 'kakao' ? { scopes: 'account_email profile_nickname' } : {}) },
+  });
+  if (error || !data?.url) throw new Error(error?.message ?? '로그인을 시작하지 못했어요');
+  const res = await WebBrowser.openAuthSessionAsync(data.url, AUTH_REDIRECT);
+  if (res.type === 'success') await handleAuthUrl(res.url);
 }

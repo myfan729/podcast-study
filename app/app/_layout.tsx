@@ -16,27 +16,32 @@ import { handleAuthUrl } from '@/lib/authLink';
 import { SessionProvider, useSession } from '@/lib/session';
 import { NowPlayingProvider } from '@/lib/nowPlaying';
 import { C } from '@/lib/theme';
+import { PRIVACY_VERSION, TERMS_VERSION } from '@/lib/config';
 
 export { ErrorBoundary } from 'expo-router';
 SplashScreen.preventAutoHideAsync();
 
 function Gate({ fontsReady }: { fontsReady: boolean }) {
-  const { session, loading } = useSession();
+  const { session, loading, profile, profileLoading } = useSession();
   const segments = useSegments();
   const router = useRouter();
   const url = Linking.useURL();
   useEffect(() => { handleAuthUrl(url).catch(() => {}); }, [url]);
   useEffect(() => {
-    if (loading || !fontsReady) return;
+    if (loading || !fontsReady || (session && profileLoading)) return;
     SplashScreen.hideAsync();
-    const onLogin = segments[0] === 'login';
-    if (!session && !onLogin) router.replace('/login');
-    else if (session && onLogin) router.replace('/');
-  }, [session, loading, fontsReady, segments, router]);
+    const at = segments[0] as string | undefined;
+    // signed in → sign-up record with the current terms → the app
+    const agreed = !!profile && profile.terms_version === TERMS_VERSION && profile.privacy_version === PRIVACY_VERSION;
+    if (!session) { if (at !== 'login') router.replace('/login'); }
+    else if (!agreed) { if (at !== 'signup') router.replace('/signup'); }
+    else if (at === 'login' || at === 'signup') router.replace('/');
+  }, [session, loading, fontsReady, segments, router, profile, profileLoading]);
   return (
     <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: C.bg } }}>
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="login" />
+      <Stack.Screen name="signup" />
       <Stack.Screen name="show/[id]" />
       <Stack.Screen name="episode/[id]" />
     </Stack>
