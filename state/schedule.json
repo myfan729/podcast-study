@@ -1,21 +1,5 @@
 {
  "occasions": {
-  "2026-10-15-morning": {
-   "post_at": "2026-10-15T07:00:00+09:00",
-   "has": [
-    "up-first: Ukraine's President Sits With NPR, Pope Leo Cancer, Ambassador Guilfoyle Forced Out",
-    "the-indicator: How did we get a Nobel Prize in economics?",
-    "big-take: The Diesel Midterms"
-   ],
-   "adding": [],
-   "waiting_for": [],
-   "expected": [
-    "big-take",
-    "trumponomics",
-    "up-first"
-   ],
-   "checked_at": "2026-10-14T22:57:25Z"
-  },
   "2026-10-16-evening": {
    "post_at": "2026-10-16T18:00:00+09:00",
    "has": [
@@ -95,6 +79,18 @@
    ],
    "checked_at": "2026-10-17T03:33:35Z"
   },
+  "2026-10-19-evening": {
+   "post_at": "2026-10-19T18:00:00+09:00",
+   "has": [],
+   "adding": [
+    "odd-lots (fallback): The French Political Crisis That's Turning Into a Debt Crisis"
+   ],
+   "waiting_for": [],
+   "expected": [
+    "odd-lots"
+   ],
+   "checked_at": "2026-10-18T12:01:12Z"
+  },
   "2026-10-19-morning": {
    "post_at": "2026-10-19T07:00:00+09:00",
    "has": [
@@ -111,5 +107,5 @@
    "checked_at": "2026-10-18T10:17:56Z"
   }
  },
- "updated_at": "2026-10-18T10:17:57Z"
+ "updated_at": "2026-10-18T12:01:12Z"
 }

@@ -1,0 +1,30 @@
+{
+ "occasion": "2026-10-19-evening",
+ "posts": [
+  {
+   "id": "odd-lots-2026-10-16-the-french-political-crisis-that-s-turning-into-a-debt",
+   "occasion": "2026-10-19-evening",
+   "slot": "evening",
+   "order": 8,
+   "post_at": "2026-10-19T18:00:00+09:00",
+   "post_at_ms": 1792400400000,
+   "until": "2026-10-19T21:30:00+09:00",
+   "until_ms": 1792413000000,
+   "title": "The French Political Crisis That's Turning Into a Debt Crisis",
+   "show": {
+    "slug": "odd-lots",
+    "name": "Odd Lots",
+    "publisher": "Bloomberg",
+    "color": "#7a3fd1",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=odd-lots-2026-10-16-the-french-political-crisis-that-s-turning-into-a-debt",
+   "pick": "fallback",
+   "one_liner_ko": "프랑스의 재정 문제는 그대로인데, 2027년 대선·총선 이후 재정 결정을 내릴 정치적 능력이 사라질 수 있다는 우려가 정치 위기를 국채 위기로 바꾸고 있다는 분석.",
+   "duration_sec": 2854,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/8a94442e-5a74-4fa2-8b8d-ae27003a8d6b/982f5071-765c-403d-969d-ae27003a8d83/image.jpg?t=1681322812&size=Large",
+   "text": "🌙 하루 마무리 팟캐스트 · Odd Lots (10/16)\nThe French Political Crisis That's Turning Into a Debt Crisis\n⏱ 47분\n\n프랑스의 재정 문제는 그대로인데, 2027년 대선·총선 이후 재정 결정을 내릴 정치적 능력이 사라질 수 있다는 우려가 정치 위기를 국채 위기로 바꾸고 있다는 분석.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=odd-lots-2026-10-16-the-french-political-crisis-that-s-turning-into-a-debt",
+   "queued_at": "2026-10-18T12:03:25Z"
+  }
+ ]
+}

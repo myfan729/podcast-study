@@ -475,6 +475,19 @@
    "title": "A Tale of Blood and Ashes: The Exeter Vampires | Halloween Season",
    "published_at": "2026-10-16T04:01:00Z",
    "done_at": "2026-10-18T09:40:02Z"
+  },
+  "odd-lots:bd4689d64458": {
+   "first_seen": "2026-10-18T12:01:12Z",
+   "attempts": 1,
+   "occasion": "2026-10-19-evening",
+   "slot": "evening",
+   "pick": "fallback",
+   "assigned_at": "2026-10-18T12:01:12Z",
+   "status": "done",
+   "id": "odd-lots-2026-10-16-the-french-political-crisis-that-s-turning-into-a-debt",
+   "title": "The French Political Crisis That's Turning Into a Debt Crisis",
+   "published_at": "2026-10-16T09:00:00Z",
+   "done_at": "2026-10-18T12:02:56Z"
   }
  }
 }

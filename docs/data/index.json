@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-18T09:40:02Z",
+ "generated_at": "2026-10-18T12:02:56Z",
  "shows": [
   {
    "slug": "big-take",
@@ -157,6 +157,29 @@
    "cefr": "C1",
    "expressions": 12,
    "words": 2214,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "odd-lots-2026-10-16-the-french-political-crisis-that-s-turning-into-a-debt",
+   "show": "odd-lots",
+   "title": "The French Political Crisis That's Turning Into a Debt Crisis",
+   "published_at": "2026-10-16T09:00:00Z",
+   "duration_sec": 2854,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/8a94442e-5a74-4fa2-8b8d-ae27003a8d6b/982f5071-765c-403d-969d-ae27003a8d83/image.jpg?t=1681322812&size=Large",
+   "one_liner_ko": "프랑스의 재정 문제는 그대로인데, 2027년 대선·총선 이후 재정 결정을 내릴 정치적 능력이 사라질 수 있다는 우려가 정치 위기를 국채 위기로 바꾸고 있다는 분석.",
+   "tags": [
+    "France",
+    "euro crisis",
+    "sovereign debt",
+    "ECB",
+    "political risk",
+    "fiscal policy"
+   ],
+   "cefr": "C1",
+   "expressions": 22,
+   "words": 7744,
    "has_translation": true,
    "mock": false,
    "demo": false
