@@ -52,3 +52,7 @@ jobs:
           psql "$SUPABASE_DB_URL" -tA -c "select string_agg(x, ' ; ') from (select to_char(r.created_at at time zone 'Asia/Singapore','HH24:MI') || ' ' || left(s.title,14) || ' ' || round(coalesce((r.report->>'fileDur')::numeric,0)/60) || 'm ok=' || r.ok || ' ms=' || coalesce(r.report->>'ms','-') || ' refs=' || coalesce(jsonb_array_length(r.report->'refs'),0) || ' dec=' || left(coalesce((r.report->'decode')::text,''),60) as x
             from public.sync_reports r join public.episodes e on e.id=r.episode_id join public.shows s on s.id=e.show_id
             where r.created_at > now() - interval '1 day' order by r.created_at desc limit 25) t" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g" | while IFS= read -r l; do echo "::notice title=phone sync::$l"; done
+      - name: Social logins switched on in Supabase
+        run: |
+          s=$(curl -s "https://neyaiwhtuczbsdoqqgir.supabase.co/auth/v1/settings" -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5leWFpd2h0dWN6YnNkb3FxZ2lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyMDMxNDAsImV4cCI6MjEwNzc3OTE0MH0.GH0ryPV0A92KOakQEyIxDVo2kQM-gBizvGVKUZqLQdU")
+          echo "::notice title=auth providers::$(echo "$s" | python3 -c "import json,sys;e=json.load(sys.stdin).get('external',{});print({k:v for k,v in e.items() if k in ('google','kakao','email')})")"
