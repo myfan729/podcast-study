@@ -1,5 +1,7 @@
 name: App prefetch (refresh feeds, pre-build new episodes of followed shows)
 on:
+  repository_dispatch:
+    types: [prefetch]              # fired on time by the database (pg_cron), since GitHub drops scheduled runs
   workflow_dispatch:
   schedule:
     - cron: "23 * * * *"

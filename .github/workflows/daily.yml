@@ -7,6 +7,8 @@ on:
     - cron: "7,37 7-9 * * *"     # 16:07–18:37 KST every 30 min
   push:
     paths: [".github/workflows/daily.yml", "pipeline/daily.py"]   # also run right after the poster itself changes
+  repository_dispatch:
+    types: [daily]              # fired on time by the database (pg_cron), since GitHub drops scheduled runs
   workflow_dispatch:
     inputs:
       force:

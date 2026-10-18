@@ -15,6 +15,8 @@ on:
   push:
     branches: [main]
     paths-ignore: ["docs/data/**", "state/**", "app/**", "supabase/**", "tools/catalog/**"]   # code/config changes trigger a run; the bot's own data commits do not
+  repository_dispatch:
+    types: [update]              # fired on time by the database (pg_cron), since GitHub drops scheduled runs
   workflow_dispatch:
     inputs:
       backfill:
