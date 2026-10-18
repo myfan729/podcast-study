@@ -2,6 +2,31 @@
  "occasion": "2026-10-19-morning",
  "posts": [
   {
+   "id": "up-first-2026-10-17-school-shooting-in-bend-elon-musk-s-power-mn-senate-race",
+   "occasion": "2026-10-19-morning",
+   "slot": "morning",
+   "order": 0,
+   "post_at": "2026-10-19T07:00:00+09:00",
+   "post_at_ms": 1792360800000,
+   "until": "2026-10-19T12:00:00+09:00",
+   "until_ms": 1792378800000,
+   "title": "School Shooting in Bend, Elon Musk's Power, MN Senate Race",
+   "show": {
+    "slug": "up-first",
+    "name": "Up First",
+    "publisher": "NPR",
+    "color": "#d6352b",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-17-school-shooting-in-bend-elon-musk-s-power-mn-senate-race",
+   "pick": "new",
+   "one_liner_ko": "오리건주 벤드 초등학교 총격 사건의 전말, 일론 머스크의 권력과 기술 올리가르키 논란, 접전 중인데도 조용한 미네소타 상원 선거를 다룬 아침 뉴스 브리핑.",
+   "duration_sec": 1044,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/1400/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe0%2F7a%2Ffe9d16a44fbf9dd2d9932ffe799b%2F510318.png",
+   "text": "🌅 아침 팟캐스트 · Up First (10/17)\nSchool Shooting in Bend, Elon Musk's Power, MN Senate Race\n⏱ 17분\n\n오리건주 벤드 초등학교 총격 사건의 전말, 일론 머스크의 권력과 기술 올리가르키 논란, 접전 중인데도 조용한 미네소타 상원 선거를 다룬 아침 뉴스 브리핑.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-17-school-shooting-in-bend-elon-musk-s-power-mn-senate-race",
+   "queued_at": "2026-10-18T18:20:47Z"
+  },
+  {
    "id": "planet-money-2026-10-16-anatomy-of-a-movie-market",
    "occasion": "2026-10-19-morning",
    "slot": "morning",

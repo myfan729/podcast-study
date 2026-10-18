@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-18T12:02:56Z",
+ "generated_at": "2026-10-18T18:20:09Z",
  "shows": [
   {
    "slug": "big-take",
@@ -94,6 +94,29 @@
   }
  ],
  "episodes": [
+  {
+   "id": "up-first-2026-10-17-school-shooting-in-bend-elon-musk-s-power-mn-senate-race",
+   "show": "up-first",
+   "title": "School Shooting in Bend, Elon Musk's Power, MN Senate Race",
+   "published_at": "2026-10-17T13:32:49Z",
+   "duration_sec": 1044,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/1400/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe0%2F7a%2Ffe9d16a44fbf9dd2d9932ffe799b%2F510318.png",
+   "one_liner_ko": "오리건주 벤드 초등학교 총격 사건의 전말, 일론 머스크의 권력과 기술 올리가르키 논란, 접전 중인데도 조용한 미네소타 상원 선거를 다룬 아침 뉴스 브리핑.",
+   "tags": [
+    "US politics",
+    "Elon Musk",
+    "Midterm elections",
+    "School shooting",
+    "Campaign finance",
+    "NPR news"
+   ],
+   "cefr": "C1",
+   "expressions": 13,
+   "words": 2765,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
   {
    "id": "planet-money-2026-10-16-anatomy-of-a-movie-market",
    "show": "planet-money",

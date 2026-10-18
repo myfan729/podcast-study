@@ -488,6 +488,19 @@
    "title": "The French Political Crisis That's Turning Into a Debt Crisis",
    "published_at": "2026-10-16T09:00:00Z",
    "done_at": "2026-10-18T12:02:56Z"
+  },
+  "up-first:b47391a8380d": {
+   "first_seen": "2026-10-18T18:17:50Z",
+   "attempts": 1,
+   "occasion": "2026-10-19-morning",
+   "slot": "morning",
+   "pick": "new",
+   "assigned_at": "2026-10-18T18:17:50Z",
+   "status": "done",
+   "id": "up-first-2026-10-17-school-shooting-in-bend-elon-musk-s-power-mn-senate-race",
+   "title": "School Shooting in Bend, Elon Musk's Power, MN Senate Race",
+   "published_at": "2026-10-17T13:32:49Z",
+   "done_at": "2026-10-18T18:20:08Z"
   }
  }
 }
