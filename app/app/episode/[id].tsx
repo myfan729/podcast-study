@@ -87,8 +87,9 @@ function Center({ text, title, spin, icon, children }: { text?: string; title?: 
 
 function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
   // with auto-sync the player waits for the downloaded copy (playing the stream first only confuses: other ads)
+  const audioUrl = api.secureAudio(pack.audio_url);
   const willSync = !!ep.sync_path && Platform.OS !== 'web';
-  const player = useAudioPlayer(willSync ? null : pack.audio_url, { updateInterval: 250 });
+  const player = useAudioPlayer(willSync ? null : audioUrl, { updateInterval: 250 });
   const status = useAudioPlayerStatus(player);
   const [tab, setTab] = useState<'script' | 'words'>('script');
   const [ko, setKo] = useState(true);
@@ -203,14 +204,14 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
   useEffect(() => {
     if (!ep.sync_path || Platform.OS === 'web') return;              // the web build has no WebView / file system
     setAuto('working');
-    api.syncData(ep.sync_path).then(setSyncRef).catch(() => { setAuto('failed'); player.replace(pack.audio_url); });
+    api.syncData(ep.sync_path).then(setSyncRef).catch(() => { setAuto('failed'); player.replace(audioUrl); });
   }, [ep.sync_path]);
   const onAutoDone = useCallback(async (r: SyncResult | null, error?: string) => {
     const ok = !!r?.ok;
     api.reportSync(ep.id, ok, r?.anchors ?? null, r?.report ?? null, error).catch(() => {});
     const use = ok ? r!.anchors : anchors;
     if (ok) { setAnchors(r!.anchors); AsyncStorage.setItem(key, JSON.stringify(r!.anchors)).catch(() => {}); }
-    player.replace(r?.fileUri ? { uri: r.fileUri } : pack.audio_url);   // play exactly the copy that was aligned
+    player.replace(r?.fileUri ? { uri: r.fileUri } : audioUrl);   // play exactly the copy that was aligned
     player.setActiveForLockScreen?.(true, { title: pack.title, artist: pack.show.name, artworkUrl: pack.show.image });
     setAuto(ok ? 'auto' : 'failed');
     const last = await api.lastPosition(ep.id).catch(() => 0);
@@ -228,8 +229,8 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
 
   return (
     <SafeAreaView edges={['top']} style={{ flex: 1 }}>
-      {syncRef && auto === 'working' && pack.audio_url ? (
-        <AutoSync episodeId={ep.id} audioUrl={pack.audio_url} syncRef={syncRef} onStatus={setAutoMsg} onDone={onAutoDone} />) : null}
+      {syncRef && auto === 'working' && audioUrl ? (
+        <AutoSync episodeId={ep.id} audioUrl={audioUrl} syncRef={syncRef} onStatus={setAutoMsg} onDone={onAutoDone} />) : null}
       <View style={st.top}>
         <RoundBtn icon="chevron-back" label="뒤로" onPress={() => router.back()} />
         <View style={{ flex: 1, minWidth: 0, alignItems: 'center' }}>

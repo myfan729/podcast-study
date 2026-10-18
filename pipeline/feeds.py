@@ -191,7 +191,7 @@ def parse_feed(xml_text: str) -> tuple[dict, list[Episode]]:
                 title=html.unescape(title),
                 published_at=parse_pubdate(_child_text(item, "pubDate")),
                 duration_sec=parse_duration(_child_text(item, "duration")),
-                audio_url=enclosure_url,
+                audio_url=secure_audio(enclosure_url),
                 audio_type=enclosure_type,
                 link=_child_text(item, "link"),
                 description_html=_description(item),
@@ -222,3 +222,13 @@ def iter_eligible(episodes: Iterable[Episode], max_minutes: int | None) -> Itera
         if max_minutes and ep.duration_sec and ep.duration_sec > max_minutes * 60:
             continue
         yield ep
+
+
+def secure_audio(url):
+    """Phones block plain-http audio; BBC lists http enclosures and its media selector takes the
+    protocol from the path (/proto/http/), so ask for https there too. (guid keeps the original URL.)"""
+    if not url:
+        return url
+    if url.lower().startswith("http://"):
+        url = "https://" + url[7:]
+    return url.replace("/proto/http/", "/proto/https/")

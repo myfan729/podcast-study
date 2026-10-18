@@ -102,3 +102,10 @@ export async function deleteMyAccount() {
 export async function reportSync(episodeId: string, ok: boolean, anchors: unknown, report: unknown, error?: string) {
   await supabase.from('sync_reports').insert({ episode_id: episodeId, ok, anchors, report, error: error ?? null });
 }
+
+/** Android blocks plain-http audio. Some feeds (BBC) still list http:// enclosures, and BBC's
+ *  media selector picks the protocol from the path (/proto/http/ → an http redirect), so ask for https. */
+export function secureAudio(url: string | null | undefined): string {
+  if (!url) return '';
+  return url.replace(/^http:\/\//i, 'https://').replace('/proto/http/', '/proto/https/');
+}
