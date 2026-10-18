@@ -94,19 +94,18 @@
   "2026-10-19-morning": {
    "post_at": "2026-10-19T07:00:00+09:00",
    "has": [
-    "planet-money: Anatomy of a movie market"
+    "planet-money: Anatomy of a movie market",
+    "up-first: School Shooting in Bend, Elon Musk's Power, MN Senate Race"
    ],
-   "adding": [
-    "up-first (new): School Shooting in Bend, Elon Musk's Power, MN Senate Race"
-   ],
+   "adding": [],
    "waiting_for": [
     "big-take"
    ],
    "expected": [
     "big-take"
    ],
-   "checked_at": "2026-10-18T18:17:50Z"
+   "checked_at": "2026-10-18T18:38:22Z"
   }
  },
- "updated_at": "2026-10-18T18:17:50Z"
+ "updated_at": "2026-10-18T18:38:22Z"
 }
