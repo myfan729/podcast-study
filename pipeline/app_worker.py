@@ -84,6 +84,10 @@ def show_config(row: dict) -> dict:
         cfg.update(transcript="web", parser=row.get("parser") or "generic")
         if row.get("page_url"):
             cfg["page_url"] = row["page_url"]
+        if cfg["parser"] == "bbc_le":
+            # the feed's audio goes through a tracking redirect that answers 403 to phones outside
+            # the UK/US; the page links BBC's own ad-free download, which plays everywhere
+            cfg["audio_from_page"] = True
     return cfg
 
 

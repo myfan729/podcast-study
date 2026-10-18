@@ -11,21 +11,26 @@ jobs:
       - run: pip install -q -r requirements.txt
       - run: |
           python - <<'PY'
-          import json
           from pipeline.util import http_session, http_get_text
-          from pipeline.feeds import parse_feed, secure_audio
+          from pipeline.feeds import parse_feed
+          from pipeline import webtranscript as W
+          from pipeline.app_worker import show_config
+          import requests
           s = http_session()
-          for f in json.load(open("tools/catalog/catalog.json"))["shows"]:
-              try:
-                  import re
-                  raw = re.search(r'<enclosure[^>]*url="([^"]+)"', http_get_text(s, f["feed_url"])).group(1).replace("&amp;", "&")
-              except Exception as e:
-                  print(f"::notice::{f['title']} | feed error {e}"[:300]); continue
-              if raw == secure_audio(raw):
-                  continue
-              try:
-                  r = s.get(secure_audio(raw), stream=True, timeout=30); chain = [h.url[:60] for h in r.history] + [r.url[:90]]
-                  print(f"::notice::{f['title']} | {r.status_code} {r.headers.get('content-type')} | raw={raw[:70]} | {' > '.join(chain)}"[:500])
-              except Exception as e:
-                  print(f"::notice::{f['title']} | ERR {e}"[:300])
+          row = {"id": "x", "title": "6ME", "feed_url": "https://podcasts.files.bbci.co.uk/p02pc9tn.rss", "path": "web", "parser": "bbc_le",
+                 "page_url": "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_{year}/ep-{yymmdd}"}
+          cfg = show_config(row)
+          _, eps = parse_feed(http_get_text(s, row["feed_url"]))
+          ep = eps[0]
+          page = W.resolve_page_url(s, cfg, ep); html = W.fetch_page(s, page)
+          link = W.find_audio_link(html, page)
+          print(f"::notice::page={page} link={link}")
+          for name, url in (("page mp3", link), ("feed", ep.audio_url)):
+              for ua in ("okhttp/4.12.0", "ExoPlayerLib/2.19.1", None):
+                  h = {"User-Agent": ua} if ua else {"User-Agent": ""}
+                  try:
+                      r = requests.get(url, headers=h, stream=True, timeout=30, allow_redirects=True)
+                      print(f"::notice::{name} ua={ua} -> {r.status_code} {r.headers.get('content-type')} {r.url[:80]}")
+                  except Exception as e:
+                      print(f"::notice::{name} ua={ua} ERR {e}"[:200])
           PY
