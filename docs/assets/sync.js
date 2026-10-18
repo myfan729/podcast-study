@@ -197,6 +197,10 @@ window.PodSync = (function () {
     let offset = 0;
     const anchors = [], report = { fileDur: +fileDur.toFixed(2), contentDur, adTotal: +budget.toFixed(2), fixed: !!syncData.fixed, refs: [], decode: decodeLog };
     const refs = (syncData.refs || []).slice().sort((x, y) => x.c - y.c);
+    // playback can start as soon as everything up to where the listener resumes is aligned;
+    // the rest is matched while it plays (opts.onPartial gets the anchors so far, once)
+    const readyAt = (opts && opts.readyAt) || 0;
+    let partialSent = !(opts && opts.onPartial);
     for (let k = 0; k < refs.length; k++) {
       const ref = refs[k]; const fp = b64ToU16(ref.fp);
       const expA = ref.c + offset;
@@ -224,6 +228,11 @@ window.PodSync = (function () {
         } catch (e) { r.error = String(e && e.message || e); }
       }
       report.refs.push(r);
+      if (!partialSent && anchors.length && (k === refs.length - 1 || refs[k + 1].c > readyAt + 30)) {
+        partialSent = true;
+        report.partialMs = Math.round(performance.now() - t0);
+        opts.onPartial(anchors.slice());
+      }
     }
     report.ms = Math.round(performance.now() - t0);
     return { anchors, report, index };

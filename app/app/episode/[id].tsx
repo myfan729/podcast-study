@@ -127,6 +127,10 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
   const [peek, setPeek] = useState<Peek>(null);
   const [syncRef, setSyncRef] = useState<unknown>(null);
   const [auto, setAuto] = useState<'off' | 'working' | 'auto' | 'failed'>(willSync ? 'working' : 'off');
+  const [bgSync, setBgSync] = useState(willSync);                 // the WebView keeps matching after playback starts
+  const [resumeAt, setResumeAt] = useState<number | null>(willSync ? null : 0);
+  const started = useRef(false);                                  // playing the aligned copy already (partial result)
+  useEffect(() => { if (willSync) api.lastPosition(ep.id).catch(() => 0).then((p) => setResumeAt(p > 20 ? p : 0)); }, []);  // eslint-disable-line react-hooks/exhaustive-deps
   const [autoMsg, setAutoMsg] = useState('');
   useEffect(() => { AsyncStorage.getItem('pref:follow').then((v) => { if (v === '0') setFollow(false); }).catch(() => {}); }, []);
   const toggleFollow = () => { const v = !follow; setFollow(v); AsyncStorage.setItem('pref:follow', v ? '1' : '0').catch(() => {}); };
@@ -235,17 +239,29 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
     setAuto('working');
     api.syncData(ep.sync_path).then(setSyncRef).catch(() => { setAuto('failed'); player.replace(audioUrl); });
   }, [ep.sync_path]);
+  // start playing the downloaded copy as soon as the stretch up to the resume point is aligned
+  const startAligned = useCallback(async (r: SyncResult, use: Anchor[]) => {
+    started.current = true;
+    player.replace({ uri: r.fileUri });                            // play exactly the copy that is being aligned
+    player.setActiveForLockScreen?.(true, { title: pack.title, artist: pack.show.name, artworkUrl: pack.show.image });
+    setAnchors(use); setAuto('auto');
+    const last = resumeAt ?? 0;
+    if (last > 20) { await new Promise((res) => setTimeout(res, 600)); player.seekTo(toAudio(toContent(last, use), use)); }
+  }, [player, pack, resumeAt]);
+  const onAutoPartial = useCallback((r: SyncResult) => { if (!started.current) startAligned(r, r.anchors); }, [startAligned]);
   const onAutoDone = useCallback(async (r: SyncResult | null, error?: string) => {
     const ok = !!r?.ok;
+    setBgSync(false);
     api.reportSync(ep.id, ok, r?.anchors ?? null, r?.report ?? null, error).catch(() => {});
-    const use = ok ? r!.anchors : anchors;
     if (ok) { setAnchors(r!.anchors); AsyncStorage.setItem(key, JSON.stringify(r!.anchors)).catch(() => {}); }
-    player.replace(r?.fileUri ? { uri: r.fileUri } : audioUrl);   // play exactly the copy that was aligned
+    if (started.current) return;                                   // already playing; the later anchors just refine the timing
+    if (ok) { startAligned(r!, r!.anchors); return; }
+    player.replace(r?.fileUri ? { uri: r.fileUri } : audioUrl);
     player.setActiveForLockScreen?.(true, { title: pack.title, artist: pack.show.name, artworkUrl: pack.show.image });
-    setAuto(ok ? 'auto' : 'failed');
-    const last = await api.lastPosition(ep.id).catch(() => 0);
-    if (last > 20) { await new Promise((res) => setTimeout(res, 600)); player.seekTo(toAudio(toContent(last, use), use)); }
-  }, [anchors, player, key, pack, ep.id]);
+    setAuto('failed');
+    const last = resumeAt ?? 0;
+    if (last > 20) { await new Promise((res) => setTimeout(res, 600)); player.seekTo(toAudio(toContent(last, anchors), anchors)); }
+  }, [anchors, player, key, pack, ep.id, startAligned, resumeAt, audioUrl]);
 
   const setSpeed = () => { const r = RATES[(RATES.indexOf(rate) + 1) % RATES.length]; setRate(r); player.setPlaybackRate(r); };
   const offset = anchors.length ? Math.round(anchors[anchors.length - 1].a - anchors[anchors.length - 1].c) : 0;
@@ -258,8 +274,9 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
 
   return (
     <SafeAreaView edges={['top']} style={{ flex: 1 }}>
-      {syncRef && auto === 'working' && audioUrl ? (
-        <AutoSync episodeId={ep.id} audioUrl={audioUrl} syncRef={syncRef} onStatus={setAutoMsg} onDone={onAutoDone} />) : null}
+      {syncRef && bgSync && resumeAt !== null && audioUrl ? (
+        <AutoSync episodeId={ep.id} audioUrl={audioUrl} syncRef={syncRef} readyAt={resumeAt} onStatus={setAutoMsg}
+          onPartial={onAutoPartial} onDone={onAutoDone} />) : null}
       <View style={st.top}>
         <RoundBtn icon="chevron-back" label="뒤로" onPress={() => router.back()} />
         <View style={{ flex: 1, minWidth: 0, alignItems: 'center' }}>

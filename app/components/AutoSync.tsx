@@ -24,7 +24,8 @@ window.run = function (job) {
   var x = new XMLHttpRequest();                       // fetch() can't read file:// in Android WebView
   x.open('GET', job.file); x.responseType = 'blob';
   x.onload = function () {
-    PodSync.align(x.response, job.ref, function (s) { post({ t: 'status', s: s }); }, { slack: job.ref.fixed ? 30 : 0 })
+    PodSync.align(x.response, job.ref, function (s) { post({ t: 'status', s: s }); }, { slack: job.ref.fixed ? 30 : 0,
+      readyAt: job.readyAt || 0, onPartial: function (a) { post({ t: 'partial', anchors: a }); } })
       .then(function (r) { post({ t: 'done', anchors: r.anchors, report: r.report }); })
       .catch(function (e) { post({ t: 'error', e: String(e && e.message || e) }); });
   };
@@ -33,9 +34,9 @@ window.run = function (job) {
 };
 `;
 
-export default function AutoSync({ episodeId, audioUrl, syncRef, onStatus, onDone }: {
-  episodeId: string; audioUrl: string; syncRef: unknown;
-  onStatus: (s: string) => void; onDone: (r: SyncResult | null, error?: string) => void;
+export default function AutoSync({ episodeId, audioUrl, syncRef, readyAt, onStatus, onPartial, onDone }: {
+  episodeId: string; audioUrl: string; syncRef: unknown; readyAt: number;
+  onStatus: (s: string) => void; onPartial?: (r: SyncResult) => void; onDone: (r: SyncResult | null, error?: string) => void;
 }) {
   const [page, setPage] = useState<{ html: string; file: string; dir: string } | null>(null);
   const web = useRef<{ injectJavaScript: (js: string) => void } | null>(null);
@@ -67,9 +68,11 @@ export default function AutoSync({ episodeId, audioUrl, syncRef, onStatus, onDon
     try { m = JSON.parse(ev.nativeEvent.data); } catch { return; }
     if (m.t === 'status' && m.s) onStatus(m.s);
     if (done.current || !page) return;
+    const tidy = (xs?: Anchor[]) => (xs ?? []).map((a) => ({ c: a.c, a: a.a })).sort((p, q) => p.c - q.c);
+    if (m.t === 'partial') { const anchors = tidy(m.anchors); if (anchors.length) onPartial?.({ fileUri: page.file, anchors, ok: true }); return; }
     if (m.t === 'done') {
       done.current = true;
-      const anchors = (m.anchors ?? []).map((a) => ({ c: a.c, a: a.a })).sort((p, q) => p.c - q.c);
+      const anchors = tidy(m.anchors);
       onDone({ fileUri: page.file, anchors, ok: anchors.length > 0, report: m.report });
     } else if (m.t === 'error') {
       done.current = true;
@@ -83,7 +86,7 @@ export default function AutoSync({ episodeId, audioUrl, syncRef, onStatus, onDon
       <WebView ref={web} source={{ uri: page.html }} originWhitelist={['*']} javaScriptEnabled
         allowFileAccess allowFileAccessFromFileURLs allowUniversalAccessFromFileURLs allowingReadAccessToURL={page.dir}
         onMessage={onMessage}
-        onLoadEnd={() => web.current?.injectJavaScript(`window.run(${JSON.stringify({ file: page.file, ref: syncRef })}); true;`)}
+        onLoadEnd={() => web.current?.injectJavaScript(`window.run(${JSON.stringify({ file: page.file, ref: syncRef, readyAt })}); true;`)}
         onError={(e: { nativeEvent: { description: string } }) => { if (!done.current) { done.current = true; onDone(null, e.nativeEvent.description); } }} />
     </View>
   );
