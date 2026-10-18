@@ -21,8 +21,8 @@ jobs:
             where e.status in ('failed','no_transcript') or e.error is not null
             order by coalesce(e.requested_at, e.published_at) desc limit 25" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g" |
           while IFS= read -r l; do echo "::notice::$l"; done
-          psql "$SUPABASE_DB_URL" -tA -F ' | ' -c "select r.created_at::text, e.title, r.ok, left(coalesce(r.error,''),120), left(coalesce(r.anchors::text,''),200), left(coalesce(r.report::text,''),900)
-            from public.sync_reports r join public.episodes e on e.id=r.episode_id order by r.created_at desc limit 6" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g" | while IFS= read -r l; do echo "::notice title=sync report::$l"; done
+          psql "$SUPABASE_DB_URL" -tA -F ' | ' -c "select r.created_at::text, e.title, r.ok, left(coalesce(r.error,''),500), left(coalesce(r.anchors::text,''),200), left(coalesce(r.report::text,''),900)
+            from public.sync_reports r join public.episodes e on e.id=r.episode_id order by r.created_at desc limit 3" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g" | while IFS= read -r l; do echo "::notice title=sync report::$l"; done
           psql "$SUPABASE_DB_URL" -tA -F ' | ' -c "select s.title, count(*) filter (where e.has_transcript) as with_tr, count(*) filter (where not e.has_transcript) as no_tr,
               count(*) filter (where e.status='ready') as ready, count(*) filter (where e.status='failed') as failed, count(*) filter (where e.status in ('queued','prefetch','processing')) as pending,
               count(*) filter (where e.status='ready' and e.sync_path is null) as ready_nosync
