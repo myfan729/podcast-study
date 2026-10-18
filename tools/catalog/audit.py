@@ -24,6 +24,7 @@ from pipeline.main import process_episode, show_filter, web_transcript_ready  # 
 from pipeline.util import http_get_text, http_session  # noqa: E402
 
 N_RECENT, N_POINTS, TOL = 8, 6, 1.5
+FIX: list = []
 shard, nsh = int(sys.argv[1]), int(sys.argv[2])
 shows = json.loads(Path("tools/catalog/catalog.json").read_text())["shows"]
 extra = Path("tools/catalog/new_candidates.json")
@@ -32,7 +33,7 @@ if extra.exists():
 mine = [s for i, s in enumerate(shows) if i % nsh == shard]
 # resume: shows already audited (committed results from an earlier run) are kept, not redone
 done_before = {}
-for f in Path("tools/catalog/audit").glob("*.json"):
+for f in (Path("tools/catalog/audit").glob("*.json") if "--resume" in sys.argv else []):
     try:
         done_before.update({k: v for k, v in json.loads(f.read_text()).items() if not v.get("error")})
     except Exception:  # noqa: BLE001
@@ -89,7 +90,7 @@ def check_points(doc: dict, matches: list[dict], pcm16) -> list[dict]:
     picks = [usable[int(i * (len(usable) - 1) / max(1, N_POINTS - 1))] for i in range(N_POINTS)]
     res = []
     for cue in picks:
-        pred = to_audio(cue["s"], matches)
+        pred = to_audio(cue["s"] + SY.fix_at(FIX, cue["s"]), matches)
         words = asr.words(pcm16, pred - 10, pred + 16)
         hit = SY.locate(SY.cue_tokens(cues, cue["s"], 14), words, pred - 10, pred + 16)
         if not hit:
@@ -139,6 +140,9 @@ for sh in mine:
         matches = client_match(sync, pcm8, content_dur)
         rec["listener"] = {"duration": round(len(pcm8) / F.SR, 1), "refs_ok": sum(m["ok"] for m in matches), "refs": len(matches),
                            "offsets": sorted({round(m["a"] - m["c"], 1) for m in matches if m["ok"]})[:8]}
+        global FIX
+        FIX = sync.get("cue_fix") or []
+        rec["cue_fix"] = FIX[:12]
         pts = check_points(doc, matches, pcm16)
         rec["points"] = pts
         rec["accuracy"] = round(sum(1 for p in pts if p.get("ok")) / len(pts), 2) if pts else 0.0

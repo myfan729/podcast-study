@@ -148,8 +148,21 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
     return () => { api.saveProgress(ep.id, player.currentTime ?? 0).catch(() => {}); };
   }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
+  // the server's correction of the publisher's cue times (cue_fix in the sync data)
+  const fix = useMemo(() => {
+    const pts = ((syncRef as { cue_fix?: [number, number][] } | null)?.cue_fix ?? []).slice().sort((p, q) => p[0] - q[0]);
+    return (t: number) => {
+      if (!pts.length) return t;
+      if (pts.length === 1 || t <= pts[0][0]) return t + pts[0][1];
+      for (let i = 1; i < pts.length; i++) {
+        const [c0, d0] = pts[i - 1], [c1, d1] = pts[i];
+        if (t <= c1) return t + d0 + (d1 - d0) * (t - c0) / Math.max(1e-6, c1 - c0);
+      }
+      return t + pts[pts.length - 1][1];
+    };
+  }, [syncRef]);
   const c = toContent(status.currentTime ?? 0, anchors);
-  const cur = useMemo(() => { let i = 0; for (let k = 0; k < sents.length; k++) { if (sents[k].s <= c + 0.15) i = k; else break; } return i; }, [c, sents]);
+  const cur = useMemo(() => { let i = 0; for (let k = 0; k < sents.length; k++) { if (fix(sents[k].s) <= c + 0.15) i = k; else break; } return i; }, [c, sents, fix]);
   useEffect(() => {
     if (!follow || tab !== 'script' || !status.playing || Date.now() - userScroll.current < 4000) return;
     listRef.current?.scrollToIndex({ index: cur, viewPosition: 0, viewOffset: 14, animated: true });
@@ -157,15 +170,15 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
 
   const onSentence = useCallback((sn: Sent) => {
     if (syncMode) {
-      const next = addAnchor(anchors, sn.s, Math.max(0, (player.currentTime ?? 0) - 0.4));
+      const next = addAnchor(anchors, fix(sn.s), Math.max(0, (player.currentTime ?? 0) - 0.4));
       setAnchors(next); AsyncStorage.setItem(key, JSON.stringify(next)).catch(() => {}); setSyncMode(false);
       return;
     }
     if (auto === 'working') return;                                 // not playable until the sync is done
-    player.seekTo(toAudio(sn.s, anchors)); if (!status.playing) player.play();
+    player.seekTo(toAudio(fix(sn.s), anchors)); if (!status.playing) player.play();
     const i = sents.indexOf(sn);
     if (i >= 0) { userScroll.current = 0; listRef.current?.scrollToIndex({ index: i, viewPosition: 0, viewOffset: 14, animated: true }); }
-  }, [syncMode, anchors, player, status.playing, key, sents, auto]);  // eslint-disable-line react-hooks/exhaustive-deps
+  }, [syncMode, anchors, player, status.playing, key, sents, auto, fix]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   // automatic ad-aware sync (needs the server's reference fingerprints for this episode)
   useEffect(() => {
@@ -223,7 +236,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
           renderItem={({ item, index }) => <SentRow sn={item} state={index === cur ? 'cur' : index < cur ? 'past' : 'next'} ko={ko} onPress={onSentence} onMark={setPeek} />} />
         </View>
       ) : (
-        <Words pack={pack} episodeId={ep.id} onJump={(sec) => player.seekTo(toAudio(sec, anchors))} />
+        <Words pack={pack} episodeId={ep.id} onJump={(sec) => player.seekTo(toAudio(fix(sec), anchors))} />
       )}
       {peek && <PeekCard pack={pack} peek={peek} episodeId={ep.id} onClose={() => setPeek(null)} />}
       {auto === 'working' && <View style={st.syncHint}><ActivityIndicator size="small" color={C.accent} /><Text style={st.syncT}>{autoMsg || '자동 싱크 준비 중…'} 끝나면 재생할 수 있어요</Text></View>}

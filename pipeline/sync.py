@@ -84,6 +84,18 @@ class Asr:
 # Locating transcript text inside ASR output
 # ---------------------------------------------------------------------------
 
+def fix_at(cue_fix: list, c: float) -> float:
+    """Correction (seconds) for a cue at content time c — linear between calibration points, flat outside."""
+    if not cue_fix:
+        return 0.0
+    if len(cue_fix) == 1 or c <= cue_fix[0][0]:
+        return float(cue_fix[0][1])
+    for (c0, d0), (c1, d1) in zip(cue_fix, cue_fix[1:]):
+        if c <= c1:
+            return float(d0 + (d1 - d0) * (c - c0) / max(1e-6, c1 - c0))
+    return float(cue_fix[-1][1])
+
+
 def cue_tokens(cues: list[dict], start_sec: float, n: int = TARGET_TOKENS) -> list[tuple[str, float]]:
     """First `n` transcript tokens at/after content time `start_sec`, each with an estimated content time."""
     out: list[tuple[str, float]] = []
@@ -260,6 +272,52 @@ def build_fixed(doc: dict, session) -> dict:
     }
 
 
+CAL_POINTS = 12          # transcript spots checked against speech recognition to correct cue times
+
+
+def _map_c2a(breaks: list[dict]):
+    """Content time → audio time in OUR copy, from the breaks found (offset is constant between breaks)."""
+    known = sorted((b["c"], b["a"] - b["c"]) for b in breaks if b.get("a") is not None)
+
+    def f(c: float) -> float:
+        off = known[0][1] if known else 0.0
+        for bc, bo in known:
+            if bc <= c + 0.01:
+                off = bo
+        return c + off
+    return f
+
+
+def calibrate(asr: Asr, cues: list[dict], pcm16: np.ndarray, c2a) -> list[list[float]]:
+    """Publisher cue times are often a little off (shifted by a second or several, or drifting over the episode).
+    Check CAL_POINTS sentences with speech recognition and return a piecewise correction [[c, delta], …]:
+    the words of a cue starting at content time c are really heard at content time c + delta(c)."""
+    end = cues[-1]["e"] if cues else 0
+    usable = [c for c in cues if 20 <= c["s"] <= end - 15 and len(tokens(c["t"])) >= 6]
+    if len(usable) < 4:
+        return []
+    picks = [usable[int(i * (len(usable) - 1) / (CAL_POINTS - 1))] for i in range(CAL_POINTS)]
+    pts: list[tuple[float, float]] = []
+    for cue in picks:
+        exp = c2a(cue["s"])
+        words = asr.words(pcm16, exp - 10, exp + 16)
+        hit = locate(cue_tokens(cues, cue["s"], 14), words, exp - 10, exp + 16)
+        if hit and hit["score"] >= 0.7:
+            pts.append((cue["s"], (cue["s"] + hit["offset"]) - exp))
+    if len(pts) < 4:
+        return []
+    deltas = [d for _, d in pts]
+    med = float(median(deltas))
+    # one shift for the whole episode when the points agree; otherwise a smoothed piecewise correction
+    if all(abs(d - med) <= 0.6 for d in deltas):
+        return [[0.0, round(med, 2)]] if abs(med) >= 0.25 else []
+    sm = []
+    for i in range(len(pts)):
+        win = [pts[j][1] for j in range(max(0, i - 1), min(len(pts), i + 2))]
+        sm.append([round(pts[i][0], 1), round(float(median(win)), 2)])
+    return sm
+
+
 def build(doc: dict, asr: Asr | None, session, do_selftest: bool = False) -> dict:
     if (doc.get("audio_meta") or {}).get("fixed"):
         return build_fixed(doc, session)
@@ -280,6 +338,13 @@ def build(doc: dict, asr: Asr | None, session, do_selftest: bool = False) -> dic
     log.info("  audio %.1fs (%.1f MB), content %.1fs → %.1fs of ads; markers=%s", dur, n / 1048576, content_dur,
              dur - content_dur, markers)
     breaks, ad_total = content_map(asr, cues, pcm16, dur, content_dur, markers)
+    try:
+        cue_fix = calibrate(asr, cues, pcm16, _map_c2a(breaks))
+    except Exception as e:  # noqa: BLE001
+        log.warning("  cue calibration failed: %s", e)
+        cue_fix = []
+    if cue_fix:
+        log.info("  cue time correction: %s", cue_fix[:6])
     refs = []
     for i, br in enumerate(breaks):
         if br.get("a") is None:
@@ -300,7 +365,7 @@ def build(doc: dict, asr: Asr | None, session, do_selftest: bool = False) -> dic
             refs.append({"c": round(br["c"] + d, 3), "len": round(len(seg) / F.SR, 3), "fp": F.encode(F.fingerprint(seg))})
     out = {
         "v": 1, "sr": F.SR, "hop": F.HOP_SEC, "content_duration": content_dur, "runner_duration": round(dur, 3),
-        "ad_total_runner": round(ad_total, 3), "markers": markers, "breaks": breaks, "refs": refs,
+        "ad_total_runner": round(ad_total, 3), "markers": markers, "breaks": breaks, "refs": refs, "cue_fix": cue_fix,
         "method": "asr", "model": asr.name, "built_at": utcnow_iso(),
         "status": "ok" if refs and all(b.get("a") is not None for b in breaks) else ("partial" if refs else "failed"),
     }

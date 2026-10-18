@@ -274,7 +274,7 @@ def seed(db: Supa, path: Path) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", choices=["refresh", "process", "prefetch", "sync", "intros", "seed"])
+    ap.add_argument("cmd", choices=["refresh", "process", "prefetch", "sync", "resync", "intros", "seed"])
     ap.add_argument("arg", nargs="?")
     ap.add_argument("--max", type=int, default=4)
     ap.add_argument("--mock", action="store_true")
@@ -290,6 +290,9 @@ def main(argv: list[str] | None = None) -> int:
     elif a.cmd == "prefetch":
         prefetch(db)
     elif a.cmd == "sync":
+        sync_pending(db, a.max)
+    elif a.cmd == "resync":                       # rebuild sync data (e.g. after the sync builder improved)
+        db.update("episodes", "status=eq.ready&sync_path=not.is.null", {"sync_path": None})
         sync_pending(db, a.max)
     elif a.cmd == "intros":
         write_intros(db)
