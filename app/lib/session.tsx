@@ -2,7 +2,7 @@ import type { Session } from '@supabase/supabase-js';
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
 import { supabase } from './supabase';
 
-export type Profile = { nickname: string; marketing_opt_in: boolean; terms_version: string; privacy_version: string };
+export type Profile = { nickname: string; marketing_opt_in: boolean; terms_version: string; privacy_version: string; notify_study: boolean; notify_new_eps: boolean };
 type Ctx = { session: Session | null; loading: boolean; profile: Profile | null; profileLoading: boolean; reloadProfile: () => Promise<void> };
 const SessionCtx = createContext<Ctx>({ session: null, loading: true, profile: null, profileLoading: true, reloadProfile: async () => {} });
 
@@ -21,7 +21,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   const reloadProfile = useCallback(async () => {
     if (!uid) { setProfile(null); setProfileLoading(false); return; }
     setProfileLoading(true);
-    const r = await supabase.from('profiles').select('nickname,marketing_opt_in,terms_version,privacy_version').eq('user_id', uid).maybeSingle();
+    const r = await supabase.from('profiles').select('nickname,marketing_opt_in,terms_version,privacy_version,notify_study,notify_new_eps').eq('user_id', uid).maybeSingle();
     if (!r.error) setProfile((r.data as Profile | null) ?? null);
     setProfileLoading(false);
   }, [uid]);

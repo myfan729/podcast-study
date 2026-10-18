@@ -2,7 +2,7 @@
   "expo": {
     "name": "잉팟",
     "slug": "podcast-study",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "podcaststudy",
@@ -60,6 +60,13 @@
           "enableBackgroundPlayback": true,
           "recordAudioAndroid": false,
           "microphonePermission": false
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/android-icon-monochrome.png",
+          "color": "#5B3DF5"
         }
       ]
     ],

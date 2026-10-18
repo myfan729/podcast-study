@@ -6,6 +6,7 @@ import { Icon, PageTitle } from '@/components/ui';
 import * as api from '@/lib/api';
 import { supabase } from '@/lib/supabase';
 import { useSession } from '@/lib/session';
+import { registerPush } from '@/lib/push';
 import { FREE_PER_WEEK, PRIVACY_URL, TERMS_URL } from '@/lib/config';
 import * as Updates from 'expo-updates';
 import Constants from 'expo-constants';
@@ -21,6 +22,16 @@ export default function Settings() {
   const viaKo = via === 'google' ? 'Google' : via === 'kakao' ? '카카오' : '이메일';
   const [mkt, setMkt] = useState<boolean | null>(null);
   const marketing = mkt ?? profile?.marketing_opt_in ?? false;
+  const [ntf, setNtf] = useState<{ notify_study?: boolean; notify_new_eps?: boolean }>({});
+  const notifyOn = (f: 'notify_study' | 'notify_new_eps') => ntf[f] ?? profile?.[f] ?? true;
+  const toggleNotify = async (f: 'notify_study' | 'notify_new_eps', v: boolean) => {
+    setNtf((x) => ({ ...x, [f]: v }));
+    if (v) {
+      const r = await registerPush();
+      if (r === 'denied') Alert.alert('알림이 꺼져 있어요', '휴대폰 설정 → 앱 → 잉팟 → 알림에서 켜 주세요.');
+    }
+    try { await api.setNotify(f, v); reloadProfile(); } catch { setNtf((x) => ({ ...x, [f]: !v })); }
+  };
   const toggleMkt = async (v: boolean) => { setMkt(v); try { await api.setMarketing(v); reloadProfile(); } catch { setMkt(!v); } };
   const remove = () => {
     const run = () => api.deleteMyAccount().catch((e) => Alert.alert('삭제하지 못했어요', String(e.message ?? e)));
@@ -50,6 +61,14 @@ export default function Settings() {
             <Text style={s.planP}>이번 주 학습자료 만들기 {plan?.free_left ?? '-'} / {FREE_PER_WEEK}회 남았어요. 듣기는 무제한이고, 한 번 만든 학습자료는 계속 볼 수 있어요.</Text>
             <View style={s.soon}><Icon name="time-outline" size={15} color={C.ink2} /><Text style={s.soonT}>프로 구독은 다음 업데이트에서 열려요</Text></View>
           </>}
+        </View>
+        <View style={[s.pref, { flexDirection: 'column', alignItems: 'stretch', gap: 14 }]}>
+          <Text style={s.label}>알림</Text>
+          {([['notify_study', '학습자료 준비 알림', '만들기를 누른 학습자료가 다 되면'], ['notify_new_eps', '새 에피소드 알림', '구독한 쇼에 새 에피소드가 올라오면']] as const).map(([f, t, d]) => (
+            <View key={f} style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+              <View style={{ flex: 1 }}><Text style={s.prefT}>{t}</Text><Text style={s.label}>{d}</Text></View>
+              <Switch value={notifyOn(f)} onValueChange={(v) => toggleNotify(f, v)} trackColor={{ true: C.accent, false: C.line }} thumbColor="#fff" accessibilityLabel={t} />
+            </View>))}
         </View>
         <View style={s.pref}>
           <View style={{ flex: 1 }}>

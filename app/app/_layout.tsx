@@ -15,6 +15,7 @@ import * as Updates from 'expo-updates';
 import { handleAuthUrl } from '@/lib/authLink';
 import { SessionProvider, useSession } from '@/lib/session';
 import { NowPlayingProvider } from '@/lib/nowPlaying';
+import { Notifications, notificationTarget, registerPush } from '@/lib/push';
 import { C } from '@/lib/theme';
 import { PRIVACY_VERSION, TERMS_VERSION } from '@/lib/config';
 
@@ -37,6 +38,20 @@ function Gate({ fontsReady }: { fontsReady: boolean }) {
     else if (!agreed) { if (at !== 'signup') router.replace('/signup'); }
     else if (at === 'login' || at === 'signup') router.replace('/');
   }, [session, loading, fontsReady, segments, router, profile, profileLoading]);
+
+  // push notifications: register once signed up; a tapped notification opens its episode
+  const ready = !!session && !!profile;
+  useEffect(() => { if (ready) registerPush(); }, [ready]);
+  useEffect(() => {
+    if (!ready) return;
+    const go = (n?: Notifications.Notification) => {
+      const t = notificationTarget(n);
+      if (t) router.push({ pathname: '/episode/[id]', params: t });
+    };
+    Notifications.getLastNotificationResponseAsync().then((r) => go(r?.notification)).catch(() => {});
+    const sub = Notifications.addNotificationResponseReceivedListener((r) => go(r.notification));
+    return () => sub.remove();
+  }, [ready, router]);
   return (
     <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: C.bg } }}>
       <Stack.Screen name="(tabs)" />

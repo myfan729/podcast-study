@@ -136,6 +136,11 @@ export async function setMarketing(on: boolean) {
   if (!data.user) return;
   ok(await supabase.from('profiles').update({ marketing_opt_in: on, marketing_at: now, updated_at: now }).eq('user_id', data.user.id));
 }
+export async function setNotify(field: 'notify_study' | 'notify_new_eps', on: boolean) {
+  const { data } = await supabase.auth.getUser();
+  if (!data.user) return;
+  ok(await supabase.from('profiles').update({ [field]: on, updated_at: new Date().toISOString() }).eq('user_id', data.user.id));
+}
 export async function setNickname(nickname: string) {
   const { data } = await supabase.auth.getUser();
   if (!data.user) return;

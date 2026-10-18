@@ -30,6 +30,8 @@ jobs:
       - name: Korean one-line intros for shows and new episodes
         run: |
           python -m pipeline.app_worker intros > /tmp/i.log 2>&1 || echo "::warning::intros failed: $(tail -c 700 /tmp/i.log | tr '\n' ' ')"
+      - name: Push — new episodes of followed shows
+        run: python -m pipeline.app_worker notify || echo "::warning::new-episode push failed"
       - name: Mark new episodes of followed shows
         run: python -m pipeline.app_worker prefetch
       - name: Build them

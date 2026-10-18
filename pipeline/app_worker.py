@@ -270,6 +270,8 @@ def process(db: Supa, max_n: int = 4, mock: bool = False, status: str = "queued"
                 "one_liner_ko": (doc.get("study") or {}).get("one_liner_ko"), "ready_at": utcnow_iso(),
                 "duration_sec": doc.get("duration_sec"), **({"sync_path": sync_path} if sync_path else {})})
             log.info("  ✓ ready (pack)")
+            from . import push
+            push.study_ready(db, row["id"], row["title"])
             done += 1
         except Exception as e:  # noqa: BLE001
             from .webtranscript import TranscriptNotReady
@@ -354,7 +356,7 @@ def seed(db: Supa, path: Path) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", choices=["refresh", "process", "prefetch", "sync", "resync", "intros", "ipa", "seed"])
+    ap.add_argument("cmd", choices=["refresh", "process", "prefetch", "sync", "resync", "intros", "ipa", "notify", "seed"])
     ap.add_argument("arg", nargs="?")
     ap.add_argument("--max", type=int, default=4)
     ap.add_argument("--mock", action="store_true")
@@ -378,6 +380,9 @@ def main(argv: list[str] | None = None) -> int:
         write_intros(db)
     elif a.cmd == "ipa":
         backfill_ipa(db)
+    elif a.cmd == "notify":                       # push: new episodes of followed shows
+        from . import push
+        push.new_episodes(db)
     else:
         seed(db, Path(a.arg or "tools/catalog/catalog.json"))
     return 0
