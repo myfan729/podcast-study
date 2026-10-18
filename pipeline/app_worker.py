@@ -49,7 +49,8 @@ class Supa:
             return
         r = self.s.post(f"{self.url}/rest/v1/{table}?on_conflict={on_conflict}", json=rows, timeout=60,
                         headers={**self.h, "Prefer": "resolution=merge-duplicates,return=minimal"})
-        r.raise_for_status()
+        if r.status_code >= 400:
+            raise RuntimeError(f"upsert {table}: {r.status_code} {r.text[:400]}")
 
     def update(self, table: str, match: str, values: dict) -> list[dict]:
         r = self.s.patch(f"{self.url}/rest/v1/{table}?{match}", json=values, timeout=60,
