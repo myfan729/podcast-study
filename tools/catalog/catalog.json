@@ -1,6 +1,39 @@
 {
  "shows": [
   {
+   "feed_url": "https://sbs-ondemand.streamguys1.com/sbs-learn-english/",
+   "title": "SBS Learn English",
+   "author": "SBS",
+   "image_url": "https://sbs-rss.streamguys1.com/sbs-learn-english/20260213143307-90.jpg",
+   "description": "Ease into the English language and Australian culture. We make learning English convenient, fun and practical.",
+   "language": "en",
+   "path": "web",
+   "parser": "sbs",
+   "speaker_labels": "auto",
+   "max_minutes": 30,
+   "title_include": null,
+   "title_exclude": "^bonus practice",
+   "category": "영어 학습",
+   "level": "초중"
+  },
+  {
+   "feed_url": "https://podcasts.files.bbci.co.uk/p02pc9tn.rss",
+   "title": "6 Minute English",
+   "author": "BBC Learning English",
+   "image_url": "https://ichef.bbci.co.uk/images/ic/3000x3000/p0hxqkd0.jpg",
+   "description": "Learn and practise useful English with clips from programmes around the BBC. Each week, we talk about an interesting topic and learn helpful words and phrases used in natural spoken English - all in 6 minutes!",
+   "language": "en",
+   "path": "web",
+   "parser": "bbc_le",
+   "speaker_labels": "auto",
+   "max_minutes": 15,
+   "title_include": null,
+   "title_exclude": null,
+   "category": "영어 학습",
+   "level": "중",
+   "page_url": "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_{year}/ep-{yymmdd}"
+  },
+  {
    "feed_url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/8b1dd624-a026-43e9-8b57-ae2b00130066/podcast.rss",
    "title": "Big Take",
    "author": "Bloomberg and iHeartPodcasts",
@@ -400,27 +433,6 @@
    }
   },
   {
-   "feed_url": "https://feeds.npr.org/510310/podcast.xml",
-   "title": "The NPR Politics Podcast",
-   "author": "NPR",
-   "image_url": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/71/15/1d/71151d33-32e7-f0e1-2a6b-412bf4835c5d/mza_9550948332778108059.jpg/600x600bb.jpg",
-   "description": null,
-   "language": "en",
-   "path": "npr",
-   "parser": "npr",
-   "speaker_labels": "named",
-   "max_minutes": 120,
-   "title_include": null,
-   "title_exclude": null,
-   "category": "뉴스",
-   "level": "중상",
-   "probe": {
-    "median_min": 22.0,
-    "per_week": 5.7,
-    "days_since": 0
-   }
-  },
-  {
    "feed_url": "https://feeds.npr.org/510318/podcast.xml",
    "title": "Up First from NPR",
    "author": "NPR",
@@ -610,27 +622,6 @@
    }
   },
   {
-   "feed_url": "https://feeds.npr.org/510338/podcast.xml",
-   "title": "Life Kit",
-   "author": "NPR",
-   "image_url": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/d5/80/28/d5802807-0091-e50c-6395-09944a6124ea/mza_4206547085430839338.jpg/600x600bb.jpg",
-   "description": null,
-   "language": "en",
-   "path": "npr",
-   "parser": "npr",
-   "speaker_labels": "named",
-   "max_minutes": 120,
-   "title_include": null,
-   "title_exclude": null,
-   "category": "생활·자기계발",
-   "level": "중",
-   "probe": {
-    "median_min": 20.4,
-    "per_week": 3.0,
-    "days_since": 1
-   }
-  },
-  {
    "feed_url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/96c5c41e-0bc8-4661-b184-ae32006cd726/d623ef0b-3fee-4c26-b815-ae32006cd739/podcast.rss",
    "title": "The Happiness Lab with Dr. Laurie Santos",
    "author": "Pushkin Industries",
@@ -733,27 +724,6 @@
     "median_min": 29.7,
     "per_week": 0.1,
     "days_since": 10
-   }
-  },
-  {
-   "feed_url": "https://feeds.npr.org/510333/podcast.xml",
-   "title": "Throughline",
-   "author": "NPR",
-   "image_url": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/da/c1/8e/dac18e58-b4c2-525a-2322-b4ec96ee5008/mza_3318470252564262999.jpg/600x600bb.jpg",
-   "description": null,
-   "language": "en",
-   "path": "npr",
-   "parser": "npr",
-   "speaker_labels": "named",
-   "max_minutes": 120,
-   "title_include": null,
-   "title_exclude": null,
-   "category": "역사",
-   "level": "중상",
-   "probe": {
-    "median_min": 40.0,
-    "per_week": 1.5,
-    "days_since": 1
    }
   },
   {
