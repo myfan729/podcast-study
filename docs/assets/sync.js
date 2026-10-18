@@ -200,22 +200,29 @@ window.PodSync = (function () {
     for (let k = 0; k < refs.length; k++) {
       const ref = refs[k]; const fp = b64ToU16(ref.fp);
       const expA = ref.c + offset;
-      const winStart = Math.max(0, expA - 2.5 - slack), winEnd = Math.min(fileDur, expA + budget + ref.len + 6 + slack);
       onStatus && onStatus(`자동 싱크 ${k + 1}/${refs.length}…`);
+      // Most refs sit where nothing new was inserted since the last match: look right there first
+      // (a few seconds of audio). Only if that fails, search the whole span an ad could push it to.
+      const tries = [[Math.max(0, expA - 3), Math.min(fileDur, expA + ref.len + 3)],
+                     [Math.max(0, expA - 2.5 - slack), Math.min(fileDur, expA + budget + ref.len + 6 + slack)]];
+      if (k === 0 || slack) tries.shift();                      // the first ref (and fixed files) go straight to the wide search
       let r = { c: ref.c, ok: false };
-      try {
-        const w = await decodeWindow(blob, index, winStart, winEnd);
-        const probe = fingerprint(w.pcm, w.sr, 2);
-        const m = bestMatch(fp, probe, 2);
-        r = { c: ref.c, ok: false, ber: +m.ber.toFixed(3), second: +m.second.toFixed(3), win: [+winStart.toFixed(1), +winEnd.toFixed(1)], sr: w.sr };
-        if (m.at >= 0 && m.ber < 0.33 && m.second - m.ber > 0.04) {
-          const a = w.startSec + m.at * probe.stepSec;
-          const newOffset = a - ref.c;
-          r.a = +a.toFixed(3); r.offset = +newOffset.toFixed(3); r.ok = true;
-          if (k === 0 || Math.abs(newOffset - offset) > 0.5) anchors.push({ c: ref.c, a });
-          budget = Math.max(0, budget - Math.max(0, newOffset - offset)); offset = newOffset;
-        }
-      } catch (e) { r.error = String(e && e.message || e); }
+      for (const [winStart, winEnd] of tries) {
+        try {
+          const w = await decodeWindow(blob, index, winStart, winEnd);
+          const probe = fingerprint(w.pcm, w.sr, 2);
+          const m = bestMatch(fp, probe, 2);
+          r = { c: ref.c, ok: false, ber: +m.ber.toFixed(3), second: +m.second.toFixed(3), win: [+winStart.toFixed(1), +winEnd.toFixed(1)], sr: w.sr };
+          if (m.at >= 0 && m.ber < 0.33 && m.second - m.ber > 0.04) {
+            const a = w.startSec + m.at * probe.stepSec;
+            const newOffset = a - ref.c;
+            r.a = +a.toFixed(3); r.offset = +newOffset.toFixed(3); r.ok = true;
+            if (k === 0 || Math.abs(newOffset - offset) > 0.5) anchors.push({ c: ref.c, a });
+            budget = Math.max(0, budget - Math.max(0, newOffset - offset)); offset = newOffset;
+            break;
+          }
+        } catch (e) { r.error = String(e && e.message || e); }
+      }
       report.refs.push(r);
     }
     report.ms = Math.round(performance.now() - t0);
