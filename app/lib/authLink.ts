@@ -34,7 +34,7 @@ export async function enabledSocial(): Promise<Social[]> {
 export async function signInWith(provider: Social) {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider, options: { redirectTo: AUTH_REDIRECT, skipBrowserRedirect: true,
-      ...(provider === 'kakao' ? { scopes: 'account_email profile_nickname' } : {}) },
+      ...(provider === 'kakao' ? { scopes: 'account_email profile_nickname profile_image' } : {}) },
   });
   if (error || !data?.url) throw new Error(error?.message ?? '로그인을 시작하지 못했어요');
   const res = await WebBrowser.openAuthSessionAsync(data.url, AUTH_REDIRECT);
