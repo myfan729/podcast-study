@@ -37,3 +37,11 @@ jobs:
             from public.episodes e join public.shows s on s.id=e.show_id
             where s.title ilike any (array['%6 minute%','%sbs learn%','%big take%','%up first%'])
             group by s.title" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g" | while IFS= read -r l; do echo "::notice title=show stats (title|with transcript|no transcript|ready|failed|pending|ready w/o sync)::$l"; done
+      - name: Build time by episode length (requested → ready)
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          psql "$SUPABASE_DB_URL" -tA -c "select string_agg(x, ' ; ') from (select s.path || ' ' || round(e.duration_sec/60.0) || 'm→' || round(extract(epoch from e.ready_at - e.requested_at)/60.0, 1) || 'm' as x
+            from public.episodes e join public.shows s on s.id=e.show_id
+            where e.ready_at is not null and e.requested_at is not null and e.ready_at > e.requested_at and e.ready_at > now() - interval '3 days'
+            order by e.ready_at desc limit 60) t" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g" | while IFS= read -r l; do echo "::notice title=build times::$l"; done
