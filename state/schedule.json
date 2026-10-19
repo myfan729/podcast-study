@@ -92,18 +92,17 @@
    "post_at": "2026-10-20T07:00:00+09:00",
    "has": [
     "up-first: Trump Eases Russia Sanctions, Midterm Campaign Money, Violent Protests In France",
-    "the-indicator: Why Oracle's debt load could be your problem"
+    "the-indicator: Why Oracle's debt load could be your problem",
+    "short-wave: What the world's leading researchers think about saunas"
    ],
-   "adding": [
-    "short-wave (fallback): What the world's leading researchers think about saunas"
-   ],
+   "adding": [],
    "waiting_for": [],
    "expected": [
     "big-take",
     "up-first"
    ],
-   "checked_at": "2026-10-19T22:18:10Z"
+   "checked_at": "2026-10-19T22:23:55Z"
   }
  },
- "updated_at": "2026-10-19T22:18:10Z"
+ "updated_at": "2026-10-19T22:23:55Z"
 }
