@@ -1,22 +1,5 @@
 {
  "occasions": {
-  "2026-10-16-morning": {
-   "post_at": "2026-10-16T07:00:00+09:00",
-   "has": [
-    "the-indicator: A rebate runaround, a car rental rip-off and … roaches?!",
-    "up-first: Trump's Midterm Travel, Ukraine Starshield Restrictions, Houthis Attack Aramco",
-    "big-take: What Is the US Economy Trying to Tell Us?"
-   ],
-   "adding": [],
-   "waiting_for": [],
-   "expected": [
-    "big-take",
-    "trumponomics",
-    "up-first",
-    "zero"
-   ],
-   "checked_at": "2026-10-15T22:50:13Z"
-  },
   "2026-10-17-evening": {
    "post_at": "2026-10-17T18:00:00+09:00",
    "has": [
@@ -92,6 +75,19 @@
    ],
    "checked_at": "2026-10-18T22:18:07Z"
   },
+  "2026-10-20-evening": {
+   "post_at": "2026-10-20T18:00:00+09:00",
+   "has": [],
+   "adding": [],
+   "waiting_for": [
+    "think-fast-talk-smart"
+   ],
+   "expected": [
+    "heres-the-thing",
+    "think-fast-talk-smart"
+   ],
+   "checked_at": "2026-10-19T12:17:55Z"
+  },
   "2026-10-20-morning": {
    "post_at": "2026-10-20T07:00:00+09:00",
    "has": [],
@@ -108,5 +104,5 @@
    "checked_at": "2026-10-19T07:03:57Z"
   }
  },
- "updated_at": "2026-10-19T07:03:57Z"
+ "updated_at": "2026-10-19T12:17:55Z"
 }
