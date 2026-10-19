@@ -1,17 +1,5 @@
 {
  "occasions": {
-  "2026-10-16-evening": {
-   "post_at": "2026-10-16T18:00:00+09:00",
-   "has": [
-    "think-fast-talk-smart: 332. Rethinks: Learn Faster and Fail Smarter"
-   ],
-   "adding": [],
-   "waiting_for": [],
-   "expected": [
-    "think-fast-talk-smart"
-   ],
-   "checked_at": "2026-10-15T16:59:20Z"
-  },
   "2026-10-16-morning": {
    "post_at": "2026-10-16T07:00:00+09:00",
    "has": [
@@ -103,7 +91,21 @@
     "big-take"
    ],
    "checked_at": "2026-10-18T22:18:07Z"
+  },
+  "2026-10-20-morning": {
+   "post_at": "2026-10-20T07:00:00+09:00",
+   "has": [],
+   "adding": [],
+   "waiting_for": [
+    "up-first",
+    "big-take"
+   ],
+   "expected": [
+    "big-take",
+    "up-first"
+   ],
+   "checked_at": "2026-10-19T02:18:00Z"
   }
  },
- "updated_at": "2026-10-18T22:18:07Z"
+ "updated_at": "2026-10-19T02:18:00Z"
 }
