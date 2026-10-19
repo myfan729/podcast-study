@@ -251,6 +251,31 @@
    "queued_at": "2026-10-19T16:19:59Z"
   },
   {
+   "id": "the-indicator-2026-10-19-why-oracle-s-debt-load-could-be-your-problem",
+   "occasion": "2026-10-20-morning",
+   "slot": "morning",
+   "order": 1,
+   "post_at": "2026-10-20T07:00:00+09:00",
+   "post_at_ms": 1792447200000,
+   "until": "2026-10-20T12:00:00+09:00",
+   "until_ms": 1792465200000,
+   "title": "Why Oracle's debt load could be your problem",
+   "show": {
+    "slug": "the-indicator",
+    "name": "The Indicator",
+    "publisher": "NPR (Planet Money)",
+    "color": "#2b7bd6",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=the-indicator-2026-10-19-why-oracle-s-debt-load-could-be-your-problem",
+   "pick": "new",
+   "one_liner_ko": "AI 데이터센터 구축을 위해 막대한 빚을 진 오라클이 OpenAI·엔비디아와 얽힌 '순환 거래' 구조의 약한 고리가 될 수 있고, 무너지면 AI 경제 전체로 번질 수 있다는 이야기.",
+   "duration_sec": 521,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fa4%2F0d%2F76206fab4b9f92fdeb6d86ad86a7%2Fb03fff76-e9ef-4a29-b63b-bb5678cfe641.jpg",
+   "text": "🌅 아침 팟캐스트 · The Indicator (10/19)\nWhy Oracle's debt load could be your problem\n⏱ 8분\n\nAI 데이터센터 구축을 위해 막대한 빚을 진 오라클이 OpenAI·엔비디아와 얽힌 '순환 거래' 구조의 약한 고리가 될 수 있고, 무너지면 AI 경제 전체로 번질 수 있다는 이야기.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=the-indicator-2026-10-19-why-oracle-s-debt-load-could-be-your-problem",
+   "queued_at": "2026-10-19T20:20:19Z"
+  },
+  {
    "id": "think-fast-talk-smart-2026-10-19-333-find-the-vibe-build-stronger-connections-through",
    "occasion": "2026-10-20-evening",
    "slot": "evening",
@@ -276,7 +301,7 @@
    "queued_at": "2026-10-19T13:11:34Z"
   }
  ],
- "generated_at": "2026-10-19T16:19:59Z",
+ "generated_at": "2026-10-19T20:20:19Z",
  "kick_kst": [
   "05:25",
   "05:55",

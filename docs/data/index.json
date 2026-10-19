@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-19T16:19:31Z",
+ "generated_at": "2026-10-19T20:19:43Z",
  "shows": [
   {
    "slug": "big-take",
@@ -136,6 +136,29 @@
    "cefr": "C1",
    "expressions": 12,
    "words": 2329,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "the-indicator-2026-10-19-why-oracle-s-debt-load-could-be-your-problem",
+   "show": "the-indicator",
+   "title": "Why Oracle's debt load could be your problem",
+   "published_at": "2026-10-19T07:00:00Z",
+   "duration_sec": 521,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fa4%2F0d%2F76206fab4b9f92fdeb6d86ad86a7%2Fb03fff76-e9ef-4a29-b63b-bb5678cfe641.jpg",
+   "one_liner_ko": "AI 데이터센터 구축을 위해 막대한 빚을 진 오라클이 OpenAI·엔비디아와 얽힌 '순환 거래' 구조의 약한 고리가 될 수 있고, 무너지면 AI 경제 전체로 번질 수 있다는 이야기.",
+   "tags": [
+    "Oracle",
+    "AI boom",
+    "corporate debt",
+    "credit risk",
+    "circular deals",
+    "systemic risk"
+   ],
+   "cefr": "C1",
+   "expressions": 11,
+   "words": 1422,
    "has_translation": true,
    "mock": false,
    "demo": false

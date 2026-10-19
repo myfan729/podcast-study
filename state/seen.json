@@ -527,6 +527,19 @@
    "title": "Trump Eases Russia Sanctions, Midterm Campaign Money, Violent Protests In France",
    "published_at": "2026-10-19T10:06:49Z",
    "done_at": "2026-10-19T16:19:31Z"
+  },
+  "the-indicator:7e28b38b6cf9": {
+   "first_seen": "2026-10-19T20:17:55Z",
+   "attempts": 1,
+   "occasion": "2026-10-20-morning",
+   "slot": "morning",
+   "pick": "new",
+   "assigned_at": "2026-10-19T20:17:55Z",
+   "status": "done",
+   "id": "the-indicator-2026-10-19-why-oracle-s-debt-load-could-be-your-problem",
+   "title": "Why Oracle's debt load could be your problem",
+   "published_at": "2026-10-19T07:00:00Z",
+   "done_at": "2026-10-19T20:19:42Z"
   }
  }
 }
