@@ -91,11 +91,10 @@
   "2026-10-20-morning": {
    "post_at": "2026-10-20T07:00:00+09:00",
    "has": [
-    "up-first: Trump Eases Russia Sanctions, Midterm Campaign Money, Violent Protests In France"
+    "up-first: Trump Eases Russia Sanctions, Midterm Campaign Money, Violent Protests In France",
+    "the-indicator: Why Oracle's debt load could be your problem"
    ],
-   "adding": [
-    "the-indicator (new): Why Oracle's debt load could be your problem"
-   ],
+   "adding": [],
    "waiting_for": [
     "big-take"
    ],
@@ -103,8 +102,8 @@
     "big-take",
     "up-first"
    ],
-   "checked_at": "2026-10-19T20:17:55Z"
+   "checked_at": "2026-10-19T20:24:02Z"
   }
  },
- "updated_at": "2026-10-19T20:17:55Z"
+ "updated_at": "2026-10-19T20:24:02Z"
 }
