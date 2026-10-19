@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-18T18:20:09Z",
+ "generated_at": "2026-10-19T13:11:06Z",
  "shows": [
   {
    "slug": "big-take",
@@ -94,6 +94,29 @@
   }
  ],
  "episodes": [
+  {
+   "id": "think-fast-talk-smart-2026-10-19-333-find-the-vibe-build-stronger-connections-through",
+   "show": "think-fast-talk-smart",
+   "title": "333. Find the Vibe: Build Stronger Connections Through Communication Part 1",
+   "published_at": "2026-10-19T13:00:00Z",
+   "duration_sec": 1889,
+   "image": "https://img.transistorcdn.com/Ikn_LHw3zvi_hzfdjtr5jxweZQkN21Mqazn6pmohJhw/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS8wYzk0/YTFlZGU2MzY5YTI0/OWRhZDhhNTliNDY1/ODhlZS5wbmc.jpg",
+   "one_liner_ko": "애덤 그랜트가 무대 공포를 극복한 경험과 '피드백보다 조언', 그리고 '앨라이·팔·컴패니언' 틀로 설명하는, 서로 통하는(vibe) 관계를 만드는 대화법",
+   "tags": [
+    "communication",
+    "connection",
+    "public speaking",
+    "feedback vs advice",
+    "relationships",
+    "Adam Grant"
+   ],
+   "cefr": "C1",
+   "expressions": 17,
+   "words": 5881,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
   {
    "id": "up-first-2026-10-17-school-shooting-in-bend-elon-musk-s-power-mn-senate-race",
    "show": "up-first",

@@ -501,6 +501,19 @@
    "title": "School Shooting in Bend, Elon Musk's Power, MN Senate Race",
    "published_at": "2026-10-17T13:32:49Z",
    "done_at": "2026-10-18T18:20:08Z"
+  },
+  "think-fast-talk-smart:af76a7e7121e": {
+   "first_seen": "2026-10-19T13:09:43Z",
+   "attempts": 1,
+   "occasion": "2026-10-20-evening",
+   "slot": "evening",
+   "pick": "new",
+   "assigned_at": "2026-10-19T13:09:43Z",
+   "status": "done",
+   "id": "think-fast-talk-smart-2026-10-19-333-find-the-vibe-build-stronger-connections-through",
+   "title": "333. Find the Vibe: Build Stronger Connections Through Communication Part 1",
+   "published_at": "2026-10-19T13:00:00Z",
+   "done_at": "2026-10-19T13:11:06Z"
   }
  }
 }
