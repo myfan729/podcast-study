@@ -540,6 +540,19 @@
    "title": "Why Oracle's debt load could be your problem",
    "published_at": "2026-10-19T07:00:00Z",
    "done_at": "2026-10-19T20:19:42Z"
+  },
+  "short-wave:4e17e9dee0da": {
+   "first_seen": "2026-10-19T22:18:10Z",
+   "attempts": 1,
+   "occasion": "2026-10-20-morning",
+   "slot": "morning",
+   "pick": "fallback",
+   "assigned_at": "2026-10-19T22:18:10Z",
+   "status": "done",
+   "id": "short-wave-2026-10-19-what-the-world-s-leading-researchers-think-about-saunas",
+   "title": "What the world's leading researchers think about saunas",
+   "published_at": "2026-10-19T07:00:00Z",
+   "done_at": "2026-10-19T22:20:05Z"
   }
  }
 }

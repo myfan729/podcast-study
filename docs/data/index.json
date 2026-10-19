@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-19T20:19:43Z",
+ "generated_at": "2026-10-19T22:20:05Z",
  "shows": [
   {
    "slug": "big-take",
@@ -136,6 +136,29 @@
    "cefr": "C1",
    "expressions": 12,
    "words": 2329,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "short-wave-2026-10-19-what-the-world-s-leading-researchers-think-about-saunas",
+   "show": "short-wave",
+   "title": "What the world's leading researchers think about saunas",
+   "published_at": "2026-10-19T07:00:00Z",
+   "duration_sec": 810,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/1899x1899+739+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F38%2F83%2F74edca9c448c9e294d7cf4c4ef6a%2F97f71368-84dc-4a8a-a97c-4fb4a135e758.jpg",
+   "one_liner_ko": "사우나 열풍에 비해 과학적 근거는 아직 빈약하지만, 세계 열(熱)요법 연구자들이 표준을 세우며 심혈관·정신건강 효과를 엄밀히 검증하기 시작했다는 이야기.",
+   "tags": [
+    "sauna",
+    "heat therapy",
+    "wellness hype",
+    "research methods",
+    "cardiovascular health",
+    "mental health"
+   ],
+   "cefr": "C1",
+   "expressions": 13,
+   "words": 2262,
    "has_translation": true,
    "mock": false,
    "demo": false
