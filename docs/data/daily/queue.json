@@ -226,6 +226,31 @@
    "queued_at": "2026-10-18T12:03:25Z"
   },
   {
+   "id": "up-first-2026-10-19-trump-eases-russia-sanctions-midterm-campaign-money-violent",
+   "occasion": "2026-10-20-morning",
+   "slot": "morning",
+   "order": 0,
+   "post_at": "2026-10-20T07:00:00+09:00",
+   "post_at_ms": 1792447200000,
+   "until": "2026-10-20T12:00:00+09:00",
+   "until_ms": 1792465200000,
+   "title": "Trump Eases Russia Sanctions, Midterm Campaign Money, Violent Protests In France",
+   "show": {
+    "slug": "up-first",
+    "name": "Up First",
+    "publisher": "NPR",
+    "color": "#d6352b",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-19-trump-eases-russia-sanctions-midterm-campaign-money-violent",
+   "pick": "new",
+   "one_liner_ko": "트럼프가 러시아 제재를 면제해 우크라이나와 갈등이 깊어지고, 중간선거는 민주당이 모금에서 앞서고 머스크가 공화당 슈퍼팩에 거액을 쏟아붓는 구도이며, 프랑스는 폭력 시위로 대선 6개월 전 정치 위기에 빠졌다.",
+   "duration_sec": 772,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/1400/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe0%2F7a%2Ffe9d16a44fbf9dd2d9932ffe799b%2F510318.png",
+   "text": "🌅 아침 팟캐스트 · Up First (10/19)\nTrump Eases Russia Sanctions, Midterm Campaign Money, Violent Protests In France\n⏱ 12분\n\n트럼프가 러시아 제재를 면제해 우크라이나와 갈등이 깊어지고, 중간선거는 민주당이 모금에서 앞서고 머스크가 공화당 슈퍼팩에 거액을 쏟아붓는 구도이며, 프랑스는 폭력 시위로 대선 6개월 전 정치 위기에 빠졌다.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-19-trump-eases-russia-sanctions-midterm-campaign-money-violent",
+   "queued_at": "2026-10-19T16:19:59Z"
+  },
+  {
    "id": "think-fast-talk-smart-2026-10-19-333-find-the-vibe-build-stronger-connections-through",
    "occasion": "2026-10-20-evening",
    "slot": "evening",
@@ -251,7 +276,7 @@
    "queued_at": "2026-10-19T13:11:34Z"
   }
  ],
- "generated_at": "2026-10-19T13:11:34Z",
+ "generated_at": "2026-10-19T16:19:59Z",
  "kick_kst": [
   "05:25",
   "05:55",

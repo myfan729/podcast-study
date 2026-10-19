@@ -91,9 +91,10 @@
   "2026-10-20-morning": {
    "post_at": "2026-10-20T07:00:00+09:00",
    "has": [],
-   "adding": [],
+   "adding": [
+    "up-first (new): Trump Eases Russia Sanctions, Midterm Campaign Money, Violent Protests In France"
+   ],
    "waiting_for": [
-    "up-first",
     "the-indicator",
     "big-take"
    ],
@@ -101,8 +102,8 @@
     "big-take",
     "up-first"
    ],
-   "checked_at": "2026-10-19T07:03:57Z"
+   "checked_at": "2026-10-19T16:17:45Z"
   }
  },
- "updated_at": "2026-10-19T14:17:49Z"
+ "updated_at": "2026-10-19T16:17:45Z"
 }

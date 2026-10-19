@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-19T13:11:06Z",
+ "generated_at": "2026-10-19T16:19:31Z",
  "shows": [
   {
    "slug": "big-take",
@@ -113,6 +113,29 @@
    "cefr": "C1",
    "expressions": 17,
    "words": 5881,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "up-first-2026-10-19-trump-eases-russia-sanctions-midterm-campaign-money-violent",
+   "show": "up-first",
+   "title": "Trump Eases Russia Sanctions, Midterm Campaign Money, Violent Protests In France",
+   "published_at": "2026-10-19T10:06:49Z",
+   "duration_sec": 772,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/1400/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe0%2F7a%2Ffe9d16a44fbf9dd2d9932ffe799b%2F510318.png",
+   "one_liner_ko": "트럼프가 러시아 제재를 면제해 우크라이나와 갈등이 깊어지고, 중간선거는 민주당이 모금에서 앞서고 머스크가 공화당 슈퍼팩에 거액을 쏟아붓는 구도이며, 프랑스는 폭력 시위로 대선 6개월 전 정치 위기에 빠졌다.",
+   "tags": [
+    "US politics",
+    "Russia-Ukraine",
+    "campaign finance",
+    "France protests",
+    "midterm elections",
+    "news briefing"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 2329,
    "has_translation": true,
    "mock": false,
    "demo": false
