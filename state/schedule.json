@@ -98,14 +98,15 @@
    "adding": [],
    "waiting_for": [
     "up-first",
+    "the-indicator",
     "big-take"
    ],
    "expected": [
     "big-take",
     "up-first"
    ],
-   "checked_at": "2026-10-19T02:18:00Z"
+   "checked_at": "2026-10-19T07:03:57Z"
   }
  },
- "updated_at": "2026-10-19T02:18:00Z"
+ "updated_at": "2026-10-19T07:03:57Z"
 }
