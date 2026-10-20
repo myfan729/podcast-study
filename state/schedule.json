@@ -91,18 +91,17 @@
    "post_at": "2026-10-21T07:00:00+09:00",
    "has": [
     "big-take: CoreWeave’s Selloff and the AI Economy",
-    "the-indicator: The gamble of trying to inflate away debt"
+    "the-indicator: The gamble of trying to inflate away debt",
+    "up-first: Pushback On Trump's Russia Policy, Competitive Midterm Races, DOJ Noncitizen Voting"
    ],
-   "adding": [
-    "up-first (new): Pushback On Trump's Russia Policy, Competitive Midterm Races, DOJ Noncitizen Voting"
-   ],
+   "adding": [],
    "waiting_for": [],
    "expected": [
     "big-take",
     "up-first"
    ],
-   "checked_at": "2026-10-20T16:17:54Z"
+   "checked_at": "2026-10-20T17:01:10Z"
   }
  },
- "updated_at": "2026-10-20T16:17:54Z"
+ "updated_at": "2026-10-20T17:01:10Z"
 }
