@@ -95,10 +95,10 @@
   },
   "2026-10-21-morning": {
    "post_at": "2026-10-21T07:00:00+09:00",
-   "has": [],
-   "adding": [
-    "big-take (new): CoreWeave’s Selloff and the AI Economy"
+   "has": [
+    "big-take: CoreWeave’s Selloff and the AI Economy"
    ],
+   "adding": [],
    "waiting_for": [
     "up-first"
    ],
@@ -106,8 +106,8 @@
     "big-take",
     "up-first"
    ],
-   "checked_at": "2026-10-20T02:17:46Z"
+   "checked_at": "2026-10-20T04:17:57Z"
   }
  },
- "updated_at": "2026-10-20T02:17:46Z"
+ "updated_at": "2026-10-20T04:17:57Z"
 }
