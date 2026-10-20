@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-20T12:19:49Z",
+ "generated_at": "2026-10-20T14:15:22Z",
  "shows": [
   {
    "slug": "big-take",
@@ -112,6 +112,28 @@
    "cefr": "C1",
    "expressions": 18,
    "words": 5326,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "the-indicator-2026-10-20-the-gamble-of-trying-to-inflate-away-debt",
+   "show": "the-indicator",
+   "title": "The gamble of trying to inflate away debt",
+   "published_at": "2026-10-20T07:00:00Z",
+   "duration_sec": 504,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F74%2Fb8%2Fc9368adb415298caa5c51deda0d4%2F4d580c5f-793e-4d56-8ef1-75b2ca302108.jpg",
+   "one_liner_ko": "인플레이션으로 국가 부채를 '녹이겠다'는 발상이 왜 대개 실패하는지, 즉 깜짝(예상 밖) 인플레이션일 때만 통하고 공개 선언하는 순간 금리가 먼저 뛰어 역효과가 난다는 점을 설명한다.",
+   "tags": [
+    "inflation",
+    "national debt",
+    "central banks",
+    "monetary policy",
+    "financial repression"
+   ],
+   "cefr": "C1",
+   "expressions": 11,
+   "words": 1530,
    "has_translation": true,
    "mock": false,
    "demo": false
