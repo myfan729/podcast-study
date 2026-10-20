@@ -707,17 +707,17 @@
    "done_at": "2026-10-20T12:19:49Z"
   },
   "the-indicator:8d2483abb695": {
-   "first_seen": "2026-10-20T14:13:34Z",
+   "first_seen": "2026-10-20T14:18:03Z",
    "attempts": 1,
    "occasion": "2026-10-21-morning",
    "slot": "morning",
    "pick": "new",
-   "assigned_at": "2026-10-20T14:13:34Z",
+   "assigned_at": "2026-10-20T14:18:03Z",
    "status": "done",
    "id": "the-indicator-2026-10-20-the-gamble-of-trying-to-inflate-away-debt",
    "title": "The gamble of trying to inflate away debt",
    "published_at": "2026-10-20T07:00:00Z",
-   "done_at": "2026-10-20T14:15:21Z"
+   "done_at": "2026-10-20T14:19:42Z"
   }
  }
 }
