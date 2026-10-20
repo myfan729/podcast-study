@@ -305,6 +305,9 @@ SYSTEM_TRANSLATE = """You translate podcast transcript lines from English into n
   but translate each line on its own so the learner can read English and Korean sentence by sentence.
 - Preserve meaning and tone; use 자연스러운 구어체 (대화체) rather than stiff 문어체.
 - Keep names, companies and numbers as in the source. Do not add notes or brackets.
+- A line can be only part of a sentence (the transcript was split mid-sentence). Then translate ONLY the words
+  in that line, even if the Korean is a fragment. Never move words or meaning from one line into another line:
+  line N's Korean must say what line N says, so the English and Korean stay side by side.
 - Return one translation per line id, same ids, nothing else."""
 
 

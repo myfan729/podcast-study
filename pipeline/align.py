@@ -29,7 +29,15 @@ SENT_RE = re.compile(r"(?<=[.!?])\s+(?=[\"'“(A-Z0-9])")
 
 
 def split_sentences(text: str) -> list[str]:
-    parts = [p.strip() for p in SENT_RE.split(text) if p.strip()]
+    # same rule as the RSS transcripts: "St. Petersburg", "Mr. Smith", "U.S. troops" are not sentence ends
+    from .transcript import _ends_sentence
+    toks, parts, cur = text.split(), [], []
+    for k, tok in enumerate(toks):
+        cur.append(tok)
+        if _ends_sentence(tok, toks[k + 1] if k + 1 < len(toks) else None):
+            parts.append(" ".join(cur)); cur = []
+    if cur:
+        parts.append(" ".join(cur))
     # merge very short fragments ("Yes." "I'm Neil.") into their neighbour for readable cues
     out: list[str] = []
     for p in parts:
