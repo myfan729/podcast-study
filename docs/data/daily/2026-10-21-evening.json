@@ -1,0 +1,30 @@
+{
+ "occasion": "2026-10-21-evening",
+ "posts": [
+  {
+   "id": "odd-lots-2026-10-20-cme-s-terry-duffy-on-the-disconcerting-state-of-finance",
+   "occasion": "2026-10-21-evening",
+   "slot": "evening",
+   "order": 8,
+   "post_at": "2026-10-21T18:00:00+09:00",
+   "post_at_ms": 1792573200000,
+   "until": "2026-10-21T21:30:00+09:00",
+   "until_ms": 1792585800000,
+   "title": "CME's Terry Duffy on the Disconcerting State of Finance Regulation",
+   "show": {
+    "slug": "odd-lots",
+    "name": "Odd Lots",
+    "publisher": "Bloomberg",
+    "color": "#7a3fd1",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=odd-lots-2026-10-20-cme-s-terry-duffy-on-the-disconcerting-state-of-finance",
+   "pick": "fallback",
+   "one_liner_ko": "CME 그룹의 테리 더피 CEO가 은퇴를 앞두고, 예측시장·무기한 선물(perp)·24/7 거래 등 규제 공백과 시장 신뢰 문제를 거침없이 비판한 시카고 라이브 '퇴임 인터뷰'.",
+   "duration_sec": 1784,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/8a94442e-5a74-4fa2-8b8d-ae27003a8d6b/982f5071-765c-403d-969d-ae27003a8d83/image.jpg?t=1681322812&size=Large",
+   "text": "🌙 하루 마무리 팟캐스트 · Odd Lots (10/20)\nCME's Terry Duffy on the Disconcerting State of Finance Regulation\n⏱ 29분\n\nCME 그룹의 테리 더피 CEO가 은퇴를 앞두고, 예측시장·무기한 선물(perp)·24/7 거래 등 규제 공백과 시장 신뢰 문제를 거침없이 비판한 시카고 라이브 '퇴임 인터뷰'.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=odd-lots-2026-10-20-cme-s-terry-duffy-on-the-disconcerting-state-of-finance",
+   "queued_at": "2026-10-20T12:20:25Z"
+  }
+ ]
+}

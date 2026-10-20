@@ -1,21 +1,5 @@
 {
  "occasions": {
-  "2026-10-17-morning": {
-   "post_at": "2026-10-17T07:00:00+09:00",
-   "has": [
-    "the-indicator: How did political campaigns get so expensive?",
-    "up-first: Oregon School Shooting, Russia's View On US-Ukraine Split, DOJ Sues California",
-    "big-take: The Diamond Industry’s Battle for Your Ring Finger"
-   ],
-   "adding": [],
-   "waiting_for": [],
-   "expected": [
-    "big-take",
-    "everybodys-business",
-    "up-first"
-   ],
-   "checked_at": "2026-10-16T22:28:09Z"
-  },
   "2026-10-18-evening": {
    "post_at": "2026-10-18T18:00:00+09:00",
    "has": [
@@ -93,6 +77,16 @@
    ],
    "checked_at": "2026-10-19T22:23:55Z"
   },
+  "2026-10-21-evening": {
+   "post_at": "2026-10-21T18:00:00+09:00",
+   "has": [],
+   "adding": [
+    "odd-lots (fallback): CME's Terry Duffy on the Disconcerting State of Finance Regulation"
+   ],
+   "waiting_for": [],
+   "expected": [],
+   "checked_at": "2026-10-20T12:18:01Z"
+  },
   "2026-10-21-morning": {
    "post_at": "2026-10-21T07:00:00+09:00",
    "has": [
@@ -110,5 +104,5 @@
    "checked_at": "2026-10-20T07:03:59Z"
   }
  },
- "updated_at": "2026-10-20T07:03:59Z"
+ "updated_at": "2026-10-20T12:18:01Z"
 }

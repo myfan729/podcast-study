@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-20T05:04:13Z",
+ "generated_at": "2026-10-20T12:19:49Z",
  "shows": [
   {
    "slug": "big-take",
@@ -94,6 +94,28 @@
   }
  ],
  "episodes": [
+  {
+   "id": "odd-lots-2026-10-20-cme-s-terry-duffy-on-the-disconcerting-state-of-finance",
+   "show": "odd-lots",
+   "title": "CME's Terry Duffy on the Disconcerting State of Finance Regulation",
+   "published_at": "2026-10-20T08:00:00Z",
+   "duration_sec": 1784,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/8a94442e-5a74-4fa2-8b8d-ae27003a8d6b/982f5071-765c-403d-969d-ae27003a8d83/image.jpg?t=1681322812&size=Large",
+   "one_liner_ko": "CME 그룹의 테리 더피 CEO가 은퇴를 앞두고, 예측시장·무기한 선물(perp)·24/7 거래 등 규제 공백과 시장 신뢰 문제를 거침없이 비판한 시카고 라이브 '퇴임 인터뷰'.",
+   "tags": [
+    "CME Group",
+    "prediction markets",
+    "perpetual futures",
+    "financial regulation",
+    "24/7 trading"
+   ],
+   "cefr": "C1",
+   "expressions": 18,
+   "words": 5326,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
   {
    "id": "big-take-2026-10-19-coreweaves-selloff-and-the-ai-economy",
    "show": "big-take",
