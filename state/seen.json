@@ -517,7 +517,7 @@
   },
   "up-first:126470c93b55": {
    "first_seen": "2026-10-19T16:17:45Z",
-   "attempts": 1,
+   "attempts": 2,
    "occasion": "2026-10-20-morning",
    "slot": "morning",
    "pick": "new",
@@ -526,7 +526,7 @@
    "id": "up-first-2026-10-19-trump-eases-russia-sanctions-midterm-campaign-money-violent",
    "title": "Trump Eases Russia Sanctions, Midterm Campaign Money, Violent Protests In France",
    "published_at": "2026-10-19T10:06:49Z",
-   "done_at": "2026-10-19T16:19:31Z"
+   "done_at": "2026-10-20T04:50:57Z"
   },
   "the-indicator:7e28b38b6cf9": {
    "first_seen": "2026-10-19T20:17:55Z",
@@ -566,6 +566,132 @@
    "title": "CoreWeave’s Selloff and the AI Economy",
    "published_at": "2026-10-19T22:09:16Z",
    "done_at": "2026-10-20T02:19:05Z"
+  },
+  "big-take:9ea81684ef17": {
+   "status": "skipped_long",
+   "title": "Weekend Listen: The Secret History of the Mar-a-Lago Document Seizure",
+   "published_at": "2026-10-18T14:00:00Z",
+   "duration_sec": 2508,
+   "seen_at": "2026-10-20T04:48:53Z"
+  },
+  "up-first:20c82decde4d": {
+   "status": "skipped_long",
+   "title": "Israelis have changed. Will they change their leader?",
+   "published_at": "2026-10-18T07:00:00Z",
+   "duration_sec": 2308,
+   "seen_at": "2026-10-20T04:48:53Z"
+  },
+  "up-first:e5d5bc6888d7": {
+   "status": "skipped_long",
+   "title": "Hasan Piker on his rise as a voice of the 'insurgent left' | NPR's Newsmakers",
+   "published_at": "2026-10-15T17:00:01Z",
+   "duration_sec": 2487,
+   "seen_at": "2026-10-20T04:48:53Z"
+  },
+  "up-first:223cac9f499f": {
+   "status": "skipped_long",
+   "title": "The women who fought back when their jailers assaulted them",
+   "published_at": "2026-10-11T07:00:00Z",
+   "duration_sec": 1696,
+   "seen_at": "2026-10-20T04:48:53Z"
+  },
+  "up-first:a07be117c499": {
+   "first_seen": "2026-10-20T04:50:57Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "up-first-2026-10-13-trump-midterm-campaigning-rep-omar-home-searched-europe",
+   "title": "Trump Midterm Campaigning, Rep. Omar Home Searched, Europe Pushes Back on Russia Deal",
+   "published_at": "2026-10-13T09:50:54Z",
+   "done_at": "2026-10-20T04:52:50Z"
+  },
+  "up-first:32160704adec": {
+   "first_seen": "2026-10-20T04:52:50Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "up-first-2026-10-12-trump-pressures-ukraine-trump-s-midterm-priorities-saudi",
+   "title": "Trump Pressures Ukraine, Trump's Midterm Priorities, Saudi Arabia Airport Attacks",
+   "published_at": "2026-10-12T09:50:44Z",
+   "done_at": "2026-10-20T04:54:44Z"
+  },
+  "up-first:de2558b13023": {
+   "first_seen": "2026-10-20T04:54:44Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "up-first-2026-10-10-hurricane-isaias-floods-the-panhandle-a-russian-oil-deal",
+   "title": "Hurricane Isaias Floods the Panhandle, A Russian Oil Deal, ICE Shooting in New York",
+   "published_at": "2026-10-10T13:43:06Z",
+   "done_at": "2026-10-20T04:56:35Z"
+  },
+  "up-first:597b0a5f84ee": {
+   "first_seen": "2026-10-20T04:56:35Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "up-first-2026-10-09-bracing-for-hurricane-isaias-ukraine-pushes-russia-back",
+   "title": "Bracing For Hurricane Isaias, Ukraine Pushes Russia Back, Iran War Impact On Midterms",
+   "published_at": "2026-10-09T09:53:38Z",
+   "done_at": "2026-10-20T04:58:22Z"
+  },
+  "up-first:9ce7633ee045": {
+   "first_seen": "2026-10-20T04:58:22Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "up-first-2026-10-08-hurricane-isaias-prep-competitive-midterm-races-trump-s",
+   "title": "Hurricane Isaias Prep, Competitive Midterm Races, Trump's Media Ban In Court",
+   "published_at": "2026-10-08T09:41:18Z",
+   "done_at": "2026-10-20T05:00:23Z"
+  },
+  "up-first:b0de6d0fb900": {
+   "first_seen": "2026-10-20T05:00:23Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "up-first-2026-10-07-threats-on-us-bases-overseas-france-student-protest-german",
+   "title": "Threats On US Bases Overseas, France Student Protest, German Spy Arrest",
+   "published_at": "2026-10-07T09:50:53Z",
+   "done_at": "2026-10-20T05:02:13Z"
+  },
+  "up-first:b93e814dba65": {
+   "first_seen": "2026-10-20T05:02:13Z",
+   "attempts": 1,
+   "status": "done",
+   "id": "up-first-2026-10-06-democrats-lead-in-midterm-polls-yemen-war-front-paramount",
+   "title": "Democrats Lead In Midterm Polls, Yemen War Front, Paramount-Warner Bros. Merger",
+   "published_at": "2026-10-06T09:55:33Z",
+   "done_at": "2026-10-20T05:04:10Z"
+  },
+  "everybodys-business:88f711e5716c": {
+   "status": "skipped_long",
+   "title": "Why are Tech Billionaires in the Business of Political Spending?",
+   "published_at": "2026-10-16T09:00:00Z",
+   "duration_sec": 2540,
+   "seen_at": "2026-10-20T05:04:12Z"
+  },
+  "zero:d7ca61530c96": {
+   "status": "skipped_long",
+   "title": "A historic El Niño is coming that could cost the world trillions: Odd Lots",
+   "published_at": "2026-10-15T04:00:00Z",
+   "duration_sec": 3384,
+   "seen_at": "2026-10-20T05:04:12Z"
+  },
+  "odd-lots:4171036b86bd": {
+   "status": "skipped_long",
+   "title": "David Byrne Explains How Forgotten Ideas Come Back to Life",
+   "published_at": "2026-10-17T08:00:00Z",
+   "duration_sec": 3620,
+   "seen_at": "2026-10-20T05:04:12Z"
+  },
+  "odd-lots:345d8532d9df": {
+   "status": "skipped_long",
+   "title": "Nate Soares on How AI Really Could Kill Us All",
+   "published_at": "2026-10-12T08:00:00Z",
+   "duration_sec": 4571,
+   "seen_at": "2026-10-20T05:04:12Z"
+  },
+  "odd-lots:5ec54621890c": {
+   "status": "skipped_long",
+   "title": "How AI Is Upending the World of Mathematics",
+   "published_at": "2026-10-09T08:00:00Z",
+   "duration_sec": 3621,
+   "seen_at": "2026-10-20T05:04:12Z"
   }
  }
 }
