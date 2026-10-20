@@ -553,6 +553,19 @@
    "title": "What the world's leading researchers think about saunas",
    "published_at": "2026-10-19T07:00:00Z",
    "done_at": "2026-10-19T22:20:05Z"
+  },
+  "big-take:68881051e96a": {
+   "first_seen": "2026-10-20T02:17:46Z",
+   "attempts": 1,
+   "occasion": "2026-10-21-morning",
+   "slot": "morning",
+   "pick": "new",
+   "assigned_at": "2026-10-20T02:17:46Z",
+   "status": "done",
+   "id": "big-take-2026-10-19-coreweaves-selloff-and-the-ai-economy",
+   "title": "CoreWeave’s Selloff and the AI Economy",
+   "published_at": "2026-10-19T22:09:16Z",
+   "done_at": "2026-10-20T02:19:05Z"
   }
  }
 }

@@ -1,0 +1,30 @@
+{
+ "occasion": "2026-10-21-morning",
+ "posts": [
+  {
+   "id": "big-take-2026-10-19-coreweaves-selloff-and-the-ai-economy",
+   "occasion": "2026-10-21-morning",
+   "slot": "morning",
+   "order": 2,
+   "post_at": "2026-10-21T07:00:00+09:00",
+   "post_at_ms": 1792533600000,
+   "until": "2026-10-21T12:00:00+09:00",
+   "until_ms": 1792551600000,
+   "title": "CoreWeave’s Selloff and the AI Economy",
+   "show": {
+    "slug": "big-take",
+    "name": "Big Take",
+    "publisher": "Bloomberg",
+    "color": "#1f5fbf",
+    "homepage": "https://www.bloomberg.com/podcasts/series/big-take"
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=big-take-2026-10-19-coreweaves-selloff-and-the-ai-economy",
+   "pick": "new",
+   "one_liner_ko": "코어위브 주가 급락을 계기로, AI 수요는 여전히 뜨거운데 그 인프라를 부채로 조달하는 구조가 시장의 의심을 받기 시작했다는 점을 짚는 에피소드.",
+   "duration_sec": 993,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/88b2d968-a38f-4e82-8b72-b4e80169f21f/image.jpg?t=1792447159&size=Large",
+   "text": "🌅 아침 팟캐스트 · Big Take (10/20)\nCoreWeave’s Selloff and the AI Economy\n⏱ 16분\n\n코어위브 주가 급락을 계기로, AI 수요는 여전히 뜨거운데 그 인프라를 부채로 조달하는 구조가 시장의 의심을 받기 시작했다는 점을 짚는 에피소드.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=big-take-2026-10-19-coreweaves-selloff-and-the-ai-economy",
+   "queued_at": "2026-10-20T02:19:35Z"
+  }
+ ]
+}

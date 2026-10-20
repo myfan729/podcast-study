@@ -1,15 +1,5 @@
 {
  "occasions": {
-  "2026-10-17-evening": {
-   "post_at": "2026-10-17T18:00:00+09:00",
-   "has": [
-    "trumponomics: Live from New Delhi: What the World's Financial Leaders Fear Most"
-   ],
-   "adding": [],
-   "waiting_for": [],
-   "expected": [],
-   "checked_at": "2026-10-16T13:14:42Z"
-  },
   "2026-10-17-morning": {
    "post_at": "2026-10-17T07:00:00+09:00",
    "has": [
@@ -102,7 +92,22 @@
     "up-first"
    ],
    "checked_at": "2026-10-19T22:23:55Z"
+  },
+  "2026-10-21-morning": {
+   "post_at": "2026-10-21T07:00:00+09:00",
+   "has": [],
+   "adding": [
+    "big-take (new): CoreWeave’s Selloff and the AI Economy"
+   ],
+   "waiting_for": [
+    "up-first"
+   ],
+   "expected": [
+    "big-take",
+    "up-first"
+   ],
+   "checked_at": "2026-10-20T02:17:46Z"
   }
  },
- "updated_at": "2026-10-19T22:23:55Z"
+ "updated_at": "2026-10-20T02:17:46Z"
 }
