@@ -226,6 +226,31 @@
    "queued_at": "2026-10-19T13:11:34Z"
   },
   {
+   "id": "up-first-2026-10-20-pushback-on-trump-s-russia-policy-competitive-midterm-races",
+   "occasion": "2026-10-21-morning",
+   "slot": "morning",
+   "order": 0,
+   "post_at": "2026-10-21T07:00:00+09:00",
+   "post_at_ms": 1792533600000,
+   "until": "2026-10-21T12:00:00+09:00",
+   "until_ms": 1792551600000,
+   "title": "Pushback On Trump's Russia Policy, Competitive Midterm Races, DOJ Noncitizen Voting",
+   "show": {
+    "slug": "up-first",
+    "name": "Up First",
+    "publisher": "NPR",
+    "color": "#d6352b",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-20-pushback-on-trump-s-russia-policy-competitive-midterm-races",
+   "pick": "new",
+   "one_liner_ko": "트럼프의 대러시아 유화 행보에 여야가 함께 반발하고, 중간선거 2주 전 양당이 전선을 재편하는 가운데, 법무부는 캘리포니아의 비시민권자 투표 의혹을 놓고 소송과 기소로 압박 수위를 높였다.",
+   "duration_sec": 734,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/1400/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe0%2F7a%2Ffe9d16a44fbf9dd2d9932ffe799b%2F510318.png",
+   "text": "🌅 아침 팟캐스트 · Up First (10/20)\nPushback On Trump's Russia Policy, Competitive Midterm Races, DOJ Noncitizen Voting\n⏱ 12분\n\n트럼프의 대러시아 유화 행보에 여야가 함께 반발하고, 중간선거 2주 전 양당이 전선을 재편하는 가운데, 법무부는 캘리포니아의 비시민권자 투표 의혹을 놓고 소송과 기소로 압박 수위를 높였다.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-20-pushback-on-trump-s-russia-policy-competitive-midterm-races",
+   "queued_at": "2026-10-20T16:20:58Z"
+  },
+  {
    "id": "the-indicator-2026-10-20-the-gamble-of-trying-to-inflate-away-debt",
    "occasion": "2026-10-21-morning",
    "slot": "morning",
@@ -301,7 +326,7 @@
    "queued_at": "2026-10-20T12:20:25Z"
   }
  ],
- "generated_at": "2026-10-20T14:20:38Z",
+ "generated_at": "2026-10-20T16:20:58Z",
  "kick_kst": [
   "05:25",
   "05:55",

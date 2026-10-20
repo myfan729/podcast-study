@@ -90,20 +90,19 @@
   "2026-10-21-morning": {
    "post_at": "2026-10-21T07:00:00+09:00",
    "has": [
-    "big-take: CoreWeave’s Selloff and the AI Economy"
+    "big-take: CoreWeave’s Selloff and the AI Economy",
+    "the-indicator: The gamble of trying to inflate away debt"
    ],
    "adding": [
-    "the-indicator (new): The gamble of trying to inflate away debt"
+    "up-first (new): Pushback On Trump's Russia Policy, Competitive Midterm Races, DOJ Noncitizen Voting"
    ],
-   "waiting_for": [
-    "up-first"
-   ],
+   "waiting_for": [],
    "expected": [
     "big-take",
     "up-first"
    ],
-   "checked_at": "2026-10-20T14:18:03Z"
+   "checked_at": "2026-10-20T16:17:54Z"
   }
  },
- "updated_at": "2026-10-20T14:18:03Z"
+ "updated_at": "2026-10-20T16:17:54Z"
 }
