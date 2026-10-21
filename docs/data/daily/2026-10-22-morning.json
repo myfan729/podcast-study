@@ -1,0 +1,30 @@
+{
+ "occasion": "2026-10-22-morning",
+ "posts": [
+  {
+   "id": "short-wave-2026-10-20-what-are-the-odds-we-re-not-alone-in-the-universe",
+   "occasion": "2026-10-22-morning",
+   "slot": "morning",
+   "order": 6,
+   "post_at": "2026-10-22T07:00:00+09:00",
+   "post_at_ms": 1792620000000,
+   "until": "2026-10-22T12:00:00+09:00",
+   "until_ms": 1792638000000,
+   "title": "What are the odds we're not alone in the universe?",
+   "show": {
+    "slug": "short-wave",
+    "name": "Short Wave",
+    "publisher": "NPR",
+    "color": "#3a9d5d",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=short-wave-2026-10-20-what-are-the-odds-we-re-not-alone-in-the-universe",
+   "pick": "fallback",
+   "one_liner_ko": "1961년 프랭크 드레이크가 만든 드레이크 방정식은 외계 문명의 수를 정확히 맞히지 못하지만, 서식 가능성·지능·문명 존속 기간 같은 큰 질문을 던지게 한다는 점에서 여전히 가치가 있다는 이야기.",
+   "duration_sec": 894,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/1900x1900+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F6f%2F40%2Ffd0c6bdb4917b55e2c1073085e4a%2Fcd0d9c0e-485b-450d-bd11-3a3d2faa920e.jpg",
+   "text": "🌅 아침 팟캐스트 · Short Wave (10/20)\nWhat are the odds we're not alone in the universe?\n⏱ 14분\n\n1961년 프랭크 드레이크가 만든 드레이크 방정식은 외계 문명의 수를 정확히 맞히지 못하지만, 서식 가능성·지능·문명 존속 기간 같은 큰 질문을 던지게 한다는 점에서 여전히 가치가 있다는 이야기.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=short-wave-2026-10-20-what-are-the-odds-we-re-not-alone-in-the-universe",
+   "queued_at": "2026-10-21T02:20:57Z"
+  }
+ ]
+}

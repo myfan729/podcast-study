@@ -731,6 +731,19 @@
    "title": "Pushback On Trump's Russia Policy, Competitive Midterm Races, DOJ Noncitizen Voting",
    "published_at": "2026-10-20T09:49:06Z",
    "done_at": "2026-10-20T16:20:01Z"
+  },
+  "short-wave:2e7fa76c2c4d": {
+   "first_seen": "2026-10-21T02:17:55Z",
+   "attempts": 1,
+   "occasion": "2026-10-22-morning",
+   "slot": "morning",
+   "pick": "fallback",
+   "assigned_at": "2026-10-21T02:17:55Z",
+   "status": "done",
+   "id": "short-wave-2026-10-20-what-are-the-odds-we-re-not-alone-in-the-universe",
+   "title": "What are the odds we're not alone in the universe?",
+   "published_at": "2026-10-20T07:00:00Z",
+   "done_at": "2026-10-21T02:20:01Z"
   }
  }
 }
