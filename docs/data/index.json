@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-21T02:20:02Z",
+ "generated_at": "2026-10-21T12:19:07Z",
  "shows": [
   {
    "slug": "big-take",
@@ -94,6 +94,28 @@
   }
  ],
  "episodes": [
+  {
+   "id": "stuff-you-should-know-2026-10-21-short-stuff-spooky-recommendations",
+   "show": "stuff-you-should-know",
+   "title": "Short Stuff: Spooky Recommendations",
+   "published_at": "2026-10-21T09:00:00Z",
+   "duration_sec": 912,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/a91018a4-ea4f-4130-bf55-ae270180c327/2d4c56af-e3b8-456b-a22b-b4e801104d0a/image.jpg?t=1792525491&size=Large",
+   "one_liner_ko": "조쉬는 호러 영화를, 척은 호러 소설을 추천하며 '공포물은 어떤 형식이 가장 잘 먹히는가'까지 수다를 떠는 할로윈 특집 숏 에피소드.",
+   "tags": [
+    "horror",
+    "recommendations",
+    "books and movies",
+    "podcast format",
+    "Halloween"
+   ],
+   "cefr": "C1",
+   "expressions": 13,
+   "words": 2659,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
   {
    "id": "up-first-2026-10-20-pushback-on-trump-s-russia-policy-competitive-midterm-races",
    "show": "up-first",

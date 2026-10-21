@@ -1,0 +1,30 @@
+{
+ "occasion": "2026-10-22-evening",
+ "posts": [
+  {
+   "id": "stuff-you-should-know-2026-10-21-short-stuff-spooky-recommendations",
+   "occasion": "2026-10-22-evening",
+   "slot": "evening",
+   "order": 1,
+   "post_at": "2026-10-22T18:00:00+09:00",
+   "post_at_ms": 1792659600000,
+   "until": "2026-10-22T21:30:00+09:00",
+   "until_ms": 1792672200000,
+   "title": "Short Stuff: Spooky Recommendations",
+   "show": {
+    "slug": "stuff-you-should-know",
+    "name": "Stuff You Should Know",
+    "publisher": "iHeartPodcasts",
+    "color": "#e0752d",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=stuff-you-should-know-2026-10-21-short-stuff-spooky-recommendations",
+   "pick": "new",
+   "one_liner_ko": "조쉬는 호러 영화를, 척은 호러 소설을 추천하며 '공포물은 어떤 형식이 가장 잘 먹히는가'까지 수다를 떠는 할로윈 특집 숏 에피소드.",
+   "duration_sec": 912,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/a91018a4-ea4f-4130-bf55-ae270180c327/2d4c56af-e3b8-456b-a22b-b4e801104d0a/image.jpg?t=1792525491&size=Large",
+   "text": "🌙 하루 마무리 팟캐스트 · Stuff You Should Know (10/21)\nShort Stuff: Spooky Recommendations\n⏱ 15분\n\n조쉬는 호러 영화를, 척은 호러 소설을 추천하며 '공포물은 어떤 형식이 가장 잘 먹히는가'까지 수다를 떠는 할로윈 특집 숏 에피소드.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=stuff-you-should-know-2026-10-21-short-stuff-spooky-recommendations",
+   "queued_at": "2026-10-21T12:19:44Z"
+  }
+ ]
+}

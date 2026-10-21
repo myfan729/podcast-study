@@ -744,6 +744,19 @@
    "title": "What are the odds we're not alone in the universe?",
    "published_at": "2026-10-20T07:00:00Z",
    "done_at": "2026-10-21T02:20:01Z"
+  },
+  "stuff-you-should-know:5e26c02736e1": {
+   "first_seen": "2026-10-21T12:17:52Z",
+   "attempts": 1,
+   "occasion": "2026-10-22-evening",
+   "slot": "evening",
+   "pick": "new",
+   "assigned_at": "2026-10-21T12:17:52Z",
+   "status": "done",
+   "id": "stuff-you-should-know-2026-10-21-short-stuff-spooky-recommendations",
+   "title": "Short Stuff: Spooky Recommendations",
+   "published_at": "2026-10-21T09:00:00Z",
+   "done_at": "2026-10-21T12:19:07Z"
   }
  }
 }

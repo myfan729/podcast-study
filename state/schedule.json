@@ -1,19 +1,5 @@
 {
  "occasions": {
-  "2026-10-18-morning": {
-   "post_at": "2026-10-18T07:00:00+09:00",
-   "has": [
-    "the-indicator: Supercore inflation, Bumble valuation and Pooh's repatriation"
-   ],
-   "adding": [],
-   "waiting_for": [
-    "up-first"
-   ],
-   "expected": [
-    "up-first"
-   ],
-   "checked_at": "2026-10-17T03:33:35Z"
-  },
   "2026-10-19-evening": {
    "post_at": "2026-10-19T18:00:00+09:00",
    "has": [
@@ -92,6 +78,20 @@
    ],
    "checked_at": "2026-10-20T17:01:10Z"
   },
+  "2026-10-22-evening": {
+   "post_at": "2026-10-22T18:00:00+09:00",
+   "has": [],
+   "adding": [
+    "stuff-you-should-know (new): Short Stuff: Spooky Recommendations"
+   ],
+   "waiting_for": [],
+   "expected": [
+    "odd-lots",
+    "trumponomics",
+    "zero"
+   ],
+   "checked_at": "2026-10-21T12:17:52Z"
+  },
   "2026-10-22-morning": {
    "post_at": "2026-10-22T07:00:00+09:00",
    "has": [
@@ -110,5 +110,5 @@
    "checked_at": "2026-10-21T07:04:07Z"
   }
  },
- "updated_at": "2026-10-21T07:04:07Z"
+ "updated_at": "2026-10-21T12:17:52Z"
 }
