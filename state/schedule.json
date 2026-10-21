@@ -80,17 +80,17 @@
   },
   "2026-10-22-evening": {
    "post_at": "2026-10-22T18:00:00+09:00",
-   "has": [],
-   "adding": [
-    "stuff-you-should-know (new): Short Stuff: Spooky Recommendations"
+   "has": [
+    "stuff-you-should-know: Short Stuff: Spooky Recommendations"
    ],
+   "adding": [],
    "waiting_for": [],
    "expected": [
     "odd-lots",
     "trumponomics",
     "zero"
    ],
-   "checked_at": "2026-10-21T12:17:52Z"
+   "checked_at": "2026-10-21T12:51:05Z"
   },
   "2026-10-22-morning": {
    "post_at": "2026-10-22T07:00:00+09:00",
@@ -110,5 +110,5 @@
    "checked_at": "2026-10-21T07:04:07Z"
   }
  },
- "updated_at": "2026-10-21T12:17:52Z"
+ "updated_at": "2026-10-21T12:51:05Z"
 }
