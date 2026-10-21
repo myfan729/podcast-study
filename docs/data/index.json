@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-21T12:19:07Z",
+ "generated_at": "2026-10-21T13:48:43Z",
  "shows": [
   {
    "slug": "big-take",
@@ -94,6 +94,28 @@
   }
  ],
  "episodes": [
+  {
+   "id": "up-first-2026-10-21-zelenskyy-mending-ties-trump-in-north-carolina-saudi-arabia",
+   "show": "up-first",
+   "title": "Zelenskyy Mending Ties, Trump In North Carolina, Saudi Arabia Gets British Support",
+   "published_at": "2026-10-21T10:01:27Z",
+   "duration_sec": 704,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/1400/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe0%2F7a%2Ffe9d16a44fbf9dd2d9932ffe799b%2F510318.png",
+   "one_liner_ko": "젤렌스키가 트럼프 행정부와의 관계 복원에 나선 가운데, 트럼프는 노스캐롤라이나에서 사실상 패배를 인정하는 듯한 유세를 했고, 영국은 후티 공격에 시달리는 사우디에 전투기를 보낸다.",
+   "tags": [
+    "Ukraine-Russia",
+    "US midterms",
+    "Saudi-Houthi war",
+    "news briefing",
+    "political idioms"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 2068,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
   {
    "id": "stuff-you-should-know-2026-10-21-short-stuff-spooky-recommendations",
    "show": "stuff-you-should-know",

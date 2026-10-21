@@ -757,6 +757,19 @@
    "title": "Short Stuff: Spooky Recommendations",
    "published_at": "2026-10-21T09:00:00Z",
    "done_at": "2026-10-21T12:19:07Z"
+  },
+  "up-first:c518d4e1e625": {
+   "first_seen": "2026-10-21T13:46:45Z",
+   "attempts": 1,
+   "occasion": "2026-10-22-morning",
+   "slot": "morning",
+   "pick": "new",
+   "assigned_at": "2026-10-21T13:46:45Z",
+   "status": "done",
+   "id": "up-first-2026-10-21-zelenskyy-mending-ties-trump-in-north-carolina-saudi-arabia",
+   "title": "Zelenskyy Mending Ties, Trump In North Carolina, Saudi Arabia Gets British Support",
+   "published_at": "2026-10-21T10:01:27Z",
+   "done_at": "2026-10-21T13:48:42Z"
   }
  }
 }
