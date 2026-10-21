@@ -94,10 +94,10 @@
   },
   "2026-10-22-morning": {
    "post_at": "2026-10-22T07:00:00+09:00",
-   "has": [],
-   "adding": [
-    "short-wave (fallback): What are the odds we're not alone in the universe?"
+   "has": [
+    "short-wave: What are the odds we're not alone in the universe?"
    ],
+   "adding": [],
    "waiting_for": [
     "up-first",
     "big-take"
@@ -106,8 +106,8 @@
     "big-take",
     "up-first"
    ],
-   "checked_at": "2026-10-21T02:17:55Z"
+   "checked_at": "2026-10-21T04:18:00Z"
   }
  },
- "updated_at": "2026-10-21T02:17:55Z"
+ "updated_at": "2026-10-21T04:18:00Z"
 }
