@@ -96,18 +96,17 @@
    "post_at": "2026-10-22T07:00:00+09:00",
    "has": [
     "short-wave: What are the odds we're not alone in the universe?",
-    "up-first: Zelenskyy Mending Ties, Trump In North Carolina, Saudi Arabia Gets British Support"
+    "up-first: Zelenskyy Mending Ties, Trump In North Carolina, Saudi Arabia Gets British Support",
+    "the-indicator: The case for sharing your salary"
    ],
-   "adding": [
-    "the-indicator (new): The case for sharing your salary"
-   ],
+   "adding": [],
    "waiting_for": [],
    "expected": [
     "big-take",
     "up-first"
    ],
-   "checked_at": "2026-10-21T22:03:59Z"
+   "checked_at": "2026-10-21T22:18:06Z"
   }
  },
- "updated_at": "2026-10-21T22:03:59Z"
+ "updated_at": "2026-10-21T22:18:06Z"
 }
