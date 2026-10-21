@@ -27,6 +27,31 @@
    "queued_at": "2026-10-21T13:49:26Z"
   },
   {
+   "id": "the-indicator-2026-10-21-the-case-for-sharing-your-salary",
+   "occasion": "2026-10-22-morning",
+   "slot": "morning",
+   "order": 1,
+   "post_at": "2026-10-22T07:00:00+09:00",
+   "post_at_ms": 1792620000000,
+   "until": "2026-10-22T12:00:00+09:00",
+   "until_ms": 1792638000000,
+   "title": "The case for sharing your salary",
+   "show": {
+    "slug": "the-indicator",
+    "name": "The Indicator",
+    "publisher": "NPR (Planet Money)",
+    "color": "#2b7bd6",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=the-indicator-2026-10-21-the-case-for-sharing-your-salary",
+   "pick": "new",
+   "one_liner_ko": "데이터 저널리스트 모나 찰라비는 모두가 '중산층'이라는 편한 라벨 뒤에 숨지 말고, 돈과 계층 이야기를 더 솔직하고 구체적으로 하자고 주장한다.",
+   "duration_sec": 550,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F1b%2F8a%2F76bc4686453091c3569979f42321%2Fb430ca17-6189-4098-8dff-9a2d89166ed4.png",
+   "text": "🌅 아침 팟캐스트 · The Indicator (10/21)\nThe case for sharing your salary\n⏱ 9분\n\n데이터 저널리스트 모나 찰라비는 모두가 '중산층'이라는 편한 라벨 뒤에 숨지 말고, 돈과 계층 이야기를 더 솔직하고 구체적으로 하자고 주장한다.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=the-indicator-2026-10-21-the-case-for-sharing-your-salary",
+   "queued_at": "2026-10-21T22:06:50Z"
+  },
+  {
    "id": "short-wave-2026-10-20-what-are-the-odds-we-re-not-alone-in-the-universe",
    "occasion": "2026-10-22-morning",
    "slot": "morning",
