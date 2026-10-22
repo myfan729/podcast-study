@@ -824,17 +824,17 @@
    "done_at": "2026-10-22T15:40:30Z"
   },
   "big-take:dd08a169ce2e": {
-   "first_seen": "2026-10-22T21:00:40Z",
+   "first_seen": "2026-10-22T21:05:36Z",
    "attempts": 1,
    "occasion": "2026-10-23-morning",
    "slot": "morning",
    "pick": "new",
-   "assigned_at": "2026-10-22T21:00:40Z",
+   "assigned_at": "2026-10-22T21:05:36Z",
    "status": "done",
    "id": "big-take-2026-10-22-investors-arent-wild-about-big-techs-ai-forecasts",
    "title": "Investors Aren’t Wild About Big Tech’s AI Forecasts",
    "published_at": "2026-10-22T20:22:43Z",
-   "done_at": "2026-10-22T21:02:02Z"
+   "done_at": "2026-10-22T21:06:59Z"
   }
  }
 }
