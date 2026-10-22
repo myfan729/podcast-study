@@ -27,6 +27,31 @@
    "queued_at": "2026-10-22T15:41:17Z"
   },
   {
+   "id": "big-take-2026-10-22-investors-arent-wild-about-big-techs-ai-forecasts",
+   "occasion": "2026-10-23-morning",
+   "slot": "morning",
+   "order": 2,
+   "post_at": "2026-10-23T07:00:00+09:00",
+   "post_at_ms": 1792706400000,
+   "until": "2026-10-23T12:00:00+09:00",
+   "until_ms": 1792724400000,
+   "title": "Investors Aren’t Wild About Big Tech’s AI Forecasts",
+   "show": {
+    "slug": "big-take",
+    "name": "Big Take",
+    "publisher": "Bloomberg",
+    "color": "#1f5fbf",
+    "homepage": "https://www.bloomberg.com/podcasts/series/big-take"
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=big-take-2026-10-22-investors-arent-wild-about-big-techs-ai-forecasts",
+   "pick": "new",
+   "one_liner_ko": "메타는 지출을 너무 많이 늘려서, 테슬라는 너무 적게 써서 벌을 받는 등, 투자자들이 빅테크 AI 지출에서 '딱 적당한' 수준을 찾느라 불안해하는 상황을 짚은 에피소드.",
+   "duration_sec": 1022,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/0a6de32e-9fb4-49d6-8984-b4eb014d5493/image.jpg?t=1792700229&size=Large",
+   "text": "🌅 아침 팟캐스트 · Big Take (10/23)\nInvestors Aren’t Wild About Big Tech’s AI Forecasts\n⏱ 17분\n\n메타는 지출을 너무 많이 늘려서, 테슬라는 너무 적게 써서 벌을 받는 등, 투자자들이 빅테크 AI 지출에서 '딱 적당한' 수준을 찾느라 불안해하는 상황을 짚은 에피소드.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=big-take-2026-10-22-investors-arent-wild-about-big-techs-ai-forecasts",
+   "queued_at": "2026-10-22T21:03:08Z"
+  },
+  {
    "id": "short-wave-2026-10-21-can-planting-more-trees-make-allergies-worse",
    "occasion": "2026-10-23-morning",
    "slot": "morning",
