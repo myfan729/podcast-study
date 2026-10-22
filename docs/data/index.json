@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-22T02:19:03Z",
+ "generated_at": "2026-10-22T15:40:30Z",
  "shows": [
   {
    "slug": "big-take",
@@ -94,6 +94,52 @@
   }
  ],
  "episodes": [
+  {
+   "id": "think-fast-talk-smart-2026-10-22-334-quick-thinks-how-to-make-the-most-out-of-meetings",
+   "show": "think-fast-talk-smart",
+   "title": "334. Quick Thinks: How to Make the Most Out of Meetings",
+   "published_at": "2026-10-22T13:00:00Z",
+   "duration_sec": 701,
+   "image": "https://img.transistorcdn.com/FQbsYLqAlQn1IvO6PZ6E4R8G4c0SRY2ZHMwkwNqrCFk/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS8xMTNi/ZTEwY2NlY2VhMDRi/M2JlOWJjZGM1MzVj/NTlhYi5wbmc.jpg",
+   "one_liner_ko": "좋은 회의는 '정말 필요한가?'라는 질문에서 시작해, 목표·아젠다·초대장 설계, 진행 중 퍼실리테이션, 종료 후 공유와 피드백까지 이어진다는 Matt Abrahams의 실용 가이드.",
+   "tags": [
+    "meetings",
+    "communication",
+    "agenda",
+    "facilitation",
+    "hybrid work",
+    "workplace English"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 2129,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "up-first-2026-10-22-democratic-surrogates-campaign-us-israel-plan-iran-strikes",
+   "show": "up-first",
+   "title": "Democratic Surrogates Campaign, US & Israel Plan Iran Strikes, Tesla SpaceX Merger",
+   "published_at": "2026-10-22T10:08:23Z",
+   "duration_sec": 700,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/1400/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe0%2F7a%2Ffe9d16a44fbf9dd2d9932ffe799b%2F510318.png",
+   "one_liner_ko": "민주당이 오바마·해리스 등 거물급 대리 유세자를 보수 강세 주까지 투입하고, 미국·이스라엘이 중간선거 이후 이란 공격을 준비하며, 테슬라와 스페이스X가 합병을 검토 중이라는 소식을 다룬 에피소드.",
+   "tags": [
+    "US midterms",
+    "Democratic surrogates",
+    "Iran strikes",
+    "West Bank",
+    "Tesla SpaceX merger",
+    "Elon Musk"
+   ],
+   "cefr": "C1",
+   "expressions": 13,
+   "words": 2132,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
   {
    "id": "up-first-2026-10-21-zelenskyy-mending-ties-trump-in-north-carolina-saudi-arabia",
    "show": "up-first",

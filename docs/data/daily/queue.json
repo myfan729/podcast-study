@@ -1,81 +1,6 @@
 {
  "posts": [
   {
-   "id": "up-first-2026-10-17-school-shooting-in-bend-elon-musk-s-power-mn-senate-race",
-   "occasion": "2026-10-19-morning",
-   "slot": "morning",
-   "order": 0,
-   "post_at": "2026-10-19T07:00:00+09:00",
-   "post_at_ms": 1792360800000,
-   "until": "2026-10-19T12:00:00+09:00",
-   "until_ms": 1792378800000,
-   "title": "School Shooting in Bend, Elon Musk's Power, MN Senate Race",
-   "show": {
-    "slug": "up-first",
-    "name": "Up First",
-    "publisher": "NPR",
-    "color": "#d6352b",
-    "homepage": ""
-   },
-   "link": "https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-17-school-shooting-in-bend-elon-musk-s-power-mn-senate-race",
-   "pick": "new",
-   "one_liner_ko": "오리건주 벤드 초등학교 총격 사건의 전말, 일론 머스크의 권력과 기술 올리가르키 논란, 접전 중인데도 조용한 미네소타 상원 선거를 다룬 아침 뉴스 브리핑.",
-   "duration_sec": 1044,
-   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/1400/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe0%2F7a%2Ffe9d16a44fbf9dd2d9932ffe799b%2F510318.png",
-   "text": "🌅 아침 팟캐스트 · Up First (10/17)\nSchool Shooting in Bend, Elon Musk's Power, MN Senate Race\n⏱ 17분\n\n오리건주 벤드 초등학교 총격 사건의 전말, 일론 머스크의 권력과 기술 올리가르키 논란, 접전 중인데도 조용한 미네소타 상원 선거를 다룬 아침 뉴스 브리핑.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-17-school-shooting-in-bend-elon-musk-s-power-mn-senate-race",
-   "queued_at": "2026-10-18T18:20:47Z"
-  },
-  {
-   "id": "planet-money-2026-10-16-anatomy-of-a-movie-market",
-   "occasion": "2026-10-19-morning",
-   "slot": "morning",
-   "order": 7,
-   "post_at": "2026-10-19T07:00:00+09:00",
-   "post_at_ms": 1792360800000,
-   "until": "2026-10-19T12:00:00+09:00",
-   "until_ms": 1792378800000,
-   "title": "Anatomy of a movie market",
-   "show": {
-    "slug": "planet-money",
-    "name": "Planet Money",
-    "publisher": "NPR",
-    "color": "#2b7bd6",
-    "homepage": ""
-   },
-   "link": "https://myfan729.github.io/podcast-study/episode.html?id=planet-money-2026-10-16-anatomy-of-a-movie-market",
-   "pick": "fallback",
-   "one_liner_ko": "인디 영화가 선댄스에서 어떻게 팔리는지, 세일즈 에이전트 존 슬로스와 에릭 슬로스를 따라가며 보여주는 영화 시장의 해부 이야기.",
-   "duration_sec": 1900,
-   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F2b%2Fb9%2F03db88d849f1b282104964fb7f92%2Fc3b2dfd5-c154-4e7c-b8ea-be8b749824b0.jpg",
-   "text": "🌅 아침 팟캐스트 · Planet Money (10/17)\nAnatomy of a movie market\n⏱ 31분\n\n인디 영화가 선댄스에서 어떻게 팔리는지, 세일즈 에이전트 존 슬로스와 에릭 슬로스를 따라가며 보여주는 영화 시장의 해부 이야기.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=planet-money-2026-10-16-anatomy-of-a-movie-market",
-   "queued_at": "2026-10-18T09:40:26Z"
-  },
-  {
-   "id": "odd-lots-2026-10-16-the-french-political-crisis-that-s-turning-into-a-debt",
-   "occasion": "2026-10-19-evening",
-   "slot": "evening",
-   "order": 8,
-   "post_at": "2026-10-19T18:00:00+09:00",
-   "post_at_ms": 1792400400000,
-   "until": "2026-10-19T21:30:00+09:00",
-   "until_ms": 1792413000000,
-   "title": "The French Political Crisis That's Turning Into a Debt Crisis",
-   "show": {
-    "slug": "odd-lots",
-    "name": "Odd Lots",
-    "publisher": "Bloomberg",
-    "color": "#7a3fd1",
-    "homepage": ""
-   },
-   "link": "https://myfan729.github.io/podcast-study/episode.html?id=odd-lots-2026-10-16-the-french-political-crisis-that-s-turning-into-a-debt",
-   "pick": "fallback",
-   "one_liner_ko": "프랑스의 재정 문제는 그대로인데, 2027년 대선·총선 이후 재정 결정을 내릴 정치적 능력이 사라질 수 있다는 우려가 정치 위기를 국채 위기로 바꾸고 있다는 분석.",
-   "duration_sec": 2854,
-   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/8a94442e-5a74-4fa2-8b8d-ae27003a8d6b/982f5071-765c-403d-969d-ae27003a8d83/image.jpg?t=1681322812&size=Large",
-   "text": "🌙 하루 마무리 팟캐스트 · Odd Lots (10/16)\nThe French Political Crisis That's Turning Into a Debt Crisis\n⏱ 47분\n\n프랑스의 재정 문제는 그대로인데, 2027년 대선·총선 이후 재정 결정을 내릴 정치적 능력이 사라질 수 있다는 우려가 정치 위기를 국채 위기로 바꾸고 있다는 분석.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=odd-lots-2026-10-16-the-french-political-crisis-that-s-turning-into-a-debt",
-   "queued_at": "2026-10-18T12:03:25Z"
-  },
-  {
    "id": "up-first-2026-10-19-trump-eases-russia-sanctions-midterm-campaign-money-violent",
    "occasion": "2026-10-20-morning",
    "slot": "morning",
@@ -376,6 +301,31 @@
    "queued_at": "2026-10-21T12:19:44Z"
   },
   {
+   "id": "up-first-2026-10-22-democratic-surrogates-campaign-us-israel-plan-iran-strikes",
+   "occasion": "2026-10-23-morning",
+   "slot": "morning",
+   "order": 0,
+   "post_at": "2026-10-23T07:00:00+09:00",
+   "post_at_ms": 1792706400000,
+   "until": "2026-10-23T12:00:00+09:00",
+   "until_ms": 1792724400000,
+   "title": "Democratic Surrogates Campaign, US & Israel Plan Iran Strikes, Tesla SpaceX Merger",
+   "show": {
+    "slug": "up-first",
+    "name": "Up First",
+    "publisher": "NPR",
+    "color": "#d6352b",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-22-democratic-surrogates-campaign-us-israel-plan-iran-strikes",
+   "pick": "new",
+   "one_liner_ko": "민주당이 오바마·해리스 등 거물급 대리 유세자를 보수 강세 주까지 투입하고, 미국·이스라엘이 중간선거 이후 이란 공격을 준비하며, 테슬라와 스페이스X가 합병을 검토 중이라는 소식을 다룬 에피소드.",
+   "duration_sec": 700,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/1400/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe0%2F7a%2Ffe9d16a44fbf9dd2d9932ffe799b%2F510318.png",
+   "text": "🌅 아침 팟캐스트 · Up First (10/22)\nDemocratic Surrogates Campaign, US & Israel Plan Iran Strikes, Tesla SpaceX Merger\n⏱ 11분\n\n민주당이 오바마·해리스 등 거물급 대리 유세자를 보수 강세 주까지 투입하고, 미국·이스라엘이 중간선거 이후 이란 공격을 준비하며, 테슬라와 스페이스X가 합병을 검토 중이라는 소식을 다룬 에피소드.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-22-democratic-surrogates-campaign-us-israel-plan-iran-strikes",
+   "queued_at": "2026-10-22T15:41:17Z"
+  },
+  {
    "id": "short-wave-2026-10-21-can-planting-more-trees-make-allergies-worse",
    "occasion": "2026-10-23-morning",
    "slot": "morning",
@@ -399,9 +349,34 @@
    "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3024x3024+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fec%2Fbf%2Fcdd5084b453fbc250728dc8763d5%2F59375221-5229-42ad-84bb-d78ead44d3bb.jpeg",
    "text": "🌅 아침 팟캐스트 · Short Wave (10/21)\nCan planting more trees make allergies worse?\n⏱ 11분\n\n도시에 나무를 더 심으면 공기와 열 환경은 좋아지지만 꽃가루 알레르기와 천식은 오히려 악화될 수 있으니, 개인의 대처와 수종 다양화 같은 정책 설계가 함께 필요하다는 이야기.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=short-wave-2026-10-21-can-planting-more-trees-make-allergies-worse",
    "queued_at": "2026-10-22T02:19:42Z"
+  },
+  {
+   "id": "think-fast-talk-smart-2026-10-22-334-quick-thinks-how-to-make-the-most-out-of-meetings",
+   "occasion": "2026-10-23-evening",
+   "slot": "evening",
+   "order": 0,
+   "post_at": "2026-10-23T18:00:00+09:00",
+   "post_at_ms": 1792746000000,
+   "until": "2026-10-23T21:30:00+09:00",
+   "until_ms": 1792758600000,
+   "title": "334. Quick Thinks: How to Make the Most Out of Meetings",
+   "show": {
+    "slug": "think-fast-talk-smart",
+    "name": "Think Fast, Talk Smart",
+    "publisher": "Stanford GSB",
+    "color": "#a8322d",
+    "homepage": "https://www.fastersmarter.io/"
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=think-fast-talk-smart-2026-10-22-334-quick-thinks-how-to-make-the-most-out-of-meetings",
+   "pick": "new",
+   "one_liner_ko": "좋은 회의는 '정말 필요한가?'라는 질문에서 시작해, 목표·아젠다·초대장 설계, 진행 중 퍼실리테이션, 종료 후 공유와 피드백까지 이어진다는 Matt Abrahams의 실용 가이드.",
+   "duration_sec": 701,
+   "image": "https://img.transistorcdn.com/FQbsYLqAlQn1IvO6PZ6E4R8G4c0SRY2ZHMwkwNqrCFk/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS8xMTNi/ZTEwY2NlY2VhMDRi/M2JlOWJjZGM1MzVj/NTlhYi5wbmc.jpg",
+   "text": "🌙 하루 마무리 팟캐스트 · Think Fast, Talk Smart (10/22)\n334. Quick Thinks: How to Make the Most Out of Meetings\n⏱ 11분\n\n좋은 회의는 '정말 필요한가?'라는 질문에서 시작해, 목표·아젠다·초대장 설계, 진행 중 퍼실리테이션, 종료 후 공유와 피드백까지 이어진다는 Matt Abrahams의 실용 가이드.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=think-fast-talk-smart-2026-10-22-334-quick-thinks-how-to-make-the-most-out-of-meetings",
+   "queued_at": "2026-10-22T15:41:17Z"
   }
  ],
- "generated_at": "2026-10-22T02:19:42Z",
+ "generated_at": "2026-10-22T15:41:17Z",
  "kick_kst": [
   "05:25",
   "05:55",
