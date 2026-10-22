@@ -97,10 +97,10 @@
   },
   "2026-10-23-morning": {
    "post_at": "2026-10-23T07:00:00+09:00",
-   "has": [],
-   "adding": [
-    "short-wave (fallback): Can planting more trees make allergies worse?"
+   "has": [
+    "short-wave: Can planting more trees make allergies worse?"
    ],
+   "adding": [],
    "waiting_for": [
     "up-first",
     "big-take"
@@ -111,8 +111,8 @@
     "up-first",
     "zero"
    ],
-   "checked_at": "2026-10-22T02:17:42Z"
+   "checked_at": "2026-10-22T04:18:54Z"
   }
  },
- "updated_at": "2026-10-22T02:17:42Z"
+ "updated_at": "2026-10-22T04:18:54Z"
 }
