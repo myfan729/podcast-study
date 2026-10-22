@@ -1,18 +1,5 @@
 {
  "occasions": {
-  "2026-10-19-morning": {
-   "post_at": "2026-10-19T07:00:00+09:00",
-   "has": [
-    "planet-money: Anatomy of a movie market",
-    "up-first: School Shooting in Bend, Elon Musk's Power, MN Senate Race"
-   ],
-   "adding": [],
-   "waiting_for": [],
-   "expected": [
-    "big-take"
-   ],
-   "checked_at": "2026-10-18T22:18:07Z"
-  },
   "2026-10-20-evening": {
    "post_at": "2026-10-20T18:00:00+09:00",
    "has": [
@@ -95,6 +82,20 @@
    ],
    "checked_at": "2026-10-21T22:18:06Z"
   },
+  "2026-10-23-evening": {
+   "post_at": "2026-10-23T18:00:00+09:00",
+   "has": [],
+   "adding": [],
+   "waiting_for": [
+    "think-fast-talk-smart"
+   ],
+   "expected": [
+    "cautionary-tales",
+    "odd-lots",
+    "think-fast-talk-smart"
+   ],
+   "checked_at": "2026-10-22T12:17:49Z"
+  },
   "2026-10-23-morning": {
    "post_at": "2026-10-23T07:00:00+09:00",
    "has": [
@@ -115,5 +116,5 @@
    "checked_at": "2026-10-22T07:09:54Z"
   }
  },
- "updated_at": "2026-10-22T07:09:54Z"
+ "updated_at": "2026-10-22T12:17:49Z"
 }
