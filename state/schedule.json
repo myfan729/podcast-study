@@ -103,6 +103,7 @@
    "adding": [],
    "waiting_for": [
     "up-first",
+    "the-indicator",
     "big-take"
    ],
    "expected": [
@@ -111,8 +112,8 @@
     "up-first",
     "zero"
    ],
-   "checked_at": "2026-10-22T04:18:54Z"
+   "checked_at": "2026-10-22T07:09:54Z"
   }
  },
- "updated_at": "2026-10-22T04:18:54Z"
+ "updated_at": "2026-10-22T07:09:54Z"
 }
