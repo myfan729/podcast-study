@@ -84,26 +84,25 @@
   },
   "2026-10-23-evening": {
    "post_at": "2026-10-23T18:00:00+09:00",
-   "has": [],
-   "adding": [
-    "think-fast-talk-smart (new): 334. Quick Thinks: How to Make the Most Out of Meetings"
+   "has": [
+    "think-fast-talk-smart: 334. Quick Thinks: How to Make the Most Out of Meetings"
    ],
+   "adding": [],
    "waiting_for": [],
    "expected": [
     "cautionary-tales",
     "odd-lots",
     "think-fast-talk-smart"
    ],
-   "checked_at": "2026-10-22T15:39:11Z"
+   "checked_at": "2026-10-22T16:38:14Z"
   },
   "2026-10-23-morning": {
    "post_at": "2026-10-23T07:00:00+09:00",
    "has": [
-    "short-wave: Can planting more trees make allergies worse?"
+    "short-wave: Can planting more trees make allergies worse?",
+    "up-first: Democratic Surrogates Campaign, US & Israel Plan Iran Strikes, Tesla SpaceX Merger"
    ],
-   "adding": [
-    "up-first (new): Democratic Surrogates Campaign, US & Israel Plan Iran Strikes, Tesla SpaceX Merger"
-   ],
+   "adding": [],
    "waiting_for": [
     "the-indicator",
     "big-take"
@@ -114,8 +113,8 @@
     "up-first",
     "zero"
    ],
-   "checked_at": "2026-10-22T15:37:17Z"
+   "checked_at": "2026-10-22T16:38:13Z"
   }
  },
- "updated_at": "2026-10-22T15:39:11Z"
+ "updated_at": "2026-10-22T16:38:14Z"
 }
