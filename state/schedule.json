@@ -100,22 +100,19 @@
    "post_at": "2026-10-23T07:00:00+09:00",
    "has": [
     "short-wave: Can planting more trees make allergies worse?",
-    "up-first: Democratic Surrogates Campaign, US & Israel Plan Iran Strikes, Tesla SpaceX Merger"
+    "up-first: Democratic Surrogates Campaign, US & Israel Plan Iran Strikes, Tesla SpaceX Merger",
+    "big-take: Investors Aren’t Wild About Big Tech’s AI Forecasts"
    ],
-   "adding": [
-    "big-take (new): Investors Aren’t Wild About Big Tech’s AI Forecasts"
-   ],
-   "waiting_for": [
-    "the-indicator"
-   ],
+   "adding": [],
+   "waiting_for": [],
    "expected": [
     "big-take",
     "trumponomics",
     "up-first",
     "zero"
    ],
-   "checked_at": "2026-10-22T21:05:36Z"
+   "checked_at": "2026-10-22T21:24:00Z"
   }
  },
- "updated_at": "2026-10-22T21:05:36Z"
+ "updated_at": "2026-10-22T21:24:00Z"
 }
