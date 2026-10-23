@@ -42,7 +42,7 @@ export default function Home() {
       <ScrollView contentContainerStyle={{ paddingBottom: 24 }} refreshControl={<RefreshControl refreshing={busy} onRefresh={load} tintColor={C.accent} />}>
         <View style={s.head}>
           <Logo />
-          {plan && <View style={s.plan}><Text style={s.planT}>{plan.pro ? '프로' : `학습자료 ${plan.free_left}회 남음`}</Text></View>}
+          {plan && <Pressable style={s.plan} onPress={() => router.push('/pro')} accessibilityRole="button"><Text style={s.planT}>{plan.pro ? '프로' : `학습자료 ${plan.free_left}회 남음`}</Text></Pressable>}
         </View>
         <Text style={s.hello}>{cont ? '어제 듣던 거,\n마저 들어볼까요?' : '오늘은 뭘\n들어볼까요?'}</Text>
 

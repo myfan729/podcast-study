@@ -48,9 +48,10 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
       try {
         const r = await api.requestEpisode(ep.id);
         if (r.unlocked) leave();
-        else Alert.alert(r.reason === 'quota' ? '이번 주 무료 학습자료를 다 썼어요' : '학습자료를 만들 수 없어요',
-          r.reason === 'quota' ? '무료는 일주일에 2편까지예요. 듣기는 계속 무제한이에요.'
-            : r.reason === 'too_long' ? '학습자료는 60분 이하 에피소드만 만들 수 있어요.' : '방송사 대본이 아직 없어요. 나중에 다시 시도해 주세요.');
+        else if (r.reason === 'quota') Alert.alert('이번 주 무료 학습자료를 다 썼어요', '무료는 일주일에 2편까지예요. 프로는 무제한이에요.',
+          [{ text: '닫기', style: 'cancel' }, { text: '프로 알아보기', onPress: () => router.push('/pro') }]);
+        else Alert.alert('학습자료를 만들 수 없어요',
+          r.reason === 'too_long' ? '학습자료는 60분 이하 에피소드만 만들 수 있어요.' : '방송사 대본이 아직 없어요. 나중에 다시 시도해 주세요.');
       } catch (e: any) { Alert.alert('문제가 생겼어요', String(e?.message ?? e)); } finally { setBusy(false); }
     };
     if (plan?.pro) { go(); return; }

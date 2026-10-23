@@ -80,7 +80,7 @@ function StudyFlow({ id }: { id: string }) {
       <Center icon={req.reason === 'quota' ? 'lock-closed' : 'document-text-outline'}
         title={req.reason === 'quota' ? '이번 주 무료 학습자료를 다 썼어요' : '대본이 아직 안 올라왔어요'}
         text={req.reason === 'quota' ? '무료는 일주일에 2편까지예요. 프로는 무제한이에요. 듣기는 계속 무료예요.' : '방송사가 대본을 올리면 목록에 다시 나타나요. 조금 뒤에 확인해 주세요.'}>
-        {req.reason === 'quota' && <Btn label="프로 알아보기" onPress={() => router.push('/settings')} style={{ alignSelf: 'stretch', marginTop: 20 }} />}
+        {req.reason === 'quota' && <Btn label="프로 알아보기" onPress={() => router.push('/pro')} style={{ alignSelf: 'stretch', marginTop: 20 }} />}
       </Center>
     );
   }

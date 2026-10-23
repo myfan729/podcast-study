@@ -16,6 +16,7 @@ import { handleAuthUrl } from '@/lib/authLink';
 import { SessionProvider, useSession } from '@/lib/session';
 import { NowPlayingProvider } from '@/lib/nowPlaying';
 import { Notifications, notificationTarget, registerPush } from '@/lib/push';
+import { initPurchases, syncPro } from '@/lib/purchases';
 import { C } from '@/lib/theme';
 import { PRIVACY_VERSION, TERMS_VERSION } from '@/lib/config';
 
@@ -42,6 +43,9 @@ function Gate({ fontsReady }: { fontsReady: boolean }) {
   // push notifications: register once signed up; a tapped notification opens its episode
   const ready = !!session && !!profile;
   useEffect(() => { if (ready) registerPush(); }, [ready]);
+  // subscriptions: tie RevenueCat to this account and let the server re-check the plan on every launch
+  const uid = session?.user.id;
+  useEffect(() => { if (ready && uid) initPurchases(uid).then(() => syncPro()).catch(() => {}); }, [ready, uid]);
   useEffect(() => {
     if (!ready) return;
     const go = (n?: Notifications.Notification) => {
@@ -57,6 +61,7 @@ function Gate({ fontsReady }: { fontsReady: boolean }) {
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="login" />
       <Stack.Screen name="signup" />
+      <Stack.Screen name="pro" options={{ presentation: 'modal' }} />
       <Stack.Screen name="show/[id]" />
       <Stack.Screen name="episode/[id]" />
     </Stack>

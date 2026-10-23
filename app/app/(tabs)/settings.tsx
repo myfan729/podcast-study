@@ -1,4 +1,4 @@
-import { useFocusEffect } from 'expo-router';
+import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { Alert, Linking, Platform, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,6 +14,7 @@ import { C, F, R } from '@/lib/theme';
 
 export default function Settings() {
   const { session, profile, reloadProfile } = useSession();
+  const router = useRouter();
   const [plan, setPlan] = useState<{ free_left: number; pro: boolean } | null>(null);
   useFocusEffect(useCallback(() => { api.freeLeft().then(setPlan).catch(() => {}); }, []));
   const email = session?.user.email ?? '';
@@ -59,7 +60,9 @@ export default function Settings() {
                 <View key={i} style={[s.dot, i < (plan?.free_left ?? 0) && { backgroundColor: C.accent }]} />))}
             </View>
             <Text style={s.planP}>이번 주 학습자료 만들기 {plan?.free_left ?? '-'} / {FREE_PER_WEEK}회 남았어요. 듣기는 무제한이고, 한 번 만든 학습자료는 계속 볼 수 있어요.</Text>
-            <View style={s.soon}><Icon name="time-outline" size={15} color={C.ink2} /><Text style={s.soonT}>프로 구독은 다음 업데이트에서 열려요</Text></View>
+            <Pressable style={s.goPro} onPress={() => router.push('/pro')} accessibilityRole="button">
+              <Icon name="diamond" size={16} color="#fff" /><Text style={s.goProT}>프로 알아보기 · 학습자료 무제한</Text>
+            </Pressable>
           </>}
         </View>
         <View style={[s.pref, { flexDirection: 'column', alignItems: 'stretch', gap: 14 }]}>
@@ -108,6 +111,8 @@ const s = StyleSheet.create({
   soonT: { color: C.ink2, fontSize: 13 },
   pref: { flexDirection: 'row', alignItems: 'center', gap: 12, marginHorizontal: 22, marginTop: 12, padding: 18, backgroundColor: C.sheet, borderRadius: R.card },
   prefT: { color: C.ink, fontSize: 15, fontWeight: '600' },
+  goPro: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 14, backgroundColor: C.accent, borderRadius: R.pill, minHeight: 46 },
+  goProT: { color: '#fff', fontWeight: '700', fontSize: 14.5 },
   out: { flexDirection: 'row', gap: 6, alignItems: 'center', justifyContent: 'center', minHeight: 52, marginTop: 18 },
   outT: { color: C.warn, fontWeight: '700' },
   links: { flexDirection: 'row', justifyContent: 'center', gap: 10, marginTop: 4 },

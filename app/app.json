@@ -2,7 +2,7 @@
   "expo": {
     "name": "잉팟",
     "slug": "podcast-study",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "podcaststudy",
@@ -83,7 +83,8 @@
       },
       "eas": {
         "projectId": "08670ea6-a2f6-4247-bbdb-afd4fa52c495"
-      }
+      },
+      "revenuecatAndroidKey": ""
     },
     "description": "진짜 영어 팟캐스트를 대본·번역·표현과 함께 듣는 영어 학습 앱",
     "owner": "hwany2359",
