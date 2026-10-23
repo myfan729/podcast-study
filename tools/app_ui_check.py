@@ -33,6 +33,12 @@ WORDS = [("word", "underlying", "근본적인, 기저의", "The underlying probl
 requests.post(f"{URL}/rest/v1/vocab?on_conflict=user_id,kind,text", headers={**S, "Prefer": "resolution=merge-duplicates"}, timeout=30,
               json=[{"user_id": uid, "kind": k, "text": t, "meaning_ko": m, "example": e, "due_at": "2026-01-01T00:00:00Z", "reps": 2 if i % 2 else 0}
                     for i, (k, t, m, e) in enumerate(WORDS)])
+# signed up already (nickname + current terms), so the app goes straight in
+import re
+cfg = Path("app/lib/config.ts").read_text()
+TV = re.search(r"TERMS_VERSION = '([^']+)'", cfg).group(1); PV = re.search(r"PRIVACY_VERSION = '([^']+)'", cfg).group(1)
+requests.post(f"{URL}/rest/v1/profiles?on_conflict=user_id", headers={**S, "Prefer": "resolution=merge-duplicates"}, timeout=30,
+              json={"user_id": uid, "nickname": "경환", "terms_version": TV, "privacy_version": PV, "age14_confirmed": True})
 SPA = r"""
 import http.server, os
 class H(http.server.SimpleHTTPRequestHandler):
@@ -55,16 +61,24 @@ async def main():
         errs = []
         pg.on("pageerror", lambda e: errs.append(str(e)))
         pg.on("console", lambda m: m.type == "error" and errs.append(m.text))
-        for name, path, wait in (("home", "/", 6000), ("discover", "/discover", 5000), ("show", f"/show/{show}", 5000),
-                                 ("episode", f"/episode/{ep}", 9000), ("vocab", "/vocab", 4000), ("settings", "/settings", 4000)):
-            await pg.goto(f"http://localhost:8081{path}"); await pg.wait_for_timeout(wait)
-            if name == "episode":
-                await pg.mouse.click(195, 640); await pg.wait_for_timeout(2500)        # tap a sentence → jump + play
-                await pg.mouse.wheel(0, 260); await pg.wait_for_timeout(3500)
-            await pg.screenshot(path=str(OUT / f"{name}.png"))
-            if name == "episode":
-                await pg.get_by_text("단어·표현").first.click(); await pg.wait_for_timeout(1500)
-                await pg.screenshot(path=str(OUT / "episode_words.png"))
+        shots = (("home", "/", 6000), ("discover", "/discover", 5000), ("show", f"/show/{show}", 5000),
+                 ("listen", f"/episode/{ep}", 6000), ("episode", f"/episode/{ep}?study=1", 9000),
+                 ("vocab", "/vocab", 4000), ("settings", "/settings", 4000))
+        for name, path, wait in shots:
+            try:
+                await pg.goto(f"http://localhost:8081{path}"); await pg.wait_for_timeout(wait)
+                if name == "episode":
+                    await pg.mouse.click(195, 520); await pg.wait_for_timeout(2500)    # tap a sentence → jump + play
+                await pg.screenshot(path=str(OUT / f"{name}.png"))
+                if name == "episode":
+                    await pg.get_by_text("단어·표현").first.click(timeout=8000); await pg.wait_for_timeout(1500)
+                    await pg.screenshot(path=str(OUT / "episode_words.png"))
+            except Exception as e:  # noqa: BLE001  (one screen failing shouldn't lose the rest)
+                errs.append(f"{name}: {e}"[:300]); await pg.screenshot(path=str(OUT / f"{name}.png"))
+        # the login screen, signed out
+        ctx2 = await b.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2)
+        p2 = await ctx2.new_page(); await p2.goto("http://localhost:8081/login"); await p2.wait_for_timeout(4000)
+        await p2.screenshot(path=str(OUT / "login.png"))
         (OUT / "errors.json").write_text(json.dumps(errs[:40], ensure_ascii=False, indent=1))
         await b.close()
 try:
