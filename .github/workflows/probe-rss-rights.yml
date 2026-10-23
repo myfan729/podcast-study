@@ -1,0 +1,60 @@
+name: Probe — rights in RSS-transcript shows
+on: { workflow_dispatch: {} }
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q requests beautifulsoup4
+      - name: feeds
+        run: |
+          python3 - <<'PY'
+          import json, re, requests, collections
+          UA = {"User-Agent": "Mozilla/5.0 (podcast app)"}
+          groups = collections.defaultdict(list)
+          for s in json.load(open("tools/probe_rss_in.json")):
+              try:
+                  x = requests.get(s["f"], headers=UA, timeout=40).text
+                  ch = x.split("<item")[0]
+                  cp = re.search(r"<copyright>(.*?)</copyright>", ch, re.S)
+                  cp = (cp.group(1).strip() if cp else "-")[:120]
+                  lic = re.search(r"<podcast:license[^>]*>(.*?)</podcast:license>", ch, re.S)
+                  item = x.split("<item")[1]
+                  t = re.search(r'<podcast:transcript[^>]*url="([^"]+)"[^>]*type="([^"]+)"', item)
+                  head = ""
+                  if t:
+                      tx = requests.get(t.group(1).replace("&amp;","&"), headers=UA, timeout=40).text
+                      head = re.sub(r"\s+"," ", tx[:260])
+                      hits = re.findall(r"[^.\n]{0,80}(?:copyright|©|all rights|licen|may not)[^.\n]{0,80}", tx, re.I)[:2]
+                      head += " || HITS: " + " | ".join(hits)
+                  groups[cp].append(f"{s['t']} [license={lic.group(1).strip()[:60] if lic else '-'}] {('tx='+t.group(2)+' '+head[:400]) if t else 'NO TX TAG'}")
+              except Exception as e:
+                  groups["ERR"].append(f"{s['t']}: {e}")
+          for cp, lst in groups.items():
+              print(f"::notice title=copyright tag: {cp[:80]}::{len(lst)} shows >> " + " ### ".join(lst)[:3800])
+          PY
+      - name: terms
+        run: |
+          python3 - <<'PY'
+          import re, requests
+          from bs4 import BeautifulSoup
+          UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124 Safari/537.36"}
+          urls = {"iheart_terms": "https://www.iheart.com/content/terms/",
+                  "bloomberg_tos": "https://www.bloomberg.com/notices/tos/",
+                  "pushkin_terms": "https://www.pushkin.fm/terms",
+                  "stanford_gsb_terms": "https://www.gsb.stanford.edu/terms-use",
+                  "doac_terms": "https://stevenbartlett.com/terms-and-conditions/"}
+          KEYS = re.compile(r"(podcast|transcript|personal|non-?commercial|reproduc|translat|derivative|commercial|may not)", re.I)
+          for k, u in urls.items():
+              try:
+                  r = requests.get(u, headers=UA, timeout=30)
+                  t = BeautifulSoup(r.text, "html.parser").get_text("\n")
+                  ls = []
+                  for l in (l.strip() for l in t.split("\n")):
+                      if 30 < len(l) < 900 and KEYS.search(l) and l not in ls: ls.append(l)
+                  pri = [l for l in ls if re.search(r"podcast|transcript|translat|derivative", l, re.I)] + [l for l in ls if not re.search(r"podcast|transcript|translat|derivative", l, re.I)]
+                  print(f"::notice title={k} {r.status_code}::{r.url} >> " + " || ".join(pri[:12])[:3800])
+              except Exception as e:
+                  print(f"::warning title={k}::{e}")
+          PY
