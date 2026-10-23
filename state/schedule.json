@@ -99,19 +99,18 @@
    "post_at": "2026-10-24T07:00:00+09:00",
    "has": [
     "the-indicator: Can a \"moneyball\" system work for campaign funding?",
-    "up-first: US Prepares For Possible Strikes, Midterm Early Voting, Trump BBC Deposition"
+    "up-first: US Prepares For Possible Strikes, Midterm Early Voting, Trump BBC Deposition",
+    "big-take: Benjamin Netanyahu’s Referendum Has Finally Arrived"
    ],
-   "adding": [
-    "big-take (new): Benjamin Netanyahu’s Referendum Has Finally Arrived"
-   ],
+   "adding": [],
    "waiting_for": [],
    "expected": [
     "big-take",
     "everybodys-business",
     "up-first"
    ],
-   "checked_at": "2026-10-23T19:00:55Z"
+   "checked_at": "2026-10-23T20:10:54Z"
   }
  },
- "updated_at": "2026-10-23T19:00:55Z"
+ "updated_at": "2026-10-23T20:10:54Z"
 }
