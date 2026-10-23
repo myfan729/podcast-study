@@ -863,17 +863,17 @@
    "done_at": "2026-10-23T12:42:16Z"
   },
   "up-first:817d48d2fe76": {
-   "first_seen": "2026-10-23T14:09:04Z",
+   "first_seen": "2026-10-23T14:14:19Z",
    "attempts": 1,
    "occasion": "2026-10-24-morning",
    "slot": "morning",
    "pick": "new",
-   "assigned_at": "2026-10-23T14:09:04Z",
+   "assigned_at": "2026-10-23T14:14:19Z",
    "status": "done",
    "id": "up-first-2026-10-23-us-prepares-for-possible-strikes-midterm-early-voting-trump",
    "title": "US Prepares For Possible Strikes, Midterm Early Voting, Trump BBC Deposition",
    "published_at": "2026-10-23T10:12:18Z",
-   "done_at": "2026-10-23T14:11:02Z"
+   "done_at": "2026-10-23T14:16:05Z"
   }
  }
 }
