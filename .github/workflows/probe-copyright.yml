@@ -1,0 +1,36 @@
+name: Probe — copyright notices
+on: { workflow_dispatch: {} }
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q requests beautifulsoup4
+      - run: |
+          python3 - <<'PY'
+          import re, requests
+          from bs4 import BeautifulSoup
+          UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124 Safari/537.36"}
+          urls = {
+            "npr_transcript": "https://www.npr.org/transcripts/nx-s1-6001396",
+            "npr_terms": "https://www.npr.org/about-npr/179876898/terms-of-use",
+            "npr_permissions": "https://www.npr.org/about-npr/179877519/rights-and-permissions-information",
+            "bbc_6me": "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english",
+            "bbc_le_terms": "https://www.bbc.co.uk/learningenglish/english/terms-of-use",
+            "bbc_terms": "https://www.bbc.co.uk/usingthebbc/terms/can-i-share-things-from-the-bbc",
+            "sbs_le": "https://www.sbs.com.au/language/english/en/podcast/sbs-learn-english",
+            "sbs_terms": "https://www.sbs.com.au/aboutus/sbs-terms-and-conditions",
+          }
+          KEYS = re.compile(r"(copyright|©|personal|non-?commercial|reproduc|permission|transcript|educational|teacher|download|may not|must not|licen)", re.I)
+          for k, u in urls.items():
+              try:
+                  r = requests.get(u, headers=UA, timeout=30, allow_redirects=True)
+                  t = BeautifulSoup(r.text, "html.parser").get_text("\n")
+                  lines = [l.strip() for l in t.split("\n") if l.strip() and KEYS.search(l) and 20 < len(l.strip()) < 700]
+                  seen=[]; [seen.append(l) for l in lines if l not in seen]
+                  print(f"===== {k} {r.status_code} {r.url}")
+                  for l in seen[:25]: print("  -", l)
+              except Exception as e:
+                  print(f"===== {k} ERR {e}")
+          PY
