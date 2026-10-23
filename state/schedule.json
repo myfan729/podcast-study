@@ -102,10 +102,10 @@
   },
   "2026-10-24-morning": {
    "post_at": "2026-10-24T07:00:00+09:00",
-   "has": [],
-   "adding": [
-    "the-indicator (new): Can a \"moneyball\" system work for campaign funding?"
+   "has": [
+    "the-indicator: Can a \"moneyball\" system work for campaign funding?"
    ],
+   "adding": [],
    "waiting_for": [
     "up-first",
     "big-take"
@@ -115,8 +115,8 @@
     "everybodys-business",
     "up-first"
    ],
-   "checked_at": "2026-10-23T04:17:47Z"
+   "checked_at": "2026-10-23T06:50:05Z"
   }
  },
- "updated_at": "2026-10-23T04:17:47Z"
+ "updated_at": "2026-10-23T06:50:05Z"
 }
