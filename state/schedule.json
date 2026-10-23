@@ -98,11 +98,10 @@
   "2026-10-24-morning": {
    "post_at": "2026-10-24T07:00:00+09:00",
    "has": [
-    "the-indicator: Can a \"moneyball\" system work for campaign funding?"
+    "the-indicator: Can a \"moneyball\" system work for campaign funding?",
+    "up-first: US Prepares For Possible Strikes, Midterm Early Voting, Trump BBC Deposition"
    ],
-   "adding": [
-    "up-first (new): US Prepares For Possible Strikes, Midterm Early Voting, Trump BBC Deposition"
-   ],
+   "adding": [],
    "waiting_for": [
     "big-take"
    ],
@@ -111,8 +110,8 @@
     "everybodys-business",
     "up-first"
    ],
-   "checked_at": "2026-10-23T14:14:19Z"
+   "checked_at": "2026-10-23T15:04:09Z"
   }
  },
- "updated_at": "2026-10-23T14:14:19Z"
+ "updated_at": "2026-10-23T15:04:09Z"
 }
