@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-23T14:16:06Z",
+ "generated_at": "2026-10-23T19:02:07Z",
  "shows": [
   {
    "slug": "big-take",
@@ -94,6 +94,28 @@
   }
  ],
  "episodes": [
+  {
+   "id": "big-take-2026-10-23-benjamin-netanyahus-referendum-has-finally-arrived",
+   "show": "big-take",
+   "title": "Benjamin Netanyahu’s Referendum Has Finally Arrived",
+   "published_at": "2026-10-23T18:56:34Z",
+   "duration_sec": 887,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/825d4e29-b616-46f4-afd7-ae2b0013005c/5b23d0af-7e71-4ecb-bf04-b4ec01374061/image.jpg?t=1792781782&size=Large",
+   "one_liner_ko": "오는 총선이 사실상 네타냐후 개인에 대한 국민투표임을 짚으며, 10·7 이후 지친 이스라엘 사회와 네타냐후 승패 시나리오별 파장을 분석한 에피소드.",
+   "tags": [
+    "Israel election",
+    "Netanyahu",
+    "Middle East politics",
+    "referendum",
+    "political idioms"
+   ],
+   "cefr": "C1",
+   "expressions": 12,
+   "words": 2399,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
   {
    "id": "up-first-2026-10-23-us-prepares-for-possible-strikes-midterm-early-voting-trump",
    "show": "up-first",
