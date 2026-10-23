@@ -1,81 +1,6 @@
 {
  "posts": [
   {
-   "id": "up-first-2026-10-19-trump-eases-russia-sanctions-midterm-campaign-money-violent",
-   "occasion": "2026-10-20-morning",
-   "slot": "morning",
-   "order": 0,
-   "post_at": "2026-10-20T07:00:00+09:00",
-   "post_at_ms": 1792447200000,
-   "until": "2026-10-20T12:00:00+09:00",
-   "until_ms": 1792465200000,
-   "title": "Trump Eases Russia Sanctions, Midterm Campaign Money, Violent Protests In France",
-   "show": {
-    "slug": "up-first",
-    "name": "Up First",
-    "publisher": "NPR",
-    "color": "#d6352b",
-    "homepage": ""
-   },
-   "link": "https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-19-trump-eases-russia-sanctions-midterm-campaign-money-violent",
-   "pick": "new",
-   "one_liner_ko": "트럼프가 러시아 제재를 면제해 우크라이나와 갈등이 깊어지고, 중간선거는 민주당이 모금에서 앞서고 머스크가 공화당 슈퍼팩에 거액을 쏟아붓는 구도이며, 프랑스는 폭력 시위로 대선 6개월 전 정치 위기에 빠졌다.",
-   "duration_sec": 772,
-   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/1400/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fe0%2F7a%2Ffe9d16a44fbf9dd2d9932ffe799b%2F510318.png",
-   "text": "🌅 아침 팟캐스트 · Up First (10/19)\nTrump Eases Russia Sanctions, Midterm Campaign Money, Violent Protests In France\n⏱ 12분\n\n트럼프가 러시아 제재를 면제해 우크라이나와 갈등이 깊어지고, 중간선거는 민주당이 모금에서 앞서고 머스크가 공화당 슈퍼팩에 거액을 쏟아붓는 구도이며, 프랑스는 폭력 시위로 대선 6개월 전 정치 위기에 빠졌다.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=up-first-2026-10-19-trump-eases-russia-sanctions-midterm-campaign-money-violent",
-   "queued_at": "2026-10-19T16:19:59Z"
-  },
-  {
-   "id": "the-indicator-2026-10-19-why-oracle-s-debt-load-could-be-your-problem",
-   "occasion": "2026-10-20-morning",
-   "slot": "morning",
-   "order": 1,
-   "post_at": "2026-10-20T07:00:00+09:00",
-   "post_at_ms": 1792447200000,
-   "until": "2026-10-20T12:00:00+09:00",
-   "until_ms": 1792465200000,
-   "title": "Why Oracle's debt load could be your problem",
-   "show": {
-    "slug": "the-indicator",
-    "name": "The Indicator",
-    "publisher": "NPR (Planet Money)",
-    "color": "#2b7bd6",
-    "homepage": ""
-   },
-   "link": "https://myfan729.github.io/podcast-study/episode.html?id=the-indicator-2026-10-19-why-oracle-s-debt-load-could-be-your-problem",
-   "pick": "new",
-   "one_liner_ko": "AI 데이터센터 구축을 위해 막대한 빚을 진 오라클이 OpenAI·엔비디아와 얽힌 '순환 거래' 구조의 약한 고리가 될 수 있고, 무너지면 AI 경제 전체로 번질 수 있다는 이야기.",
-   "duration_sec": 521,
-   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fa4%2F0d%2F76206fab4b9f92fdeb6d86ad86a7%2Fb03fff76-e9ef-4a29-b63b-bb5678cfe641.jpg",
-   "text": "🌅 아침 팟캐스트 · The Indicator (10/19)\nWhy Oracle's debt load could be your problem\n⏱ 8분\n\nAI 데이터센터 구축을 위해 막대한 빚을 진 오라클이 OpenAI·엔비디아와 얽힌 '순환 거래' 구조의 약한 고리가 될 수 있고, 무너지면 AI 경제 전체로 번질 수 있다는 이야기.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=the-indicator-2026-10-19-why-oracle-s-debt-load-could-be-your-problem",
-   "queued_at": "2026-10-19T20:20:19Z"
-  },
-  {
-   "id": "short-wave-2026-10-19-what-the-world-s-leading-researchers-think-about-saunas",
-   "occasion": "2026-10-20-morning",
-   "slot": "morning",
-   "order": 6,
-   "post_at": "2026-10-20T07:00:00+09:00",
-   "post_at_ms": 1792447200000,
-   "until": "2026-10-20T12:00:00+09:00",
-   "until_ms": 1792465200000,
-   "title": "What the world's leading researchers think about saunas",
-   "show": {
-    "slug": "short-wave",
-    "name": "Short Wave",
-    "publisher": "NPR",
-    "color": "#3a9d5d",
-    "homepage": ""
-   },
-   "link": "https://myfan729.github.io/podcast-study/episode.html?id=short-wave-2026-10-19-what-the-world-s-leading-researchers-think-about-saunas",
-   "pick": "fallback",
-   "one_liner_ko": "사우나 열풍에 비해 과학적 근거는 아직 빈약하지만, 세계 열(熱)요법 연구자들이 표준을 세우며 심혈관·정신건강 효과를 엄밀히 검증하기 시작했다는 이야기.",
-   "duration_sec": 810,
-   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/1899x1899+739+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F38%2F83%2F74edca9c448c9e294d7cf4c4ef6a%2F97f71368-84dc-4a8a-a97c-4fb4a135e758.jpg",
-   "text": "🌅 아침 팟캐스트 · Short Wave (10/19)\nWhat the world's leading researchers think about saunas\n⏱ 13분\n\n사우나 열풍에 비해 과학적 근거는 아직 빈약하지만, 세계 열(熱)요법 연구자들이 표준을 세우며 심혈관·정신건강 효과를 엄밀히 검증하기 시작했다는 이야기.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=short-wave-2026-10-19-what-the-world-s-leading-researchers-think-about-saunas",
-   "queued_at": "2026-10-19T22:20:39Z"
-  },
-  {
    "id": "think-fast-talk-smart-2026-10-19-333-find-the-vibe-build-stronger-connections-through",
    "occasion": "2026-10-20-evening",
    "slot": "evening",
@@ -399,9 +324,34 @@
    "image": "https://img.transistorcdn.com/FQbsYLqAlQn1IvO6PZ6E4R8G4c0SRY2ZHMwkwNqrCFk/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS8xMTNi/ZTEwY2NlY2VhMDRi/M2JlOWJjZGM1MzVj/NTlhYi5wbmc.jpg",
    "text": "🌙 하루 마무리 팟캐스트 · Think Fast, Talk Smart (10/22)\n334. Quick Thinks: How to Make the Most Out of Meetings\n⏱ 11분\n\n좋은 회의는 '정말 필요한가?'라는 질문에서 시작해, 목표·아젠다·초대장 설계, 진행 중 퍼실리테이션, 종료 후 공유와 피드백까지 이어진다는 Matt Abrahams의 실용 가이드.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=think-fast-talk-smart-2026-10-22-334-quick-thinks-how-to-make-the-most-out-of-meetings",
    "queued_at": "2026-10-22T15:41:17Z"
+  },
+  {
+   "id": "the-indicator-2026-10-22-can-a-moneyball-system-work-for-campaign-funding",
+   "occasion": "2026-10-24-morning",
+   "slot": "morning",
+   "order": 1,
+   "post_at": "2026-10-24T07:00:00+09:00",
+   "post_at_ms": 1792792800000,
+   "until": "2026-10-24T12:00:00+09:00",
+   "until_ms": 1792810800000,
+   "title": "Can a \"moneyball\" system work for campaign funding?",
+   "show": {
+    "slug": "the-indicator",
+    "name": "The Indicator",
+    "publisher": "NPR (Planet Money)",
+    "color": "#2b7bd6",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=the-indicator-2026-10-22-can-a-moneyball-system-work-for-campaign-funding",
+   "pick": "new",
+   "one_liner_ko": "영화 '머니볼'처럼 데이터로 정치 후원금을 덜 알려진 접전 선거구에 돌리자는 스타트업 Oath의 시도와 그 한계를 다룬 에피소드.",
+   "duration_sec": 493,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fd0%2F3b%2F0077149b4b1daf4f74e6c4c4887f%2Fcfd55761-07a8-4f83-bb3e-1b72b6875831.jpg",
+   "text": "🌅 아침 팟캐스트 · The Indicator (10/22)\nCan a \"moneyball\" system work for campaign funding?\n⏱ 8분\n\n영화 '머니볼'처럼 데이터로 정치 후원금을 덜 알려진 접전 선거구에 돌리자는 스타트업 Oath의 시도와 그 한계를 다룬 에피소드.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=the-indicator-2026-10-22-can-a-moneyball-system-work-for-campaign-funding",
+   "queued_at": "2026-10-23T04:20:28Z"
   }
  ],
- "generated_at": "2026-10-22T21:07:56Z",
+ "generated_at": "2026-10-23T04:20:28Z",
  "kick_kst": [
   "05:25",
   "05:55",

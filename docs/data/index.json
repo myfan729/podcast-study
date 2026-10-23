@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-22T21:07:01Z",
+ "generated_at": "2026-10-23T04:19:21Z",
  "shows": [
   {
    "slug": "big-take",
@@ -159,6 +159,29 @@
    "cefr": "C1",
    "expressions": 13,
    "words": 2132,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "the-indicator-2026-10-22-can-a-moneyball-system-work-for-campaign-funding",
+   "show": "the-indicator",
+   "title": "Can a \"moneyball\" system work for campaign funding?",
+   "published_at": "2026-10-22T07:00:00Z",
+   "duration_sec": 493,
+   "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fd0%2F3b%2F0077149b4b1daf4f74e6c4c4887f%2Fcfd55761-07a8-4f83-bb3e-1b72b6875831.jpg",
+   "one_liner_ko": "영화 '머니볼'처럼 데이터로 정치 후원금을 덜 알려진 접전 선거구에 돌리자는 스타트업 Oath의 시도와 그 한계를 다룬 에피소드.",
+   "tags": [
+    "campaign finance",
+    "Moneyball",
+    "political donations",
+    "data analytics",
+    "US midterms",
+    "startups"
+   ],
+   "cefr": "C1",
+   "expressions": 10,
+   "words": 1401,
    "has_translation": true,
    "mock": false,
    "demo": false
