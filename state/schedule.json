@@ -1,20 +1,5 @@
 {
  "occasions": {
-  "2026-10-20-morning": {
-   "post_at": "2026-10-20T07:00:00+09:00",
-   "has": [
-    "up-first: Trump Eases Russia Sanctions, Midterm Campaign Money, Violent Protests In France",
-    "the-indicator: Why Oracle's debt load could be your problem",
-    "short-wave: What the world's leading researchers think about saunas"
-   ],
-   "adding": [],
-   "waiting_for": [],
-   "expected": [
-    "big-take",
-    "up-first"
-   ],
-   "checked_at": "2026-10-19T22:23:55Z"
-  },
   "2026-10-21-evening": {
    "post_at": "2026-10-21T18:00:00+09:00",
    "has": [
@@ -100,6 +85,16 @@
    ],
    "checked_at": "2026-10-22T21:24:00Z"
   },
+  "2026-10-24-evening": {
+   "post_at": "2026-10-24T18:00:00+09:00",
+   "has": [],
+   "adding": [
+    "zero (fallback): First cars, now trains: Batteries are coming for everything"
+   ],
+   "waiting_for": [],
+   "expected": [],
+   "checked_at": "2026-10-23T12:40:47Z"
+  },
   "2026-10-24-morning": {
    "post_at": "2026-10-24T07:00:00+09:00",
    "has": [
@@ -118,5 +113,5 @@
    "checked_at": "2026-10-23T06:50:05Z"
   }
  },
- "updated_at": "2026-10-23T06:50:05Z"
+ "updated_at": "2026-10-23T12:40:47Z"
 }

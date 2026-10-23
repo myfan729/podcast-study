@@ -1,31 +1,6 @@
 {
  "posts": [
   {
-   "id": "think-fast-talk-smart-2026-10-19-333-find-the-vibe-build-stronger-connections-through",
-   "occasion": "2026-10-20-evening",
-   "slot": "evening",
-   "order": 0,
-   "post_at": "2026-10-20T18:00:00+09:00",
-   "post_at_ms": 1792486800000,
-   "until": "2026-10-20T21:30:00+09:00",
-   "until_ms": 1792499400000,
-   "title": "333. Find the Vibe: Build Stronger Connections Through Communication Part 1",
-   "show": {
-    "slug": "think-fast-talk-smart",
-    "name": "Think Fast, Talk Smart",
-    "publisher": "Stanford GSB",
-    "color": "#a8322d",
-    "homepage": "https://www.fastersmarter.io/"
-   },
-   "link": "https://myfan729.github.io/podcast-study/episode.html?id=think-fast-talk-smart-2026-10-19-333-find-the-vibe-build-stronger-connections-through",
-   "pick": "new",
-   "one_liner_ko": "애덤 그랜트가 무대 공포를 극복한 경험과 '피드백보다 조언', 그리고 '앨라이·팔·컴패니언' 틀로 설명하는, 서로 통하는(vibe) 관계를 만드는 대화법",
-   "duration_sec": 1889,
-   "image": "https://img.transistorcdn.com/Ikn_LHw3zvi_hzfdjtr5jxweZQkN21Mqazn6pmohJhw/rs:fill:0:0:1/w:1400/h:1400/q:60/mb:500000/aHR0cHM6Ly9pbWct/dXBsb2FkLXByb2R1/Y3Rpb24udHJhbnNp/c3Rvci5mbS8wYzk0/YTFlZGU2MzY5YTI0/OWRhZDhhNTliNDY1/ODhlZS5wbmc.jpg",
-   "text": "🌙 하루 마무리 팟캐스트 · Think Fast, Talk Smart (10/19)\n333. Find the Vibe: Build Stronger Connections Through Communication Part 1\n⏱ 31분\n\n애덤 그랜트가 무대 공포를 극복한 경험과 '피드백보다 조언', 그리고 '앨라이·팔·컴패니언' 틀로 설명하는, 서로 통하는(vibe) 관계를 만드는 대화법\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=think-fast-talk-smart-2026-10-19-333-find-the-vibe-build-stronger-connections-through",
-   "queued_at": "2026-10-19T13:11:34Z"
-  },
-  {
    "id": "up-first-2026-10-20-pushback-on-trump-s-russia-policy-competitive-midterm-races",
    "occasion": "2026-10-21-morning",
    "slot": "morning",
@@ -349,9 +324,34 @@
    "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3000x3000+0+0/resize/3000/quality/66/format/jpg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fd0%2F3b%2F0077149b4b1daf4f74e6c4c4887f%2Fcfd55761-07a8-4f83-bb3e-1b72b6875831.jpg",
    "text": "🌅 아침 팟캐스트 · The Indicator (10/22)\nCan a \"moneyball\" system work for campaign funding?\n⏱ 8분\n\n영화 '머니볼'처럼 데이터로 정치 후원금을 덜 알려진 접전 선거구에 돌리자는 스타트업 Oath의 시도와 그 한계를 다룬 에피소드.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=the-indicator-2026-10-22-can-a-moneyball-system-work-for-campaign-funding",
    "queued_at": "2026-10-23T04:20:28Z"
+  },
+  {
+   "id": "zero-2026-10-22-first-cars-now-trains-batteries-are-coming-for-everything",
+   "occasion": "2026-10-24-evening",
+   "slot": "evening",
+   "order": 2,
+   "post_at": "2026-10-24T18:00:00+09:00",
+   "post_at_ms": 1792832400000,
+   "until": "2026-10-24T21:30:00+09:00",
+   "until_ms": 1792845000000,
+   "title": "First cars, now trains: Batteries are coming for everything",
+   "show": {
+    "slug": "zero",
+    "name": "Zero: The Climate Race",
+    "publisher": "Bloomberg",
+    "color": "#1e7f8c",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=zero-2026-10-22-first-cars-now-trains-batteries-are-coming-for-everything",
+   "pick": "fallback",
+   "one_liner_ko": "Alstom의 제품 디렉터가 영국의 디젤 의존 철도를 배터리 전기열차로 어떻게 탈탄소화할 수 있는지, 그리고 그 경제성과 한계를 설명한다.",
+   "duration_sec": 1731,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/37c6caa7-d377-4c08-b479-af9d012ed5ad/a7faefb0-28ec-4b1d-85f3-af9d012ed5c9/image.jpg?t=1675362156&size=Large",
+   "text": "🌙 하루 마무리 팟캐스트 · Zero: The Climate Race (10/22)\nFirst cars, now trains: Batteries are coming for everything\n⏱ 28분\n\nAlstom의 제품 디렉터가 영국의 디젤 의존 철도를 배터리 전기열차로 어떻게 탈탄소화할 수 있는지, 그리고 그 경제성과 한계를 설명한다.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=zero-2026-10-22-first-cars-now-trains-batteries-are-coming-for-everything",
+   "queued_at": "2026-10-23T12:43:23Z"
   }
  ],
- "generated_at": "2026-10-23T04:20:28Z",
+ "generated_at": "2026-10-23T12:43:23Z",
  "kick_kst": [
   "05:25",
   "05:55",

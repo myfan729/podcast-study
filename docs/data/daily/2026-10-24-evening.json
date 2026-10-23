@@ -1,0 +1,30 @@
+{
+ "occasion": "2026-10-24-evening",
+ "posts": [
+  {
+   "id": "zero-2026-10-22-first-cars-now-trains-batteries-are-coming-for-everything",
+   "occasion": "2026-10-24-evening",
+   "slot": "evening",
+   "order": 2,
+   "post_at": "2026-10-24T18:00:00+09:00",
+   "post_at_ms": 1792832400000,
+   "until": "2026-10-24T21:30:00+09:00",
+   "until_ms": 1792845000000,
+   "title": "First cars, now trains: Batteries are coming for everything",
+   "show": {
+    "slug": "zero",
+    "name": "Zero: The Climate Race",
+    "publisher": "Bloomberg",
+    "color": "#1e7f8c",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=zero-2026-10-22-first-cars-now-trains-batteries-are-coming-for-everything",
+   "pick": "fallback",
+   "one_liner_ko": "Alstom의 제품 디렉터가 영국의 디젤 의존 철도를 배터리 전기열차로 어떻게 탈탄소화할 수 있는지, 그리고 그 경제성과 한계를 설명한다.",
+   "duration_sec": 1731,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/37c6caa7-d377-4c08-b479-af9d012ed5ad/a7faefb0-28ec-4b1d-85f3-af9d012ed5c9/image.jpg?t=1675362156&size=Large",
+   "text": "🌙 하루 마무리 팟캐스트 · Zero: The Climate Race (10/22)\nFirst cars, now trains: Batteries are coming for everything\n⏱ 28분\n\nAlstom의 제품 디렉터가 영국의 디젤 의존 철도를 배터리 전기열차로 어떻게 탈탄소화할 수 있는지, 그리고 그 경제성과 한계를 설명한다.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=zero-2026-10-22-first-cars-now-trains-batteries-are-coming-for-everything",
+   "queued_at": "2026-10-23T12:43:23Z"
+  }
+ ]
+}

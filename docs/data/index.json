@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-23T04:19:21Z",
+ "generated_at": "2026-10-23T12:42:16Z",
  "shows": [
   {
    "slug": "big-take",
@@ -182,6 +182,29 @@
    "cefr": "C1",
    "expressions": 10,
    "words": 1401,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "zero-2026-10-22-first-cars-now-trains-batteries-are-coming-for-everything",
+   "show": "zero",
+   "title": "First cars, now trains: Batteries are coming for everything",
+   "published_at": "2026-10-22T04:00:00Z",
+   "duration_sec": 1731,
+   "image": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/37c6caa7-d377-4c08-b479-af9d012ed5ad/a7faefb0-28ec-4b1d-85f3-af9d012ed5c9/image.jpg?t=1675362156&size=Large",
+   "one_liner_ko": "Alstom의 제품 디렉터가 영국의 디젤 의존 철도를 배터리 전기열차로 어떻게 탈탄소화할 수 있는지, 그리고 그 경제성과 한계를 설명한다.",
+   "tags": [
+    "rail",
+    "battery trains",
+    "decarbonisation",
+    "UK infrastructure",
+    "transport policy",
+    "automation"
+   ],
+   "cefr": "C1",
+   "expressions": 17,
+   "words": 4830,
    "has_translation": true,
    "mock": false,
    "demo": false

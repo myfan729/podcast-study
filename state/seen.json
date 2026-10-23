@@ -848,6 +848,19 @@
    "title": "Can a \"moneyball\" system work for campaign funding?",
    "published_at": "2026-10-22T07:00:00Z",
    "done_at": "2026-10-23T04:19:20Z"
+  },
+  "zero:5b804e68dd3a": {
+   "first_seen": "2026-10-23T12:40:47Z",
+   "attempts": 1,
+   "occasion": "2026-10-24-evening",
+   "slot": "evening",
+   "pick": "fallback",
+   "assigned_at": "2026-10-23T12:40:47Z",
+   "status": "done",
+   "id": "zero-2026-10-22-first-cars-now-trains-batteries-are-coming-for-everything",
+   "title": "First cars, now trains: Batteries are coming for everything",
+   "published_at": "2026-10-22T04:00:00Z",
+   "done_at": "2026-10-23T12:42:16Z"
   }
  }
 }
