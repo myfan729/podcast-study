@@ -29,8 +29,8 @@ jobs:
                   t = BeautifulSoup(r.text, "html.parser").get_text("\n")
                   lines = [l.strip() for l in t.split("\n") if l.strip() and KEYS.search(l) and 20 < len(l.strip()) < 700]
                   seen=[]; [seen.append(l) for l in lines if l not in seen]
-                  print(f"===== {k} {r.status_code} {r.url}")
-                  for l in seen[:25]: print("  -", l)
+                  msg = " || ".join(seen[:18]).replace("\n"," ")[:3800]
+                  print(f"::notice title={k} {r.status_code}::{r.url} >> {msg}")
               except Exception as e:
-                  print(f"===== {k} ERR {e}")
+                  print(f"::warning title={k}::{e}")
           PY
