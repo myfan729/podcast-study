@@ -1,18 +1,5 @@
 {
  "occasions": {
-  "2026-10-20-evening": {
-   "post_at": "2026-10-20T18:00:00+09:00",
-   "has": [
-    "think-fast-talk-smart: 333. Find the Vibe: Build Stronger Connections Through Communication Part 1"
-   ],
-   "adding": [],
-   "waiting_for": [],
-   "expected": [
-    "heres-the-thing",
-    "think-fast-talk-smart"
-   ],
-   "checked_at": "2026-10-19T14:17:49Z"
-  },
   "2026-10-20-morning": {
    "post_at": "2026-10-20T07:00:00+09:00",
    "has": [
@@ -112,7 +99,23 @@
     "zero"
    ],
    "checked_at": "2026-10-22T21:24:00Z"
+  },
+  "2026-10-24-morning": {
+   "post_at": "2026-10-24T07:00:00+09:00",
+   "has": [],
+   "adding": [],
+   "waiting_for": [
+    "up-first",
+    "the-indicator",
+    "big-take"
+   ],
+   "expected": [
+    "big-take",
+    "everybodys-business",
+    "up-first"
+   ],
+   "checked_at": "2026-10-23T02:18:00Z"
   }
  },
- "updated_at": "2026-10-22T21:24:00Z"
+ "updated_at": "2026-10-23T02:18:00Z"
 }
