@@ -1,0 +1,26 @@
+name: Probe — transcript tags in non-RSS shows
+on: { workflow_dispatch: {} }
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          python3 - <<'PY'
+          import json, re, urllib.request
+          shows = json.load(open("tools/probe_nonrss_in.json"))
+          for s in shows:
+              try:
+                  req = urllib.request.Request(s["f"], headers={"User-Agent": "Mozilla/5.0 (podcast app)"})
+                  x = urllib.request.urlopen(req, timeout=40).read().decode("utf-8", "replace")
+                  items = x.split("<item")[1:6]
+                  tr = [re.findall(r'<podcast:transcript[^>]*>', it) for it in items]
+                  n = sum(1 for t in tr if t)
+                  ex = next((t[0] for t in tr if t), "")[:220]
+                  ns = "podcastindex" in x[:3000]
+                  alt = re.findall(r'<(?:atom:link|itunes:new-feed-url)[^>]*>', x[:4000])[:2]
+                  print(f"::notice title={s['t']}::transcript tags in {n}/{len(items)} items; ns={ns}; {ex} {' '.join(alt)[:200]}")
+              except Exception as e:
+                  print(f"::warning title={s['t']}::{e}")
+          PY
