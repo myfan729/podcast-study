@@ -1,1 +1,3 @@
-[]
+[
+ "episode: Locator.click: Timeout 8000ms exceeded.\nCall log:\n  - waiting for get_by_text(\"단어·표현\").first\n"
+]
