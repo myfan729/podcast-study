@@ -1,0 +1,25 @@
+name: App check — tap-to-translate + transcript sources
+on: { workflow_dispatch: {} }
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+    steps:
+      - run: sudo apt-get install -y -qq postgresql-client > /dev/null
+      - run: |
+          q() { psql "$SUPABASE_DB_URL" -tA -c "$1" 2>&1 | tr '\n' ' ' | sed -E 's#postgres(ql)?://[^ ]*#<db>#g'; }
+          echo "::notice title=transcript kinds::$(q "select coalesce(transcript_kind,'∅')||'='||count(*) from episodes group by 1 order by 2 desc")"
+          echo "::notice title=vault::$(q "select name from vault.secrets where name in ('anthropic_api_key','revenuecat_secret')")"
+          uid=$(psql "$SUPABASE_DB_URL" -tA -c "select user_id from entitlements where source='owner' limit 1")
+          ep=$(psql "$SUPABASE_DB_URL" -tA -c "select id from episodes where status='ready' limit 1")
+          out=$(psql "$SUPABASE_DB_URL" -tA 2>&1 <<SQL
+          begin;
+          set local role authenticated;
+          select set_config('request.jwt.claims', json_build_object('sub','$uid','role','authenticated')::text, true);
+          select public.translate_sentence('$ep', 'The good thing about it being France is that you have a lot more opportunities to make puns.', 'I used to speak French, by the way.');
+          rollback;
+          SQL
+          )
+          echo "::notice title=translate::$(echo "$out" | tr '\n' ' ' | tail -c 600)"
