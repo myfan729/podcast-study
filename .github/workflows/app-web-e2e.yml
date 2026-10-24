@@ -1,5 +1,8 @@
 name: App e2e — web-page transcripts
-on: { workflow_dispatch: {} }
+on:
+  workflow_dispatch:
+    inputs:
+      check_only: { default: "0" }
 jobs:
   e2e:
     runs-on: ubuntu-latest
@@ -8,6 +11,7 @@ jobs:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      CHECK_ONLY: ${{ inputs.check_only }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

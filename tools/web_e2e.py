@@ -9,10 +9,12 @@ for title in ("6 Minute English", "Planet Money"):
     ep = db.select("episodes", f"select=id,title,status,transcript_url,transcript_kind&show_id=eq.{sh['id']}&has_transcript=eq.true"
                                f"&transcript_url=not.is.null&order=published_at.desc&limit=1")[0]
     rep.append(f"{title}: {ep['title'][:40]} url={ep['transcript_url']}")
-    db.update("episodes", f"id=eq.{ep['id']}", {"status": "queued", "attempts": 0, "error": None})
+    if os.environ.get("CHECK_ONLY") != "1":
+        db.update("episodes", f"id=eq.{ep['id']}", {"status": "queued", "attempts": 0, "error": None})
     picked.append(ep["id"])
-process(db, max_n=4)
-sync_pending(db, max_n=4)
+if os.environ.get("CHECK_ONLY") != "1":
+    process(db, max_n=4)
+    sync_pending(db, max_n=4)
 for eid in picked:
     row = db.select("episodes", f"select=title,status,error,pack_path,sync_path&id=eq.{eid}")[0]
     if row["status"] != "ready":
