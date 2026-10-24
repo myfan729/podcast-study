@@ -12,9 +12,10 @@ import { buy, currentOffering, manageUrl, purchasesAvailable, restore } from '@/
 import { C, F, R } from '@/lib/theme';
 
 const PERKS: [string, string][] = [
-  ['infinite', '학습자료 무제한 — 대본 싱크·번역·단어·표현을 원하는 만큼'],
-  ['headset', '듣기와 백그라운드 재생은 지금처럼 무제한'],
-  ['sparkles', '앞으로 나오는 프로 기능 모두 포함'],
+  ['pulse', '싱크 — 들리는 문장을 따라가며 보기 (광고 구간도 자동으로 맞춰요)'],
+  ['library', '학습자료 — 에피소드마다 단어·표현 정리, 발음기호, 예문'],
+  ['language', '모르는 문장은 길게 눌러 바로 한국어 번역'],
+  ['infinite', '에피소드 수 제한 없이'],
 ];
 
 export default function Pro() {
@@ -57,7 +58,7 @@ export default function Pro() {
       <ScrollView contentContainerStyle={s.wrap}>
         <View style={s.badge}><Icon name="diamond" size={30} color="#fff" /></View>
         <Text style={s.h}>잉팟 프로</Text>
-        <Text style={s.sub}>무료는 학습자료 일주일에 {FREE_PER_WEEK}편까지예요.{'\n'}프로는 제한 없이 공부할 수 있어요.</Text>
+        <Text style={s.sub}>듣기와 대본 보기는 무료예요.{'\n'}학습 모드 무료 체험은 일주일에 {FREE_PER_WEEK}편, 프로는 제한 없이 쓸 수 있어요.</Text>
 
         <View style={s.card}>
           {PERKS.map(([icon, t]) => (

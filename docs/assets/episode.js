@@ -18,8 +18,53 @@
   const id = new URLSearchParams(location.search).get('id');
   if (!id) { $('#head').innerHTML = '<div class="err">에피소드 id가 없습니다. <a href="./">목록으로</a></div>'; return; }
 
+  // ---- encrypted page data: the posted link's key (#k=…) works for 3 days after it was posted, then the site password ----
+  const b64 = (t) => Uint8Array.from(atob(t), c => c.charCodeAt(0));
+  const b64url = (t) => b64(t.replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((t.length + 3) % 4));
+  async function aes(raw, enc) {
+    const key = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
+    const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(enc.iv) }, key, b64(enc.ct));
+    return JSON.parse(new TextDecoder().decode(pt));
+  }
+  async function keyFromPw(pw, enc) {
+    const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveBits']);
+    return new Uint8Array(await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: new TextEncoder().encode('ingpot-ep:' + enc.id), iterations: enc.iter || 200000 }, km, 256));
+  }
+  function gate(enc, expired) {
+    return new Promise((resolve) => {
+      const head = $('#head');
+      head.innerHTML = `<form class="gate" id="epGate" style="max-width:420px;margin:40px auto;text-align:center">
+        <h2 style="margin-bottom:8px">${expired ? '공개 기간이 지났어요' : '비밀번호가 필요해요'}</h2>
+        <p style="opacity:.75;margin-bottom:16px">${expired ? '이 페이지는 단톡방에 올라온 뒤 3일 동안만 열려요.<br>' : ''}비밀번호를 입력하면 볼 수 있어요.</p>
+        <input id="epPw" type="password" autocomplete="current-password" placeholder="비밀번호" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ccc;font-size:16px">
+        <label style="display:block;margin:10px 0;font-size:14px"><input type="checkbox" id="epRemember" checked> 이 기기에서 기억하기</label>
+        <button class="btn" type="submit" style="width:100%">열기</button>
+        <p id="epErr" hidden style="color:#c33;margin-top:10px">비밀번호가 맞지 않아요.</p></form>`;
+      const tryPw = async (pw, remember, quiet) => {
+        try {
+          const doc = await aes(await keyFromPw(pw, enc), enc);
+          if (remember) { try { localStorage.setItem('site:pw', pw); } catch (e) {} }
+          resolve(doc);
+        } catch (e) {
+          if (!quiet) $('#epErr').hidden = false;
+          try { localStorage.removeItem('site:pw'); } catch (x) {}
+        }
+      };
+      $('#epGate').addEventListener('submit', (e) => { e.preventDefault(); $('#epErr').hidden = true; tryPw($('#epPw').value, $('#epRemember').checked, false); });
+      let saved = ''; try { saved = localStorage.getItem('site:pw') || ''; } catch (e) {}
+      if (saved) tryPw(saved, true, true);
+    });
+  }
+  function openEp(obj) {
+    if (!obj || obj._enc !== 'ep1') return obj;
+    const k = new URLSearchParams(location.hash.slice(1)).get('k');
+    const open = Date.now() < Date.parse(obj.open_until);
+    if (k && open) return aes(b64url(k), obj).catch(() => gate(obj, false));
+    return gate(obj, !!k && !open);
+  }
+
   Promise.all([
-    fetch('data/episodes/' + encodeURIComponent(id) + '.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }),
+    fetch('data/episodes/' + encodeURIComponent(id) + '.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(openEp),
     fetch('data/sync/' + encodeURIComponent(id) + '.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null),
     fetch('data/blog_links.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null),
   ]).then(([ep, sync, blog]) => { ep.sync = sync; ep.blogLinks = (blog && blog.episodes && blog.episodes[ep.id]) || {}; return init(ep); })

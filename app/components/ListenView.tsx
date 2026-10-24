@@ -2,11 +2,13 @@
 // straight from the publisher; no study pack, no quota. "학습자료 만들기" turns on the study mode
 // (transcript, translation, words) — that is the part free users get twice a week.
 import { useRouter } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Art, Icon, RoundBtn } from '@/components/ui';
 import SeekBar from '@/components/SeekBar';
+import ReadView from '@/components/ReadView';
 import * as api from '@/lib/api';
 import { useNowPlaying } from '@/lib/nowPlaying';
 import { FREE_PER_WEEK, MAX_STUDY_SEC } from '@/lib/config';
@@ -31,6 +33,9 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
   const [plan, setPlan] = useState<{ free_left: number; pro: boolean } | null>(null);
   const [busy, setBusy] = useState(false);
   const [more, setMore] = useState(false);
+  const [read, setRead] = useState(false);                          // free: the publisher's transcript, plain
+  const web = ep.transcript_kind === 'web';                         // transcript only on the publisher's web page
+  const openPage = () => { const u = ep.transcript_url || ep.episode_url; if (u) WebBrowser.openBrowserAsync(u).catch(() => {}); };
 
   useEffect(() => { api.freeLeft().then(setPlan).catch(() => {}); }, []);
   useEffect(() => { np.load(ep); }, [ep.id]);  // eslint-disable-line react-hooks/exhaustive-deps
@@ -39,7 +44,7 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
   const pct = Math.min(1, (status.currentTime ?? 0) / dur);
   const left = plan?.free_left ?? 0;
   const tooLong = !unlocked && (ep.duration_sec ?? 0) > MAX_STUDY_SEC;     // study material: episodes up to 60 min
-  const canMake = ep.has_transcript && !tooLong && (unlocked || plan?.pro || left > 0);
+  const canMake = ep.has_transcript && !web && !tooLong && (unlocked || plan?.pro || left > 0);
 
   const study = async () => {
     if (unlocked) { leave(); return; }
@@ -48,20 +53,23 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
       try {
         const r = await api.requestEpisode(ep.id);
         if (r.unlocked) leave();
-        else if (r.reason === 'quota') Alert.alert('이번 주 무료 학습자료를 다 썼어요', '무료는 일주일에 2편까지예요. 프로는 무제한이에요.',
+        else if (r.reason === 'quota') Alert.alert('이번 주 무료 체험을 다 썼어요', '학습 모드 무료 체험은 일주일에 2편까지예요. 프로는 무제한이에요.',
           [{ text: '닫기', style: 'cancel' }, { text: '프로 알아보기', onPress: () => router.push('/pro') }]);
-        else Alert.alert('학습자료를 만들 수 없어요',
-          r.reason === 'too_long' ? '학습자료는 60분 이하 에피소드만 만들 수 있어요.' : '방송사 대본이 아직 없어요. 나중에 다시 시도해 주세요.');
+        else Alert.alert('학습 모드를 열 수 없어요',
+          r.reason === 'too_long' ? '학습 모드는 60분 이하 에피소드만 쓸 수 있어요.'
+            : r.reason === 'web_only' ? '이 쇼는 대본이 방송사 웹페이지에만 있어서 학습 모드를 쓸 수 없어요.' : '방송사 대본이 아직 없어요. 나중에 다시 시도해 주세요.');
       } catch (e: any) { Alert.alert('문제가 생겼어요', String(e?.message ?? e)); } finally { setBusy(false); }
     };
     if (plan?.pro) { go(); return; }
-    const msg = `이번 주 무료 학습자료 ${left}회 중 1회를 써요. 한 번 만든 에피소드는 언제든 다시 볼 수 있어요.`;
+    const msg = `이번 주 무료 체험 ${left}회 중 1회를 써요. 한 번 연 에피소드는 언제든 다시 볼 수 있어요.`;
     if (Platform.OS === 'web') { if (globalThis.confirm?.(msg)) go(); return; }
-    Alert.alert('학습자료를 만들까요?', msg, [{ text: '취소', style: 'cancel' }, { text: '만들기', onPress: go }]);
+    Alert.alert('학습 모드를 열까요?', msg, [{ text: '취소', style: 'cancel' }, { text: '열기', onPress: go }]);
   };
   const leave = () => { np.stop(); onStudy(); };   // the study mode plays its own synced copy, from the same position
 
   const desc = plain(ep.description);
+  if (read) return <ReadView ep={ep} onClose={() => setRead(false)} onStudy={canMake ? () => { setRead(false); study(); } : undefined}
+    studyLabel={unlocked || plan?.pro ? '학습 모드로 보기' : `학습 모드 열기 (이번 주 무료 ${left}회)`} />;
   return (
     <SafeAreaView edges={['top']} style={{ flex: 1 }}>
       <View style={s.top}><RoundBtn icon="chevron-back" label="뒤로" onPress={() => router.back()} /></View>
@@ -76,24 +84,38 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
 
         <View style={s.studyCard}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-            <Icon name="sparkles" size={18} color={C.accent} />
-            <Text style={s.studyH}>{unlocked ? '학습자료' : '학습자료 만들기'}</Text>
-            {!unlocked && plan && !plan.pro ? <Text style={s.quota}>이번 주 {left}/{FREE_PER_WEEK}회</Text> : null}
+            <Icon name="document-text-outline" size={18} color={C.accent} />
+            <Text style={s.studyH}>대본</Text>
           </View>
-          <Text style={s.studyP}>대본을 문장별로 따라가며 듣고, 한국어 번역과 단어·표현 정리를 볼 수 있어요.</Text>
           {!ep.has_transcript
-            ? <Text style={s.note}>이 에피소드는 방송사 대본이 없어 학습자료를 만들 수 없어요.</Text>
-            : tooLong
-            ? <Text style={s.note}>학습자료는 60분 이하 에피소드만 만들 수 있어요. 이 에피소드는 듣기만 할 수 있어요.</Text>
-            : (
-              <Pressable onPress={study} disabled={busy || !canMake} accessibilityRole="button"
-                style={[s.studyBtn, (!canMake) && { opacity: 0.45 }]}>
-                {busy ? <ActivityIndicator color="#fff" /> : <Text style={s.studyBtnT}>
-                  {unlocked ? '학습 모드로 보기' : canMake ? '학습자료 만들기' : '이번 주 무료 횟수를 다 썼어요'}</Text>}
-              </Pressable>)}
-          {!unlocked && plan && !plan.pro && !canMake && ep.has_transcript && !tooLong
-            ? <Text style={s.note}>프로는 무제한이에요. 듣기는 계속 무료예요.</Text> : null}
+            ? <Text style={s.note}>이 에피소드는 방송사 대본이 없어요. 듣기만 할 수 있어요.</Text>
+            : web ? (
+              <>
+                <Text style={s.studyP}>이 쇼는 대본을 방송사 웹페이지에 올려요. 앱 안에서 그 페이지를 열어 볼 수 있어요.</Text>
+                <Pressable onPress={openPage} style={s.readBtn} accessibilityRole="button"><Text style={s.readBtnT}>방송사 페이지에서 대본 보기</Text></Pressable>
+              </>)
+            : <Pressable onPress={() => setRead(true)} style={s.readBtn} accessibilityRole="button"><Text style={s.readBtnT}>대본 보기 · 무료</Text></Pressable>}
         </View>
+
+        {ep.has_transcript && !web ? (
+          <View style={s.studyCard}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+              <Icon name="sparkles" size={18} color={C.accent} />
+              <Text style={s.studyH}>학습 모드</Text>
+              {!unlocked && plan && !plan.pro ? <Text style={s.quota}>무료 체험 {left}/{FREE_PER_WEEK}회</Text> : null}
+            </View>
+            <Text style={s.studyP}>들리는 문장을 따라가며 보고(싱크), 이 에피소드의 단어·표현 정리를 봐요. 모르는 문장은 길게 눌러 번역해요.</Text>
+            {tooLong
+              ? <Text style={s.note}>학습 모드는 60분 이하 에피소드만 쓸 수 있어요.</Text>
+              : (
+                <Pressable onPress={study} disabled={busy || !canMake} accessibilityRole="button"
+                  style={[s.studyBtn, (!canMake) && { opacity: 0.45 }]}>
+                  {busy ? <ActivityIndicator color="#fff" /> : <Text style={s.studyBtnT}>
+                    {unlocked || plan?.pro ? '학습 모드로 보기' : canMake ? '학습 모드 열기' : '이번 주 무료 체험을 다 썼어요'}</Text>}
+                </Pressable>)}
+            {!unlocked && plan && !plan.pro && !canMake && !tooLong
+              ? <Pressable onPress={() => router.push('/pro')}><Text style={[s.note, { color: C.accent }]}>프로는 무제한이에요 ›</Text></Pressable> : null}
+          </View>) : null}
 
         {desc ? (
           <Pressable onPress={() => setMore(!more)}>
@@ -132,12 +154,14 @@ const s = StyleSheet.create({
   title: { fontFamily: F.enX, fontSize: 20, lineHeight: 26, color: C.ink, textAlign: 'center', marginTop: 4 },
   meta: { color: C.ink3, fontSize: 12, marginTop: 6 },
   intro: { color: C.ink2, fontSize: 13, lineHeight: 19, textAlign: 'center', marginTop: 8 },
-  studyCard: { marginTop: 22, padding: 18, borderRadius: R.card, backgroundColor: C.sheet, gap: 10 },
+  studyCard: { marginTop: 16, padding: 18, borderRadius: R.card, backgroundColor: C.sheet, gap: 10 },
   studyH: { fontFamily: F.title, fontSize: 18, color: C.ink },
   quota: { marginLeft: 'auto', color: C.accent, fontSize: 12.5, fontWeight: '700' },
   studyP: { color: C.ink2, fontSize: 13.5, lineHeight: 20 },
   studyBtn: { backgroundColor: C.accent, borderRadius: R.pill, minHeight: 50, alignItems: 'center', justifyContent: 'center', marginTop: 4 },
   studyBtnT: { color: '#fff', fontWeight: '700', fontSize: 15.5 },
+  readBtn: { borderWidth: 1.5, borderColor: C.accent, borderRadius: R.pill, minHeight: 46, alignItems: 'center', justifyContent: 'center', marginTop: 2 },
+  readBtnT: { color: C.accent, fontWeight: '700', fontSize: 15 },
   note: { color: C.ink3, fontSize: 12.5, lineHeight: 18 },
   desc: { color: C.ink2, fontSize: 13.5, lineHeight: 21, marginTop: 22 },
   moreT: { color: C.accent, fontSize: 13, fontWeight: '700', marginTop: 6 },

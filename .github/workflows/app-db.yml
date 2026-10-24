@@ -29,6 +29,17 @@ jobs:
               psql "$SUPABASE_DB_URL" -c "insert into public._migrations(name) values ('$n')"
             fi
           done
+      - name: Keep the translation key in Vault (tap-to-translate)
+        if: env.SUPABASE_DB_URL != ''
+        env:
+          AKEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          [ -n "$AKEY" ] || exit 0
+          # passed as a psql variable (masked by GitHub, never echoed)
+          printf '%s\n' \
+            "select vault.create_secret(:'k', 'anthropic_api_key') where not exists (select 1 from vault.secrets where name = 'anthropic_api_key');" \
+            "select vault.update_secret(id, :'k') from vault.secrets where name = 'anthropic_api_key';" \
+            | psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -q -v k="$AKEY" > /dev/null 2>/tmp/verr || { echo "::error::vault: $(tail -c 300 /tmp/verr)"; exit 1; }
       - uses: actions/setup-python@v5
         if: env.SUPABASE_URL != '' && env.SUPABASE_SERVICE_KEY != ''
         with: { python-version: "3.12" }

@@ -37,7 +37,8 @@ def fmt_dur(sec: int | None) -> str:
 
 def compose_text(doc: dict, site_url: str, header: str) -> tuple[str, str]:
     study = doc.get("study") or {}
-    link = f"{site_url.rstrip('/')}/episode.html?id={doc['id']}"
+    k = build.link_key(doc["id"])
+    link = f"{site_url.rstrip('/')}/episode.html?id={doc['id']}" + (f"#k={k}" if k else "")
     lines = [header, doc["title"], f"⏱ {fmt_dur(doc.get('duration_sec'))}", "", study.get("one_liner_ko", ""),
              "", f"▶ 스크립트·단어·표현 보기: {link}"]
     return "\n".join(lines), link
@@ -156,6 +157,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.dry_run:
         return 0
     for p in new_posts:
+        build.open_window(p["id"].split("~")[0], p["post_at"])          # the link opens the page for 3 days from now
         if not args.force:
             posted[p["id"]] = {"queued_at": utcnow_iso(), "occasion": p["occasion"], "date_kst": p["occasion"][:10], "post_at": p["post_at"]}
     write_outputs(queue, new_posts, slots, now)

@@ -78,7 +78,11 @@ def read_json(path: Path, default: Any) -> Any:
     if not path.exists():
         return default
     with path.open("r", encoding="utf-8") as f:
-        return json.load(f)
+        obj = json.load(f)
+    if isinstance(obj, dict) and obj.get("_enc") == "ep1":      # encrypted episode page data (see build.py)
+        from .build import decrypt_episode
+        return decrypt_episode(obj)
+    return obj
 
 
 def write_json(path: Path, data: Any, compact: bool = False) -> None:

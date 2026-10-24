@@ -92,10 +92,54 @@ def show_config(row: dict) -> dict:
 
 
 def episode_row(show: dict, ep: Episode, path: str) -> dict:
+    # where the publisher's transcript lives: the phone fetches it from there (we never store the text).
+    # Shows with transcripts only on a web page: the app opens that page (no sync / study material).
+    web = path in ("npr", "web")
+    tr = None if web else ep.best_transcript
     return {"show_id": show["id"], "guid": ep.guid, "title": ep.title, "published_at": ep.published_iso,
             "duration_sec": ep.duration_sec, "audio_url": ep.audio_url, "episode_url": ep.link,
             "image_url": ep.image_url, "description": strip_html(ep.description_html, 1500),
-            "has_transcript": bool(ep.best_transcript) or path in ("npr", "web")}
+            "has_transcript": bool(tr) or web,
+            "transcript_url": (ep.link if web else (tr.url if tr else None)),
+            "transcript_kind": ("web" if web else (tr.kind if tr else None))}
+
+
+def public_pack(doc: dict) -> dict:
+    """What we keep on our server: the study notes and timing references — never the publisher's text.
+    The app downloads the transcript from the publisher and rebuilds the same sentences/paragraphs
+    (app/lib/transcript.ts, kept identical to pipeline/transcript.py by the parity check)."""
+    tr = doc.get("transcript") or {}
+    stats = tr.get("stats") or {}
+    study = {k: v for k, v in (doc.get("study") or {}).items() if k not in ("translations_sent", "translations", "shadowing", "summary_en")}   # no verbatim passages
+    keep = ("id", "show", "title", "published_at", "duration_sec", "episode_number", "audio_url", "audio_url_original",
+            "audio_type", "audio_meta", "episode_url", "image_url", "built_at")
+    src = tr.get("source") or ""
+    return {**{k: doc.get(k) for k in keep},
+            "transcript": {"source": src, "version": tr.get("version"), "url": tr.get("url"),
+                           "kind": tr.get("kind") or _kind_of(src, tr.get("url") or ""),
+                           "n_cues": stats.get("cues") or len(tr.get("cues") or []), "n_segments": stats.get("segments"),
+                           # paragraph id → speaker name the study pass worked out ("Tracy Alloway (host)")
+                           "speakers": {g["id"]: g.get("display_speaker") or "" for g in tr.get("segments") or [] if g.get("id")}},
+            "study": study, "text_free": True}
+
+
+def _kind_of(source: str, url: str) -> str:
+    """Older packs only recorded "rss:<mime type>": work the parser kind out the way feeds.TranscriptRef does."""
+    from .feeds import TranscriptRef
+    if not source.startswith("rss:"):
+        return "web"
+    return TranscriptRef(url=url, type=source.split(":", 1)[1]).kind
+
+
+def transcript_cues(session, doc: dict) -> list[dict]:
+    """Re-read the publisher's transcript (for the audio sync of a text-free pack)."""
+    from .transcript import parse_transcript, sentence_cues, cues_to_dicts
+    tr = doc.get("transcript") or {}
+    if tr.get("cues"):
+        return tr["cues"]
+    if not tr.get("url") or tr.get("kind") == "web":
+        raise RuntimeError("no publisher transcript file for this episode")
+    return cues_to_dicts(sentence_cues(parse_transcript(http_get_text(session, tr["url"]), tr.get("kind") or "unknown")))
 
 
 def mark_npr_transcripts(db: Supa, session, sh: dict, cfg: dict, kept: list, rows: list[dict]) -> None:
@@ -200,7 +244,7 @@ def prefetch(db: Supa, per_show: int = 1) -> int:
     followed = {r["show_id"] for r in db.select("subscriptions", "select=show_id")}
     n = 0
     for sid in followed:
-        eps = db.select("episodes", f"select=id,status,published_at&show_id=eq.{sid}&has_transcript=eq.true"
+        eps = db.select("episodes", f"select=id,status,published_at&show_id=eq.{sid}&has_transcript=eq.true&transcript_kind=neq.web"
                                      f"&or=(duration_sec.is.null,duration_sec.lte.{MAX_STUDY_SEC})"   # longer ones: listen only
                                      f"&order=published_at.desc&limit={per_show}")
         for e in eps:
@@ -244,15 +288,19 @@ def process(db: Supa, max_n: int = 4, mock: bool = False, status: str = "queued"
             ep = next((e for e in eps if e.guid == row["guid"]), None)
             if ep is None:
                 raise RuntimeError("episode no longer in the feed")
-            if not ep.best_transcript and cfg.get("transcript") != "web":
+            if cfg.get("transcript") == "web":
+                # transcripts that live only on the publisher's web page: the app shows that page (listen + read there)
+                db.update("episodes", f"id=eq.{row['id']}", {"status": "none", "error": "web transcript: opened in the app's browser"})
+                continue
+            if not ep.best_transcript:
                 db.update("episodes", f"id=eq.{row['id']}", {"status": "no_transcript", "has_transcript": False})
                 continue
             fut: dict = {}
-            doc = process_episode(session, gen, cfg, ep, translate=True,
+            doc = process_episode(session, gen, cfg, ep, translate=False,
                                   on_sync_ready=lambda partial, eid=row["id"]: fut.setdefault("f", sync_pool.submit(do_sync, eid, partial)))
             doc["id"] = row["id"]
             doc["show"].update(slug=str(sh["id"]), name=sh["title"], image=sh.get("image_url"))
-            db.put_object("episodes", f"{row['id']}.json", json.dumps(doc, ensure_ascii=False, separators=(",", ":")).encode())
+            db.put_object("episodes", f"{row['id']}.json", json.dumps(public_pack(doc), ensure_ascii=False, separators=(",", ":")).encode())
             # open it synced from the start: wait (a little) for the sync that ran beside the pack;
             # if it's slower, mark ready anyway and add sync_path when it lands (the app switches over then)
             sync_path = None
@@ -300,6 +348,7 @@ def sync_pending(db: Supa, max_n: int = 10) -> int:
             doc = r.json()
             if asr is None and not (doc.get("audio_meta") or {}).get("fixed"):
                 asr = SY.Asr()
+            doc = {**doc, "transcript": {**(doc.get("transcript") or {}), "cues": transcript_cues(session, doc)}}   # in memory only
             sync = SY.build(doc, asr, session)
             db.put_object("episodes", f"{row['id']}.sync.json", json.dumps(sync, separators=(",", ":")).encode())
             db.update("episodes", f"id=eq.{row['id']}", {"sync_path": f"{row['id']}.sync.json"})
@@ -307,6 +356,24 @@ def sync_pending(db: Supa, max_n: int = 10) -> int:
             log.info("synced %s", row["title"])
         except Exception as e:  # noqa: BLE001
             log.error("sync failed for %s: %s", row["title"], e)
+    return n
+
+
+def strip_packs(db: Supa) -> int:
+    """One-off: rewrite every stored pack without the publisher's text (and without full translations)."""
+    n = 0
+    for row in db.select("episodes", "select=id,title,pack_path&pack_path=not.is.null&limit=5000"):
+        try:
+            r = db.s.get(f"{db.url}/storage/v1/object/episodes/{row['pack_path']}", headers=db.h, timeout=120)
+            r.raise_for_status()
+            doc = r.json()
+            if doc.get("text_free"):
+                continue
+            db.put_object("episodes", row["pack_path"], json.dumps(public_pack(doc), ensure_ascii=False, separators=(",", ":")).encode())
+            n += 1
+        except Exception as e:  # noqa: BLE001
+            log.error("strip failed for %s: %s", row["title"], e)
+    log.info("strip: rewrote %d packs", n)
     return n
 
 
@@ -356,7 +423,7 @@ def seed(db: Supa, path: Path) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", choices=["refresh", "process", "prefetch", "sync", "resync", "intros", "ipa", "notify", "seed"])
+    ap.add_argument("cmd", choices=["refresh", "process", "prefetch", "sync", "resync", "intros", "ipa", "notify", "seed", "strip"])
     ap.add_argument("arg", nargs="?")
     ap.add_argument("--max", type=int, default=4)
     ap.add_argument("--mock", action="store_true")
@@ -380,6 +447,8 @@ def main(argv: list[str] | None = None) -> int:
         write_intros(db)
     elif a.cmd == "ipa":
         backfill_ipa(db)
+    elif a.cmd == "strip":
+        strip_packs(db)
     elif a.cmd == "notify":                       # push: new episodes of followed shows
         from . import push
         push.new_episodes(db)

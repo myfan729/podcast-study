@@ -42,10 +42,101 @@ def episode_path(episode_id: str) -> Path:
     return EPISODES_DIR / f"{episode_id}.json"
 
 
-def write_episode(doc: dict) -> Path:
+# ---------------------------------------------------------------------------
+# Episode pages for the chat room: each file is encrypted. A posted link carries the episode's own key
+# (#k=…) and opens the page for OPEN_DAYS after it was first posted; after that the page asks for the
+# site password (the key is derived from it, so the owner can always open everything).
+# ---------------------------------------------------------------------------
+OPEN_DAYS = 3
+EP_ITER = 200_000
+_ep_keys: dict[str, bytes] = {}
+
+
+def episode_key(episode_id: str) -> bytes | None:
+    pw = site_password()
+    if not pw:
+        return None
+    if episode_id not in _ep_keys:
+        from cryptography.hazmat.primitives import hashes
+        from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+        _ep_keys[episode_id] = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=("ingpot-ep:" + episode_id).encode("utf-8"),
+                                          iterations=EP_ITER).derive(pw.encode("utf-8"))
+    return _ep_keys[episode_id]
+
+
+def link_key(episode_id: str) -> str:
+    """The #k=… part of a posted link (base64url of the episode key), or '' without a site password."""
+    k = episode_key(episode_id)
+    return base64.urlsafe_b64encode(k).decode("ascii").rstrip("=") if k else ""
+
+
+def decrypt_episode(obj: dict) -> dict:
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+    key = episode_key(obj["id"])
+    if key is None:
+        raise RuntimeError("SITE_PASSWORD is needed to read encrypted episode files")
+    pt = AESGCM(key).decrypt(base64.b64decode(obj["iv"]), base64.b64decode(obj["ct"]), None)
+    return json.loads(pt.decode("utf-8"))
+
+
+def _raw(path: Path) -> dict | None:
+    try:
+        return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def _iso_plus(days: int, base: str | None = None) -> str:
+    from datetime import datetime, timedelta, timezone
+    t = datetime.fromisoformat(base.replace("Z", "+00:00")) if base else datetime.now(timezone.utc)
+    return (t + timedelta(days=days)).astimezone(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def write_episode(doc: dict, open_until: str | None = None, posted: bool | None = None) -> Path:
     path = episode_path(doc["id"])
-    write_json(path, doc, compact=True)
+    key = episode_key(doc["id"])
+    if key is None:                                    # no site password configured: plain file (old behaviour)
+        write_json(path, doc, compact=True)
+        return path
+    old = _raw(path)
+    was_enc = bool(old and old.get("_enc"))
+    until = open_until or (old.get("open_until") if was_enc else None) or _iso_plus(OPEN_DAYS, doc.get("built_at"))
+    was_posted = bool(old.get("posted")) if was_enc else False
+    if posted is None:
+        posted = was_posted
+    if was_enc and old.get("open_until") == until and was_posted == posted:
+        try:
+            if decrypt_episode(old) == json.loads(json.dumps(doc, ensure_ascii=False)):
+                return path                            # unchanged: keep the file (no new ciphertext to commit)
+        except Exception:  # noqa: BLE001
+            pass
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+    iv = secrets.token_bytes(12)
+    ct = AESGCM(key).encrypt(iv, json.dumps(doc, ensure_ascii=False, separators=(",", ":")).encode("utf-8"), None)
+    write_json(path, {"_enc": "ep1", "id": doc["id"], "iter": EP_ITER, "open_until": until, "posted": posted,
+                      "iv": base64.b64encode(iv).decode("ascii"), "ct": base64.b64encode(ct).decode("ascii")}, compact=True)
     return path
+
+
+def open_window(episode_id: str, post_at_iso: str) -> None:
+    """First time an episode is posted to the chat: its page opens with the link for OPEN_DAYS from then."""
+    path = episode_path(episode_id)
+    old = _raw(path)
+    if not old or not old.get("_enc") or old.get("posted"):
+        return
+    write_episode(decrypt_episode(old), open_until=_iso_plus(OPEN_DAYS, post_at_iso), posted=True)
+
+
+def encrypt_all() -> int:
+    """Encrypt episode files still stored as plain JSON (one-off after the site password is set)."""
+    if not site_password():
+        return 0
+    n = 0
+    for p in sorted(EPISODES_DIR.glob("*.json")):
+        raw = _raw(p)
+        if raw and not raw.get("_enc") and raw.get("id"):
+            write_episode(raw); n += 1
+    return n
 
 
 def encrypt_json(obj, password: str) -> dict:

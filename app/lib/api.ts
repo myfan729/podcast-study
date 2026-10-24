@@ -22,7 +22,7 @@ export async function setSubscribed(showId: string, on: boolean) {
   if (on) ok(await supabase.from('subscriptions').upsert({ user_id: data.user.id, show_id: showId }));
   else ok(await supabase.from('subscriptions').delete().eq('show_id', showId));
 }
-const EP_COLS = 'id,show_id,title,published_at,duration_sec,audio_url,image_url,status,one_liner_ko,has_transcript,pack_path,sync_path,error,intro_ko,episode_url';
+const EP_COLS = 'id,show_id,title,published_at,duration_sec,audio_url,image_url,status,one_liner_ko,has_transcript,transcript_url,transcript_kind,pack_path,sync_path,error,intro_ko,episode_url';
 const EP_ONE = EP_COLS + ',description';
 export async function showEpisodes(showId: string): Promise<Episode[]> {
   return ok(await supabase.from('episodes').select(EP_COLS).eq('show_id', showId).order('published_at', { ascending: false }).limit(30));
@@ -52,6 +52,12 @@ async function download<T>(path: string): Promise<T> {
   return (await res.json()) as T;
 }
 export const pack = (path: string) => download<Pack>(path);
+/** Korean for one sentence, made on demand (premium) and not stored anywhere. */
+export async function translate(episodeId: string, sentence: string, context?: string): Promise<string> {
+  const r = await supabase.rpc('translate_sentence', { ep: episodeId, sentence, context: context ?? null });
+  if (r.error) throw new Error(r.error.message.includes('daily limit') ? '오늘 번역 횟수를 다 썼어요' : '번역하지 못했어요');
+  return (r.data as string) ?? '';
+}
 export const syncData = (path: string) => download<any>(path);
 
 export async function saveProgress(episodeId: string, position: number, finished = false) {

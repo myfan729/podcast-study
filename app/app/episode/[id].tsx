@@ -11,12 +11,14 @@ import SeekBar from '@/components/SeekBar';
 import ListenView from '@/components/ListenView';
 import { useNowPlaying } from '@/lib/nowPlaying';
 import * as api from '@/lib/api';
+import * as WebBrowser from 'expo-web-browser';
+import { fetchTranscript, type Transcript } from '@/lib/transcript';
 import { addAnchor, inAd, toAudio, toContent, type Anchor } from '@/lib/timeline';
 import type { Episode, Expression, Pack, RequestResult } from '@/lib/types';
 import { C, F, R, fmt, shadow } from '@/lib/theme';
 
 type Mark = { from: number; to: number; kind: 'expr' | 'word'; idx: number };
-type Sent = { a: number; b: number; s: number; text: string; ko?: string; speaker?: string; showSpk: boolean; marks: Mark[] };
+type Sent = { a: number; b: number; s: number; text: string; speaker?: string; showSpk: boolean; marks: Mark[] };
 type Peek = { kind: 'expr' | 'word'; idx: number } | null;
 const RATES = [0.8, 1, 1.2];
 
@@ -43,8 +45,17 @@ function StudyFlow({ id }: { id: string }) {
   const [ep, setEp] = useState<Episode | null>(null);
   const [req, setReq] = useState<RequestResult | null>(null);
   const [pack, setPack] = useState<Pack | null>(null);
+  const [tr, setTr] = useState<Transcript | null>(null);
+  const [trErr, setTrErr] = useState('');
   const [err, setErr] = useState('');
   const packLoaded = useRef(false);
+  // the transcript text comes from the publisher, straight to this phone (our server keeps only notes + timing)
+  useEffect(() => {
+    if (!pack) return;
+    const url = pack.transcript.url, kind = pack.transcript.kind ?? 'unknown';
+    if (!url || kind === 'web') { setTrErr('web'); return; }
+    fetchTranscript(url, kind).then(setTr).catch((x) => setTrErr(String(x?.message ?? x)));
+  }, [pack]);
 
   // 1) unlock + queue, 2) poll until ready, 3) load the pack
   useEffect(() => {
@@ -78,8 +89,10 @@ function StudyFlow({ id }: { id: string }) {
   if (!req.unlocked) {
     return (
       <Center icon={req.reason === 'quota' ? 'lock-closed' : 'document-text-outline'}
-        title={req.reason === 'quota' ? '이번 주 무료 학습자료를 다 썼어요' : '대본이 아직 안 올라왔어요'}
-        text={req.reason === 'quota' ? '무료는 일주일에 2편까지예요. 프로는 무제한이에요. 듣기는 계속 무료예요.' : '방송사가 대본을 올리면 목록에 다시 나타나요. 조금 뒤에 확인해 주세요.'}>
+        title={req.reason === 'quota' ? '이번 주 무료 체험을 다 썼어요' : req.reason === 'web_only' ? '대본은 방송사 페이지에 있어요' : '대본이 아직 안 올라왔어요'}
+        text={req.reason === 'quota' ? '학습 모드 무료 체험은 일주일에 2편까지예요. 프로는 무제한이에요. 듣기와 대본 보기는 계속 무료예요.'
+          : req.reason === 'web_only' ? '이 쇼는 학습 모드를 지원하지 않아요. 에피소드 화면에서 방송사 페이지를 열어 대본을 볼 수 있어요.'
+          : '방송사가 대본을 올리면 목록에 다시 나타나요. 조금 뒤에 확인해 주세요.'}>
         {req.reason === 'quota' && <Btn label="프로 알아보기" onPress={() => router.push('/pro')} style={{ alignSelf: 'stretch', marginTop: 20 }} />}
       </Center>
     );
@@ -92,10 +105,19 @@ function StudyFlow({ id }: { id: string }) {
     }
     return failed
       ? <Center icon="alert-circle-outline" title="준비하지 못했어요" text="이 에피소드는 대본을 만들 수 없었어요. 다른 에피소드를 골라 주세요." />
-      : <Center spin title="학습자료를 만들고 있어요" text={'대본·번역·표현을 만드는 중이에요.\n보통 1~3분 걸려요.\n이 화면을 나가도 계속 만들어져요.'} />;
+      : <Center spin title="학습 모드를 준비하고 있어요" text={'싱크를 맞추고 단어·표현을 정리하는 중이에요.\n보통 1~3분 걸려요.\n이 화면을 나가도 계속 준비돼요.'} />;
   }
+  if (trErr) {
+    const page = ep?.episode_url;
+    return (
+      <Center icon="document-text-outline" title={trErr === 'web' ? '대본은 방송사 페이지에 있어요' : '대본을 불러오지 못했어요'}
+        text={trErr === 'web' ? '이 에피소드 대본은 방송사 웹페이지에서 볼 수 있어요.' : `${trErr}\n방송사 서버가 잠시 응답하지 않을 수 있어요. 잠시 뒤 다시 열어 주세요.`}>
+        {page ? <Btn label="방송사 페이지 열기" onPress={() => WebBrowser.openBrowserAsync(page).catch(() => {})} style={{ alignSelf: 'stretch', marginTop: 20 }} /> : null}
+      </Center>);
+  }
+  if (!tr) return <Center spin title="대본을 불러오는 중" text="방송사에서 대본을 받아 오고 있어요." />;
   // remount when the sync data arrives, so the player switches to the aligned copy (from the same position)
-  return <Player key={ep!.sync_path ? 'synced' : 'plain'} pack={pack} ep={ep!} />;
+  return <Player key={ep!.sync_path ? 'synced' : 'plain'} pack={pack} tr={tr} ep={ep!} />;
 }
 
 function Center({ text, title, spin, icon, children }: { text?: string; title?: string; spin?: boolean; icon?: 'lock-closed' | 'document-text-outline' | 'alert-circle-outline' | 'time-outline'; children?: ReactNode }) {
@@ -113,7 +135,7 @@ function Center({ text, title, spin, icon, children }: { text?: string; title?: 
   );
 }
 
-function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
+function Player({ pack, tr, ep }: { pack: Pack; tr: Transcript; ep: Episode }) {
   // with auto-sync the player waits for the downloaded copy (playing the stream first only confuses: other ads)
   const audioUrl = api.secureAudio(pack.audio_url);
   const willSync = !!ep.sync_path && Platform.OS !== 'web';
@@ -121,6 +143,8 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
   const status = useAudioPlayerStatus(player);
   const [tab, setTab] = useState<'script' | 'words'>('script');
   const [ko, setKo] = useState(true);
+  const [koBy, setKoBy] = useState<Record<number, string>>({});     // translations asked for (long-press), this screen only
+  const [koBusy, setKoBusy] = useState<number | null>(null);
   const [rate, setRate] = useState(1);
   const [syncMode, setSyncMode] = useState(false);
   const [anchors, setAnchors] = useState<Anchor[]>([]);
@@ -141,20 +165,19 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
 
   // sentences (with Korean) from the pack
   const sents: Sent[] = useMemo(() => {
-    const cues = pack.transcript.cues, tr = pack.study.translations_sent ?? {};
+    const cues = tr.cues, names = pack.transcript.speakers ?? {};
     const spkOf: Record<number, string | undefined> = {};
-    pack.transcript.segments.forEach((sg) => { for (let i = sg.cue_from; i <= sg.cue_to; i++) spkOf[i] = sg.display_speaker; });
-    const pairs = pack.transcript.sentences ?? cues.map((_, i) => [i, i] as [number, number]);
+    tr.segments.forEach((sg) => { for (let i = sg.cue_from; i <= sg.cue_to; i++) spkOf[i] = names[sg.id] || sg.speaker || undefined; });
     let last: string | undefined;
-    const out: Sent[] = pairs.map(([a, b]) => {
+    const out: Sent[] = tr.sentences.map(([a, b]) => {
       const sp = spkOf[a]; const showSpk = !!sp && sp !== last; last = sp;
-      return { a, b, s: cues[a].s, text: cues.slice(a, b + 1).map((c) => c.t).join(' '), ko: tr[`${a}-${b}`], speaker: sp, showSpk, marks: [] };
+      return { a, b, s: cues[a].s, text: cues.slice(a, b + 1).map((c) => c.t).join(' '), speaker: sp, showSpk, marks: [] };
     });
     const free = (sn: Sent, f: number, t: number) => sn.marks.every((m) => t <= m.from || f >= m.to);
     // expressions: their quote inside their own segment (as on the website)
     (pack.study.expressions ?? []).forEach((ex, idx) => {
       const q = (ex.quote || ex.expression || '').toLowerCase().trim(); if (!q) return;
-      const seg = pack.transcript.segments.find((g) => g.id === ex.segment_id);
+      const seg = tr.segments.find((g) => g.id === ex.segment_id);
       const cand = out.filter((sn) => !seg || (sn.b >= seg.cue_from && sn.a <= seg.cue_to));
       for (const sn of cand) {
         const at = sn.text.toLowerCase().indexOf(q);
@@ -172,7 +195,7 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
     });
     out.forEach((sn) => sn.marks.sort((x, y) => x.from - y.from));
     return out;
-  }, [pack]);
+  }, [pack, tr]);
 
   const np = useNowPlaying();
   useEffect(() => {
@@ -234,6 +257,17 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
     const i = sents.indexOf(sn);
     if (i >= 0) { userScroll.current = 0; pinned.current = i; curRef.current = i; alignCur(true); }
   }, [syncMode, anchors, player, status.playing, key, sents, auto, fix, alignCur]);  // eslint-disable-line react-hooks/exhaustive-deps
+
+  const onTranslate = useCallback(async (sn: Sent) => {
+    if (koBy[sn.a] !== undefined || koBusy !== null) { setKo(true); return; }
+    setKoBusy(sn.a); setKo(true);
+    const i = sents.indexOf(sn);
+    try {
+      const t = await api.translate(ep.id, sn.text, i > 0 ? sents[i - 1].text : undefined);
+      setKoBy((m) => ({ ...m, [sn.a]: t }));
+    } catch (x: any) { setKoBy((m) => ({ ...m, [sn.a]: '⚠︎ ' + (x?.message ?? '번역하지 못했어요') })); }
+    finally { setKoBusy(null); }
+  }, [koBy, koBusy, sents, ep.id]);
 
   // automatic ad-aware sync (needs the server's reference fingerprints for this episode)
   useEffect(() => {
@@ -299,7 +333,10 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
         <View style={st.listBox}>
         <FlatList ref={listRef} data={sents} keyExtractor={(x) => String(x.a)} contentContainerStyle={{ padding: 18, paddingBottom: 40 }}
           style={{ flex: 1 }} removeClippedSubviews={false}
-          ListHeaderComponent={pack.study.one_liner_ko ? <View style={st.oneBox}><Icon name="bulb-outline" size={16} color={C.accent} /><Text style={st.one}>{pack.study.one_liner_ko}</Text></View> : undefined}
+          ListHeaderComponent={<View>
+            {pack.study.one_liner_ko ? <View style={st.oneBox}><Icon name="bulb-outline" size={16} color={C.accent} /><Text style={st.one}>{pack.study.one_liner_ko}</Text></View> : null}
+            <Text style={st.tip}>문장을 길게 누르면 한국어 번역이 나와요</Text>
+          </View>}
           ListFooterComponent={<Credit pack={pack} ep={ep} />}
           CellRendererComponent={Cell}
           onScrollBeginDrag={() => { userScroll.current = Date.now(); pinned.current = -1; }}
@@ -308,10 +345,12 @@ function Player({ pack, ep }: { pack: Pack; ep: Episode }) {
             setTimeout(() => alignCur(false), 150);
           }}
           windowSize={31}
-          renderItem={({ item, index }) => <SentRow sn={item} state={index === cur ? 'cur' : index < cur ? 'past' : 'next'} ko={ko} onPress={onSentence} onMark={setPeek} />} />
+          extraData={koBy}
+          renderItem={({ item, index }) => <SentRow sn={item} state={index === cur ? 'cur' : index < cur ? 'past' : 'next'} ko={ko ? (koBusy === item.a ? '번역 중…' : koBy[item.a]) : undefined}
+            onPress={onSentence} onLong={onTranslate} onMark={setPeek} />} />
         </View>
       ) : (
-        <Words pack={pack} episodeId={ep.id} onJump={(sec) => player.seekTo(toAudio(fix(sec), anchors))} />
+        <Words pack={pack} tr={tr} episodeId={ep.id} onJump={(sec) => player.seekTo(toAudio(fix(sec), anchors))} />
       )}
       <View onLayout={(e) => setDockTop(e.nativeEvent.layout.y)}>
       {auto === 'working' && <View style={st.syncHint}><ActivityIndicator size="small" color={C.accent} /><Text style={st.syncT}>{autoMsg || '자동 싱크 준비 중…'} 끝나면 재생할 수 있어요</Text></View>}
@@ -369,14 +408,14 @@ function Marked({ sn, style, onMark }: { sn: Sent; style: object; onMark: (p: Pe
   return <Text style={style}>{parts}</Text>;
 }
 
-const SentRow = memo(function SentRow({ sn, state, ko, onPress, onMark }: { sn: Sent; state: 'past' | 'cur' | 'next'; ko: boolean; onPress: (s: Sent) => void; onMark: (p: Peek) => void }) {
+const SentRow = memo(function SentRow({ sn, state, ko, onPress, onLong, onMark }: { sn: Sent; state: 'past' | 'cur' | 'next'; ko?: string; onPress: (s: Sent) => void; onLong: (s: Sent) => void; onMark: (p: Peek) => void }) {
   return (
     // the current sentence keeps the same font and size as the rest (only a highlight behind it),
     // so moving the highlight never changes row heights
-    <Pressable onPress={() => onPress(sn)} style={[st.sent, state === 'cur' && st.sentCur]}>
+    <Pressable onPress={() => onPress(sn)} onLongPress={() => onLong(sn)} delayLongPress={350} style={[st.sent, state === 'cur' && st.sentCur]}>
       {sn.showSpk && <Text style={st.spkSmall}>{sn.speaker}</Text>}
       <Marked sn={sn} style={[st.en, state === 'past' && { color: C.faint }, state === 'cur' && { color: C.ink }]} onMark={onMark} />
-      {ko && sn.ko ? <Text style={[st.ko, state === 'past' && { color: C.faint }, state === 'cur' && { color: C.ink2 }]}>{sn.ko}</Text> : null}
+      {ko ? <Text style={[st.ko, state === 'past' && { color: C.faint }, state === 'cur' && { color: C.ink2 }]}>{ko}</Text> : null}
     </Pressable>
   );
 });
@@ -421,9 +460,9 @@ function PeekCard({ pack, peek, episodeId, onClose, bottom }: { pack: Pack; peek
   );
 }
 
-function Words({ pack, episodeId, onJump }: { pack: Pack; episodeId: string; onJump: (sec: number) => void }) {
+function Words({ pack, tr, episodeId, onJump }: { pack: Pack; tr: Transcript; episodeId: string; onJump: (sec: number) => void }) {
   const [saved, setSaved] = useState<Set<string>>(new Set());
-  const segStart = Object.fromEntries(pack.transcript.segments.map((s) => [s.id, s.start]));
+  const segStart = Object.fromEntries(tr.segments.map((s) => [s.id, s.start]));
   const save = async (kind: 'word' | 'expression', text: string, meaning: string, example?: string) => {
     setSaved(new Set(saved).add(text));
     try { await api.saveItem({ kind, text, meaning_ko: meaning, example, episode_id: episodeId }); } catch { /* shown as saved; retried on next tap */ }
@@ -490,6 +529,7 @@ const st = StyleSheet.create({
   segB: { flex: 1, minHeight: 40, borderRadius: R.pill, alignItems: 'center', justifyContent: 'center' },
   segOn: { backgroundColor: C.sheet },
   segT: { color: C.ink3, fontSize: 14 },
+  tip: { color: C.ink3, fontSize: 12, textAlign: 'center', marginBottom: 10 },
   oneBox: { flexDirection: 'row', gap: 8, backgroundColor: C.accentSoft, borderRadius: 20, padding: 14, marginBottom: 14 },
   one: { flex: 1, color: C.ink2, fontSize: 13.5, lineHeight: 20 },
   sent: { paddingVertical: 9, paddingHorizontal: 10, marginHorizontal: -6, borderRadius: 14 },

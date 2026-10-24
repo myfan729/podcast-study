@@ -420,6 +420,7 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
             "source": f"rss:{tref.type or tref.kind}",
             "version": TRANSCRIPT_VERSION,
             "url": tref.url,
+            "kind": tref.kind,
             "stats": stats,
             "cues": cues_to_dicts(cues),
             "sentences": sentences,
@@ -794,6 +795,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.retime or not (args.no_retime or stop_all):
         retimed = retime_stale(session, cfg["shows"], max_n=4 if not args.retime else 50, only=args.retime)
     write_json(STATE_PATH, state)
+    enc = build.encrypt_all()                       # episode pages: encrypted (link key for 3 days, then the site password)
+    if enc:
+        log.info("encrypted %d episode file(s)", enc)
     index = build.rebuild_index(cfg["shows"])
     log.info("index: %d episodes, processed %d new, re-timed %d, %d failures", len(index["episodes"]), processed, retimed, failures)
     return 0 if failures == 0 or processed > 0 else 1
