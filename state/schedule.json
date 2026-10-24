@@ -88,13 +88,13 @@
   },
   "2026-10-25-evening": {
    "post_at": "2026-10-25T18:00:00+09:00",
-   "has": [],
-   "adding": [
-    "everybodys-business (fallback): Let Them Eat Steak"
+   "has": [
+    "everybodys-business: Let Them Eat Steak"
    ],
+   "adding": [],
    "waiting_for": [],
    "expected": [],
-   "checked_at": "2026-10-24T12:17:58Z"
+   "checked_at": "2026-10-24T13:13:04Z"
   },
   "2026-10-25-morning": {
    "post_at": "2026-10-25T07:00:00+09:00",
@@ -112,5 +112,5 @@
    "checked_at": "2026-10-24T02:18:00Z"
   }
  },
- "updated_at": "2026-10-24T12:17:58Z"
+ "updated_at": "2026-10-24T13:13:04Z"
 }
