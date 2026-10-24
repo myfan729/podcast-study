@@ -1,0 +1,15 @@
+name: App — remove transcript text from stored packs (one-off)
+on: { workflow_dispatch: {} }
+jobs:
+  strip:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -q -r requirements.txt
+      - run: python -m pipeline.app_worker strip 2>/tmp/log; rc=$?; echo "::notice::$(grep -E 'strip|failed' /tmp/log | tail -c 1500 | tr '\n' ' ')"; exit $rc
