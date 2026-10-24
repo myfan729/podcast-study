@@ -13,7 +13,8 @@ jobs:
       - name: Download dump
         run: |
           cd /mnt 2>/dev/null && sudo chmod 777 /mnt || cd ~
-          curl -sSL -o dump.tgz https://public.podcastindex.org/podcastindex_feeds.db.tgz && ls -la dump.tgz
+          curl -sSL -A "Mozilla/5.0" -o dump.tgz https://public.podcastindex.org/podcastindex_feeds.db.tgz; ls -la dump.tgz
+          sz=$(stat -c %s dump.tgz); if [ $sz -lt 100000 ]; then echo "::error title=dump body::$(head -c 400 dump.tgz | tr '\n' ' ')"; curl -sI https://public.podcastindex.org/podcastindex_feeds.db.tgz | tr '\r\n' '  ' | sed 's/^/::notice title=headers::/'; exit 1; fi
           tar xzf dump.tgz && rm dump.tgz && ls -la
           echo "DBDIR=$PWD" >> $GITHUB_ENV
       - name: Scan
