@@ -1,0 +1,36 @@
+name: Probe — public-domain / CC shows
+on: { workflow_dispatch: {} }
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - run: pip install -q requests
+      - run: |
+          python3 - <<'PY'
+          import re, requests
+          from email.utils import parsedate_to_datetime
+          UA = {"User-Agent": "Mozilla/5.0 (podcast app)"}
+          terms = ["VOA Learning English Podcast", "As It Is VOA Learning English", "Everyday Grammar VOA", "VOA Learning English News Words",
+                   "Houston We Have a Podcast NASA", "NASA's Curious Universe", "Small Steps Giant Leaps NASA", "NASA Gravity Assist",
+                   "Library of Congress podcast", "National Archives podcast", "NIH podcast", "NOAA Ocean Podcast", "USGS podcast",
+                   "CDC podcast", "National Park Service podcast", "Federal Reserve podcast", "Smithsonian Sidedoor",
+                   "LibriVox short stories", "Lingthusiasm", "FreshEd podcast", "The Conversation Weekly", "Escape Pod"]
+          s = requests.Session(); out = []
+          for t in terms:
+              try:
+                  r = s.get("https://itunes.apple.com/search", params={"term": t, "entity": "podcast", "limit": 2}, headers=UA, timeout=20).json()["results"]
+                  for h in r[:1]:
+                      x = s.get(h["feedUrl"], headers=UA, timeout=40).text
+                      ch = x.split("<item")[0]; items = x.split("<item")[1:]
+                      cp = re.search(r"<copyright>(.*?)</copyright>", ch, re.S); lic = re.search(r"<podcast:license[^>]*>(.*?)<|<podcast:license[^>]*url=\"([^\"]+)", ch, re.S)
+                      cc = re.search(r"creativecommons\.org/[^\s\"<]+|public domain|CC[- ]BY[^\s<,.]*", x[:200000], re.I)
+                      tx = sum(1 for it in items[:10] if "<podcast:transcript" in it)
+                      last = re.search(r"<pubDate>(.*?)</pubDate>", items[0]) if items else None
+                      d = parsedate_to_datetime(last.group(1)).date().isoformat() if last else "-"
+                      out.append(f"{t} => {h['collectionName']} | {h.get('artistName')} | last={d} n={len(items)} | ©={(cp.group(1).strip()[:60] if cp else '-')} | lic={(lic.group(0)[:80] if lic else '-')} | cc={(cc.group(0)[:60] if cc else '-')} | tx={tx}/10 | {h['feedUrl'][:90]}")
+              except Exception as e:
+                  out.append(f"{t} ERR {e}")
+          for i in range(0, len(out), 4):
+              print("::notice title=batch %d::" % i + " ### ".join(out[i:i+4]))
+          PY
