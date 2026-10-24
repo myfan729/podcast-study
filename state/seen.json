@@ -887,6 +887,19 @@
    "title": "Benjamin Netanyahu’s Referendum Has Finally Arrived",
    "published_at": "2026-10-23T18:56:34Z",
    "done_at": "2026-10-23T19:02:06Z"
+  },
+  "trumponomics:b484477a51cf": {
+   "first_seen": "2026-10-24T01:14:47Z",
+   "attempts": 1,
+   "occasion": "2026-10-25-morning",
+   "slot": "morning",
+   "pick": "fallback",
+   "assigned_at": "2026-10-24T01:14:47Z",
+   "status": "done",
+   "id": "trumponomics-2026-10-22-germanys-new-approach-to-global-trade",
+   "title": "Germany’s New Approach to Global Trade",
+   "published_at": "2026-10-22T09:00:00Z",
+   "done_at": "2026-10-24T01:16:33Z"
   }
  }
 }

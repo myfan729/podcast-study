@@ -1,15 +1,5 @@
 {
  "occasions": {
-  "2026-10-21-evening": {
-   "post_at": "2026-10-21T18:00:00+09:00",
-   "has": [
-    "odd-lots: CME's Terry Duffy on the Disconcerting State of Finance Regulation"
-   ],
-   "adding": [],
-   "waiting_for": [],
-   "expected": [],
-   "checked_at": "2026-10-20T12:39:35Z"
-  },
   "2026-10-21-morning": {
    "post_at": "2026-10-21T07:00:00+09:00",
    "has": [
@@ -110,7 +100,22 @@
     "up-first"
    ],
    "checked_at": "2026-10-23T20:10:54Z"
+  },
+  "2026-10-25-morning": {
+   "post_at": "2026-10-25T07:00:00+09:00",
+   "has": [],
+   "adding": [
+    "trumponomics (fallback): Germany’s New Approach to Global Trade"
+   ],
+   "waiting_for": [
+    "up-first",
+    "the-indicator"
+   ],
+   "expected": [
+    "up-first"
+   ],
+   "checked_at": "2026-10-24T01:14:47Z"
   }
  },
- "updated_at": "2026-10-23T20:10:54Z"
+ "updated_at": "2026-10-24T01:14:47Z"
 }
