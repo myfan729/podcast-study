@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-24T01:16:34Z",
+ "generated_at": "2026-10-24T12:19:37Z",
  "shows": [
   {
    "slug": "big-take",
@@ -135,6 +135,29 @@
    "cefr": "C1",
    "expressions": 12,
    "words": 2479,
+   "has_translation": true,
+   "mock": false,
+   "demo": false
+  },
+  {
+   "id": "everybodys-business-2026-10-23-let-them-eat-steak",
+   "show": "everybodys-business",
+   "title": "Let Them Eat Steak",
+   "published_at": "2026-10-23T09:00:00Z",
+   "duration_sec": 2346,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/f541f9b4-77cb-45aa-bf94-b1d300e5d357/0f09ecab-4d15-416b-8e0c-b4ec000551a7/image.jpg?t=1792715069&size=Large",
+   "one_liner_ko": "소고기 가격이 사치재 수준으로 치솟은 이유와, 코어위브 불안·앤트로픽 S-1 공개 임박으로 본 AI 버블 논란을 '풍요와 기근'이라는 틀로 풀어낸 에피소드.",
+   "tags": [
+    "beef prices",
+    "inflation",
+    "AI bubble",
+    "CoreWeave",
+    "Anthropic IPO",
+    "business film"
+   ],
+   "cefr": "C1",
+   "expressions": 20,
+   "words": 6765,
    "has_translation": true,
    "mock": false,
    "demo": false

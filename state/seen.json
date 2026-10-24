@@ -900,6 +900,19 @@
    "title": "Germany’s New Approach to Global Trade",
    "published_at": "2026-10-22T09:00:00Z",
    "done_at": "2026-10-24T01:16:33Z"
+  },
+  "everybodys-business:c8ad963ae94b": {
+   "first_seen": "2026-10-24T12:17:58Z",
+   "attempts": 1,
+   "occasion": "2026-10-25-evening",
+   "slot": "evening",
+   "pick": "fallback",
+   "assigned_at": "2026-10-24T12:17:58Z",
+   "status": "done",
+   "id": "everybodys-business-2026-10-23-let-them-eat-steak",
+   "title": "Let Them Eat Steak",
+   "published_at": "2026-10-23T09:00:00Z",
+   "done_at": "2026-10-24T12:19:36Z"
   }
  }
 }

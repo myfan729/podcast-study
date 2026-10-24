@@ -1,0 +1,30 @@
+{
+ "occasion": "2026-10-25-evening",
+ "posts": [
+  {
+   "id": "everybodys-business-2026-10-23-let-them-eat-steak",
+   "occasion": "2026-10-25-evening",
+   "slot": "evening",
+   "order": 3,
+   "post_at": "2026-10-25T18:00:00+09:00",
+   "post_at_ms": 1792918800000,
+   "until": "2026-10-25T21:30:00+09:00",
+   "until_ms": 1792931400000,
+   "title": "Let Them Eat Steak",
+   "show": {
+    "slug": "everybodys-business",
+    "name": "Everybody's Business",
+    "publisher": "Bloomberg",
+    "color": "#2f7d4f",
+    "homepage": ""
+   },
+   "link": "https://myfan729.github.io/podcast-study/episode.html?id=everybodys-business-2026-10-23-let-them-eat-steak",
+   "pick": "fallback",
+   "one_liner_ko": "소고기 가격이 사치재 수준으로 치솟은 이유와, 코어위브 불안·앤트로픽 S-1 공개 임박으로 본 AI 버블 논란을 '풍요와 기근'이라는 틀로 풀어낸 에피소드.",
+   "duration_sec": 2346,
+   "image": "https://www.omnycontent.com/d/clips/e73c998e-6e60-432f-8610-ae210140c5b1/f541f9b4-77cb-45aa-bf94-b1d300e5d357/0f09ecab-4d15-416b-8e0c-b4ec000551a7/image.jpg?t=1792715069&size=Large",
+   "text": "🌙 하루 마무리 팟캐스트 · Everybody's Business (10/23)\nLet Them Eat Steak\n⏱ 39분\n\n소고기 가격이 사치재 수준으로 치솟은 이유와, 코어위브 불안·앤트로픽 S-1 공개 임박으로 본 AI 버블 논란을 '풍요와 기근'이라는 틀로 풀어낸 에피소드.\n\n▶ 스크립트·단어·표현 보기: https://myfan729.github.io/podcast-study/episode.html?id=everybodys-business-2026-10-23-let-them-eat-steak",
+   "queued_at": "2026-10-24T12:20:48Z"
+  }
+ ]
+}
