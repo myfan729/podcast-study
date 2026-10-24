@@ -99,11 +99,10 @@
   "2026-10-25-morning": {
    "post_at": "2026-10-25T07:00:00+09:00",
    "has": [
+    "big-take: Benjamin Netanyahu’s Referendum Has Finally Arrived",
     "trumponomics: Germany’s New Approach to Global Trade"
    ],
-   "adding": [
-    "big-take (new): Benjamin Netanyahu’s Referendum Has Arrived"
-   ],
+   "adding": [],
    "waiting_for": [
     "up-first",
     "the-indicator"
@@ -111,8 +110,8 @@
    "expected": [
     "up-first"
    ],
-   "checked_at": "2026-10-24T16:43:57Z"
+   "checked_at": "2026-10-24T16:53:46Z"
   }
  },
- "updated_at": "2026-10-24T16:43:57Z"
+ "updated_at": "2026-10-24T16:53:46Z"
 }
