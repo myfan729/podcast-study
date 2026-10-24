@@ -116,7 +116,7 @@ export function parseTranscript(text: string, kind: string): TCue[] {
 
 const round3 = (x: number) => Math.round(x * 1000) / 1000;
 
-function endsSentence(tok: string, nxt: string | null): boolean {
+export function endsSentence(tok: string, nxt: string | null): boolean {
   if (!END_RE.test(tok)) return false;
   const bare = rstripChars(tok, CLOSERS);
   if (bare.endsWith('.') && !bare.endsWith('..')) {

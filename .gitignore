@@ -6,3 +6,4 @@ __pycache__/
 docs/data/episodes/*.json.tmp
 tools/npr_samples/
 app/dist/
+app/.parity/

@@ -421,6 +421,7 @@ def process_episode(session, gen: StudyGenerator, show: dict, ep: Episode, trans
             "version": TRANSCRIPT_VERSION,
             "url": tref.url,
             "kind": tref.kind,
+            "parser": show.get("parser") if tref.kind == "web" else None,
             "stats": stats,
             "cues": cues_to_dicts(cues),
             "sentences": sentences,

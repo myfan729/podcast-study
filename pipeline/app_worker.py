@@ -93,15 +93,30 @@ def show_config(row: dict) -> dict:
 
 def episode_row(show: dict, ep: Episode, path: str) -> dict:
     # where the publisher's transcript lives: the phone fetches it from there (we never store the text).
-    # Shows with transcripts only on a web page: the app opens that page (no sync / study material).
+    # Web-page transcripts: the page's address is filled in by transcript_pages() (it may take a lookup).
     web = path in ("npr", "web")
     tr = None if web else ep.best_transcript
     return {"show_id": show["id"], "guid": ep.guid, "title": ep.title, "published_at": ep.published_iso,
             "duration_sec": ep.duration_sec, "audio_url": ep.audio_url, "episode_url": ep.link,
             "image_url": ep.image_url, "description": strip_html(ep.description_html, 1500),
             "has_transcript": bool(tr) or web,
-            "transcript_url": (ep.link if web else (tr.url if tr else None)),
+            "transcript_url": (None if web else (tr.url if tr else None)),
             "transcript_kind": ("web" if web else (tr.kind if tr else None))}
+
+
+def transcript_pages(db: "Supa", session, sh: dict, cfg: dict, kept: list, rows: list[dict]) -> None:
+    """The real transcript page of each web-transcript episode (NPR: /transcripts/<id>; BBC: the dated feature
+    page), looked up once and then kept."""
+    from . import webtranscript as W
+    known = {r["guid"]: r.get("transcript_url") for r in db.select("episodes", f"select=guid,transcript_url&show_id=eq.{sh['id']}")}
+    for e, row in zip(kept, rows):
+        url = known.get(e.guid)
+        if not url or url == e.link and cfg.get("parser") in ("npr", "bbc_le"):
+            try:
+                url = W.resolve_page_url(session, cfg, e)
+            except Exception as x:  # noqa: BLE001
+                log.info("no transcript page for %s: %s", e.title, x); url = None
+        row["transcript_url"] = url or e.link
 
 
 def public_pack(doc: dict) -> dict:
@@ -114,13 +129,34 @@ def public_pack(doc: dict) -> dict:
     keep = ("id", "show", "title", "published_at", "duration_sec", "episode_number", "audio_url", "audio_url_original",
             "audio_type", "audio_meta", "episode_url", "image_url", "built_at")
     src = tr.get("source") or ""
+    kind = tr.get("kind") or _kind_of(src, tr.get("url") or "")
+    extra = {}
+    if kind == "web" and tr.get("cues"):
+        # web pages carry no timestamps: keep each sentence's time + fingerprint; the phone reads the text from the page
+        extra = {"parser": tr.get("parser"), "timing": [[c["s"], c["e"], fp(c["t"])] for c in tr["cues"]]}
     return {**{k: doc.get(k) for k in keep},
-            "transcript": {"source": src, "version": tr.get("version"), "url": tr.get("url"),
-                           "kind": tr.get("kind") or _kind_of(src, tr.get("url") or ""),
+            "transcript": {"source": src, "version": tr.get("version"), "url": tr.get("url"), **extra,
+                           "kind": kind,
                            "n_cues": stats.get("cues") or len(tr.get("cues") or []), "n_segments": stats.get("segments"),
                            # paragraph id → speaker name the study pass worked out ("Tracy Alloway (host)")
                            "speakers": {g["id"]: g.get("display_speaker") or "" for g in tr.get("segments") or [] if g.get("id")}},
             "study": study, "text_free": True}
+
+
+def fp(text: str) -> str:
+    """Short fingerprint of a sentence (FNV-1a over its lowercase letters/digits) — same as app/lib/webTranscript.ts."""
+    import re as _re
+    h = 0x811C9DC5
+    for ch in _re.sub(r"[^a-z0-9]", "", text.lower()):
+        h ^= ord(ch)
+        h = (h * 0x01000193) & 0xFFFFFFFF
+    return f"{h:08x}"
+
+
+def page_sentences(html: str, parser: str) -> list[dict]:
+    from .webtranscript import parse_paragraphs
+    from .align import split_sentences
+    return [{"t": s, "spk": p.get("speaker") or None} for p in parse_paragraphs(html, parser) for s in split_sentences(p["text"])]
 
 
 def _kind_of(source: str, url: str) -> str:
@@ -137,6 +173,13 @@ def transcript_cues(session, doc: dict) -> list[dict]:
     tr = doc.get("transcript") or {}
     if tr.get("cues"):
         return tr["cues"]
+    if tr.get("kind") == "web" and tr.get("timing") and tr.get("url"):
+        from .webtranscript import fetch_page
+        sents = page_sentences(fetch_page(session, tr["url"]), tr.get("parser") or "generic")
+        timing = tr["timing"]
+        if len(sents) != len(timing) or any(fp(x["t"]) != t[2] for x, t in zip(sents, timing)):
+            raise RuntimeError("the transcript page changed since the pack was made")
+        return [{"i": i, "s": t[0], "e": t[1], "t": x["t"], **({"spk": x["spk"]} if x["spk"] else {})} for i, (x, t) in enumerate(zip(sents, timing))]
     if not tr.get("url") or tr.get("kind") == "web":
         raise RuntimeError("no publisher transcript file for this episode")
     return cues_to_dicts(sentence_cues(parse_transcript(http_get_text(session, tr["url"]), tr.get("kind") or "unknown")))
@@ -225,6 +268,7 @@ def refresh(db: Supa, only: str | None = None) -> int:
         rows = [episode_row(sh, e, sh["path"]) for e in kept]
         if sh["path"] in ("npr", "web"):
             mark_npr_transcripts(db, session, sh, cfg, kept, rows)
+            transcript_pages(db, session, sh, cfg, kept, rows)
         if cfg.get("audio_from_page"):
             page_audio(db, session, sh, cfg, kept, rows)
         # don't overwrite worker-owned columns (status, pack paths) on existing rows: upsert only listing fields
@@ -244,7 +288,7 @@ def prefetch(db: Supa, per_show: int = 1) -> int:
     followed = {r["show_id"] for r in db.select("subscriptions", "select=show_id")}
     n = 0
     for sid in followed:
-        eps = db.select("episodes", f"select=id,status,published_at&show_id=eq.{sid}&has_transcript=eq.true&transcript_kind=neq.web"
+        eps = db.select("episodes", f"select=id,status,published_at&show_id=eq.{sid}&has_transcript=eq.true"
                                      f"&or=(duration_sec.is.null,duration_sec.lte.{MAX_STUDY_SEC})"   # longer ones: listen only
                                      f"&order=published_at.desc&limit={per_show}")
         for e in eps:
@@ -288,11 +332,7 @@ def process(db: Supa, max_n: int = 4, mock: bool = False, status: str = "queued"
             ep = next((e for e in eps if e.guid == row["guid"]), None)
             if ep is None:
                 raise RuntimeError("episode no longer in the feed")
-            if cfg.get("transcript") == "web":
-                # transcripts that live only on the publisher's web page: the app shows that page (listen + read there)
-                db.update("episodes", f"id=eq.{row['id']}", {"status": "none", "error": "web transcript: opened in the app's browser"})
-                continue
-            if not ep.best_transcript:
+            if not ep.best_transcript and cfg.get("transcript") != "web":
                 db.update("episodes", f"id=eq.{row['id']}", {"status": "no_transcript", "has_transcript": False})
                 continue
             fut: dict = {}
