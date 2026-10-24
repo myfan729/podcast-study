@@ -11,16 +11,20 @@ jobs:
           import re, requests
           from email.utils import parsedate_to_datetime
           UA = {"User-Agent": "Mozilla/5.0 (podcast app)"}
-          terms = ["VOA Learning English Podcast", "As It Is VOA Learning English", "Everyday Grammar VOA", "VOA Learning English News Words",
-                   "Houston We Have a Podcast NASA", "NASA's Curious Universe", "Small Steps Giant Leaps NASA", "NASA Gravity Assist",
-                   "Library of Congress podcast", "National Archives podcast", "NIH podcast", "NOAA Ocean Podcast", "USGS podcast",
-                   "CDC podcast", "National Park Service podcast", "Federal Reserve podcast", "Smithsonian Sidedoor",
-                   "LibriVox short stories", "Lingthusiasm", "FreshEd podcast", "The Conversation Weekly", "Escape Pod"]
+          terms = ["Office for National Statistics podcast Statistically Speaking", "Bank of England podcast", "UK Parliament podcast", "House of Commons Library podcast",
+                   "House of Lords Library podcast", "Met Office podcast", "UK Space Agency podcast", "GOV.UK podcast", "Civil Service podcast UK",
+                   "National Archives UK On the Record podcast", "British Library podcast", "Natural History Museum podcast", "Science Museum podcast",
+                   "UKRI podcast", "NHS podcast", "Reserve Bank of Australia podcast", "CSIRO podcast", "Australian Parliament podcast",
+                   "Australian Antarctic Division podcast", "Australian Bureau of Statistics podcast", "Geoscience Australia podcast", "Department of Foreign Affairs and Trade Australia podcast",
+                   "Australian War Memorial podcast", "National Library of Australia podcast", "National Archives of Australia podcast", "Questacon podcast",
+                   "Reserve Bank of New Zealand podcast", "Te Papa podcast", "NZ Treasury podcast", "Bank of Canada podcast",
+                   "Library of Congress podcast", "NIH Clinical Center podcast", "NIST podcast", "NSF Discovery Files", "Smithsonian NMNH podcast",
+                   "State Department podcast", "FDA podcast", "USDA podcast", "Census Bureau podcast", "Federal Reserve Board podcast"]
           s = requests.Session(); out = []
           for t in terms:
               try:
-                  r = s.get("https://itunes.apple.com/search", params={"term": t, "entity": "podcast", "limit": 2}, headers=UA, timeout=20).json()["results"]
-                  for h in r[:1]:
+                  r = s.get("https://itunes.apple.com/search", params={"term": t, "entity": "podcast", "limit": 3}, headers=UA, timeout=20).json()["results"]
+                  for h in r[:2]:
                       x = s.get(h["feedUrl"], headers=UA, timeout=40).text
                       ch = x.split("<item")[0]; items = x.split("<item")[1:]
                       cp = re.search(r"<copyright>(.*?)</copyright>", ch, re.S); lic = re.search(r"<podcast:license[^>]*>(.*?)<|<podcast:license[^>]*url=\"([^\"]+)", ch, re.S)
