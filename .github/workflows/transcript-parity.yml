@@ -1,0 +1,16 @@
+name: Transcript parity (app TS vs pipeline)
+on:
+  workflow_dispatch: {}
+  push: { paths: ["app/lib/transcript.ts", "pipeline/transcript.py", "tools/parity/**"] }
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: pip install -q -r requirements.txt && npm i --no-save --no-audit --no-fund typescript@5.6.3
+      - run: python tools/parity/run.py
