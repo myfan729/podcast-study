@@ -10,7 +10,15 @@ jobs:
       - run: sudo apt-get install -y -qq postgresql-client > /dev/null
       - run: |
           q() { psql "$SUPABASE_DB_URL" -tA -c "$1" 2>&1 | tr '\n' ' ' | sed -E 's#postgres(ql)?://[^ ]*#<db>#g'; }
-          echo "::notice title=transcript kinds::$(q "select coalesce(transcript_kind,'∅')||'='||count(*) from episodes group by 1 order by 2 desc")"
+          echo "::notice title=transcript kinds::$(q "select coalesce(transcript_kind,'-')||'='||count(*) from episodes group by transcript_kind")"
+          raw=$(psql "$SUPABASE_DB_URL" -tA 2>&1 <<'SQL'
+          select status::text || ' ' || left(content, 700) from extensions.http(('POST','https://api.anthropic.com/v1/messages',
+            array[extensions.http_header('x-api-key',(select decrypted_secret from vault.decrypted_secrets where name='anthropic_api_key')),
+                  extensions.http_header('anthropic-version','2023-06-01')],
+            'application/json', '{"model":"claude-haiku-5-5","max_tokens":200,"messages":[{"role":"user","content":"Translate to Korean: Good morning."}]}')::extensions.http_request);
+          SQL
+          )
+          echo "::notice title=raw::$(echo "$raw" | tr '\n' ' ' | tail -c 900)"
           echo "::notice title=vault::$(q "select name from vault.secrets where name in ('anthropic_api_key','revenuecat_secret')")"
           uid=$(psql "$SUPABASE_DB_URL" -tA -c "select user_id from entitlements where source='owner' limit 1")
           ep=$(psql "$SUPABASE_DB_URL" -tA -c "select id from episodes where status='ready' limit 1")
