@@ -13,4 +13,4 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: pip install -q -r requirements.txt && npm i --no-save --no-audit --no-fund typescript@5.6.3
-      - run: python tools/parity/run.py
+      - run: PYTHONPATH=. python tools/parity/run.py 2>/tmp/e || { echo "::error::$(tail -c 1500 /tmp/e | tr "\n" " ")"; exit 1; }
