@@ -12,8 +12,8 @@ pw = "e2e-" + SVC[-10:]
 sess = requests.post(f"{URL}/auth/v1/token?grant_type=password", headers={"apikey": ANON},
                      json={"email": "e2e-a@podcast-study.test", "password": pw}, timeout=30).json()
 H = {"apikey": ANON, "Authorization": f"Bearer {sess['access_token']}"}
-ready = requests.get(f"{URL}/rest/v1/unlocks?select=episode_id,episodes(status,title)", headers=H, timeout=30).json()
-ep = next(u["episode_id"] for u in ready if u["episodes"]["status"] == "ready")
+ready = requests.get(f"{URL}/rest/v1/unlocks?select=episode_id,episodes(status,title,transcript_kind)", headers=H, timeout=30).json()
+ep = next(u["episode_id"] for u in ready if u["episodes"]["status"] == "ready" and u["episodes"].get("transcript_kind") not in (None, "web"))
 show = requests.get(f"{URL}/rest/v1/shows?select=id&title=eq.Odd%20Lots", headers=H, timeout=30).json()[0]["id"]
 # follow two shows so the home feed has content
 uid = sess["user"]["id"]
@@ -70,6 +70,9 @@ async def main():
                 if name == "episode":
                     await pg.mouse.click(195, 520); await pg.wait_for_timeout(2500)    # tap a sentence → jump + play
                 await pg.screenshot(path=str(OUT / f"{name}.png"))
+                if name == "listen":                                                  # free: the publisher's transcript, plain
+                    await pg.get_by_text("대본 보기 · 무료").first.click(timeout=8000); await pg.wait_for_timeout(5000)
+                    await pg.screenshot(path=str(OUT / "read.png"))
                 if name == "episode":
                     await pg.get_by_text("단어·표현").first.click(timeout=8000); await pg.wait_for_timeout(1500)
                     await pg.screenshot(path=str(OUT / "episode_words.png"))
