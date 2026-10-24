@@ -103,10 +103,10 @@
   },
   "2026-10-25-morning": {
    "post_at": "2026-10-25T07:00:00+09:00",
-   "has": [],
-   "adding": [
-    "trumponomics (fallback): Germany’s New Approach to Global Trade"
+   "has": [
+    "trumponomics: Germany’s New Approach to Global Trade"
    ],
+   "adding": [],
    "waiting_for": [
     "up-first",
     "the-indicator"
@@ -114,8 +114,8 @@
    "expected": [
     "up-first"
    ],
-   "checked_at": "2026-10-24T01:14:47Z"
+   "checked_at": "2026-10-24T02:18:00Z"
   }
  },
- "updated_at": "2026-10-24T01:14:47Z"
+ "updated_at": "2026-10-24T02:18:00Z"
 }
