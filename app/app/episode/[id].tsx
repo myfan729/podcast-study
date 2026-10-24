@@ -13,6 +13,7 @@ import { useNowPlaying } from '@/lib/nowPlaying';
 import * as api from '@/lib/api';
 import * as WebBrowser from 'expo-web-browser';
 import { fetchTranscript, type Transcript } from '@/lib/transcript';
+import { fetchPage, webTranscript } from '@/lib/webTranscript';
 import { addAnchor, inAd, toAudio, toContent, type Anchor } from '@/lib/timeline';
 import type { Episode, Expression, Pack, RequestResult } from '@/lib/types';
 import { C, F, R, fmt, shadow } from '@/lib/theme';
@@ -53,8 +54,15 @@ function StudyFlow({ id }: { id: string }) {
   useEffect(() => {
     if (!pack) return;
     const url = pack.transcript.url, kind = pack.transcript.kind ?? 'unknown';
-    if (!url || kind === 'web') { setTrErr('web'); return; }
-    fetchTranscript(url, kind).then(setTr).catch((x) => setTrErr(String(x?.message ?? x)));
+    const fail = (x: any) => setTrErr(String(x?.message ?? x));
+    if (!url) { setTrErr('대본 주소가 없어요'); return; }
+    if (kind === 'web') {
+      // the publisher's page, read on this phone; the pack has only each sentence's time + fingerprint
+      if (!pack.transcript.timing?.length) { setTrErr('이 에피소드는 학습 모드를 다시 준비해야 해요'); return; }
+      fetchPage(url).then((html) => setTr(webTranscript(html, pack.transcript.parser ?? 'generic', pack.transcript.timing!))).catch(fail);
+      return;
+    }
+    fetchTranscript(url, kind).then(setTr).catch(fail);
   }, [pack]);
 
   // 1) unlock + queue, 2) poll until ready, 3) load the pack
@@ -110,8 +118,8 @@ function StudyFlow({ id }: { id: string }) {
   if (trErr) {
     const page = ep?.episode_url;
     return (
-      <Center icon="document-text-outline" title={trErr === 'web' ? '대본은 방송사 페이지에 있어요' : '대본을 불러오지 못했어요'}
-        text={trErr === 'web' ? '이 에피소드 대본은 방송사 웹페이지에서 볼 수 있어요.' : `${trErr}\n방송사 서버가 잠시 응답하지 않을 수 있어요. 잠시 뒤 다시 열어 주세요.`}>
+      <Center icon="document-text-outline" title="대본을 불러오지 못했어요"
+        text={`${trErr}\n방송사 서버가 잠시 응답하지 않을 수 있어요. 잠시 뒤 다시 열어 주세요.`}>
         {page ? <Btn label="방송사 페이지 열기" onPress={() => WebBrowser.openBrowserAsync(page).catch(() => {})} style={{ alignSelf: 'stretch', marginTop: 20 }} /> : null}
       </Center>);
   }

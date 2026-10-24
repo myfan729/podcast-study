@@ -2,13 +2,13 @@
 // straight from the publisher; no study pack, no quota. "학습자료 만들기" turns on the study mode
 // (transcript, translation, words) — that is the part free users get twice a week.
 import { useRouter } from 'expo-router';
-import * as WebBrowser from 'expo-web-browser';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Art, Icon, RoundBtn } from '@/components/ui';
 import SeekBar from '@/components/SeekBar';
 import ReadView from '@/components/ReadView';
+import PageView from '@/components/PageView';
 import * as api from '@/lib/api';
 import { useNowPlaying } from '@/lib/nowPlaying';
 import { FREE_PER_WEEK, MAX_STUDY_SEC } from '@/lib/config';
@@ -35,7 +35,7 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
   const [more, setMore] = useState(false);
   const [read, setRead] = useState(false);                          // free: the publisher's transcript, plain
   const web = ep.transcript_kind === 'web';                         // transcript only on the publisher's web page
-  const openPage = () => { const u = ep.transcript_url || ep.episode_url; if (u) WebBrowser.openBrowserAsync(u).catch(() => {}); };
+  const pageUrl = ep.transcript_url || ep.episode_url || '';
 
   useEffect(() => { api.freeLeft().then(setPlan).catch(() => {}); }, []);
   useEffect(() => { np.load(ep); }, [ep.id]);  // eslint-disable-line react-hooks/exhaustive-deps
@@ -44,7 +44,7 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
   const pct = Math.min(1, (status.currentTime ?? 0) / dur);
   const left = plan?.free_left ?? 0;
   const tooLong = !unlocked && (ep.duration_sec ?? 0) > MAX_STUDY_SEC;     // study material: episodes up to 60 min
-  const canMake = ep.has_transcript && !web && !tooLong && (unlocked || plan?.pro || left > 0);
+  const canMake = ep.has_transcript && !tooLong && (unlocked || plan?.pro || left > 0);
 
   const study = async () => {
     if (unlocked) { leave(); return; }
@@ -68,8 +68,10 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
   const leave = () => { np.stop(); onStudy(); };   // the study mode plays its own synced copy, from the same position
 
   const desc = plain(ep.description);
-  if (read) return <ReadView ep={ep} onClose={() => setRead(false)} onStudy={canMake ? () => { setRead(false); study(); } : undefined}
-    studyLabel={unlocked || plan?.pro ? '학습 모드로 보기' : `학습 모드 열기 (이번 주 무료 ${left}회)`} />;
+  const label = unlocked || plan?.pro ? '학습 모드로 보기' : `학습 모드 열기 (무료 ${left}회)`;
+  const toStudy = canMake ? () => { setRead(false); study(); } : undefined;
+  if (read && web && pageUrl) return <PageView ep={ep} url={pageUrl} onClose={() => setRead(false)} onStudy={toStudy} studyLabel={label} />;
+  if (read) return <ReadView ep={ep} onClose={() => setRead(false)} onStudy={toStudy} studyLabel={label} />;
   return (
     <SafeAreaView edges={['top']} style={{ flex: 1 }}>
       <View style={s.top}><RoundBtn icon="chevron-back" label="뒤로" onPress={() => router.back()} /></View>
@@ -91,13 +93,14 @@ export default function ListenView({ ep, unlocked, onStudy }: { ep: Episode; unl
             ? <Text style={s.note}>이 에피소드는 방송사 대본이 없어요. 듣기만 할 수 있어요.</Text>
             : web ? (
               <>
-                <Text style={s.studyP}>이 쇼는 대본을 방송사 웹페이지에 올려요. 앱 안에서 그 페이지를 열어 볼 수 있어요.</Text>
-                <Pressable onPress={openPage} style={s.readBtn} accessibilityRole="button"><Text style={s.readBtnT}>방송사 페이지에서 대본 보기</Text></Pressable>
+                <Text style={s.studyP}>이 쇼는 대본을 방송사 웹페이지에 올려요. 들으면서 앱 안에서 그 페이지를 볼 수 있어요.</Text>
+                <Pressable onPress={() => setRead(true)} disabled={!pageUrl} style={[s.readBtn, !pageUrl && { opacity: 0.45 }]} accessibilityRole="button">
+                  <Text style={s.readBtnT}>{pageUrl ? '방송사 페이지에서 대본 보기 · 무료' : '대본 페이지를 찾는 중이에요'}</Text></Pressable>
               </>)
             : <Pressable onPress={() => setRead(true)} style={s.readBtn} accessibilityRole="button"><Text style={s.readBtnT}>대본 보기 · 무료</Text></Pressable>}
         </View>
 
-        {ep.has_transcript && !web ? (
+        {ep.has_transcript ? (
           <View style={s.studyCard}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
               <Icon name="sparkles" size={18} color={C.accent} />

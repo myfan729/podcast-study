@@ -21,7 +21,8 @@ export type Pack = {
   show: { name: string; image?: string; publisher?: string };
   audio_meta?: { fixed?: boolean; ad_markers?: { type: string; sec: number }[]; content_duration?: number };
   // where the publisher's transcript lives (the phone fetches it; we don't store the text) + speaker names per paragraph
-  transcript: { url?: string | null; kind?: string; n_cues?: number; speakers?: Record<string, string> };
+  transcript: { url?: string | null; kind?: string; n_cues?: number; speakers?: Record<string, string>;
+    parser?: string; timing?: [number, number, string][] };   // web-page transcripts: sentence times + fingerprints
   study: { one_liner_ko?: string; vocab?: Vocab[]; expressions?: Expression[] };
 };
 export type RequestResult = { status: EpisodeStatus; unlocked: boolean; free_left: number; pro: boolean; reason?: string };
