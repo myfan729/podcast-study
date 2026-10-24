@@ -18,8 +18,11 @@ jobs:
           echo "DBDIR=$PWD" >> $GITHUB_ENV
       - name: Scan
         run: |
-          db=$(ls $DBDIR/*.db | head -1)
-          python3 tools/catalog/license_scan.py "$db" tools/catalog/license_scan.json
+          echo "::notice title=files::$(ls -la $DBDIR | tr '\n' ' ' | head -c 900)"
+          db=$(find $DBDIR -maxdepth 2 -name '*.db' | head -1)
+          python3 tools/catalog/license_scan.py "$db" tools/catalog/license_scan.json > /tmp/scan.log 2>&1; rc=$?
+          echo "::notice title=scan log (rc $rc)::$(tail -c 2500 /tmp/scan.log | tr '\n' ' ')"
+          exit $rc
       - name: Save
         run: |
           git config user.name "podcast-study bot" && git config user.email "actions@users.noreply.github.com"
