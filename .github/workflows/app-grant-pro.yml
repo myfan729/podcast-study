@@ -1,0 +1,24 @@
+name: App — give an account unlimited Pro (by nickname)
+on:
+  workflow_dispatch:
+    inputs:
+      nickname: { description: "profile nickname", required: true }
+jobs:
+  grant:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+      NICK: ${{ inputs.nickname }}
+    steps:
+      - run: |
+          sudo apt-get install -y -qq postgresql-client > /dev/null
+          # nickname passed as a psql variable (never spliced into SQL); output shows only counts, no emails
+          out=$(printf '%s\n' \
+            "select 'matches=' || count(*) from public.profiles where lower(nickname) = lower(:'n');" \
+            "with u as (insert into public.entitlements (user_id, plan, source)
+                select user_id, 'pro', 'manual' from public.profiles where lower(nickname) = lower(:'n')
+                on conflict (user_id) do update set plan = 'pro', expires_at = null, source = 'manual', updated_at = now()
+                returning 1) select 'set_pro=' || count(*) from u;" \
+            | psql "$SUPABASE_DB_URL" -tA -v n="$NICK" 2>&1 | sed -E "s#postgres(ql)?://[^ ]*#<db-url>#g" | tr '\n' ' ')
+          echo "::notice title=grant pro::$out"
