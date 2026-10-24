@@ -16,4 +16,4 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install -q -r requirements.txt
-      - run: python tools/translate_ab.py "${{ inputs.file }}" ${{ inputs.start }} ${{ inputs.n }}
+      - run: PYTHONPATH=. python tools/translate_ab.py "${{ inputs.file }}" ${{ inputs.start }} ${{ inputs.n }} 2>/tmp/err; rc=$?; [ $rc -eq 0 ] || { echo "::error::$(tail -c 1500 /tmp/err | tr "\n" " ")"; exit 1; }
