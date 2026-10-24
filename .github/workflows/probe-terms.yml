@@ -1,0 +1,35 @@
+name: Probe — app terms
+on: { workflow_dispatch: {} }
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - run: pip install -q requests beautifulsoup4
+      - run: |
+          python3 - <<'PY'
+          import re, requests
+          from bs4 import BeautifulSoup
+          UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124 Safari/537.36"}
+          home = requests.get("https://www.snipd.com/", headers=UA, timeout=30).text
+          links = sorted(set(re.findall(r'href="([^"]*(?:terms|legal|tos|privacy|creator)[^"]*)"', home, re.I)))
+          print("::notice title=snipd links::" + " ".join(links)[:1500])
+          cands = [l if l.startswith("http") else "https://www.snipd.com" + l for l in links if re.search("terms|legal|tos|creator", l, re.I)]
+          cands += ["https://www.snipd.com/terms", "https://www.snipd.com/terms-of-service", "https://www.snipd.com/terms-of-use", "https://www.snipd.com/legal/terms"]
+          KEYS = re.compile(r"(podcast|transcri|copyright|intellectual|creator|third.party content|takedown|DMCA|infring|summar|AI|licen|personal|commercial|publisher)", re.I)
+          done = set()
+          for u in cands:
+              if u in done: continue
+              done.add(u)
+              try:
+                  r = requests.get(u, headers=UA, timeout=30)
+                  if r.status_code != 200: continue
+                  t = BeautifulSoup(r.text, "html.parser").get_text("\n")
+                  ls = []
+                  for l in (l.strip() for l in t.split("\n")):
+                      if 40 < len(l) < 1200 and KEYS.search(l) and l not in ls: ls.append(l)
+                  for k in range(0, min(len(ls), 40), 8):
+                      print(f"::notice title={u} [{k}]::" + " || ".join(ls[k:k+8])[:3900])
+              except Exception as e:
+                  print(f"::warning title={u}::{e}")
+          PY
